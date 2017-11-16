@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	<!-- 
                     <a href="index.jsp">
                         <img src="assets/img/logo_jd.png" alt="logo" class="logo-default" /> </a> -->
-                    <span style="color: #f7f0f0;padding-top: 40px;line-height: 52px;font-size: 17px;padding-left: 0px;" class="logo-default">${platformName}</span>
+                    <span style="color: #f7f0f0;padding-top: 40px;line-height: 52px;font-size: 17px;padding-left: 0px;" class="logo-default">钻石统计</span>
                     
                     <div class="menu-toggler sidebar-toggler">
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -83,11 +83,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <!-- END HEADER SEARCH BOX -->
                     <!-- BEGIN TOP NAVIGATION MENU -->
                     <div class="top-menu">
+                    	
                         <ul class="nav navbar-nav pull-right">
+                        	<li >
+                        		<span style="display:block;height:50px;color: #ffffff;vertical-align: bottom;margin:19px; font-size: 13px;font-family: 微软雅黑">${platformName}</span>
+                        	</li>
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    
-                                    <span class="username username-hide-on-mobile">&nbsp; ${user.nickname}</span>
+                                    <i class="icon-user"></i>
+                                    <span class="username username-hide-on-mobile"> ${user.nickname}</span>
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
