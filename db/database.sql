@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/11/15 19:07:33                          */
+/* Created on:     2017/11/16 14:50:32                          */
 /*==============================================================*/
 
 
@@ -37,6 +37,7 @@ ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT='渠道';
 create table ada_channel_link
 (
    id                   int(11) not null auto_increment comment '链接ID',
+   siteId               int(11) comment '站点ID',
    channelId            int(11) not null comment '渠道ID',
    url                  varchar(64) not null comment '网页链接地址',
    parameter            varchar(64) comment '参数',
