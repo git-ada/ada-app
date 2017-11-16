@@ -1,0 +1,66 @@
+{
+    "is_menu_open": 1,
+    "selfmenu_info": {
+        "button": [
+            {
+                "name": "充值中心",
+                "sub_button": {
+                    "list": [
+                        {
+                            "type": "view",
+                            "name": "流量充值",
+                            "url": "http:\/\/jst.wanghl.cn\/recharge.jhtm?type=1"
+                        },
+                        {
+                            "type": "view",
+                            "name": "话费充值",
+                            "url": "http:\/\/jst.wanghl.cn\/recharge.jhtm?type=1"
+                        },
+                        {
+                            "type": "view",
+                            "name": "订单查询",
+                            "url": "http:\/\/jst.wanghl.cn\/order-list.jhtm"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "粉丝福利",
+                "sub_button": {
+                    "list": [
+                        {
+                            "type": "view",
+                            "name": "玩游戏赢20G",
+                            "url": "https:\/\/hd.faisco.cn\/12902577\/4\/load.html?style=15"
+                        },
+                        {
+                            "type": "view",
+                            "name": "手机影院",
+                            "url": "http:\/\/www.wudima.com"
+                        },
+                        {
+                            "type": "view",
+                            "name": "免费领100M",
+                            "url": "http:\/\/gd.10086.cn\/easy\/web\/ALLKC100.shtml?from=singlemessage"
+                        },
+                        {
+                            "type": "view",
+                            "name": "领优酷会员",
+                            "url": "http:\/\/svip.youku.com\/mobile\/index"
+                        },
+                        {
+                            "type": "click",
+                            "name": "推广二维码",
+                            "key": "create-poster"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "media_id",
+                "name": "联系客服",
+                "media_id": "-pNWOPFxNG8uDPxDN8LAFi6sFB3mgtE-JYz3ldU_69U"
+            }
+        ]
+    }
+}

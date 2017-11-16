@@ -1,0 +1,50 @@
+<style type="text/css" media="screen">
+    .required {
+        color: #e02222;
+        font-size: 12px;
+        padding-left: 2px;
+    }
+    .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-settings .page- quick-sidebar-settings-list .list-items li .form-control {
+        width: 170px!important;
+    }
+    .staff-quick-slider {
+        position: absolute;
+        bottom: 30px;
+        right: 0;
+        width: 300px;
+    }
+    .staff-quick-slider button {
+    	margin-left: 15px;float: right;
+    }
+    .staff-quick-slider> span {
+    	font-size: 25px;float: left;margin-top: 10px;margin-left: 5px;cursor: pointer;
+    }
+    .staff-quick-slider>span:hover {
+    	color: #ed6b75
+    }
+    .addstaff-pop-border {
+    	border-top: 1px solid rgba(160, 158, 158, 0.15)
+    }
+    
+    .form-control[readonly] {
+    	background-color: #ffffff!important;
+    }
+    .slider-width-addstaff {
+    	width:170px!important;
+    }
+    
+    .list-items .form-group {
+		margin: 0;
+		margin-bottom: 15px;
+	}
+	.list-items .form-body {
+		padding-top:20px ;
+		border-top: 2px solid rgba(105, 98, 98, 0.3);
+	}
+	.list-items label {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+    
+</style>

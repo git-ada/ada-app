@@ -1,0 +1,87 @@
+		{
+		    "version": 416935196,
+		    "name": "test menu",
+		    "button_list": [
+		        {
+		            "name": "网易菜单",
+		            "type": 0,
+		            "act_list": [],
+		            "sub_button_list": [
+		                {
+		                    "name": "子菜单名称",
+		                    "act_list": [],
+		                    "type": 1,
+		                    "sub_button_list": []
+		                },
+		                {
+		                    "name": "子菜单名称",
+		                    "act_list": [],
+		                    "type": 1,
+		                    "sub_button_list": []
+		                }
+		            ]
+		        },
+		        {
+		            "name": "菜单名称",
+		            "type": 0,
+		            "act_list": [],
+		            "sub_button_list": [
+		                {
+		                    "name": "回复文字菜单",
+		                    "act_list": [
+		                        {
+		                            "key": "",
+		                            "type": 1,
+		                            "value": "自动回复文字"
+		                        }
+		                    ],
+		                    "type": 1,
+		                    "sub_button_list": []
+		                },
+		                {
+		                    "name": "回复图片菜单",
+		                    "act_list": [
+		                        {
+		                            "key": "",
+		                            "type": 2,
+		                            "value": "100000002"
+		                        }
+		                    ],
+		                    "type": 1,
+		                    "sub_button_list": []
+		                },
+		                {
+		                    "name": "回复图文",
+		                    "act_list": [
+		                        {
+		                            "key": "",
+		                            "type": 5,
+		                            "value": "100000001"
+		                        }
+		                    ],
+		                    "type": 1,
+		                    "sub_button_list": []
+		                }
+		            ]
+		        },
+		        {
+		            "name": "个人中心",
+		            "type": 0,
+		            "act_list": [],
+		            "sub_button_list": [
+		                {
+		                    "name": "联系客服",
+		                    "act_list": [
+		                        {
+		                            "key": "",
+		                            "type": 1,
+		                            "value": "xxx"
+		                        }
+		                    ],
+		                    "type": 1,
+		                    "sub_button_list": []
+		                }
+		            ]
+		        }
+		    ]
+		}

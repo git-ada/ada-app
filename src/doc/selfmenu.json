@@ -1,0 +1,76 @@
+{
+    "is_menu_open": 1,
+    "selfmenu_info": {
+        "button": [
+            {
+                "name": "网易菜单",
+                "sub_button": {
+                    "list": [
+                        {
+                            "type": "text",
+                            "name": "子菜单名称",
+                            "value": "sdfs[愉快]"
+                        },
+                        {
+                            "type": "text",
+                            "name": "子菜单名称",
+                            "value": "sss"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "菜单名称",
+                "sub_button": {
+                    "list": [
+                        {
+                            "type": "text",
+                            "name": "回复文字菜单",
+                            "value": "自动回复文字"
+                        },
+                        {
+                            "type": "img",
+                            "name": "回复图片菜单",
+                            "value": "AtHBHrcYNvB5zWT73833LMWT0hjeDrSF4MsM74Wl0h0NIrCCNu_9NLGk4wC6MR9n"
+                        },
+                        {
+                            "type": "news",
+                            "name": "回复图文",
+                            "value": "0f1FvmmNIR3NMZlA3-qTwERD128fKmfBl2UcsGjZDas",
+                            "news_info": {
+                                "list": [
+                                    {
+                                        "title": "抢单提醒",
+                                        "author": "",
+                                        "digest": "车主请先完成登记后,平台将自动匹配订单,并推送给您，点击链接,现在去登记",
+                                        "show_cover": 0,
+                                        "cover_url": "http://mmbiz.qpic.cn/mmbiz_jpg/vc36F3sbbrIS4TXcBrsw0OlgWx400gBEB3sMNLmicayncH3AEf2XnD0icOTh7Oh2bicfYhd5y9u3rQ8hY85LZrN2g/0?wx_fmt=jpeg",
+                                        "content_url": "http://mp.weixin.qq.com/s?__biz=MzI3MDYzMjI5NA==&mid=100000001&idx=1&sn=de6ca332c464be8c3846578229a4c18a&chksm=6acf55085db8dc1ea0e91ce11562e3f147957f097b2178eadfd6e66edc541b9f3279193da4b1#rd",
+                                        "source_url": ""
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "个人中心",
+                "sub_button": {
+                    "list": [
+                        {
+                            "type": "text",
+                            "name": "联系客服",
+                            "value": "xxx"
+                        },
+                        {
+                            "type": "text",
+                            "name": "子菜单名称",
+                            "value": "[撇嘴]嘻嘻嘻"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

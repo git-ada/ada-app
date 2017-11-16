@@ -1,0 +1,69 @@
+{
+    "base_resp": {
+        "ret": 0,
+        "err_msg": "ok"
+    },
+    "app_msg_list": [
+        {
+            "aid": "100000014_1",
+            "title": "小黑衫",
+            "cover": "https://mmbiz.qlogo.cn/mmbiz_jpg/vc36F3sbbrLTQ9PheFwAFQPcCQp7OQBde5lo8nibtyeR5kM9jg4flms29M7fkaCNKibjQHXvch16RBDEfThic7RzA/0?wx_fmt=jpeg",
+            "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDYzMjI5NA==&mid=100000014&idx=1&sn=9cf685411032fa3e8c517e7bbb3dcc15&chksm=6acf55075db8dc1112a6bd2a9db13a0d18872fe03587ff7f2dcccba80d325532e2d12d9d662b#rd",
+            "digest": "小黑衫，个性T恤，专业高端定制设计",
+            "update_time": 1497157802,
+            "appmsgid": 100000014,
+            "itemidx": 1
+        },
+        {
+            "aid": "100000005_1",
+            "title": "",
+            "cover": "",
+            "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDYzMjI5NA==&mid=100000005&idx=1&sn=2cf5ad2be3fe839bda0124bb16f74b4b&chksm=6acf550c5db8dc1aeb585b6a730cec290c7b548682317edd370c81382c4fc4c74db6bed41ea9#rd",
+            "digest": "sssss",
+            "update_time": 1496667676,
+            "appmsgid": 100000005,
+            "itemidx": 1
+        },
+        {
+            "aid": "100000005_2",
+            "title": "fsdfsdf",
+            "cover": "",
+            "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDYzMjI5NA==&mid=100000005&idx=2&sn=0aa40e47bd6df66c9c789429a2c14cc4&chksm=6acf550c5db8dc1a87cb799ea00c4c687b7b972a1774f94389c4f45d17c72b007cde58b89746#rd",
+            "digest": "",
+            "update_time": 1496667676,
+            "appmsgid": 100000005,
+            "itemidx": 2
+        },
+        {
+            "aid": "100000005_3",
+            "title": "4223",
+            "cover": "",
+            "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDYzMjI5NA==&mid=100000005&idx=3&sn=43c32df56ddd5becb652a71120104a96&chksm=6acf550c5db8dc1a8c06682d10209572486ed3b2121196ef366f5fd3ebdcc4d697beba4a1188#rd",
+            "digest": "sdfsdfsdf",
+            "update_time": 1496667676,
+            "appmsgid": 100000005,
+            "itemidx": 3
+        },
+        {
+            "aid": "100000004_1",
+            "title": "",
+            "cover": "",
+            "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDYzMjI5NA==&mid=100000004&idx=1&sn=f7cb7a52e31cb05818c31df08cf646e4&chksm=6acf550d5db8dc1b4e785f456e64033ffdd1fd8489913744086e7508a906dd87fbe0d53d8379#rd",
+            "digest": "",
+            "update_time": 1496740254,
+            "appmsgid": 100000004,
+            "itemidx": 1
+        },
+        {
+            "aid": "100000001_1",
+            "title": "抢单提醒",
+            "cover": "https://mmbiz.qlogo.cn/mmbiz_jpg/vc36F3sbbrIS4TXcBrsw0OlgWx400gBEB3sMNLmicayncH3AEf2XnD0icOTh7Oh2bicfYhd5y9u3rQ8hY85LZrN2g/0?wx_fmt=jpeg",
+            "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDYzMjI5NA==&mid=100000001&idx=1&sn=de6ca332c464be8c3846578229a4c18a&chksm=6acf55085db8dc1ea0e91ce11562e3f147957f097b2178eadfd6e66edc541b9f3279193da4b1#rd",
+            "digest": "车主请先完成登记后,平台将自动匹配订单,并推送给您，点击链接,现在去登记",
+            "update_time": 1487558075,
+            "appmsgid": 100000001,
+            "itemidx": 1
+        }
+    ],
+    "app_msg_cnt": 4
+}

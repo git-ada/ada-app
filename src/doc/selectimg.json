@@ -1,0 +1,86 @@
+{
+    "base_resp": {
+        "ret": 0,
+        "err_msg": "ok"
+    },
+    "page_info": {
+        "type": 2,
+        "file_cnt": {
+            "total": 17,
+            "img_cnt": 13,
+            "voice_cnt": 0,
+            "video_cnt": 0,
+            "app_msg_cnt": 4,
+            "commondity_msg_cnt": 0,
+            "video_msg_cnt": 0,
+            "short_video_cnt": 0,
+            "app_msg_sent_cnt": 0
+        },
+        "file_item": [
+            {
+                "file_id": 100000003,
+                "name": "未标题-2.jpg",
+                "type": 2,
+                "size": "43.4\tK",
+                "update_time": 1487557980,
+                "cdn_url": "https://mmbiz.qlogo.cn/mmbiz_jpg/vc36F3sbbrIS4TXcBrsw0OlgWx400gBEB3sMNLmicayncH3AEf2XnD0icOTh7Oh2bicfYhd5y9u3rQ8hY85LZrN2g/0?wx_fmt=jpeg",
+                "img_format": "jpeg",
+                "video_cdn_id": "",
+                "video_thumb_cdn_url": "",
+                "seq": 6389010839189324000,
+                "group_id": 3
+            },
+            {
+                "file_id": 100000002,
+                "name": "未标题-2.jpg",
+                "type": 2,
+                "size": "27.0\tK",
+                "update_time": 1487557654,
+                "cdn_url": "https://mmbiz.qlogo.cn/mmbiz_jpg/vc36F3sbbrIS4TXcBrsw0OlgWx400gBEgrhtGMibkk8ZtcxXfMSCicUCyO8DCATtFmZ80fDufd2J2vnibotiaCPZ1Q/0?wx_fmt=jpeg",
+                "img_format": "jpeg",
+                "video_cdn_id": "",
+                "video_thumb_cdn_url": "",
+                "seq": 6389010839189324000,
+                "group_id": 3
+            }
+        ],
+        "file_group_list": {
+            "biz_uin": 3270632294,
+            "file_group": [
+                {
+                    "id": 0,
+                    "name": "全部图片",
+                    "files": [],
+                    "count": 13
+                },
+                {
+                    "id": 1,
+                    "name": "未分组",
+                    "files": [],
+                    "count": 3
+                },
+                {
+                    "id": 2,
+                    "name": "微信小店",
+                    "files": [],
+                    "count": 0
+                },
+                {
+                    "id": 3,
+                    "name": "文章配图",
+                    "files": [],
+                    "count": 2
+                },
+                {
+                    "id": 101,
+                    "name": "小黑衫",
+                    "files": [],
+                    "count": 8
+                }
+            ],
+            "transferred_biz_uin": []
+        },
+        "watermark_status": 2,
+        "material_status": 0
+    }
+}

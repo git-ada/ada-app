@@ -1,0 +1,88 @@
+{
+    "menu": {
+        "button": [
+            {
+                "name": "充值中心",
+                "sub_button": [
+                    {
+                        "type": "view",
+                        "name": "流量充值",
+                        "url": "http:\/\/jst.wanghl.cn\/recharge.jhtm?type=1",
+                        "sub_button": [
+                            
+                        ]
+                    },
+                    {
+                        "type": "view",
+                        "name": "话费充值",
+                        "url": "http:\/\/jst.wanghl.cn\/recharge.jhtm?type=1",
+                        "sub_button": [
+                            
+                        ]
+                    },
+                    {
+                        "type": "view",
+                        "name": "订单查询",
+                        "url": "http:\/\/jst.wanghl.cn\/order-list.jhtm",
+                        "sub_button": [
+                            
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "粉丝福利",
+                "sub_button": [
+                    {
+                        "type": "view",
+                        "name": "玩游戏赢20G",
+                        "url": "https:\/\/hd.faisco.cn\/12902577\/4\/load.html?style=15",
+                        "sub_button": [
+                            
+                        ]
+                    },
+                    {
+                        "type": "view",
+                        "name": "手机影院",
+                        "url": "http:\/\/www.wudima.com",
+                        "sub_button": [
+                            
+                        ]
+                    },
+                    {
+                        "type": "view",
+                        "name": "免费领100M",
+                        "url": "http:\/\/gd.10086.cn\/easy\/web\/ALLKC100.shtml?from=singlemessage",
+                        "sub_button": [
+                            
+                        ]
+                    },
+                    {
+                        "type": "view",
+                        "name": "领优酷会员",
+                        "url": "http:\/\/svip.youku.com\/mobile\/index",
+                        "sub_button": [
+                            
+                        ]
+                    },
+                    {
+                        "type": "click",
+                        "name": "推广二维码",
+                        "key": "create-poster",
+                        "sub_button": [
+                            
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "media_id",
+                "name": "联系客服",
+                "sub_button": [
+                    
+                ],
+                "media_id": "-pNWOPFxNG8uDPxDN8LAFi6sFB3mgtE-JYz3ldU_69U"
+            }
+        ]
+    }
+}

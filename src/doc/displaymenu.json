@@ -1,0 +1,123 @@
+{
+    "menu_entity": {
+        "button_list": [
+            {
+                "act_list": [
+                    {
+                        "key": "",
+                        "type": 6,
+                        "value": "http://www.163.com",
+                        "viewurl_data": {
+                            "url": "http://www.163.com"
+                        }
+                    }
+                ],
+                "act_mode": 0,
+                "name": "网易菜单",
+                "sub_button_list": [],
+                "type": 2
+            },
+            {
+                "act_list": [],
+                "act_mode": 0,
+                "name": "菜单名称",
+                "sub_button_list": [
+                    {
+                        "act_list": [
+                            {
+                                "key": "",
+                                "txt_data": {
+                                    "content": "[撇嘴]自动回复文字"
+                                },
+                                "type": 1,
+                                "value": "自动回复文字"
+                            }
+                        ],
+                        "act_mode": 0,
+                        "name": "回复文字菜单",
+                        "sub_button_list": [],
+                        "type": 1
+                    },
+                    {
+                        "act_list": [
+                            {
+                                "img_data": {
+                                    "file_id": 100000002,
+                                    "name": "未标题-2.jpg",
+                                    "size": "27647",
+                                    "src": "file",
+                                    "update_time": 1487557654
+                                },
+                                "key": "",
+                                "type": 2,
+                                "value": "100000002"
+                            }
+                        ],
+                        "act_mode": 0,
+                        "name": "回复图片菜单",
+                        "sub_button_list": [],
+                        "type": 1
+                    },
+                    {
+                        "act_list": [
+                            {
+                                "appmsg_data": {
+                                    "app_id": 100000001,
+                                    "create_time": "1487557495",
+                                    "file_id": 0,
+                                    "multi_item": [
+                                        {
+                                            "cover": "https://mmbiz.qlogo.cn/mmbiz_jpg/vc36F3sbbrIS4TXcBrsw0OlgWx400gBEB3sMNLmicayncH3AEf2XnD0icOTh7Oh2bicfYhd5y9u3rQ8hY85LZrN2g/0?wx_fmt=jpeg",
+                                            "digest": "车主请先完成登记后,平台将自动匹配订单,并推送给您，点击链接,现在去登记",
+                                            "tags": [],
+                                            "title": "抢单提醒"
+                                        }
+                                    ]
+                                },
+                                "key": "",
+                                "type": 5,
+                                "value": "100000001"
+                            }
+                        ],
+                        "act_mode": 0,
+                        "name": "回复图文",
+                        "sub_button_list": [],
+                        "type": 1
+                    }
+                ],
+                "type": 0
+            },
+            {
+                "act_list": [],
+                "act_mode": 0,
+                "name": "个人中心",
+                "sub_button_list": [
+                    {
+                        "act_list": [
+                            {
+                                "key": "",
+                                "txt_data": {
+                                    "content": "xxx"
+                                },
+                                "type": 1,
+                                "value": "xxx"
+                            }
+                        ],
+                        "act_mode": 0,
+                        "name": "联系客服",
+                        "sub_button_list": [],
+                        "type": 1
+                    }
+                ],
+                "type": 0
+            }
+        ],
+        "name": "test menu",
+        "version": 416935196
+    },
+    "menu_limit": {
+        "can_set_view_url": 1,
+        "first_level_limit": 3,
+        "second_level_limit": 5
+    }
+}
