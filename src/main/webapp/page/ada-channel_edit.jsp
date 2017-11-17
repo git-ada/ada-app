@@ -34,7 +34,7 @@
         	<input type="hidden" name="siteId" value="${_CURRENT_SITE.id}">
             <div class="form-body">				
 					<div class="form-group">
-	                    <label class="col-md-1 control-label">渠道名称<span class="required" > * </span>：</label>
+	                    <label class="col-md-1 control-label">渠道名称<span class="required" > * </span></label>
 	                    <div class="col-md-4">
 			                <input type="text" name="channelName" class="form-control input-medium" required="required" maxlength="64">
 						</div>
