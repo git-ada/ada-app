@@ -63,8 +63,9 @@ public class SecurityHandler implements HandlerInterceptor{
 				securityService.checkLogin();
 			} catch (Exception e) {
 				try {
-					log.debug("跳转主页 ");
+					log.debug("跳转登录 ");
 					response.sendRedirect(request.getContextPath()+loginPage);
+					return false;
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
