@@ -2,10 +2,17 @@ package com.ada.app.domain;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import cn.com.jiand.mvc.framework.domain.AbstractEntity;
 
@@ -81,5 +88,18 @@ public class AdaChannelLink extends AbstractEntity<Integer> {
 		this.createTime = createTime;
 	}
 	
+	/** 关联产品  **/
+	private AdaChannel channel;
+	
+	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaChannel.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "channelId", insertable = false, updatable = false)
+	@NotFound(action=NotFoundAction.IGNORE)
+	public AdaChannel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(AdaChannel channel) {
+		this.channel = channel;
+	}
 	
 }

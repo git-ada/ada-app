@@ -57,7 +57,7 @@
 	                            <span></span>
 	                        </label>
 	                    </td>
-						<td>${item.channelId}</td>
+						<td>${item.channel.channelName}</td>
 						<td>${item.url}</td>
 						<td>${item.parameter}</td>
 	                    <td>

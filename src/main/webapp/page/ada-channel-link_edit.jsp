@@ -35,7 +35,7 @@
         	<input type="hidden" name="channelId" value="${param.channelId}">
             <div class="form-body">		
 				  <div class="form-group">
-	                    <label class="col-md-1 control-label">链接地址<span class="required" > * </span>：</label>
+	                    <label class="col-md-1 control-label">链接地址<span class="required" > * </span></label>
 	                    <div class="col-md-3">
 			                <input type="text" name="url" class="form-control input-big" required="required" maxlength="64">
 						</div>
