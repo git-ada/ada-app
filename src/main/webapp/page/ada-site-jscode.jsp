@@ -27,16 +27,9 @@
 				 <div class="form-group">
 	                    <label class="col-md-1 control-label">JS统计代码：</label>
 	                    <div class="col-md-4">
-			                <textarea id="jscode" rows="3" cols="12" class="form-control" style="font-size:12px;font-weight:bold; width: 500px;height: 150px;text-align: left;">
-			                	${jscode}
-			                </textarea>
+			                <textarea id="jscode" rows="3" cols="12" class="form-control" style="font-size:16px;width: 500px;height: 150px;text-align: left;">${jscode}</textarea>
 						</div>
 				  </div>
             </div>
     </div>
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#jscode").val('${jscode}');
-	});
-</script>
