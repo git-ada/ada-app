@@ -1,5 +1,7 @@
 package com.ada.app.service.impl;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
@@ -11,7 +13,9 @@ import cn.com.jiand.mvc.framework.utils.MD5s;
 
 import com.ada.app.constant.ErrorCode;
 import com.ada.app.constant.SessionKey;
+import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaUserDao;
+import com.ada.app.domain.AdaSite;
 import com.ada.app.domain.AdaUser;
 import com.ada.app.exception.BusinessException;
 import com.ada.app.exception.NotLoginException;
@@ -32,6 +36,9 @@ public class SecurityServiceImpl implements SecurityService{
 	
 	private Integer loginExpireDays = 30; /** 默认30天登陆有效  **/
 	
+	@Autowired
+	private AdaSiteDao siteDao;
+	
 	/**
 	 * 多入口登录
 	 */
@@ -50,6 +57,16 @@ public class SecurityServiceImpl implements SecurityService{
 
 		/** 设置当前登陆人　**/
 		Sessions.setAttribute(SessionKey.LOGIN_USER.code(), user);
+		
+		if(Sessions.getCurrentSite() == null){
+			List<AdaSite> adaSites = siteDao.findByUserId(Sessions.getLoginUser().getId());
+			if(adaSites!=null && !adaSites.isEmpty()){
+				AdaSite currentSite = adaSites.get(0);
+				/** 设置默认站点 **/
+				Sessions.setCurrentSite(currentSite);
+				log.info(Sessions.getLoginUser().getNickname() +" 登入，设置默认站点->"+currentSite.getId()+":" +currentSite.getSiteName());
+			}
+		}
 		
 	}
 	public void logout() {
@@ -118,6 +135,18 @@ public class SecurityServiceImpl implements SecurityService{
 						return null;
 					}else{
 						Sessions.setLoginUser(user);
+						
+
+						if(Sessions.getCurrentSite() == null){
+							List<AdaSite> adaSites = siteDao.findByUserId(Sessions.getLoginUser().getId());
+							if(adaSites!=null && !adaSites.isEmpty()){
+								AdaSite currentSite = adaSites.get(0);
+								/** 设置默认站点 **/
+								Sessions.setCurrentSite(currentSite);
+								log.info(Sessions.getLoginUser().getNickname() +" 登入，设置默认站点->"+currentSite.getId()+":" +currentSite.getSiteName());
+							}
+						}
+						
 						return user;
 					}
 				}
