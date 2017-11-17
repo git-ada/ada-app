@@ -210,9 +210,9 @@
 	</build>
 	<profiles>
 		<profile>
-			<id>i</id>
+			<id>usa</id>
 			<properties>
-				<profiles.activation>i</profiles.activation>
+				<profiles.activation>usa</profiles.activation>
 			</properties>
 		</profile>
 	</profiles>
