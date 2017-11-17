@@ -1,5 +1,5 @@
 /** 日志服务器地址 **/
-var logserver = "http://192.168.0.4:8080";
+var logserver = "http://192.250.196.186:8001";
 var adaPageInTime = 0;
 var adaSiteId;
 var adaClientId;
