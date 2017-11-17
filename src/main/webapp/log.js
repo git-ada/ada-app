@@ -17,12 +17,6 @@ window.onbeforeunload = function () {
 	console.log("结束推送日志");
 };
 
-window.setInterval(function (){
-	console.log("开始推送日志");
-	adaPutLog();
-	console.log("结束推送日志");
-},5000);//每3秒钟计算一次鼠标滑动次数,3秒内无聊滑动多少次记1次
-
 window.onclose = function(){
 	return false;
 }
