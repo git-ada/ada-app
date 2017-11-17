@@ -23,10 +23,10 @@ public class IndexController {
 	
 	private final static Log log = LogFactory.getLog(IndexController.class);
 	
-	@Value("${platform.name}")
+	@Value("${platform.name:}")
 	private String platformName;
 	
-	@Value("${cdn.server}")
+	@Value("${cdn.server:}")
 	private String cdnServer;
 	
 	@Autowired
