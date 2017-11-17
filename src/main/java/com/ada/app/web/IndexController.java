@@ -26,6 +26,9 @@ public class IndexController {
 	@Value("${platform.name}")
 	private String platformName;
 	
+	@Value("${cdn.server}")
+	private String cdnServer;
+	
 	@Autowired
 	private SecurityService securityService;
 	
@@ -52,5 +55,11 @@ public class IndexController {
 		return "index";
 	}
 
-
+	@RequestMapping(value = "site-jscode")
+	public String siteJSscode(HttpServletRequest request,HttpServletResponse response, Model model) {
+		String jscode = "&lt;script id=&quot;adajs&quot; src=&quot;"+cdnServer+"/log.js?siteId="+Sessions.getCurrentSite().getId()+"&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;";
+		model.addAttribute("jscode", jscode);
+		
+		return "ada-site-jscode";
+	}
 }

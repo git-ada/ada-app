@@ -4,3 +4,4 @@
 <li class="nav-item"><a href="${pageContext.request.contextPath}/ada-channel-stat/list.jhtm" class="ajaxify nav-link" ><i class="icon-bar-chart"></i><span class="title">渠道统计</span></a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/ada-channel/list.jhtm" class="ajaxify nav-link" ><i class="icon-share"></i><span class="title">渠道管理</span></a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/ada-target-page/list.jhtm" class="ajaxify nav-link" ><i class="icon-layers"></i><span class="title">目标页</span></a></li>
+<li class="nav-item"><a href="${pageContext.request.contextPath}/site-jscode.jhtm" class="ajaxify nav-link" ><i class="icon-layers"></i><span class="title">统计代码</span></a></li>
