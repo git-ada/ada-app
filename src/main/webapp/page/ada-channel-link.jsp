@@ -42,7 +42,6 @@
 	                            <span></span>
 	                        </label>
 	                    </th>			
-						<th scope="col" style="width: 150px;">渠道</th>			
 						<th scope="col" style="width: 350px;">链接地址</th>			
 						<th scope="col" style="width: 150px;">参数</th>
 						<th></th>
@@ -57,7 +56,6 @@
 	                            <span></span>
 	                        </label>
 	                    </td>
-						<td>${item.channel.channelName}</td>
 						<td>${item.url}</td>
 						<td>${item.parameter}</td>
 	                    <td>
