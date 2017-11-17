@@ -11,14 +11,10 @@ var adaMouseClickTimes;
 adaPageIn();
 	
 /** 检测关闭事件，在关闭前推送日志 **/
-window.onbeforeunload = function () {
+window.onclose = function(){
 	console.log("开始推送日志");
 	adaPutLog();
 	console.log("结束推送日志");
-};
-
-window.onclose = function(){
-	return false;
 }
 
 /** 打开页面处理 初始化  **/
