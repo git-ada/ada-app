@@ -156,13 +156,15 @@ function adaGetcookie(name){
 /** 推送日志 **/
 function adaPutLog1() {
 	var httprequest = getHttpRequest();
-	httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+p+"&t="+Date.parse(new Date()), true);
+	var encodeURI = encodeURIComponent(window.location.href);
+	httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
 	httprequest.send();
 }
 
 function adaPutLog2() {
 	var httprequest = getHttpRequest();
-	httprequest.open("get", adaLogServer + "/l2?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMouseClickTimes+"&p="+p+"&t="+Date.parse(new Date()), true);
+	var encodeURI = encodeURIComponent(window.location.href);
+	httprequest.open("get", adaLogServer + "/l2?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMouseClickTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
 	httprequest.send();
 }
 
