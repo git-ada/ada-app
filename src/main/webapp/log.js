@@ -5,17 +5,25 @@ var adaSiteId;
 var adaClientId;
 var adaChannelId="";
 var adaMouseMoveTiems;
-var adaMouseClickTimes;
+var adaMouseClickTimes=0;
+var adaHasPutLog=false;
 
 /** JS页面加载后立即执行 **/
 adaPageIn();
 	
 /** 检测关闭事件，在关闭前推送日志 **/
 window.onclose = function(){
-	console.log("开始推送日志");
 	adaPutLog();
-	console.log("结束推送日志");
 }
+
+window.onbeforeunload = function() {
+	adaPutLog();
+};﻿
+
+window.onunload = function() {
+	adaPutLog();
+};
+
 
 /** 打开页面处理 初始化  **/
 function adaPageIn(){
@@ -82,7 +90,6 @@ document.onmousemove=function(even){
 /*************************************************************************************/
 
 /** 鼠标点击次数计数 **/
-var adaMouseClickTimes =0;
 document.onclick = function(){
 	adaMouseClickTimes++;
 };
@@ -96,9 +103,9 @@ function adaQueryChannelId() {
 		}else if (window.ActiveXObject) {
 			httprequest = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		
 		if (!httprequest) {
 			console.log("初始化Httprequest失败");
+			alert("初始化ADA Httprequest失败");
 		}
 		var encodeURI = encodeURIComponent(window.location.href);
 		httprequest.open("get",logserver+"/q?u="+adaClientId+"&s="+adaSiteId+"&p="+encodeURI+"&t1="+Date.parse(new Date()),true); 
@@ -135,6 +142,10 @@ function adaGetcookie(name){
 /*************************************************************************************/
 /** 推送日志 **/
 function adaPutLog() {
+	if(adaHasPutLog){
+		return;
+	}
+	
 	var httprequest = null;
 	if (window.XMLHttpRequest) {
 		httprequest = new XMLHttpRequest();
@@ -144,6 +155,7 @@ function adaPutLog() {
 	}
 	if (!httprequest) {
 		console.log("初始化httprequest失败");
+		alert("初始化ADA Httprequest失败");
 	}
 
 	var now = new Date();
