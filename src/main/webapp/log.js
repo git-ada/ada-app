@@ -142,9 +142,11 @@ function adaGetcookie(name){
 /*************************************************************************************/
 /** 推送日志 **/
 function adaPutLog() {
+	alert("触发日志");
 	if(adaHasPutLog){
 		return;
 	}
+	alert("发送日志");
 	
 	var httprequest = null;
 	if (window.XMLHttpRequest) {
@@ -173,4 +175,6 @@ function adaPutLog() {
 		}
 	};
 	httprequest.send();
+	
+	adaHasPutLog = true;
 }
