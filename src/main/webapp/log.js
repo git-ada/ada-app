@@ -74,7 +74,7 @@ document.onclick = function(){
 	}else {
 		adaMouseClickTimes = 0;
 	}
-	adaMouseClickTimes = adaMouseClickTimes +1;
+	adaMouseClickTimes = parseInt(adaMouseClickTimes) +1;
 	document.cookie = "adaMouseClickTimes="+adaMouseClickTimes+";expires="+adaGetTodayExpires();
 	
 	if(adaMouseClickTimes==1 || adaMouseClickTimes == 3 || adaMouseClickTimes == 6 || adaMouseClickTimes == 11){
