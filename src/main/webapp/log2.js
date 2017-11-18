@@ -13,7 +13,9 @@ adaPageIn();
 /** 检测关闭事件，在关闭前推送日志 **/
 window.onclose = function(){
 	console.log("开始推送日志");
+	alert("开始推送日志-------------------")
 	adaPutLog();
+	alert("结束推送日志-------------------")
 	console.log("结束推送日志");
 }
 
