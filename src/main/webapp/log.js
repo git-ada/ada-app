@@ -1,5 +1,5 @@
 /** 日志服务器地址 **/
-var logserver = "http://192.250.196.186:8001";
+var adaLogServer = "http://192.250.196.186:8001";
 var adaPageInTime = 0;
 var adaSiteId;
 var adaClientId;
@@ -7,23 +7,11 @@ var adaChannelId="";
 var adaMouseMoveTiems;
 var adaMouseClickTimes=0;
 var adaHasPutLog=false;
+var adaHasPutLogReturn=false;
 
 /** JS页面加载后立即执行 **/
 adaPageIn();
 	
-/** 检测关闭事件，在关闭前推送日志 **/
-window.onclose = function(){
-	adaPutLog();
-}
-
-window.onbeforeunload = function() {
-	adaPutLog();
-};﻿
-
-window.onunload = function() {
-	adaPutLog();
-};
-
 
 /** 打开页面处理 初始化  **/
 function adaPageIn(){
@@ -33,19 +21,20 @@ function adaPageIn(){
 	adaSiteId = adaGetSiteId();
 	
 	/** 判断如果Cookie中未生成客户端ID,则生成新的客户端ID **/
-	var existsClientId = (document.cookie.indexOf("u=") != -1);
+	var existsClientId = (document.cookie.indexOf("adaClientId=") != -1);
 	if(existsClientId){
-		adaClientId = adaGetcookie("u").split("=")[1];
+		adaClientId = adaGetcookie("adaClientId").split("=")[1];
 	}else {
 		adaClientId = createUUID();
 		/** 将客户端ID保存到Cookie中 **/
-		document.cookie = "u="+adaClientId+";expires=100000000000000";
+		document.cookie = "adaClientId="+adaClientId+";expires="+adaGetLongTimeExpires();
 	}
 
 	/** 判断渠道ID是否存在，如果不存在则查询渠道ID **/
-	var existsChannelId = (document.cookie.indexOf("c=") != -1);
+	var existsChannelId = (document.cookie.indexOf("adaChannelId=") != -1);
 	if(existsChannelId){
-		adaChannelId = adaGetcookie("c").split("=")[1];
+		adaChannelId = adaGetcookie("adaChannelId").split("=")[1];
+		adaPutLog1();
 	}else{
 		adaQueryChannelId();
 	}
@@ -65,7 +54,7 @@ function createUUID(){
 	return u;
 }
 /*************************************************************************************/
-	
+
 /** 获取站点ID **/
 function adaGetSiteId(){   
     var reg = new RegExp("(^|/?|&)siteId=([^&]*)(/s|&|$)", "i");
@@ -74,25 +63,48 @@ function adaGetSiteId(){
     else
         return ""; 
 }
-
-/** 鼠标滑动次数计数 **/
-var adaTempMouseMoveTimes = 0;
-window.setInterval(function (){
-	if(adaTempMouseMoveTimes > 0 ){
-		adaTempMouseTimes = 0;
-		adaMouseMoveTiems++;
-	}
-},3000);//每3秒钟计算一次鼠标滑动次数,3秒内无聊滑动多少次记1次
-
-document.onmousemove=function(even){
-	adaTempMouseMoveTimes++;
-};
 /*************************************************************************************/
 
 /** 鼠标点击次数计数 **/
 document.onclick = function(){
-	adaMouseClickTimes++;
+	/** 判断如果Cookie中未生成客户端ID,则生成新的客户端ID **/
+	var existsAdaMouseClickTimes = (document.cookie.indexOf("adaMouseClickTimes=") != -1);
+	if(existsAdaMouseClickTimes){
+		adaMouseClickTimes = adaGetcookie("adaMouseClickTimes").split("=")[1];
+	}else {
+		adaMouseClickTimes = 0;
+	}
+	adaMouseClickTimes = adaMouseClickTimes +1;
+	document.cookie = "adaMouseClickTimes="+adaMouseClickTimes+";expires="+adaGetTodayExpires();
+	
+	if(adaMouseClickTimes==1 || adaMouseClickTimes == 3 || adaMouseClickTimes == 6 || adaMouseClickTimes == 11){
+		adaPutLog2();
+	}
 };
+
+function adaGetLongTimeExpires(){
+	var expires= new Date();
+	expires.setFullYear(expires.getFullYear()+100, expires.getMonth(), expires.getDate());	
+	return expires;
+}
+
+
+function adaGetTodayExpires (){
+	var curDate = new Date();  
+	//当前时间戳    
+	var curTamp = curDate.getTime();  
+	//当日凌晨的时间戳,减去一毫秒是为了防止后续得到的时间不会达到00:00:00的状态    
+	var curWeeHours = new Date(curDate.toLocaleDateString()).getTime() - 1;  
+	//当日已经过去的时间（毫秒）    
+	var passedTamp = curTamp - curWeeHours;  
+	//当日剩余时间    
+	var leftTamp = 24 * 60 * 60 * 1000 - passedTamp;  
+	var leftTime = new Date();  
+	leftTime.setTime(leftTamp + curTamp);  
+	var term = leftTime.toGMTString();
+	return term;
+}
+
 /*************************************************************************************/
 
 /** 查询渠道ID并村粗COOKIE**/
@@ -108,7 +120,7 @@ function adaQueryChannelId() {
 			alert("初始化ADA Httprequest失败");
 		}
 		var encodeURI = encodeURIComponent(window.location.href);
-		httprequest.open("get",logserver+"/q?u="+adaClientId+"&s="+adaSiteId+"&p="+encodeURI+"&t1="+Date.parse(new Date()),true); 
+		httprequest.open("get",adaLogServer+"/q?u="+adaClientId+"&s="+adaSiteId+"&p="+encodeURI+"&t1="+Date.parse(new Date()),true); 
 		httprequest.onreadystatechange = function () {
 			if (httprequest.readyState == 4) {
 				if (httprequest.status == 200) {
@@ -116,7 +128,8 @@ function adaQueryChannelId() {
 				   console.log("查询渠道ID,ret->"+ret);
 				   if(ret != null && ret!= "undefined" && ret != ""){
 					   adaChannelId = ret;
-					   document.cookie = "c="+adaChannelId+";expires=100000000000000";
+					   document.cookie = "adaChannelId="+adaChannelId+";expires=100000000000000";
+					   adaPutLog1()
 				   }
 				}else{
 					console.log("查询渠道ID失败");
@@ -141,13 +154,19 @@ function adaGetcookie(name){
 
 /*************************************************************************************/
 /** 推送日志 **/
-function adaPutLog() {
-	alert("触发日志");
-	if(adaHasPutLog){
-		return;
-	}
-	alert("发送日志");
-	
+function adaPutLog1() {
+	var httprequest = getHttpRequest();
+	httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+p+"&t="+Date.parse(new Date()), true);
+	httprequest.send();
+}
+
+function adaPutLog2() {
+	var httprequest = getHttpRequest();
+	httprequest.open("get", adaLogServer + "/l2?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMouseClickTimes+"&p="+p+"&t="+Date.parse(new Date()), true);
+	httprequest.send();
+}
+
+function getHttpRequest(){
 	var httprequest = null;
 	if (window.XMLHttpRequest) {
 		httprequest = new XMLHttpRequest();
@@ -157,24 +176,6 @@ function adaPutLog() {
 	}
 	if (!httprequest) {
 		console.log("初始化httprequest失败");
-		alert("初始化ADA Httprequest失败");
 	}
-
-	var now = new Date();
-	var t = now - adaPageInTime;
-	var p = encodeURIComponent(window.location.href);
-	httprequest.open("get", logserver + "/l?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMouseClickTimes+"&t="+t+"&p="+p+"&t1="+Date.parse(new Date()), false);
-	httprequest.onreadystatechange = function () {
-		if (httprequest.readyState == 4) {
-			if (httprequest.status == 200) {
-				httprequest.responseText;
-			}
-			else {
-				console.log("推送日志请求错误，state"+httprequest.readyState);
-			}
-		}
-	};
-	httprequest.send();
-	
-	adaHasPutLog = true;
+	return httprequest;
 }
