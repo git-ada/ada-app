@@ -19,12 +19,27 @@
             <i class="fa fa-angle-right"></i>
         </li>
          <li>
-            <span>实时数据</span>
+            <span>首页</span>
         </li>
     </ul>
 </div>
 
 <div class="row">
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat blue margin-bottom0">
+			<div class="visual">
+				<i class="fa fa-comments"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					<span data-counter="counterup" data-value="${siteStat.ip}">${siteStat.ip}</span>(个)
+				</div>
+				<div class="desc">今日独立IP数</div>
+			</div>
+			<a class="more" href="#"> 查看详情<i class="m-icon-swapright m-icon-white"></i></a>
+			</a>
+		</div>
+	</div>
 
 	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		<div class="dashboard-stat green margin-bottom0">
@@ -33,28 +48,14 @@
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${siteStat.ip}">${siteStat.ip}</span>(IP)
-				</div>
-				<div class="desc">今日独立IP数</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat blue margin-bottom0">
-			<div class="visual">
-				<i class="fa fa-comments"></i>
-			</div>
-			<div class="details">
-				<div class="number">
-					<span data-counter="counterup" data-value="${siteStat.pv}">${siteStat.pv}</span>(PV)
+					<span data-counter="counterup" data-value="${siteStat.pv}">${siteStat.pv}</span>(页)
 				</div>
 				<div class="desc">今日访问量</div>
 			</div>
+			<a class="more" href="#"> 查看详情<i class="m-icon-swapright m-icon-white"></i></a>
 		</div>
 	</div>
 	
-
 	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		<div class="dashboard-stat red margin-bottom0">
 			<div class="visual">
@@ -66,6 +67,8 @@
 				</div>
 				<div class="desc"></div>
 			</div>
+			<a class="more" href="#"> 查看详情<i class="m-icon-swapright m-icon-white"></i></a>
+			</a>
 		</div>
 	</div>
 	
@@ -80,6 +83,8 @@
 				</div>
 				<div class="desc"></div>
 			</div>
+			<a class="more" href="#"> 查看详情<i class="m-icon-swapright m-icon-white"></i></a>
+			</a>
 		</div>
 	</div>
 	
@@ -199,48 +204,36 @@
 	            <thead>
 	                <tr>
 	                	<!-- <th scope="col" style="width: 120px;">日期</th> -->			 
-						<th scope="col" style="width: 150px;text-align: center;">渠道</th>			
-						<th scope="col" style="width: 120px;text-align: center;">IP</th>			
-						<th scope="col" style="width: 120px;text-align: center;">PV</th>			
-						<th scope="col" style="width: 120px;text-align: center;">1-2次点击</th>			
-						<th scope="col" style="width: 120px;text-align: center;">3-5次点击</th>			
-						<th scope="col" style="width: 120px;text-align: center;">6-10次点击</th>			
-						<th scope="col" style="width: 120px;text-align: center;">10+次点击</th>			
-						<th scope="col" style="width: 120px;text-align: center;">进入目标页</th>			
+						<th scope="col" style="width: 150px;">渠道</th>			
+						<th scope="col" style="width: 120px;">IP</th>			
+						<th scope="col" style="width: 120px;">PV</th>			
+						<th scope="col" style="width: 100px;">1-2次点击</th>			
+						<th scope="col" style="width: 100px;">3-5次点击</th>			
+						<th scope="col" style="width: 100px;">6-10次点击</th>			
+						<th scope="col" style="width: 100px;">10+次点击</th>			
+						<th scope="col" style="width: 100px;">进入目标页</th>
+						<th scope="col"></th>				
 				     </tr>
 	            </thead>
 	            <tbody>
 	               <c:forEach var="item" items="${pageResults}" varStatus="number">
 	                <tr>      
 	                	<%-- <td><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td> --%>
-						<td style="text-align: center;">${item.channelName}</td>
-						<td style="text-align: center;">${item.ip}</td>
-						<td style="text-align: center;">${item.pv}</td>
-						<td style="text-align: center;">${item.clickip1}</td>
-						<td style="text-align: center;">${item.clickip2}</td>
-						<td style="text-align: center;">${item.clickip3}</td>
-						<td style="text-align: center;">${item.clickip4}</td>
-						<td style="text-align: center;">${item.targetpageip}</td>
+						<td style="">${item.channelName}</td>
+						<td style="">${item.ip}</td>
+						<td style="">${item.pv}</td>
+						<td style="">${item.clickip1}</td>
+						<td style="">${item.clickip2}</td>
+						<td style="">${item.clickip3}</td>
+						<td style="">${item.clickip4}</td>
+						<td style="">${item.targetpageip}</td>
+						<td style=""></td>
 	                </tr>
 	                </c:forEach>
-	                <%-- <c:if test="${empty page.pageResults}">
-	            		<tr><td colspan="11">无</td></tr>
-	            	</c:if> --%>
 	            </tbody>
 	        </table>
 	    </div>
-	    <!-- 数据列表 END -->
-	    
-	    <!-- 底部功能区 BEGIN -->
-	    <c:if test="${not empty page.pageResults}">
-		    <div class="row">
-		        <!-- 底部分页 -->
-		        <div class="col-md-4 col-sm-12">
-		        	 <jsp:include page="/include/paging_footer.jsp"/>
-		        </div>
-		    </div>
-		</c:if>
-	    <!-- 底部功能区 END -->
+	    <!-- 数据列表 END -->>
 	</div>
 
 <!-- START PAGE SCRIPTS -->
