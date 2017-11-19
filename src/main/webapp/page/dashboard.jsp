@@ -1,6 +1,7 @@
 
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
 	@media (min-width: 992px){
 		.search-field {padding-right:0!important;}
@@ -202,7 +203,7 @@
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
 	            <thead>
 	                <tr>
-	                	<!-- <th scope="col" style="width: 120px;">日期</th> -->			 
+	                	<th scope="col" style="width: 120px;">日期</th>		 
 						<th scope="col" style="width: 150px;">渠道</th>			
 						<th scope="col" style="width: 120px;">IP</th>			
 						<th scope="col" style="width: 120px;">PV</th>			
@@ -210,12 +211,15 @@
 						<th scope="col" style="width: 100px;">3-5次点击</th>			
 						<th scope="col" style="width: 100px;">6-10次点击</th>			
 						<th scope="col" style="width: 100px;">10+次点击</th>			
-						<th scope="col" style="width: 100px;">进入目标页</th>			
+						<th scope="col" style="width: 100px;">进入目标页</th>
+						<th scope="col"></th>				
 				     </tr>
 	            </thead>
 	            <tbody>
 	               <c:forEach var="item" items="${pageResults}" varStatus="number">
-	                <tr>      
+	                <tr>
+	                    <%request.setAttribute("today", new Date()); %>
+	                	<td style=""><fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/></td>      
 						<td style="">${item.channelName}</td>
 						<td style="">${item.ip}</td>
 						<td style="">${item.pv}</td>
@@ -224,6 +228,7 @@
 						<td style="">${item.clickip3}</td>
 						<td style="">${item.clickip4}</td>
 						<td style="">${item.targetpageip}</td>
+						<td style=""></td>
 	                </tr>
 	                </c:forEach>
 	            </tbody>
