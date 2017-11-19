@@ -228,5 +228,11 @@
 				<profiles.activation>usa</profiles.activation>
 			</properties>
 		</profile>
+		<profile>
+			<id>hktest</id>
+			<properties>
+				<profiles.activation>hktest</profiles.activation>
+			</properties>
+		</profile>
 	</profiles>
 </project>
