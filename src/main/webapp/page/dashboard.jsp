@@ -199,28 +199,28 @@
 	            <thead>
 	                <tr>
 	                	<!-- <th scope="col" style="width: 120px;">日期</th> -->			 
-						<th scope="col" style="width: 150px;text-align: center;">渠道</th>			
-						<th scope="col" style="width: 120px;text-align: center;">IP</th>			
-						<th scope="col" style="width: 120px;text-align: center;">PV</th>			
-						<th scope="col" style="width: 120px;text-align: center;">1-2次点击</th>			
-						<th scope="col" style="width: 120px;text-align: center;">3-5次点击</th>			
-						<th scope="col" style="width: 120px;text-align: center;">6-10次点击</th>			
-						<th scope="col" style="width: 120px;text-align: center;">10+次点击</th>			
-						<th scope="col" style="width: 120px;text-align: center;">进入目标页</th>			
+						<th scope="col" style="width: 150px;">渠道</th>			
+						<th scope="col" style="width: 120px;">IP</th>			
+						<th scope="col" style="width: 120px;">PV</th>			
+						<th scope="col" style="width: 120px;">1-2次点击</th>			
+						<th scope="col" style="width: 120px;">3-5次点击</th>			
+						<th scope="col" style="width: 120px;">6-10次点击</th>			
+						<th scope="col" style="width: 120px;">10+次点击</th>			
+						<th scope="col" style="width: 120px;">进入目标页</th>			
 				     </tr>
 	            </thead>
 	            <tbody>
 	               <c:forEach var="item" items="${pageResults}" varStatus="number">
 	                <tr>      
 	                	<%-- <td><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td> --%>
-						<td style="text-align: center;">${item.channelName}</td>
-						<td style="text-align: center;">${item.ip}</td>
-						<td style="text-align: center;">${item.pv}</td>
-						<td style="text-align: center;">${item.clickip1}</td>
-						<td style="text-align: center;">${item.clickip2}</td>
-						<td style="text-align: center;">${item.clickip3}</td>
-						<td style="text-align: center;">${item.clickip4}</td>
-						<td style="text-align: center;">${item.targetpageip}</td>
+						<td>${item.channelName}</td>
+						<td>${item.ip}</td>
+						<td>${item.pv}</td>
+						<td>${item.clickip1}</td>
+						<td>${item.clickip2}</td>
+						<td>${item.clickip3}</td>
+						<td>${item.clickip4}</td>
+						<td>${item.targetpageip}</td>
 	                </tr>
 	                </c:forEach>
 	                <%-- <c:if test="${empty page.pageResults}">
