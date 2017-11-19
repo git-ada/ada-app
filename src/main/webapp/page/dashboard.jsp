@@ -173,7 +173,7 @@
 	</div>
 </div> --%>
 
-<div class="row" style="display: none;">
+<div class="row" style="">
 	<div class="col-lg-12 col-xs-12 col-sm-12">
 		<div class="portlet light bordered">
             <div class="portlet-title">
@@ -284,7 +284,7 @@
 	}
 
 
-	function graphicLoading(obj) {
+	/* function graphicLoading(obj) {
 		//t();
 		var month = null;
 
@@ -315,7 +315,7 @@
 				}
 			});
 		}
-	}
+	} */
 </script>
 
 <!-- END PAGE SCRIPTS -->
