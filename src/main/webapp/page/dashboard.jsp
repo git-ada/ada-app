@@ -16,69 +16,63 @@
         <li>
             <i class="icon-home"></i>
             <a href="/manage/index.jhtm">首页</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+         <li>
+            <span>实时数据</span>
         </li>
     </ul>
 </div>
 
 <div class="row">
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat blue margin-bottom0">
-			<div class="visual">
-				<i class="fa fa-comments"></i>
-			</div>
-			<div class="details">
-				<div class="number">
-					<span data-counter="counterup" data-value="${totalSummary.userNumbers}">${totalSummary.userNumbers}</span>(人)
-				</div>
-				<div class="desc">历史用户总数</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 		<div class="dashboard-stat green margin-bottom0">
 			<div class="visual">
 				<i class="fa fa-shopping-cart"></i>
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${totalSummary.orderNumbers}">${totalSummary.orderNumbers}</span>(单)
+					<span data-counter="counterup" data-value="${siteStat.ip}">${siteStat.ip}</span>(IP)
 				</div>
-				<div class="desc">历史订单总数</div>
+				<div class="desc">今日独立IP数</div>
 			</div>
 		</div>
 	</div>
+	
+	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+		<div class="dashboard-stat blue margin-bottom0">
+			<div class="visual">
+				<i class="fa fa-comments"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					<span data-counter="counterup" data-value="${siteStat.pv}">${siteStat.pv}</span>(PV)
+				</div>
+				<div class="desc">今日访问量</div>
+			</div>
+		</div>
+	</div>
+	
 
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 		<div class="dashboard-stat red margin-bottom0">
 			<div class="visual">
 				<i class="fa fa-bar-chart-o"></i>
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${totalSummary.salesAmount}">${totalSummary.salesAmount}</span>(元)
+					<span data-counter="counterup" data-value="${totalSummary.salesAmount}">--</span>(--)
 				</div>
-				<div class="desc">历史营业总额</div>
+				<div class="desc"></div>
 			</div>
 		</div>
 	</div>
-
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat purple margin-bottom0">
-			<div class="visual">
-				<i class="fa fa-globe"></i>
-			</div>
-			<div class="details">
-				<div class="number">
-					<span data-counter="counterup" data-value="${totalSummary.profitsAmount}">${totalSummary.profitsAmount}</span>(元)
-				</div>
-				<div class="desc">历史利润总额</div>
-			</div>
-		</div>
-	</div>
+	
 </div>
 
 <!--数据列表-->
-<div class="row">
+<%-- <div class="row">
 	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		<div >
 			<div class="portlet-body" style="padding: 0;">
@@ -177,15 +171,15 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> --%>
 
-<div class="row">
+<div class="row" style="display: none;">
 	<div class="col-lg-12 col-xs-12 col-sm-12">
 		<div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption">
                     <i class="icon-bar-chart"></i>
-                    <span class="caption-subject bold uppercase"> 营业额</span>
+                    <span class="caption-subject bold uppercase"> 访问量</span>
                     <!-- 
                     <span class="caption-helper">weekly stats...</span>
                      -->
@@ -216,6 +210,57 @@
 	</div>
 </div>
 
+<div class="portlet-body">
+		<!-- 数据列表 BEGIN -->
+	    <div class="table-scrollable">
+	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
+	            <thead>
+	                <tr>
+	                	<!-- <th scope="col" style="width: 120px;">日期</th> -->			 
+						<th scope="col" style="width: 150px;text-align: center;">渠道</th>			
+						<th scope="col" style="width: 120px;text-align: center;">IP</th>			
+						<th scope="col" style="width: 120px;text-align: center;">PV</th>			
+						<th scope="col" style="width: 120px;text-align: center;">1-2次点击</th>			
+						<th scope="col" style="width: 120px;text-align: center;">3-5次点击</th>			
+						<th scope="col" style="width: 120px;text-align: center;">6-10次点击</th>			
+						<th scope="col" style="width: 120px;text-align: center;">10+次点击</th>			
+						<th scope="col" style="width: 120px;text-align: center;">进入目标页</th>			
+				     </tr>
+	            </thead>
+	            <tbody>
+	               <c:forEach var="item" items="${pageResults}" varStatus="number">
+	                <tr>      
+	                	<%-- <td><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td> --%>
+						<td style="text-align: center;">${item.channelName}</td>
+						<td style="text-align: center;">${item.ip}</td>
+						<td style="text-align: center;">${item.pv}</td>
+						<td style="text-align: center;">${item.clickip1}</td>
+						<td style="text-align: center;">${item.clickip2}</td>
+						<td style="text-align: center;">${item.clickip3}</td>
+						<td style="text-align: center;">${item.clickip4}</td>
+						<td style="text-align: center;">${item.targetpageip}</td>
+	                </tr>
+	                </c:forEach>
+	                <%-- <c:if test="${empty page.pageResults}">
+	            		<tr><td colspan="11">无</td></tr>
+	            	</c:if> --%>
+	            </tbody>
+	        </table>
+	    </div>
+	    <!-- 数据列表 END -->
+	    
+	    <!-- 底部功能区 BEGIN -->
+	    <c:if test="${not empty page.pageResults}">
+		    <div class="row">
+		        <!-- 底部分页 -->
+		        <div class="col-md-4 col-sm-12">
+		        	 <jsp:include page="/include/paging_footer.jsp"/>
+		        </div>
+		    </div>
+		</c:if>
+	    <!-- 底部功能区 END -->
+	</div>
+
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
@@ -240,7 +285,7 @@
 
 
 	function graphicLoading(obj) {
-
+		//t();
 		var month = null;
 
 		if (obj == 1) { //表示下月数据
@@ -257,7 +302,7 @@
 		} else {
 			//ajax读取 上一月的数据
 			jQuery.ajax({
-				url : "${pageContext.request.contextPath}/dashboard/ajaxLoadData.do?page=" + month+"&current="+pageSize,
+				url : "${pageContext.request.contextPath}/ajaxLoadData.do?page=" + month+"&current="+pageSize,
 				success : function(data) {
 					var json = eval('(' + data + ')');
 					if (json.success) {

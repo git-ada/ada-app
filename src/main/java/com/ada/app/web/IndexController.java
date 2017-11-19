@@ -1,6 +1,12 @@
 package com.ada.app.web;
 
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +19,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import antlr.collections.impl.LList;
+import cn.com.jiand.mvc.framework.utils.Dates;
+
+import com.ada.app.bean.Channel;
+import com.ada.app.bean.ChannelStat;
+import com.ada.app.bean.SiteStat;
+import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaSiteDao;
+import com.ada.app.dao.AdaSiteStatDao;
+import com.ada.app.domain.AdaChannel;
+import com.ada.app.domain.AdaChannelStat;
 import com.ada.app.domain.AdaSite;
+import com.ada.app.domain.AdaSiteStat;
+import com.ada.app.service.AdaChannelStatService;
 import com.ada.app.service.SecurityService;
+import com.ada.app.service.StatService;
 import com.ada.app.util.Sessions;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Controller
 public class IndexController {
@@ -34,6 +55,14 @@ public class IndexController {
 	
 	@Autowired
 	private AdaSiteDao siteDao;
+	@Autowired
+	private AdaSiteStatDao adaSiteStatDao;
+	@Autowired
+	private StatService statService;
+	@Autowired
+	private AdaChannelDao adaChannelDao;
+	
+	private AdaChannelStatService adaChannelStatService;
 
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request,HttpServletResponse response, Model model) {
@@ -55,6 +84,59 @@ public class IndexController {
 		return "index";
 	}
 
+	
+	@RequestMapping(value = "dashboard")
+	public String now(HttpServletRequest request,HttpServletResponse response, Model model) {
+		
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();//
+		
+		/** 获取当前站点统计信息 **/
+		Date today = Dates.todayStart();
+		SiteStat siteStat = statService.statSite(adaSite.getId(), today);
+		
+		/** 获取站点下渠道统计信息 **/
+		 List<Map> ChannelStat_list = new ArrayList<Map>();
+		 List<AdaChannel> channels = adaChannelDao.findBySiteId(adaSite.getId());
+		 for (AdaChannel adaChannel : channels) {
+			 ChannelStat channelStat =  statService.statChannel(adaSite.getId(), adaChannel.getId(), today);
+			 Map map = new HashMap();
+			 map.put("channelName",adaChannelDao.findById(channelStat.getChannelId()).getChannelName());
+			 map.put("ip", channelStat.getIp());
+			 map.put("pv", channelStat.getPv());
+			 map.put("clickip1", channelStat.getClickip1());
+			 map.put("clickip2", channelStat.getClickip2());
+			 map.put("clickip3", channelStat.getClickip3());
+			 map.put("clickip4", channelStat.getClickip4());
+			 map.put("targetpageip", channelStat.getTargetpageip());
+			 
+			 ChannelStat_list.add(map);
+		}
+		 model.addAttribute("pageResults", ChannelStat_list);
+		 
+		 model.addAttribute("siteStat", siteStat);
+		return "dashboard";
+	}
+	
+	@RequestMapping("ajaxLoadData")
+	public void ajaxLoadData(HttpServletRequest request,HttpServletResponse response ,Model model){
+		
+		String page=null==request.getParameter("page")?"1":request.getParameter("page").isEmpty()?"1":request.getParameter("page");
+		Integer pageSize=Integer.parseInt(request.getParameter("current"));
+		
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(this.graphicList(1));
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	@RequestMapping(value = "site-jscode")
 	public String siteJSscode(HttpServletRequest request,HttpServletResponse response, Model model) {
 //		String jscode = "&lt;script id=&quot;adajs&quot; src=&quot;"+cdnServer+"/log.js?siteId="+Sessions.getCurrentSite().getId()+"&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;";
@@ -63,4 +145,54 @@ public class IndexController {
 		
 		return "ada-site-jscode";
 	}
+	
+	
+	/**
+	 * 获取图形列表的数据
+	 */
+	protected JSONObject graphicList(Integer siteId) {
+		
+		JSONArray array=new JSONArray();
+		JSONObject json=new JSONObject();
+		try {
+	/*		if(pageNo<1){
+				json.put("success", false);
+				json.put("message", "暂无统计数据！");
+				return json;
+			}*/
+			
+			List<AdaSiteStat> list = this.adaSiteStatDao.findBySiteId(siteId);
+			
+			if(null==list || list.isEmpty()){
+				json.put("success", false);
+				json.put("message", "暂无统计数据！");
+				return json;
+			}
+			
+			for (int i=list.size()-1;i>=0; i--) { 
+				AdaSiteStat item = list.get(i);
+				JSONObject jsonitem=new JSONObject();
+				jsonitem.put("date", new SimpleDateFormat("yyyy-MM-dd").format(item.getDate())); // 统计日期
+				jsonitem.put("distance", item.getPv());// 访问量
+				jsonitem.put("duration", item.getIp()); // IP数
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					jsonitem.put("color", "#EF3F3F");
+					jsonitem.put("lcolor", "red");
+					jsonitem.put("alpha", 1);
+				}
+				array.add(jsonitem);
+			}
+			
+			json.put("success", true);
+			json.put("nextMonth", 10);
+			json.put("lastMonth", 11);
+			json.put("order", array);
+			
+		} catch (Exception e) {
+			//log.info("查询图形列表失败!-->"+e.getMessage(),e);
+		}
+		
+		return json;
+	}
+	
 }
