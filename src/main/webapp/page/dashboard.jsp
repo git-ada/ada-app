@@ -36,7 +36,7 @@
 				</div>
 				<div class="desc">今日独立IP数</div>
 			</div>
-			<a class="more" href="#"> 查看详情<i class="m-icon-swapright m-icon-white"></i></a>
+			<a class="more" href="#"> <i class="m-icon-swapright m-icon-white"></i></a>
 			</a>
 		</div>
 	</div>
@@ -52,7 +52,7 @@
 				</div>
 				<div class="desc">今日访问量</div>
 			</div>
-			<a class="more" href="#"> 查看详情<i class="m-icon-swapright m-icon-white"></i></a>
+			<a class="more" href="#"> <i class="m-icon-swapright m-icon-white"></i></a>
 		</div>
 	</div>
 	
@@ -67,8 +67,7 @@
 				</div>
 				<div class="desc"></div>
 			</div>
-			<a class="more" href="#"> 查看详情<i class="m-icon-swapright m-icon-white"></i></a>
-			</a>
+			<a class="more" href="#"> <i class="m-icon-swapright m-icon-white"></i></a>
 		</div>
 	</div>
 	
@@ -83,7 +82,7 @@
 				</div>
 				<div class="desc"></div>
 			</div>
-			<a class="more" href="#"> 查看详情<i class="m-icon-swapright m-icon-white"></i></a>
+			<a class="more" href="#"> <i class="m-icon-swapright m-icon-white"></i></a>
 			</a>
 		</div>
 	</div>
@@ -211,8 +210,7 @@
 						<th scope="col" style="width: 100px;">3-5次点击</th>			
 						<th scope="col" style="width: 100px;">6-10次点击</th>			
 						<th scope="col" style="width: 100px;">10+次点击</th>			
-						<th scope="col" style="width: 100px;">进入目标页</th>
-						<th scope="col"></th>				
+						<th scope="col" style="width: 100px;">进入目标页</th>			
 				     </tr>
 	            </thead>
 	            <tbody>
@@ -226,7 +224,6 @@
 						<td style="">${item.clickip3}</td>
 						<td style="">${item.clickip4}</td>
 						<td style="">${item.targetpageip}</td>
-						<td style=""></td>
 	                </tr>
 	                </c:forEach>
 	            </tbody>
