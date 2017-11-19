@@ -218,7 +218,6 @@
 	            <tbody>
 	               <c:forEach var="item" items="${pageResults}" varStatus="number">
 	                <tr>      
-	                	<%-- <td><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td> --%>
 						<td style="">${item.channelName}</td>
 						<td style="">${item.ip}</td>
 						<td style="">${item.pv}</td>
