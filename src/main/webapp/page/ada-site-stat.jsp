@@ -1,276 +1,401 @@
-
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
 	@media (min-width: 992px){
 		.search-field {padding-right:0!important;}
 	}
-	
-	.dashboard-stat{
-		padding-bottom: 0;
-		margin-bottom: 0;
-	}
 </style>
+<!-- 顶部导航 BGEIN -->
 <div class="page-bar">
     <ul class="page-breadcrumb" style="width: 100%">
         <li>
             <i class="icon-home"></i>
-            <a href="/manage/index.jhtm">首页</a>
+            <a href="index.jsp">首页</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <span>站点统计</span>
         </li>
     </ul>
 </div>
-
-<div class="row">
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat blue margin-bottom0">
-			<div class="visual">
-				<i class="fa fa-comments"></i>
-			</div>
-			<div class="details">
-				<div class="number">
-					<span data-counter="counterup" data-value="${totalSummary.userNumbers}">${totalSummary.userNumbers}</span>(人)
-				</div>
-				<div class="desc">历史用户总数</div>
-			</div>
-		</div>
+<!-- 顶部导航 END-->
+<div class="portlet light">
+	<div class="portlet-title">
+		<!-- 顶部搜索栏 BEGIN -->
+		<div class="row">
+			<div class="col-md-10 col-sm-12 left">
+		    <div class="caption">
+				<div class="clearfix ">
+				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-site-stat/list.jhtm" method="get">
+				    	<!--
+				    		支持操作符 :EQ, NOTEQ , LIKE, LLIKE, RLIKE, NLIKE, GT, LT, GTE, LTE, IN, NOTIN, NULL, NOTNULL,
+				    		如:search_EQ_name 会自动添加条件，like '%value%';
+				    	-->
+				    	<!-- 页码  -->
+					    <input type="hidden" id="page" name="page">
+						<div class="row">
+							<div class="col-md-3 col-sm-12">
+						         <div class="input-group input-medium">
+                                       <input type="text" class="form-control daterangepick"  placeholder="日期" readonly="readonly">
+                                       <input type="hidden" name="search_GTE_date" value="${param.search_GTE_date}">
+                                       <input type="hidden" name="search_LTE_date" value="${param.search_LTE_date}">
+                                  </div>
+						    </div>
+						    <div class="col-md-1 col-sm-12">
+						    	<button class="btn  btn-default opt-search" type="button" >&nbsp;&nbsp;搜索&nbsp;&nbsp;<i class="fa fa-search">&nbsp;&nbsp;</i></button>
+						    </div>
+						</div>
+				    </form>
+				 </div>
+		    </div>
+		    </div>
+		    <!-- 顶部搜索栏 END -->
+		    
+		    <!-- 右上角工具栏 BEGIN -->
+		    <div class="col-md-2 col-sm-12 right">
+	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-site-stat/export"><span>导出表格</span></a>
+	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a>
+		    </div>
+	    </div>
+	    <!-- 右上角工具栏 END -->
 	</div>
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat green margin-bottom0">
-			<div class="visual">
-				<i class="fa fa-shopping-cart"></i>
-			</div>
-			<div class="details">
-				<div class="number">
-					<span data-counter="counterup" data-value="${totalSummary.orderNumbers}">${totalSummary.orderNumbers}</span>(单)
-				</div>
-				<div class="desc">历史订单总数</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat red margin-bottom0">
-			<div class="visual">
-				<i class="fa fa-bar-chart-o"></i>
-			</div>
-			<div class="details">
-				<div class="number">
-					<span data-counter="counterup" data-value="${totalSummary.salesAmount}">${totalSummary.salesAmount}</span>(元)
-				</div>
-				<div class="desc">历史营业总额</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat purple margin-bottom0">
-			<div class="visual">
-				<i class="fa fa-globe"></i>
-			</div>
-			<div class="details">
-				<div class="number">
-					<span data-counter="counterup" data-value="${totalSummary.profitsAmount}">${totalSummary.profitsAmount}</span>(元)
-				</div>
-				<div class="desc">历史利润总额</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!--数据列表-->
-<div class="row">
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div >
-			<div class="portlet-body" style="padding: 0;">
-				<ul id="today_business" class="list-group" style="margin: 0;">
-					<c:if test="${not empty todaykpi}">
-					<li class="list-group-item">今日新增用户数 <span class="fr">
-						${todaykpi.userNumbers} (人)</span></li>
-					</c:if>
-					<c:if test="${not empty yestodaykpi}">
-					<li class="list-group-item">昨日新增用户数 <span class="fr">
-						${yestodaykpi.userNumbers} (人)</span></li>
-					</c:if>
-					<c:if test="${not empty monthkpi}">
-					<li class="list-group-item">本月新增用户数 <span class="fr">
-						${monthkpi.userNumbers} (人)</span></li>
-					</c:if>
-					<c:if test="${not empty lastMonthkpi}">
-					<li class="list-group-item">上月新增用户数 <span class="fr">
-						${lastMonthkpi.userNumbers} (人)</span></li>
-					</c:if>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="portlet box">
-			<div class="portlet-body" style="padding: 0;">
-				<ul id="today_increase" class="list-group" style="margin: 0;">
-					<c:if test="${not empty todaykpi}">
-					<li class="list-group-item">今日订单数 <span class="fr">
-							${todaykpi.orderNumbers} (单)</span></li>
-					</c:if>
-					<c:if test="${not empty yestodaykpi}">
-					<li class="list-group-item">昨日订单数 <span class="fr">
-							${yestodaykpi.orderNumbers} (单)</span></li>
-					</c:if>
-					<c:if test="${not empty monthkpi}">
-					<li class="list-group-item">本月订单数 <span class="fr">
-							${monthkpi.orderNumbers} (单)</span></li>
-					</c:if>
-					<c:if test="${not empty lastMonthkpi}">
-					<li class="list-group-item">上月订单数<span class="fr">
-							${lastMonthkpi.orderNumbers} (单))</span></li>
-					</c:if>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="portlet box">
-			<div class="portlet-body" style="padding: 0;">
-				<ul id="yesterday_business" class="list-group" style="margin: 0;">
-					<c:if test="${not empty todaykpi}">
-					<li class="list-group-item">今日营业额<span class="fr">
-							 ${todaykpi.salesAmount} (元)</span></li>
-					</c:if>
-					<c:if test="${not empty yestodaykpi}">
-					<li class="list-group-item">昨日营业额 <span class="fr">
-							 ${yestodaykpi.salesAmount} (元)</span></li>
-				    </c:if>
-					<c:if test="${not empty monthkpi}">
-					<li class="list-group-item">本月营业额 <span class="fr">
-							 ${monthkpi.salesAmount} (元)</span></li>
-				    </c:if>
-					<c:if test="${not empty lastMonthkpi}">
-				    <li class="list-group-item">上月营业额 <span class="fr">
-							 ${lastMonthkpi.salesAmount} (元)</span></li>
-				    </c:if>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="portlet box" >
-			<div class="portlet-body" style="padding: 0;">
-				<ul id="yesterday_business" class="list-group" style="margin: 0;">
-					<c:if test="${not empty todaykpi}">
-					<li class="list-group-item">今日利润<span class="fr">
-							 ${todaykpi.profitsAmount} (元)</span></li>
-					</c:if>
-					<c:if test="${not empty yestodaykpi}">
-					<li class="list-group-item">昨日利润 <span class="fr">
-							 ${yestodaykpi.profitsAmount} (元)</span></li>
-					</c:if>
-					<c:if test="${not empty monthkpi}">
-					<li class="list-group-item">本月利润<span class="fr">
-							 ${monthkpi.profitsAmount} (元)</span></li>
-				    </c:if>
-					<c:if test="${not empty lastMonthkpi}">
-				    <li class="list-group-item">上月利润<span class="fr">
-							 ${lastMonthkpi.profitsAmount} (元)</span></li>
-				    </c:if>
-				</ul>
-			</div>
-		</div>
+	<div class="portlet-body">
+		<!-- 数据列表 BEGIN -->
+	    <div class="table-scrollable">
+	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
+	            <thead>
+	                <tr>
+						<th scope="col"  style="width: 120px;">日期</th>			
+						<th scope="col"  style="width: 150px;">IP</th>			
+						<th scope="col"  style="width: 150px;">PV(访问量)</th>			
+						<th scope="col"></th>
+				     </tr>
+	            </thead>
+	            <tbody>
+	               <c:forEach var="item" items="${page.pageResults}" varStatus="number">
+	                <tr>      
+						<td><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td>
+						<td>${item.ip}</td>
+						<td>${item.pv}</td>
+						<td></td>
+	                </tr>
+	                </c:forEach>
+	                <c:if test="${empty page.pageResults}">
+	            		<tr><td colspan="4">无</td></tr>
+	            	</c:if>
+	            </tbody>
+	        </table>
+	    </div>
+	    <!-- 数据列表 END -->
+	    
+	    <!-- 底部功能区 BEGIN -->
+	    <div class="row">
+	        <div class="col-md-4 col-sm-12">
+	            
+	        </div>
+	        <!-- 底部功能区 BEGIN -->
+		    <c:if test="${not empty page.pageResults}">
+			    <div class="row">
+			        <!-- 底部分页 -->
+			        <div class="col-md-4 col-sm-12">
+			        	 <jsp:include page="/include/paging_footer.jsp"/>
+			        </div>
+			    </div>
+			</c:if>
+	    </div>
+	    <!-- 底部功能区 END -->
 	</div>
 </div>
-
-<div class="row">
-	<div class="col-lg-12 col-xs-12 col-sm-12">
-		<div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-bar-chart"></i>
-                    <span class="caption-subject bold uppercase"> 营业额</span>
-                    <!-- 
-                    <span class="caption-helper">weekly stats...</span>
-                     -->
-                </div>
-                <div class="actions">
-                	<!-- 
-                    <a href="javascript:;" class="btn btn-circle btn-default">
-                        <i class="fa fa-pencil"></i> Edit </a>
-                    <a href="javascript:;" class="btn btn-circle btn-default">
-                        <i class="fa fa-plus"></i> Add </a>
-                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title=""> </a>
-                     -->
-                </div>
-            </div>
-            <div class="portlet-body">
-            	<div class="portlet-body index-zhuanzt">
-			   <div id="dashboard_amchart_1" class="CSSAnimationChart"	style="height: 350px;"></div>
-				<!--   <div id="dashboard_amchart_1" class="CSSAnimationChart" ></div> -->
-				<a href="javascript:graphicLoading(-1)" data-value="${lastMonth}"
-					id="backoff" title="" class="tubiao-btn-left"><i
-					class="fa fa-chevron-left"></i></a> <a
-					href="javascript:graphicLoading(1)" data-value="${nextMonth}"
-					id="forward" title="" class="tubiao-btn-right"><i
-					class="fa fa-chevron-right"></i></a>
-			</div>
-            </div>
-        </div>
-	</div>
-</div>
-
-<!-- START PAGE SCRIPTS -->
-<script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
+	//初始化时间器
+	initatepicker();
+	//初始化操作权限
+	initOpts();
 
-	jQuery(document).ready(function() {
-		   a();
+	//回车查询
+	$('.search-field').keydown(function(e){
+		if(e.keyCode==13){
+			$(".opt-search").click();
+		}
 	});
 	
+	//点击查询
+	$('.opt-search').click(function(){
+	 	$("#page").val(1);
+		$("#search_from").submit(); 
+	});
+
+	//查询
+	$('#search_from').submit(function() {
+		searchItems();
+	    return false;
+	});
 	
-	var pageSize;
+	//导出
+	$(".opt-export").click(function() { 
+		//refreshPage();
+		var exportUrl = "${pageContext.request.contextPath}/ada-site-stat/export.do?"+$("#search_from").find("[value!='']").serialize();
+		window.location.href = exportUrl;
+	});
 	
-	function a() {
-		var w = $(window).width();
-	 
-		pageSize=500>w ? 7 : (1000>w && w>=500) ? 12 : (1500>w && w>=1000) ? 20 : (2000>w && w>=1500) ? 30 : 30;
-		
-		$("#forward").attr("data-value",1); //下一月
-		$("#backoff").attr("data-value",""); //上一月
-	 
-			graphicLoading(1);
-	}
+	//刷新
+	$(".opt-refresh").click(function() { 
+		refreshPage();
+	});
 
+    //单选
+    $(".opt-select").click(function() { 
+    	 var checkItems = $(".opt-select:checked");
+         if(checkItems.length >0){
+        	 enableOpts();
+         }else{
+        	 disableOpts();
+         }
+    });
 
-	function graphicLoading(obj) {
-
-		var month = null;
-
-		if (obj == 1) { //表示下月数据
-			month = $("#forward").attr("data-value");
-		} else if (obj == -1) { //表示上月数据
-			month = $("#backoff").attr("data-value");
-		} else {
-			//表示被人客户端恶意修改参数
-			return;
-		}
-		if (null == month || "" == month) {
-			toastr.success("已经没有数据了！");
-			return;
-		} else {
-			//ajax读取 上一月的数据
-			jQuery.ajax({
-				url : "${pageContext.request.contextPath}/dashboard/ajaxLoadData.do?page=" + month+"&current="+pageSize,
-				success : function(data) {
-					var json = eval('(' + data + ')');
-					if (json.success) {
-						$("#forward").attr("data-value", json.nextMonth); //下一月
-						$("#backoff").attr("data-value", json.lastMonth); //上一月
-						t(json.order); //调用图形列表方法
-					} else {
-						//toastr.success(json.message);
-					}
-				}
-			});
-		}
-	}
+    //顶部全选
+    $(".opt-select-all").click(function(){
+    	var d = $(".opt-select");
+    	if($(this).prop("checked")){
+    		d.prop("checked",true);
+    		enableOpts();
+    	}else{
+    		d.prop("checked",false);
+    		disableOpts();
+    	}
+    });
+    
+  	//底部全选 
+    $(".btn-select-all").click(function(){
+    	var d = $(".opt-select,.opt-select-all");
+    	if($(".opt-select-all").prop("checked")){
+    		d.prop("checked",false);
+    		disableOpts();
+    	}else{
+    		d.prop("checked",true);
+    		enableOpts();
+    	}
+    });
+    
+    //反选 
+    $(".btn-select-invert").click(function(){
+    	$(".opt-select").each(function(){
+    	   if($(this).prop("checked")){
+    		  $(this).prop("checked",false);
+    	   }else{
+    		  $(this).prop("checked",true); 
+    	   }
+    	});
+    	
+    	if($(".opt-select:checked").length==0){
+    		$(".opt-select-all").prop("checked",false);
+    	}else if($(".opt-select:checked").length == $(".opt-select").length){
+    		$(".opt-select-all").prop("checked",true);
+    	}
+    	
+    	if($(".opt-select:checked").length > 0){
+    		enableOpts();
+    	}else{
+    		disableOpts();
+    	}
+    });
+    
+    //单条删除
+    $(".opt-delete").confirmation({
+        btnOkClass: "btn btn-sm btn-success",btnCancelClass: "btn btn-sm btn-default", placement: "top",
+        title: "确认删除？",btnOkLabel:"确认",btnCancelLabel:"取消",
+        onConfirm: function(){
+            deleteItems($(this).attr("data-id"));
+        }
+	});
+    
+    //批量删除
+    $(".opt-batch-delete").confirmation({
+ 	        btnOkClass: "btn btn-sm btn-success",btnCancelClass: "btn btn-sm btn-default",placement: "top",
+ 	        title: "确认删除？", btnOkLabel:"确认",btnCancelLabel:"取消",
+ 	        onConfirm: function(){
+ 	        	var ids="";
+              	$(".opt-select:checked").each(function(){
+              		ids=ids+$(this).val()+",";
+              	});
+              	if(ids!=null){
+              		deleteItems(ids);
+              	}
+ 	        }
+ 	 });
+ 	 
+ 	 //查询
+     var searchItems = function(){
+     	$("[data-opt-key]").each(function(){
+ 			console.log($(this).attr("data-opt-key")+":"+$(this).attr("name"));
+ 		});
+     
+     
+ 		var queryString = "";
+ 		$("#search_from").find("[name]").each(function(){
+ 			if($(this).val()!='' && $(this).val() !='undefined' && $(this).val() !=undefined){
+ 				queryString += "&"+$(this).attr("name") + "=" +$(this).val();
+ 			}
+ 		});
+ 		if(queryString != ""){
+ 			queryString = "?"+queryString.substring(1,queryString.length);
+ 		}
+    	var url =  $("#search_from").attr("action")+queryString;
+		gotoPage(url);
+     };
+    
+     //删除记录
+     var deleteItems = function(ids){
+    	 jQuery.ajax({
+      		url:"${pageContext.request.contextPath}/ada-site-stat/delete.do?id="+ids,
+      		success:function(ret){
+      			if(ret.success){
+      				toastr.success(ret.message);
+      				refreshPage();
+      			}else{
+      				toastr.error(ret.message);
+      			}
+      		}
+      	});
+     };
+     
+     var enableOpts = function(){
+    	 $('.opt-depend-select').addClass('red').removeClass('disabled');
+     };
+     
+     var disableOpts = function(){
+    	 $('.opt-depend-select').removeClass('red').addClass('disabled');
+     };
 </script>
 
-<!-- END PAGE SCRIPTS -->
+<!-- 侧拉编辑栏 BEGIN -->
+<div class="page-quick-sidebar-wrapper" data-close-on-body-click="false">
+	<div class="page-quick-sidebar">
+        <div class="tab-pane page-quick-sidebar-settings">
+            <div class="page-quick-sidebar-settings-list">
+                <h3 class="list-heading" style="color: #fff">编辑</h3>
+                <div class="list-items">
+					<form id="edit_form" action="${pageContext.request.contextPath}/ada-site-stat/update.do" class="form-horizontal" method="post">
+			        	<input type="hidden" name="id">
+		               	<div class="form-body">
+			               	<div class="form-group">
+			               		<label class="col-md-4 control-label">站点ID</label>	
+			               		<div class="col-md-8">
+					                <input type="text" name="siteId" class="form-control"  maxlength="10">
+								</div>
+			               	</div>
+			               	<div class="form-group">
+			               		<label class="col-md-4 control-label">IP</label>	
+			               		<div class="col-md-8">
+					                <input type="text" name="ip" class="form-control"  maxlength="10">
+								</div>
+			               	</div>
+			               	<div class="form-group">
+			               		<label class="col-md-4 control-label">PV</label>	
+			               		<div class="col-md-8">
+					                <input type="text" name="pv" class="form-control"  maxlength="10">
+								</div>
+			               	</div>
+			               	<div class="form-group">
+			               		<label class="col-md-4 control-label">日期</label>	
+			               		<div class="col-md-8">
+									<input name="date" class="form-control form-control-inline datepick" type="text" data-date-format="yyyy-mm-dd" value="<fmt:formatDate value="${adaSiteStat.date}" pattern="yyyy-MM-dd"/>"  readonly="readonly">
+								</div>
+			               	</div>
+			               	<div class="form-group">
+			               		<label class="col-md-4 control-label">创建时间</label>	
+			               		<div class="col-md-8">
+									<input name="createTime" class="form-control form-control-inline datetimepick" type="text" data-date-format="yyyy-mm-dd hh:ii:ss" value="<fmt:formatDate value="${adaSiteStat.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly">
+								</div>
+			               	</div>
+		               	</div>  
+			        </form> 
+			    </div>
+            </div>
+        </div>
+        <div class="inner-content staff-quick-slider clearfix">
+        	<span class="fa fa-trash-o opt-edit-delete"></span>
+            <button id="opt-cancel" class="btn btn-default">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            <button id="opt-update" class="btn btn-success" ><i class="fa fa-check"></i>&nbsp;&nbsp;保存&nbsp;&nbsp;</button>  
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	//编辑
+    $('.opt-edit').click(function(){
+    	 var id = $(this).attr("data-id");
+    		 $.ajax({  
+                 url : "${pageContext.request.contextPath}/ada-site-stat/get.do",
+                 data : {"id" : id},
+                 success : function(ret) {
+                 		$("#edit_form").find("[name='id']").val(ret.entity.id);
+                 		$("#edit_form").find("[name='siteId']").val(ret.entity.siteId);
+                 		$("#edit_form").find("[name='ip']").val(ret.entity.ip);
+                 		$("#edit_form").find("[name='pv']").val(ret.entity.pv);
+                 		$("#edit_form").find("[name='date']").val(ret.entity.date);
+                 		$("#edit_form").find("[name='createTime']").val(ret.entity.createTime);
+                 }  
+             });
+        $("body").toggleClass("page-quick-sidebar-open");
+    });
+   
+    //取消
+    $("#opt-cancel").click(function(){
+    	$("body").toggleClass("page-quick-sidebar-open");
+    });
+    
+    //回车自动保存
+	$('#edit_form').find("input").keydown(function(e){
+		if(e.keyCode==13){
+		   $("#opt-update").click();
+		}
+	});
+	
+	//保存更新
+    $("#opt-update").click(function(){
+    	if(!$(this).hasClass("disabled")){
+    		$(this).addClass("disabled");
+    		$('#edit_form').ajaxSubmit({
+    		   success:function(ret){
+	       		 	if(ret.success){
+	       		 		$(this).clearForm();
+	       				$("body").toggleClass("page-quick-sidebar-open");
+	              	 	toastr.success('保存成功');
+	              	 	refreshPage();
+	             	}else{
+	      				toastr.error(ret.message);
+	      			}
+	       		    $("#opt-update").removeClass("disabled");
+    			},
+    		   error:function(){
+    			    toastr.error("系统错误");
+    			    $("#opt-update").removeClass("disabled");
+    		   }
+           });
+    	}
+    });
+    
+    //删除
+    $(".opt-edit-delete").confirmation({
+        btnOkClass: "btn btn-sm btn-success",btnCancelClass: "btn btn-sm btn-default",placement: "right",
+        title: "确认删除？", btnOkLabel:"确认",btnCancelLabel:"取消",
+        onConfirm: function(){
+        	var id = $("#edit_form").find("[name='id']").val();
+        	jQuery.ajax({
+          		url:"${pageContext.request.contextPath}/ada-site-stat/delete.do?id="+id,
+          		success:function(ret){
+          			if(ret.success){
+          				$("body").toggleClass("page-quick-sidebar-open");
+	           			toastr.success(ret.message);
+	           			refreshPage();
+                   	 }else{
+           				toastr.error(ret.message);
+           			}
+          		}
+          	});
+        }
+	 });
+</script>
+<!-- 侧拉编辑栏 END -->
+

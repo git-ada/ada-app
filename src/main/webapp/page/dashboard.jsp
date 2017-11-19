@@ -26,7 +26,7 @@
 
 <div class="row">
 
-	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		<div class="dashboard-stat green margin-bottom0">
 			<div class="visual">
 				<i class="fa fa-shopping-cart"></i>
@@ -40,7 +40,7 @@
 		</div>
 	</div>
 	
-	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		<div class="dashboard-stat blue margin-bottom0">
 			<div class="visual">
 				<i class="fa fa-comments"></i>
@@ -55,8 +55,22 @@
 	</div>
 	
 
-	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		<div class="dashboard-stat red margin-bottom0">
+			<div class="visual">
+				<i class="fa fa-bar-chart-o"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					<span data-counter="counterup" data-value="${totalSummary.salesAmount}">--</span>(--)
+				</div>
+				<div class="desc"></div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat purple margin-bottom0">
 			<div class="visual">
 				<i class="fa fa-bar-chart-o"></i>
 			</div>
@@ -72,27 +86,19 @@
 </div>
 
 <!--数据列表-->
-<%-- <div class="row">
+<div class="row" style="display: none;">
 	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		<div >
 			<div class="portlet-body" style="padding: 0;">
 				<ul id="today_business" class="list-group" style="margin: 0;">
-					<c:if test="${not empty todaykpi}">
-					<li class="list-group-item">今日新增用户数 <span class="fr">
-						${todaykpi.userNumbers} (人)</span></li>
-					</c:if>
-					<c:if test="${not empty yestodaykpi}">
-					<li class="list-group-item">昨日新增用户数 <span class="fr">
-						${yestodaykpi.userNumbers} (人)</span></li>
-					</c:if>
-					<c:if test="${not empty monthkpi}">
-					<li class="list-group-item">本月新增用户数 <span class="fr">
-						${monthkpi.userNumbers} (人)</span></li>
-					</c:if>
-					<c:if test="${not empty lastMonthkpi}">
-					<li class="list-group-item">上月新增用户数 <span class="fr">
-						${lastMonthkpi.userNumbers} (人)</span></li>
-					</c:if>
+					<li class="list-group-item">今日新增独立IP数 <span class="fr">
+						${todaykpi.userNumbers} (IP)</span></li>
+					<li class="list-group-item">昨日新增独立IP数 <span class="fr">
+						${yestodaykpi.userNumbers} (IP)</span></li>
+					<li class="list-group-item">本月新增独立IP数 <span class="fr">
+						${monthkpi.userNumbers} (IP)</span></li>
+					<li class="list-group-item">上月新增独立IP数<span class="fr">
+						${lastMonthkpi.userNumbers} (IP)</span></li>
 				</ul>
 			</div>
 		</div>
@@ -101,22 +107,14 @@
 		<div class="portlet box">
 			<div class="portlet-body" style="padding: 0;">
 				<ul id="today_increase" class="list-group" style="margin: 0;">
-					<c:if test="${not empty todaykpi}">
-					<li class="list-group-item">今日订单数 <span class="fr">
-							${todaykpi.orderNumbers} (单)</span></li>
-					</c:if>
-					<c:if test="${not empty yestodaykpi}">
-					<li class="list-group-item">昨日订单数 <span class="fr">
-							${yestodaykpi.orderNumbers} (单)</span></li>
-					</c:if>
-					<c:if test="${not empty monthkpi}">
-					<li class="list-group-item">本月订单数 <span class="fr">
-							${monthkpi.orderNumbers} (单)</span></li>
-					</c:if>
-					<c:if test="${not empty lastMonthkpi}">
-					<li class="list-group-item">上月订单数<span class="fr">
-							${lastMonthkpi.orderNumbers} (单))</span></li>
-					</c:if>
+					<li class="list-group-item">今日访问量 <span class="fr">
+							${todaykpi.orderNumbers} (PV)</span></li>
+					<li class="list-group-item">昨日访问量 <span class="fr">
+							${yestodaykpi.orderNumbers} (PV)</span></li>
+					<li class="list-group-item">本月访问量 <span class="fr">
+							${monthkpi.orderNumbers} (PV)</span></li>
+					<li class="list-group-item">上月访问量<span class="fr">
+							${lastMonthkpi.orderNumbers} (PV)</span></li>
 				</ul>
 			</div>
 		</div>
@@ -126,22 +124,14 @@
 		<div class="portlet box">
 			<div class="portlet-body" style="padding: 0;">
 				<ul id="yesterday_business" class="list-group" style="margin: 0;">
-					<c:if test="${not empty todaykpi}">
-					<li class="list-group-item">今日营业额<span class="fr">
-							 ${todaykpi.salesAmount} (元)</span></li>
-					</c:if>
-					<c:if test="${not empty yestodaykpi}">
-					<li class="list-group-item">昨日营业额 <span class="fr">
-							 ${yestodaykpi.salesAmount} (元)</span></li>
-				    </c:if>
-					<c:if test="${not empty monthkpi}">
-					<li class="list-group-item">本月营业额 <span class="fr">
-							 ${monthkpi.salesAmount} (元)</span></li>
-				    </c:if>
-					<c:if test="${not empty lastMonthkpi}">
-				    <li class="list-group-item">上月营业额 <span class="fr">
-							 ${lastMonthkpi.salesAmount} (元)</span></li>
-				    </c:if>
+					<li class="list-group-item">今日--<span class="fr">
+							 ${todaykpi.salesAmount} (-)</span></li>
+					<li class="list-group-item">昨日-- <span class="fr">
+							 ${yestodaykpi.salesAmount} (-)</span></li>
+					<li class="list-group-item">本月-- <span class="fr">
+							 ${monthkpi.salesAmount} (-)</span></li>
+				    <li class="list-group-item">上月-- <span class="fr">
+							 ${lastMonthkpi.salesAmount} (-)</span></li>
 				</ul>
 			</div>
 		</div>
@@ -151,29 +141,21 @@
 		<div class="portlet box" >
 			<div class="portlet-body" style="padding: 0;">
 				<ul id="yesterday_business" class="list-group" style="margin: 0;">
-					<c:if test="${not empty todaykpi}">
-					<li class="list-group-item">今日利润<span class="fr">
-							 ${todaykpi.profitsAmount} (元)</span></li>
-					</c:if>
-					<c:if test="${not empty yestodaykpi}">
-					<li class="list-group-item">昨日利润 <span class="fr">
-							 ${yestodaykpi.profitsAmount} (元)</span></li>
-					</c:if>
-					<c:if test="${not empty monthkpi}">
-					<li class="list-group-item">本月利润<span class="fr">
-							 ${monthkpi.profitsAmount} (元)</span></li>
-				    </c:if>
-					<c:if test="${not empty lastMonthkpi}">
-				    <li class="list-group-item">上月利润<span class="fr">
-							 ${lastMonthkpi.profitsAmount} (元)</span></li>
-				    </c:if>
+					<li class="list-group-item">今日--<span class="fr">
+							 ${todaykpi.profitsAmount} (-)</span></li>
+					<li class="list-group-item">昨日-- <span class="fr">
+							 ${yestodaykpi.profitsAmount} (-)</span></li>
+					<li class="list-group-item">本月--<span class="fr">
+							 ${monthkpi.profitsAmount} (-)</span></li>
+				    <li class="list-group-item">上月--<span class="fr">
+							 ${lastMonthkpi.profitsAmount} (-)</span></li>
 				</ul>
 			</div>
 		</div>
 	</div>
-</div> --%>
+</div>
 
-<div class="row" style="">
+<div class="row" style="display: none;">
 	<div class="col-lg-12 col-xs-12 col-sm-12">
 		<div class="portlet light bordered">
             <div class="portlet-title">
@@ -204,7 +186,7 @@
 					href="javascript:graphicLoading(1)" data-value="${nextMonth}"
 					id="forward" title="" class="tubiao-btn-right"><i
 					class="fa fa-chevron-right"></i></a>
-			</div>
+				</div>
             </div>
         </div>
 	</div>
@@ -284,7 +266,7 @@
 	}
 
 
-	/* function graphicLoading(obj) {
+	 function graphicLoading(obj) {
 		//t();
 		var month = null;
 
@@ -315,7 +297,7 @@
 				}
 			});
 		}
-	} */
+	} 
 </script>
 
 <!-- END PAGE SCRIPTS -->
