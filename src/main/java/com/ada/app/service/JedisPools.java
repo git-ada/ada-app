@@ -89,4 +89,12 @@ public class JedisPools implements InitializingBean{
 	public Jedis getResource(Integer dbindex){
 		return jedisPools.get(dbindex).getResource();
 	}
+	
+	public void returnResource(Jedis jedis) {
+		jedisPools.get(defualtDBindex).returnResource(jedis);
+    }
+
+	public void returnResource(Integer dbindex,Jedis jedis) {
+		jedisPools.get(dbindex).returnResource(jedis);
+    }
 }
