@@ -136,7 +136,6 @@ function adaQueryChannelId() {
 		}
 		if (!httprequest) {
 			console.log("初始化Httprequest失败");
-			alert("初始化ADA Httprequest失败");
 		}
 		var encodeURI = encodeURIComponent(window.location.href);
 		httprequest.open("get",adaLogServer+"/q?u="+adaClientId+"&s="+adaSiteId+"&p="+encodeURI+"&t="+Date.parse(new Date()),true); 
