@@ -160,7 +160,7 @@
 	</div>
 </div>
 
-<div class="row" style="margin-top: 30px;">
+<div class="row" style="margin-top: 30px;display: none;">
 	<div class="col-lg-12 col-xs-12 col-sm-12">
 		<div class="portlet light bordered">
             <div class="portlet-title">
@@ -197,7 +197,7 @@
 	</div>
 </div>
 
-<div class="portlet-body">
+<div class="portlet-body" style="margin-top: 25px;">
 		<!-- 数据列表 BEGIN -->
 	    <div class="table-scrollable">
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
