@@ -4,6 +4,9 @@ import java.util.List;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.math.BigDecimal;
+
+import org.springframework.data.jpa.repository.Query;
+
 import cn.com.jiand.mvc.framework.dao.jpa.EntityJpaDao;
 import com.ada.app.domain.AdaSiteStat;
 
@@ -38,5 +41,6 @@ public interface AdaSiteStatDao extends EntityJpaDao<AdaSiteStat, Integer> {
      */
 	public List<AdaSiteStat> findByCreateTime(Timestamp createTime);
 
-
+	@Query(value="select * from ada_site_stat where siteId=? order by date desc limit ?,30",nativeQuery=true)
+	public List<AdaSiteStat> findBySiteIdOrderByDate(Integer siteId,Integer pageStart);
 }

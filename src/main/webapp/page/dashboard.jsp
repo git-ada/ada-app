@@ -16,11 +16,11 @@
     <ul class="page-breadcrumb" style="width: 100%">
         <li>
             <i class="icon-home"></i>
-            <a href="/manage/index.jhtm">首页</a>
+            	首页
             <i class="fa fa-angle-right"></i>
         </li>
          <li>
-            <span>首页</span>
+            <span>实时数据</span>
         </li>
     </ul>
 </div>
@@ -33,9 +33,9 @@
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${siteStat.ip}">${siteStat.ip}</span>(个)
+					<span data-counter="counterup" data-value="${siteStat.ip}" id="ip">${siteStat.ip}</span>(个)
 				</div>
-				<div class="desc">今日独立IP数</div>
+				<div class="desc">今日全站独立IP数</div>
 			</div>
 			<a class="more" href="#"> <i class="m-icon-swapright m-icon-white"></i></a>
 			</a>
@@ -49,9 +49,9 @@
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${siteStat.pv}">${siteStat.pv}</span>(页)
+					<span data-counter="counterup" data-value="${siteStat.pv}" id="pv">${siteStat.pv}</span>(页)
 				</div>
-				<div class="desc">今日访问量</div>
+				<div class="desc">今日全站访问量</div>
 			</div>
 			<a class="more" href="#"> <i class="m-icon-swapright m-icon-white"></i></a>
 		</div>
@@ -64,9 +64,9 @@
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${totalSummary.salesAmount}">--</span>(--)
+					<span data-counter="counterup" data-value="${channelSumIP}" id="cip">${channelSumIP}</span>(个)
 				</div>
-				<div class="desc"></div>
+				<div class="desc">今日渠道独立IP数</div>
 			</div>
 			<a class="more" href="#"> <i class="m-icon-swapright m-icon-white"></i></a>
 		</div>
@@ -79,9 +79,9 @@
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${totalSummary.salesAmount}">--</span>(--)
+					<span data-counter="counterup" data-value="${channelSumPV}" id="cpv">${channelSumPV}</span>(页)
 				</div>
-				<div class="desc"></div>
+				<div class="desc">今日渠道访问量</div>
 			</div>
 			<a class="more" href="#"> <i class="m-icon-swapright m-icon-white"></i></a>
 			</a>
@@ -160,13 +160,13 @@
 	</div>
 </div>
 
-<div class="row" style="display: none;">
+<div class="row" style="margin-top: 30px;">
 	<div class="col-lg-12 col-xs-12 col-sm-12">
 		<div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption">
                     <i class="icon-bar-chart"></i>
-                    <span class="caption-subject bold uppercase"> 访问量</span>
+                    <span class="caption-subject bold uppercase"> 历史访问量</span>
                     <!-- 
                     <span class="caption-helper">weekly stats...</span>
                      -->
@@ -212,13 +212,12 @@
 						<th scope="col" style="width: 100px;">6-10次点击</th>			
 						<th scope="col" style="width: 100px;">10+次点击</th>			
 						<th scope="col" style="width: 100px;">进入目标页</th>
-						<th scope="col"></th>				
 				     </tr>
 	            </thead>
-	            <tbody>
+	            <%request.setAttribute("today", new Date()); %>
+	            <tbody id="tbody">
 	               <c:forEach var="item" items="${pageResults}" varStatus="number">
 	                <tr>
-	                    <%request.setAttribute("today", new Date()); %>
 	                	<td style=""><fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/></td>      
 						<td style="">${item.channelName}</td>
 						<td style="">${item.ip}</td>
@@ -228,13 +227,12 @@
 						<td style="">${item.clickip3}</td>
 						<td style="">${item.clickip4}</td>
 						<td style="">${item.targetpageip}</td>
-						<td style=""></td>
 	                </tr>
 	                </c:forEach>
 	            </tbody>
 	        </table>
 	    </div>
-	    <!-- 数据列表 END -->>
+	    <!-- 数据列表 END -->
 	</div>
 
 <!-- START PAGE SCRIPTS -->
@@ -261,37 +259,77 @@
 
 
 	 function graphicLoading(obj) {
-		//t();
-		var month = null;
+		var pageNo = 1;
 
-		if (obj == 1) { //表示下月数据
-			month = $("#forward").attr("data-value");
+		if (obj == 1) { //表示下页数据
+			pageNo = $("#forward").attr("data-value");
 		} else if (obj == -1) { //表示上月数据
-			month = $("#backoff").attr("data-value");
+			pageNo = $("#backoff").attr("data-value");
 		} else {
 			//表示被人客户端恶意修改参数
 			return;
 		}
-		if (null == month || "" == month) {
+		if (null == pageNo || "" == pageNo) {
 			toastr.success("已经没有数据了！");
 			return;
 		} else {
 			//ajax读取 上一月的数据
 			jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajaxLoadData.do?page=" + month+"&current="+pageSize,
+				url : "${pageContext.request.contextPath}/ajaxLoadData.do?pageNo=" + pageNo,
 				success : function(data) {
 					var json = eval('(' + data + ')');
 					if (json.success) {
-						$("#forward").attr("data-value", json.nextMonth); //下一月
-						$("#backoff").attr("data-value", json.lastMonth); //上一月
+						$("#forward").attr("data-value", json.nextMonth); //下一页
+						$("#backoff").attr("data-value", json.lastMonth); //上一页
 						t(json.order); //调用图形列表方法
 					} else {
-						//toastr.success(json.message);
+						/* $("#forward").attr("data-value", json.nextMonth); //下一页
+						$("#backoff").attr("data-value", json.lastMonth); //上一页
+						t(json.order) */
+						toastr.success(json.message);
 					}
 				}
 			});
 		}
 	} 
+	 
+	   /*  window.setInterval(function(){
+		 gotoPage("${pageContext.request.contextPath}/dashboard.jhtm");
+	 },5000);     */
+		 window.setInterval(function(){
+			 jQuery.ajax({
+					url : "${pageContext.request.contextPath}/ajaxRefreshPage.do",
+					success : function(data) {
+						if (data!=null) {
+							var json = eval('(' + data + ')');
+							$("#ip").html(json.siteStat.ip);
+							$("#pv").html(json.siteStat.pv);
+							$("#cip").html(json.channelSumIP);
+							$("#cpv").html(json.channelSumPV);
+							
+							var list = json.ChannelStat_list;
+							var open = "";
+							for(var i=0;i<list.length;i++){
+								var tr = "";
+								 tr+="<tr><td><fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/></td>" + 
+								      "<td>"+list[i].channelName+"</td>"+
+									  "<td>"+list[i].ip+"</td>"+
+									  "<td>"+list[i].pv+"</td>"+
+									  "<td>"+list[i].clickip1+"</td>"+
+									  "<td>"+list[i].clickip2+"</td>"+
+									  "<td>"+list[i].clickip3+"</td>"+
+									  "<td>"+list[i].clickip4+"</td>"+
+									  "<td>"+list[i].targetpageip+"</td></tr>";
+								open+=tr;
+							}
+							jQuery("#tbody").empty();
+							jQuery("#tbody").append(open);
+						}
+					}
+				});
+		 },5000); 
+	   
+	 
 </script>
 
 <!-- END PAGE SCRIPTS -->

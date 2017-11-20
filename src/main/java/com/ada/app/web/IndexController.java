@@ -3,6 +3,8 @@ package com.ada.app.web;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +17,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -98,6 +102,8 @@ public class IndexController {
 		/** 获取站点下渠道统计信息 **/
 		 List<Map> ChannelStat_list = new ArrayList<Map>();
 		 List<AdaChannel> channels = adaChannelDao.findBySiteId(adaSite.getId());
+		 Integer channelSumIP = 0;/** 渠道ip总数 **/
+		 Integer channelSumPV = 0;/** 渠道PV总数 **/
 		 for (AdaChannel adaChannel : channels) {
 			 ChannelStat channelStat =  statService.statChannel(adaSite.getId(), adaChannel.getId(), today);
 			 Map map = new HashMap();
@@ -110,31 +116,99 @@ public class IndexController {
 			 map.put("clickip4", channelStat.getClickip4());
 			 map.put("targetpageip", channelStat.getTargetpageip());
 			 
+			 channelSumIP+=channelStat.getIp();
+			 channelSumPV+=channelStat.getPv();
 			 ChannelStat_list.add(map);
 		}
-		 model.addAttribute("pageResults", ChannelStat_list);
+		 /** 根据ip数排序 **/
+		 Collections.sort(ChannelStat_list,new Comparator<Map>(){
+				public int compare(Map map1, Map map2) {
+					Integer integer = (Integer) map1.get("ip");
+					Integer integer2 = (Integer) map2.get("ip");
+					return integer2.compareTo(integer);
+				}
+	        });
 		 
+		 model.addAttribute("pageResults", ChannelStat_list);
+		 model.addAttribute("channelSumIP", channelSumIP);
+		 model.addAttribute("channelSumPV", channelSumPV);
 		 model.addAttribute("siteStat", siteStat);
 		return "dashboard";
 	}
 	
 	@RequestMapping("ajaxLoadData")
 	public void ajaxLoadData(HttpServletRequest request,HttpServletResponse response ,Model model){
-		
-		String page=null==request.getParameter("page")?"1":request.getParameter("page").isEmpty()?"1":request.getParameter("page");
-		Integer pageSize=Integer.parseInt(request.getParameter("current"));
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();//
+		Integer pageNo=Integer.parseInt(request.getParameter("pageNo"));
 		
 		try {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print(this.graphicList(1));
+			out.print(this.graphicList(adaSite.getId(),pageNo));
 			out.flush();
 			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+	/** ajax刷新页面信息 **/
+	@RequestMapping("ajaxRefreshPage")
+	public void ajaxRefreshPage(HttpServletRequest request,HttpServletResponse response ,Model model){
+		
+		JSONArray array=new JSONArray();
+		JSONObject json=new JSONObject();
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();//
+		
+		/** 获取当前站点统计信息 **/
+		Date today = Dates.todayStart();
+		SiteStat siteStat = statService.statSite(adaSite.getId(), today);
+		
+		/** 获取站点下渠道统计信息 **/
+		 List<Map> ChannelStat_list = new ArrayList<Map>();
+		 List<AdaChannel> channels = adaChannelDao.findBySiteId(adaSite.getId());
+		 Integer channelSumIP = 0;/** 渠道ip总数 **/
+		 Integer channelSumPV = 0;/** 渠道PV总数 **/
+		 for (AdaChannel adaChannel : channels) {
+			 ChannelStat channelStat =  statService.statChannel(adaSite.getId(), adaChannel.getId(), today);
+			 Map map = new HashMap();
+			 map.put("channelName",adaChannelDao.findById(channelStat.getChannelId()).getChannelName());
+			 map.put("ip", channelStat.getIp());
+			 map.put("pv", channelStat.getPv());
+			 map.put("clickip1", channelStat.getClickip1());
+			 map.put("clickip2", channelStat.getClickip2());
+			 map.put("clickip3", channelStat.getClickip3());
+			 map.put("clickip4", channelStat.getClickip4());
+			 map.put("targetpageip", channelStat.getTargetpageip());
+			 
+			 channelSumIP+=channelStat.getIp();
+			 channelSumPV+=channelStat.getPv();
+			 ChannelStat_list.add(map);
+		}
+		 /** 根据ip数排序 **/
+		 Collections.sort(ChannelStat_list,new Comparator<Map>(){
+				public int compare(Map map1, Map map2) {
+					Integer integer = (Integer) map1.get("ip");
+					Integer integer2 = (Integer) map2.get("ip");
+					return integer2.compareTo(integer);
+				}
+	        });
+		 json.put("siteStat", siteStat);
+		 json.put("channelSumIP", channelSumIP);
+		 json.put("channelSumPV", channelSumPV);
+		 json.put("ChannelStat_list", ChannelStat_list);
+		 
+		 try {
+				response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.print(json);
+				out.flush();
+				out.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
 	
 	
 	@RequestMapping(value = "site-jscode")
@@ -150,19 +224,17 @@ public class IndexController {
 	/**
 	 * 获取图形列表的数据
 	 */
-	protected JSONObject graphicList(Integer siteId) {
+	protected JSONObject graphicList(Integer siteId,Integer pageNo) {
 		
 		JSONArray array=new JSONArray();
 		JSONObject json=new JSONObject();
 		try {
-	/*		if(pageNo<1){
+			if(pageNo== null || pageNo<1){
 				json.put("success", false);
 				json.put("message", "暂无统计数据！");
 				return json;
-			}*/
-			
-			List<AdaSiteStat> list = this.adaSiteStatDao.findBySiteId(siteId);
-			
+			}
+			List<AdaSiteStat> list = this.adaSiteStatDao.findBySiteIdOrderByDate(siteId,(pageNo-1)*30);
 			if(null==list || list.isEmpty()){
 				json.put("success", false);
 				json.put("message", "暂无统计数据！");
@@ -184,8 +256,8 @@ public class IndexController {
 			}
 			
 			json.put("success", true);
-			json.put("nextMonth", 10);
-			json.put("lastMonth", 11);
+			json.put("nextMonth", pageNo-1);
+			json.put("lastMonth", pageNo+1);
 			json.put("order", array);
 			
 		} catch (Exception e) {
@@ -194,5 +266,6 @@ public class IndexController {
 		
 		return json;
 	}
+
 	
 }
