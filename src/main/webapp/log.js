@@ -147,7 +147,7 @@ function adaQueryChannelId() {
 				   console.log("查询渠道ID,ret->"+ret);
 				   if(ret != null && ret!= "undefined" && ret != ""){
 					   adaChannelId = ret;
-					   document.cookie = "adaChannelId="+adaChannelId+";expires=100000000000000";
+					   document.cookie = "adaChannelId="+adaChannelId+";expires="+adaGetLongTimeExpires();
 				   }
 				   adaPutLog1();
 				}else{
