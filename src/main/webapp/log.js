@@ -190,10 +190,12 @@ function adaPutLog1() {
 
 function adaPutLog2() {
 	try{
-		var httprequest = getHttpRequest();
-		var encodeURI = encodeURIComponent(window.location.href);
-		httprequest.open("get", adaLogServer + "/l2?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMouseClickTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
-		httprequest.send();
+		if(adaChannelId!=null &&  adaChannelId != ""){
+			var httprequest = getHttpRequest();
+			var encodeURI = encodeURIComponent(window.location.href);
+			httprequest.open("get", adaLogServer + "/l2?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMouseClickTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
+			httprequest.send();
+		}
 	} catch(e){
 	}
 }
