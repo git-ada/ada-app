@@ -16,8 +16,8 @@
 		<property name="user" value="${jdbc.username}"></property>
 		<property name="password" value="${jdbc.password}"></property>
 		<property name="alias" value="jiandan"></property>
-		<property name="minimumConnectionCount" value="2"></property>
-		<property name="maximumConnectionCount" value="5"></property>
+		<property name="minimumConnectionCount" value="20"></property>
+		<property name="maximumConnectionCount" value="50"></property>
 		<property name="maximumActiveTime" value="300000"></property>
 		<property name="simultaneousBuildThrottle" value="10"></property>
 		<property name="prototypeCount" value="3"></property>
