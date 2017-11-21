@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>${platformName}</title>
+        <title>钻石统计</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	
                         <ul class="nav navbar-nav pull-right">
                         	<li >
-                        		<span style="display:block;height:50px;color: #ffffff;vertical-align: bottom;margin:19px; font-size: 13px;font-family: 微软雅黑">${platformName}</span>
+                        		<span style="display:block;color: #ffffff;vertical-align: bottom;margin:18px; font-size: 13px;font-family: 微软雅黑">${platformName}</span>
                         	</li>
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
