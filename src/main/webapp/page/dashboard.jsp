@@ -270,7 +270,7 @@
 			return;
 		}
 		if (null == pageNo || "" == pageNo) {
-			toastr.success("已经没有数据了！");
+			//toastr.success("已经没有数据了！");
 			return;
 		} else {
 			//ajax读取 上一月的数据
@@ -286,7 +286,7 @@
 						/* $("#forward").attr("data-value", json.nextMonth); //下一页
 						$("#backoff").attr("data-value", json.lastMonth); //上一页
 						t(json.order) */
-						toastr.success(json.message);
+						//toastr.success(json.message);
 					}
 				}
 			});
@@ -327,7 +327,7 @@
 						}
 					}
 				});
-		 },5000); 
+		 },2000); 
 	   
 	 
 </script>
