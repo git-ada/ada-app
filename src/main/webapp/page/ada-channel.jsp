@@ -21,54 +21,19 @@
 </div>
 <!-- 顶部导航 END-->
 <div class="portlet light">
-	<div class="portlet-title">
-		<!-- 顶部搜索栏 BEGIN -->
-		<div class="row">
-			<div class="col-md-10 col-sm-12 left">
-		    <div class="caption">
-				<div class="clearfix ">
-				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-channel/list.jhtm" method="get">
-				    	<!--
-				    		支持操作符 :EQ, NOTEQ , LIKE, LLIKE, RLIKE, NLIKE, GT, LT, GTE, LTE, IN, NOTIN, NULL, NOTNULL,
-				    		如:search_EQ_name 会自动添加条件，like '%value%';
-				    	-->
-				    	<!-- 页码  -->
-					    <input type="hidden" id="page" name="page">
-						<div class="row">
-							<div class="col-md-3 col-sm-12">
-								<input type="text" class="form-control search-field input-medium" name="search_LIKE_channelName" value="${param.search_LIKE_channelName}"  placeholder="渠道名称"/>
-							</div>
-						    <div class="col-md-1 col-sm-12">
-						    	<button class="btn  btn-default opt-search" type="button" >&nbsp;&nbsp;搜索&nbsp;&nbsp;<i class="fa fa-search">&nbsp;&nbsp;</i></button>
-						    </div>
-						</div>
-				    </form>
-				 </div>
-		    </div>
-		    </div>
-		    <!-- 顶部搜索栏 END -->
-		    
-		    <!-- 右上角工具栏 BEGIN -->
-		    <div class="col-md-2 col-sm-12 right">
-	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-channel/export"><span>导出表格</span></a>
-	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a>
-		    </div>
-	    </div>
-	    <!-- 右上角工具栏 END -->
-	</div>
 	<div class="portlet-body">
 		<div class="row">
 			<!-- 左上角功能区 BEGIN -->
-		    <div class="col-md-6 col-sm-12">
-		       <button type="button" class="btn btn-default" onclick="gotoPage('${pageContext.request.contextPath}/ada-channel/create.jhtm')" data-opt-key="/ada-channel/create"><i class="fa fa-plus"></i>&nbsp;&nbsp;添加&nbsp;&nbsp;</button>
+			<div class="col-md-3 col-sm-12">
+				<input type="text" class="form-control search-field input-big" name="search_LIKE_channelName" value="${param.search_LIKE_channelName}"  placeholder="渠道名称"/>
+			</div>
+		    <div class="col-md-1 col-sm-12">
+		    	<button class="btn  btn-default opt-search" type="button" >&nbsp;&nbsp;搜索&nbsp;&nbsp;<i class="fa fa-search">&nbsp;&nbsp;</i></button>
+		    </div>
+		    <div class="col-md-3 col-sm-12">
+		       <button type="button" class="btn btn-default" onclick="gotoPage('${pageContext.request.contextPath}/ada-channel/create.jhtm')" ><i class="fa fa-plus"></i>&nbsp;&nbsp;添加渠道&nbsp;&nbsp;</button>
 		    </div>
 		    <!-- 左上角功能区 END -->
-		    
-		    <!-- 头部分页 BEGIN-->
-		    <div class="col-md-6 col-sm-12 right">
-				 <jsp:include page="/include/paging_header.jsp"/>
-		    </div>
-		    <!-- 头部分页 END--> 
 		</div>
 		<!-- 数据列表 BEGIN -->
 	    <div class="table-scrollable">

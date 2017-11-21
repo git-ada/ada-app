@@ -21,58 +21,13 @@
 </div>
 <!-- 顶部导航 END-->
 <div class="portlet light">
-	<div class="portlet-title">
-		<!-- 顶部搜索栏 BEGIN -->
-		<div class="row">
-			<div class="col-md-10 col-sm-12 left">
-		    <div class="caption">
-				<div class="clearfix ">
-				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-target-page/list.jhtm" method="get">
-				    	<!--
-				    		支持操作符 :EQ, NOTEQ , LIKE, LLIKE, RLIKE, NLIKE, GT, LT, GTE, LTE, IN, NOTIN, NULL, NOTNULL,
-				    		如:search_EQ_name 会自动添加条件，like '%value%';
-				    	-->
-				    	<!-- 页码  -->
-					    <input type="hidden" id="page" name="page">
-						<div class="row">
-							<div class="col-md-3 col-sm-12">
-						         <div class="input-group input-medium">
-	                                             <input type="text" class="form-control daterangepick"  placeholder="创建时间" readonly="readonly">
-	                                             <input type="hidden" name="search_GTE_createTime" value="${param.search_GTE_createTime}">
-	                                             <input type="hidden" name="search_LTE_createTime" value="${param.search_LTE_createTime}">
-	                                        </div>
-						    </div>
-						    <div class="col-md-1 col-sm-12">
-						    	<button class="btn  btn-default opt-search" type="button" >&nbsp;&nbsp;搜索&nbsp;&nbsp;<i class="fa fa-search">&nbsp;&nbsp;</i></button>
-						    </div>
-						</div>
-				    </form>
-				 </div>
-		    </div>
-		    </div>
-		    <!-- 顶部搜索栏 END -->
-		    
-		    <!-- 右上角工具栏 BEGIN -->
-		    <div class="col-md-2 col-sm-12 right">
-	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-target-page/export"><span>导出表格</span></a>
-	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a>
-		    </div>
-	    </div>
-	    <!-- 右上角工具栏 END -->
-	</div>
 	<div class="portlet-body">
 		<div class="row">
 			<!-- 左上角功能区 BEGIN -->
 		    <div class="col-md-6 col-sm-12">
-		       <button type="button" class="btn btn-default" onclick="gotoPage('${pageContext.request.contextPath}/ada-target-page/create.jhtm')" data-opt-key="/ada-target-page/create"><i class="fa fa-plus"></i>&nbsp;&nbsp;添加&nbsp;&nbsp;</button>
+		       <button type="button" class="btn btn-default" onclick="gotoPage('${pageContext.request.contextPath}/ada-target-page/create.jhtm')" data-opt-key="/ada-target-page/create"><i class="fa fa-plus"></i>&nbsp;&nbsp;添加目标页&nbsp;&nbsp;</button>
 		    </div>
 		    <!-- 左上角功能区 END -->
-		    
-		    <!-- 头部分页 BEGIN-->
-		    <div class="col-md-6 col-sm-12 right">
-				 <jsp:include page="/include/paging_header.jsp"/>
-		    </div>
-		    <!-- 头部分页 END--> 
 		</div>
 		<!-- 数据列表 BEGIN -->
 	    <div class="table-scrollable">
