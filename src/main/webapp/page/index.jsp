@@ -60,12 +60,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="page-header navbar navbar-fixed-top">
             <div class="page-header-inner ">
                 <!-- BEGIN LOGO -->
-                <div class="page-logo">
-                	<!-- 
-                    <a href="index.jsp">
-                        <img src="assets/img/logo_jd.png" alt="logo" class="logo-default" /> </a> -->
+                <div class="page-logo" style="background: #e53e49">
+                    <a>
+                        <img src="/assets/img/logetext.png" alt="logo" class="logo-default" style="height: 17px;"/> </a>
+                    <!-- 
                     <span style="color: #f7f0f0;padding-top: 40px;line-height: 52px;font-size: 17px;padding-left: 0px;" class="logo-default">钻石统计</span>
-                    
+                     -->
                     <div class="menu-toggler sidebar-toggler">
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
                         <span></span>
