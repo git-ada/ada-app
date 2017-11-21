@@ -1,6 +1,7 @@
 package com.ada.app.web;
 
 import java.io.PrintWriter;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -96,26 +97,8 @@ public class IndexController {
 		SiteStat siteStat = statService.statSite(adaSite.getId(), today);
 		
 		/** 获取站点下渠道统计信息 **/
-		 List<Map> ChannelStat_list = new ArrayList<Map>();
-		 List<AdaChannel> channels = adaChannelDao.findBySiteId(adaSite.getId());
-		 Integer channelSumIP = 0;/** 渠道ip总数 **/
-		 Integer channelSumPV = 0;/** 渠道PV总数 **/
-		 for (AdaChannel adaChannel : channels) {
-			 ChannelStat channelStat =  statService.statChannel(adaSite.getId(), adaChannel.getId(), today);
-			 Map map = new HashMap();
-			 map.put("channelName",adaChannelDao.findById(channelStat.getChannelId()).getChannelName());
-			 map.put("ip", channelStat.getIp());
-			 map.put("pv", channelStat.getPv());
-			 map.put("clickip1", channelStat.getClickip1());
-			 map.put("clickip2", channelStat.getClickip2());
-			 map.put("clickip3", channelStat.getClickip3());
-			 map.put("clickip4", channelStat.getClickip4());
-			 map.put("targetpageip", channelStat.getTargetpageip());
-			 
-			 channelSumIP+=channelStat.getIp();
-			 channelSumPV+=channelStat.getPv();
-			 ChannelStat_list.add(map);
-		}
+		Map sumMap = getChannelStat_list(today);
+		List<Map> ChannelStat_list = (List<Map>) sumMap.get("ChannelStat_list");
 		 /** 根据ip数排序 **/
 		 Collections.sort(ChannelStat_list,new Comparator<Map>(){
 				public int compare(Map map1, Map map2) {
@@ -126,8 +109,8 @@ public class IndexController {
 	        });
 		 
 		 model.addAttribute("pageResults", ChannelStat_list);
-		 model.addAttribute("channelSumIP", channelSumIP);
-		 model.addAttribute("channelSumPV", channelSumPV);
+		 model.addAttribute("channelSumIP", sumMap.get("channelSumIP"));/** 渠道ip总数 **/
+		 model.addAttribute("channelSumPV", sumMap.get("channelSumPV"));/** 渠道PV总数 **/
 		 model.addAttribute("siteStat", siteStat);
 		return "dashboard";
 	}
@@ -162,26 +145,8 @@ public class IndexController {
 		SiteStat siteStat = statService.statSite(adaSite.getId(), today);
 		
 		/** 获取站点下渠道统计信息 **/
-		 List<Map> ChannelStat_list = new ArrayList<Map>();
-		 List<AdaChannel> channels = adaChannelDao.findBySiteId(adaSite.getId());
-		 Integer channelSumIP = 0;/** 渠道ip总数 **/
-		 Integer channelSumPV = 0;/** 渠道PV总数 **/
-		 for (AdaChannel adaChannel : channels) {
-			 ChannelStat channelStat =  statService.statChannel(adaSite.getId(), adaChannel.getId(), today);
-			 Map map = new HashMap();
-			 map.put("channelName",adaChannelDao.findById(channelStat.getChannelId()).getChannelName());
-			 map.put("ip", channelStat.getIp());
-			 map.put("pv", channelStat.getPv());
-			 map.put("clickip1", channelStat.getClickip1());
-			 map.put("clickip2", channelStat.getClickip2());
-			 map.put("clickip3", channelStat.getClickip3());
-			 map.put("clickip4", channelStat.getClickip4());
-			 map.put("targetpageip", channelStat.getTargetpageip());
-			 
-			 channelSumIP+=channelStat.getIp();
-			 channelSumPV+=channelStat.getPv();
-			 ChannelStat_list.add(map);
-		}
+		Map sumMap = getChannelStat_list(today);
+		List<Map> ChannelStat_list = (List<Map>) sumMap.get("ChannelStat_list");
 		 /** 根据ip数排序 **/
 		 Collections.sort(ChannelStat_list,new Comparator<Map>(){
 				public int compare(Map map1, Map map2) {
@@ -191,8 +156,8 @@ public class IndexController {
 				}
 	        });
 		 json.put("siteStat", siteStat);
-		 json.put("channelSumIP", channelSumIP);
-		 json.put("channelSumPV", channelSumPV);
+		 json.put("channelSumIP", sumMap.get("channelSumIP"));/** 渠道ip总数 **/
+		 json.put("channelSumPV", sumMap.get("channelSumPV"));/** 渠道PV总数 **/
 		 json.put("ChannelStat_list", ChannelStat_list);
 		 
 		 try {
@@ -264,5 +229,50 @@ public class IndexController {
 		return json;
 	}
 
+	public Map getChannelStat_list(Date date){
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();//
+		List<Map> ChannelStat_list = new ArrayList<Map>();
+		 List<AdaChannel> channels = adaChannelDao.findBySiteId(adaSite.getId());
+		 Integer channelSumIP = 0;/** 渠道ip总数 **/
+		 Integer channelSumPV = 0;/** 渠道PV总数 **/
+		 for (AdaChannel adaChannel : channels) {
+			 ChannelStat channelStat =  statService.statChannel(adaSite.getId(), adaChannel.getId(), date);
+			 Map map = new HashMap();
+			 map.put("channelName",adaChannelDao.findById(channelStat.getChannelId()).getChannelName());
+			 map.put("ip", channelStat.getIp());
+			 map.put("pv", channelStat.getPv());
+			 map.put("clickip1", channelStat.getClickip1());
+			 map.put("clickip2", channelStat.getClickip2());
+			 map.put("clickip3", channelStat.getClickip3());
+			 map.put("clickip4", channelStat.getClickip4());
+			 map.put("targetpageip", channelStat.getTargetpageip());
+			 NumberFormat numberFormat = NumberFormat.getInstance();     
+			 numberFormat.setMaximumFractionDigits(2);
+			 if(channelStat.getIp()!=null && channelStat.getIp()>0){
+				 map.put("c1", numberFormat.format((float)channelStat.getClickip1()/(float)channelStat.getIp()*100));
+				 map.put("c2", numberFormat.format((float)channelStat.getClickip2()/(float)channelStat.getIp()*100));
+				 map.put("c3", numberFormat.format((float)channelStat.getClickip3()/(float)channelStat.getIp()*100));
+				 map.put("c4", numberFormat.format((float)channelStat.getClickip4()/(float)channelStat.getIp()*100));
+				 map.put("tgp", numberFormat.format((float)channelStat.getTargetpageip()/(float)channelStat.getIp()*100));
+			 }else{
+				 map.put("c1", 0);
+				 map.put("c2", 0);
+				 map.put("c3", 0);
+				 map.put("c4", 0);
+				 map.put("tgp", 0);
+			 }
+			 channelSumIP+=channelStat.getIp();
+			 channelSumPV+=channelStat.getPv();
+			 ChannelStat_list.add(map);
+		}
+		 
+		 Map map = new HashMap();
+		 map.put("ChannelStat_list", ChannelStat_list);
+		 map.put("channelSumIP", channelSumIP);
+		 map.put("channelSumPV", channelSumPV);
+		 
+		 return map;
+	}
 	
 }
