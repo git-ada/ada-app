@@ -106,10 +106,6 @@
 		<level value="ERROR" />
 	</logger>
 	
-	<logger name="com.ada.app">
-		<level value="DEBUG" />
-	</logger>
-	
 	<root>
 		<level value="INFO" />
 		<!-- appender-ref ref="STDOUT" /-->
