@@ -17,29 +17,25 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import antlr.collections.impl.LList;
 import cn.com.jiand.mvc.framework.utils.Dates;
 
-import com.ada.app.bean.Channel;
 import com.ada.app.bean.ChannelStat;
 import com.ada.app.bean.SiteStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaSiteStatDao;
 import com.ada.app.domain.AdaChannel;
-import com.ada.app.domain.AdaChannelStat;
 import com.ada.app.domain.AdaSite;
 import com.ada.app.domain.AdaSiteStat;
 import com.ada.app.service.AdaChannelStatService;
 import com.ada.app.service.SecurityService;
 import com.ada.app.service.StatService;
 import com.ada.app.util.Sessions;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
@@ -235,18 +231,19 @@ public class IndexController {
 				return json;
 			}
 			List<AdaSiteStat> list = this.adaSiteStatDao.findBySiteIdOrderByDate(siteId,(pageNo-1)*30);
+			
 			if(null==list || list.isEmpty()){
 				json.put("success", false);
 				json.put("message", "暂无统计数据！");
 				return json;
 			}
-			
 			for (int i=list.size()-1;i>=0; i--) { 
 				AdaSiteStat item = list.get(i);
 				JSONObject jsonitem=new JSONObject();
 				jsonitem.put("date", new SimpleDateFormat("yyyy-MM-dd").format(item.getDate())); // 统计日期
 				jsonitem.put("distance", item.getPv());// 访问量
 				jsonitem.put("duration", item.getIp()); // IP数
+				
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					jsonitem.put("color", "#EF3F3F");
 					jsonitem.put("lcolor", "red");
@@ -261,7 +258,7 @@ public class IndexController {
 			json.put("order", array);
 			
 		} catch (Exception e) {
-			//log.info("查询图形列表失败!-->"+e.getMessage(),e);
+			log.error("查询失败,msg->"+e.getMessage(),e);
 		}
 		
 		return json;
