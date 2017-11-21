@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
         <meta content="fitz#demoworld@sina.com" name="author" />
-        <link rel="apple-touch-icon" href="assets/i/favicon.png">
+        <link rel="apple-touch-icon" href="assets/i/favicon.ico">
 		<!-- <link rel="Shortcut Icon" href="assets/i/favicon.png" type="image/x-icon"> -->
         <!--新路径-->
         <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
