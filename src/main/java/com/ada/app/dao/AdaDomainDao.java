@@ -4,7 +4,6 @@ import java.util.List;
 
 import cn.com.jiand.mvc.framework.dao.jpa.EntityJpaDao;
 
-import com.ada.app.domain.AdaChannel;
 import com.ada.app.domain.AdaDomain;
 
 /**
@@ -13,8 +12,13 @@ import com.ada.app.domain.AdaDomain;
  * @since  2017/11/21
  * 
  */
-public interface DomainlDao  extends EntityJpaDao<AdaDomain, Integer> {
+public interface AdaDomainDao extends EntityJpaDao<AdaDomain, Integer>{
 
+	/** 
+     *通过站点ID查询
+     */
+	public AdaDomain findById(Integer id);
+	
 	/**
 	 * 通过站点ID查询下属所有域名
 	 * @param siteId

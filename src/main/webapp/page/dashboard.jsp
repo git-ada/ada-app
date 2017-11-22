@@ -197,8 +197,9 @@
 	</div>
 </div>
 
+<!-- 渠道数据列表 BEGIN -->
 <div class="portlet-body" style="margin-top: 25px;">
-		<!-- 数据列表 BEGIN -->
+		
 	    <div class="table-scrollable">
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
 	            <thead>
@@ -220,6 +221,44 @@
 	                <tr>
 	                	<td style=""><fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/></td>      
 						<td style="">${item.channelName}</td>
+						<td style="">${item.ip}</td>
+						<td style="">${item.pv}</td>
+						<td style="">${item.clickip1} (${item.c1}%)</td>
+						<td style="">${item.clickip2} (${item.c2}%)</td>
+						<td style="">${item.clickip3} (${item.c3}%)</td>
+						<td style="">${item.clickip4} (${item.c4}%)</td>
+						<td style="">${item.targetpageip} (${item.tgp}%)</td>
+	                </tr>
+	                </c:forEach>
+	            </tbody>
+	        </table>
+	    </div>
+	    <!-- 数据列表 END -->
+	</div>
+<!-- 域名数据列表 -->
+	<div class="portlet-body" style="margin-top: 25px;">
+		
+	    <div class="table-scrollable">
+	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
+	            <thead>
+	                <tr>
+	                	<th scope="col" style="width: 120px;">日期</th>		 
+						<th scope="col" style="width: 150px;">渠道</th>			
+						<th scope="col" style="width: 120px;">IP</th>			
+						<th scope="col" style="width: 120px;">PV</th>			
+						<th scope="col" style="width: 100px;">1-2次点击</th>			
+						<th scope="col" style="width: 100px;">3-5次点击</th>			
+						<th scope="col" style="width: 100px;">6-10次点击</th>			
+						<th scope="col" style="width: 100px;">10+次点击</th>			
+						<th scope="col" style="width: 100px;">进入目标页</th>
+				     </tr>
+	            </thead>
+	            <%request.setAttribute("today", new Date()); %>
+	            <tbody id="domain">
+	               <c:forEach var="item" items="${DomainStat_list}" varStatus="number">
+	                <tr>
+	                	<td style=""><fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/></td>      
+						<td style="">${item.domain}</td>
 						<td style="">${item.ip}</td>
 						<td style="">${item.pv}</td>
 						<td style="">${item.clickip1} (${item.c1}%)</td>
@@ -307,6 +346,7 @@
 							$("#cip").html(json.channelSumIP);
 							$("#cpv").html(json.channelSumPV);
 							
+							/** 渠道数据列表 **/
 							var list = json.ChannelStat_list;
 							var open = "";
 							for(var i=0;i<list.length;i++){
@@ -324,6 +364,24 @@
 							}
 							jQuery("#tbody").empty();
 							jQuery("#tbody").append(open);
+							/** 域名数据列表 **/
+							var domainList = json.DomainStat_list;
+							var domain = "";
+							for(var i=0;i<domainList.length;i++){
+								var tr = "";
+								 tr+="<tr><td><fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/></td>" + 
+								      "<td>"+domainList[i].domain+"</td>"+
+									  "<td>"+domainList[i].ip+"</td>"+
+									  "<td>"+domainList[i].pv+"</td>"+
+									  "<td>"+domainList[i].clickip1+" ("+domainList[i].c1+"%)</td>"+
+									  "<td>"+domainList[i].clickip2+" ("+domainList[i].c2+"%)</td>"+
+									  "<td>"+domainList[i].clickip3+" ("+domainList[i].c3+"%)</td>"+
+									  "<td>"+domainList[i].clickip4+" ("+domainList[i].c4+"%)</td>"+
+									  "<td>"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td></tr>";
+								domain+=tr;
+							}
+							jQuery("#domain").empty();
+							jQuery("#domain").append(domain);
 						}
 					}
 				});

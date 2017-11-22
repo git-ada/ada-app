@@ -15,6 +15,9 @@ import redis.clients.jedis.JedisPoolConfig;
 import com.ada.app.bean.ChannelStat;
 import com.ada.app.bean.DomainStat;
 import com.ada.app.bean.SiteStat;
+import com.ada.app.domain.AdaChannelStat;
+import com.ada.app.domain.AdaDomainStat;
+import com.ada.app.domain.AdaSiteStat;
 import com.ada.app.service.JedisPools;
 import com.ada.app.service.StatService;
 
@@ -36,7 +39,7 @@ public class StatServiceImpl implements StatService{
 		
 	}
 
-	public SiteStat statSite(Integer site, Date date) {
+	public AdaSiteStat statSite(Integer site, Date date) {
 		Jedis jedis = getJedis(date);
 		Integer sitePV = 0;
 		//取出站点PV
@@ -44,10 +47,19 @@ public class StatServiceImpl implements StatService{
 		if(_SitePV != null) sitePV = Integer.valueOf(_SitePV);
 		//取出站点IPSet集合
 		int siteIP = jedis.scard("SiteIP_"+site+"").intValue();
-		return new SiteStat(site, siteIP, sitePV, date);
+		
+		AdaSiteStat adaSiteStat = new AdaSiteStat();
+		adaSiteStat.setSiteId(site);
+		adaSiteStat.setIp(siteIP);
+		adaSiteStat.setPv(sitePV);
+		adaSiteStat.setDate(date);
+		/** 释放redis连接资源 **/
+		returnResource(date,jedis);
+		return adaSiteStat;
+		//return new SiteStat(site, siteIP, sitePV, date);
 	}
 	
-	public ChannelStat statChannel(Integer siteId, Integer channelId, Date date) {
+	public AdaChannelStat statChannel(Integer siteId, Integer channelId, Date date) {
 		Jedis jedis = getJedis(date);
 		Integer site_ChannelPV = 0;
 		Integer clickip1 = 0;
@@ -75,10 +87,24 @@ public class StatServiceImpl implements StatService{
 		String ChannelC4IP = jedis.get("ChannelC4IP_"+channelId+"");
 		if(ChannelC4IP != null) clickip4 = Integer.valueOf(ChannelC4IP);
 		
-		return new ChannelStat(siteId, channelId, channelIP, site_ChannelPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date);
+		AdaChannelStat adaChannelStat = new AdaChannelStat();
+		adaChannelStat.setSiteId(siteId);
+		adaChannelStat.setChannelId(channelId);
+		adaChannelStat.setIp(channelIP);
+		adaChannelStat.setPv(site_ChannelPV);
+		adaChannelStat.setClickip1(clickip1);
+		adaChannelStat.setClickip2(clickip2);
+		adaChannelStat.setClickip3(clickip3);
+		adaChannelStat.setClickip4(clickip4);
+		adaChannelStat.setTargetpageip(targetpageIP);
+		adaChannelStat.setDate(date);
+		/** 释放redis连接资源 **/
+		returnResource(date,jedis);
+		return adaChannelStat;
+		//return new AdaChannelStat(siteId, channelId, channelIP, site_ChannelPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date);
 	}
 	
-	public DomainStat statDomain(Integer siteId, Integer domainId, Date date) {
+	public AdaDomainStat statDomain(Integer siteId, Integer domainId, Date date) {
 		Jedis jedis = getJedis(date);
 		Integer site_domainPV = 0;
 		Integer clickip1 = 0;
@@ -106,7 +132,22 @@ public class StatServiceImpl implements StatService{
 		String domainC4IP = jedis.get("DomainC4IP_"+domainId+"");
 		if(domainC4IP != null) clickip4 = Integer.valueOf(domainC4IP);
 		
-		return new DomainStat(siteId, domainId, domainIP, site_domainPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date);
+		AdaDomainStat adaDomainStat = new AdaDomainStat();
+		adaDomainStat.setSiteId(siteId);
+		adaDomainStat.setDomainId(domainId);
+		adaDomainStat.setIp(domainIP);
+		adaDomainStat.setPv(site_domainPV);
+		adaDomainStat.setClickip1(clickip1);
+		adaDomainStat.setClickip2(clickip2);
+		adaDomainStat.setClickip3(clickip3);
+		adaDomainStat.setClickip4(clickip4);
+		adaDomainStat.setTargetpageip(targetpageIP);
+		adaDomainStat.setDate(date);
+		/** 释放redis连接资源 **/
+		returnResource(date,jedis);
+		return adaDomainStat;
+		
+		//return new DomainStat(siteId, domainId, domainIP, site_domainPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date);
 	}
 
 	protected Jedis getJedis(Date date){	
