@@ -222,11 +222,11 @@
 						<td style="">${item.channelName}</td>
 						<td style="">${item.ip}</td>
 						<td style="">${item.pv}</td>
-						<td style="">${item.clickip1}</td>
-						<td style="">${item.clickip2}</td>
-						<td style="">${item.clickip3}</td>
-						<td style="">${item.clickip4}</td>
-						<td style="">${item.targetpageip}</td>
+						<td style="">${item.clickip1} (${item.c1}%)</td>
+						<td style="">${item.clickip2} (${item.c2}%)</td>
+						<td style="">${item.clickip3} (${item.c3}%)</td>
+						<td style="">${item.clickip4} (${item.c4}%)</td>
+						<td style="">${item.targetpageip} (${item.tgp}%)</td>
 	                </tr>
 	                </c:forEach>
 	            </tbody>
@@ -315,11 +315,11 @@
 								      "<td>"+list[i].channelName+"</td>"+
 									  "<td>"+list[i].ip+"</td>"+
 									  "<td>"+list[i].pv+"</td>"+
-									  "<td>"+list[i].clickip1+"</td>"+
-									  "<td>"+list[i].clickip2+"</td>"+
-									  "<td>"+list[i].clickip3+"</td>"+
-									  "<td>"+list[i].clickip4+"</td>"+
-									  "<td>"+list[i].targetpageip+"</td></tr>";
+									  "<td>"+list[i].clickip1+" ("+list[i].c1+"%)</td>"+
+									  "<td>"+list[i].clickip2+" ("+list[i].c2+"%)</td>"+
+									  "<td>"+list[i].clickip3+" ("+list[i].c3+"%)</td>"+
+									  "<td>"+list[i].clickip4+" ("+list[i].c4+"%)</td>"+
+									  "<td>"+list[i].targetpageip+" ("+list[i].tgp+"%)</td></tr>";
 								open+=tr;
 							}
 							jQuery("#tbody").empty();
