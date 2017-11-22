@@ -60,6 +60,7 @@ public class ArchiveService {
 		for(AdaSite site:sites){
 			try {
 				AdaSiteStat stat = statService.statSite(site.getId(), yestoday);
+				stat.setCreateTime(Dates.now());
 			    adaSiteStatDao.save(stat);
 			    log.info("站点 "+site.getId()+":"+site.getSiteName() +" 归档成功");
 			} catch (Exception e) {
@@ -69,6 +70,7 @@ public class ArchiveService {
 			 for(AdaChannel channel:channels){
 				try {
 					AdaChannelStat channelStat =  statService.statChannel(site.getId(), channel.getId(), yestoday);
+					channelStat.setCreateTime(Dates.now());
 					adaChannelStatDao.save(channelStat);
 				    log.info("渠道 "+channel.getId()+":"+channel.getChannelName()+" 归档成功");
 				} catch (Exception e) {
@@ -81,6 +83,7 @@ public class ArchiveService {
 			 for(AdaDomain domain:domains){
 				try {
 					AdaDomainStat domainStat =  statService.statDomain(site.getId(), domain.getId(), yestoday);
+					domainStat.setCreateTime(Dates.now());
 					adaDomainStatDao.save(domainStat);
 				    log.info("域名 "+domain.getId()+":"+domain.getDomain()+" 归档成功");
 				} catch (Exception e) {
