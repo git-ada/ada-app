@@ -15,7 +15,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>渠道统计</span>
+            <span>域名统计</span>
         </li>
     </ul>
 </div>
@@ -27,7 +27,7 @@
 			<div class="col-md-10 col-sm-12 left">
 		    <div class="caption">
 				<div class="clearfix ">
-				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-channel-stat/list.jhtm" method="get">
+				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-domain-stat/list.jhtm" method="get">
 				    	<!--
 				    		支持操作符 :EQ, NOTEQ , LIKE, LLIKE, RLIKE, NLIKE, GT, LT, GTE, LTE, IN, NOTIN, NULL, NOTNULL,
 				    		如:search_EQ_name 会自动添加条件，like '%value%';
@@ -35,18 +35,15 @@
 				    	<!-- 页码  -->
 					    <input type="hidden" id="page" name="page">
 						<div class="row">
-						    <div class="col-md-2 col-sm-12">
-								<input type="text" class="form-control search-field input-medium" name="search_EQ_channelName" value="${param.search_EQ_channelName}"  placeholder="渠道"/>
-							</div>
-							<div class="col-md-2 col-sm-12">
+							<div class="col-md-3 col-sm-12">
 						         <div class="input-group input-medium">
-                                       <input type="text" class="form-control daterangepick"  placeholder="日期" readonly="readonly">
-                                       <input type="hidden" name="search_GTE_date" value="${param.search_GTE_date}">
-                                       <input type="hidden" name="search_LTE_date" value="${param.search_LTE_date}">
-                                  </div>
+                                      <input type="text" class="form-control daterangepick"  placeholder="日期" readonly="readonly">
+                                      <input type="hidden" name="search_GTE_date" value="${param.search_GTE_date}">
+                                      <input type="hidden" name="search_LTE_date" value="${param.search_LTE_date}">
+                                 </div>
 						    </div>
-						    <div class="col-md-2 col-sm-12 right">
-						    	<button class="btn  btn-default opt-search " type="button" >&nbsp;&nbsp;搜索&nbsp;&nbsp;<i class="fa fa-search">&nbsp;&nbsp;</i></button>
+						    <div class="col-md-1 col-sm-12 right">
+						    	<button class="btn  btn-default opt-search" type="button" >&nbsp;&nbsp;搜索&nbsp;&nbsp;<i class="fa fa-search">&nbsp;&nbsp;</i></button>
 						    </div>
 						</div>
 				    </form>
@@ -57,7 +54,7 @@
 		    
 		    <!-- 右上角工具栏 BEGIN -->
 		    <div class="col-md-2 col-sm-12 right">
-	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-channel-stat/export"><span>导出表格</span></a>
+	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-domain-stat/export"><span>导出表格</span></a>
 	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a>
 		    </div>
 	    </div>
@@ -69,22 +66,24 @@
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
 	            <thead>
 	                <tr>
-	                	<th scope="col" style="width: 120px;">日期</th>			
-						<th scope="col" style="width: 150px;">渠道</th>			
+	                    <th scope="col" style="width: 120px;">日期</th>		
+						<th scope="col" style="width: 120px;">站点ID</th>			
+						<th scope="col" style="width: 120px;">渠道ID</th>			
 						<th scope="col" style="width: 120px;">IP</th>			
 						<th scope="col" style="width: 120px;">PV</th>			
 						<th scope="col" style="width: 120px;">1-2次点击</th>			
 						<th scope="col" style="width: 120px;">3-5次点击</th>			
 						<th scope="col" style="width: 120px;">6-10次点击</th>			
 						<th scope="col" style="width: 120px;">10+次点击</th>			
-						<th scope="col" style="width: 120px;">进入目标页</th>					
+						<th scope="col" style="width: 120px;">目标页访问</th					
 				     </tr>
 	            </thead>
 	            <tbody>
 	               <c:forEach var="item" items="${page.pageResults}" varStatus="number">
-	                <tr>      
-	                	<td><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td>
-						<td>${item.channel.channelName}</td>
+	                <tr>
+                   		<td><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td>
+						<td>${item.siteId}</td>
+						<td>${item.domainId}</td>
 						<td>${item.ip}</td>
 						<td>${item.pv}</td>
 						<td>${item.clickip1}</td>
@@ -92,10 +91,11 @@
 						<td>${item.clickip3}</td>
 						<td>${item.clickip4}</td>
 						<td>${item.targetpageip}</td>
+	                    <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 	                </tr>
 	                </c:forEach>
 	                <c:if test="${empty page.pageResults}">
-	            		<tr><td colspan="11">无</td></tr>
+	            		<tr><td colspan="20">无</td></tr>
 	            	</c:if>
 	            </tbody>
 	        </table>
@@ -103,14 +103,22 @@
 	    <!-- 数据列表 END -->
 	    
 	    <!-- 底部功能区 BEGIN -->
-	    <c:if test="${not empty page.pageResults}">
-		    <div class="row">
-		        <!-- 底部分页 -->
-		        <div class="col-md-4 col-sm-12">
-		        	 <jsp:include page="/include/paging_footer.jsp"/>
+	    <div class="row">
+	        <!-- 底部分页 -->
+	        <c:if test="${not empty page.pageResults}">
+	        	<div class="col-md-4 col-sm-12">
+		            <button class="btn btn-sm btn-select-all">全选 </button>
+		            <button class="btn btn-sm btn-select-invert">反选 </button>
+		            <button class="btn btn-sm disabled opt-depend-select opt-batch-delete" data-opt-key="/ada-domain-stat/delete">删除 </button>
 		        </div>
-		    </div>
-		</c:if>
+			    <div class="row">
+			        <!-- 底部分页 -->
+			        <div class="col-md-4 col-sm-12">
+			        	 <jsp:include page="/include/paging_footer.jsp"/>
+			        </div>
+			    </div>
+		    </c:if>
+	    </div>
 	    <!-- 底部功能区 END -->
 	</div>
 </div>
@@ -142,7 +150,7 @@
 	//导出
 	$(".opt-export").click(function() { 
 		//refreshPage();
-		var exportUrl = "${pageContext.request.contextPath}/ada-channel-stat/export.do?"+$("#search_from").find("[value!='']").serialize();
+		var exportUrl = "${pageContext.request.contextPath}/ada-domain-stat/export.do?"+$("#search_from").find("[value!='']").serialize();
 		window.location.href = exportUrl;
 	});
 	
@@ -255,7 +263,7 @@
      //删除记录
      var deleteItems = function(ids){
     	 jQuery.ajax({
-      		url:"${pageContext.request.contextPath}/ada-channel-stat/delete.do?id="+ids,
+      		url:"${pageContext.request.contextPath}/ada-domain-stat/delete.do?id="+ids,
       		success:function(ret){
       			if(ret.success){
       				toastr.success(ret.message);
@@ -283,7 +291,7 @@
             <div class="page-quick-sidebar-settings-list">
                 <h3 class="list-heading" style="color: #fff">编辑</h3>
                 <div class="list-items">
-					<form id="edit_form" action="${pageContext.request.contextPath}/ada-channel-stat/update.do" class="form-horizontal" method="post">
+					<form id="edit_form" action="${pageContext.request.contextPath}/ada-domain-stat/update.do" class="form-horizontal" method="post">
 			        	<input type="hidden" name="id">
 		               	<div class="form-body">
 			               	<div class="form-group">
@@ -295,7 +303,7 @@
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">渠道ID</label>	
 			               		<div class="col-md-8">
-					                <input type="text" name="channelId" class="form-control"  maxlength="10">
+					                <input type="text" name="domainId" class="form-control"  maxlength="10">
 								</div>
 			               	</div>
 			               	<div class="form-group">
@@ -337,19 +345,19 @@
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">目标页访问</label>	
 			               		<div class="col-md-8">
-					                <input type="text" name="targetpagepv" class="form-control"  maxlength="10">
+					                <input type="text" name="targetpageip" class="form-control"  maxlength="10">
 								</div>
 			               	</div>
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">日期</label>	
 			               		<div class="col-md-8">
-									<input name="date" class="form-control form-control-inline datepick" type="text" data-date-format="yyyy-mm-dd" value="<fmt:formatDate value="${adaChannelStat.date}" pattern="yyyy-MM-dd"/>"  readonly="readonly">
+									<input name="date" class="form-control form-control-inline datepick" type="text" data-date-format="yyyy-mm-dd" value="<fmt:formatDate value="${adaDomainStat.date}" pattern="yyyy-MM-dd"/>"  readonly="readonly">
 								</div>
 			               	</div>
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">创建时间</label>	
 			               		<div class="col-md-8">
-									<input name="createTime" class="form-control form-control-inline datetimepick" type="text" data-date-format="yyyy-mm-dd hh:ii:ss" value="<fmt:formatDate value="${adaChannelStat.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly">
+									<input name="createTime" class="form-control form-control-inline datetimepick" type="text" data-date-format="yyyy-mm-dd hh:ii:ss" value="<fmt:formatDate value="${adaDomainStat.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly">
 								</div>
 			               	</div>
 		               	</div>  
@@ -369,19 +377,19 @@
     $('.opt-edit').click(function(){
     	 var id = $(this).attr("data-id");
     		 $.ajax({  
-                 url : "${pageContext.request.contextPath}/ada-channel-stat/get.do",
+                 url : "${pageContext.request.contextPath}/ada-domain-stat/get.do",
                  data : {"id" : id},
                  success : function(ret) {
                  		$("#edit_form").find("[name='id']").val(ret.entity.id);
                  		$("#edit_form").find("[name='siteId']").val(ret.entity.siteId);
-                 		$("#edit_form").find("[name='channelId']").val(ret.entity.channelId);
+                 		$("#edit_form").find("[name='domainId']").val(ret.entity.domainId);
                  		$("#edit_form").find("[name='ip']").val(ret.entity.ip);
                  		$("#edit_form").find("[name='pv']").val(ret.entity.pv);
                  		$("#edit_form").find("[name='clickip1']").val(ret.entity.clickip1);
                  		$("#edit_form").find("[name='clickip2']").val(ret.entity.clickip2);
                  		$("#edit_form").find("[name='clickip3']").val(ret.entity.clickip3);
                  		$("#edit_form").find("[name='clickip4']").val(ret.entity.clickip4);
-                 		$("#edit_form").find("[name='targetpagepv']").val(ret.entity.targetpagepv);
+                 		$("#edit_form").find("[name='targetpageip']").val(ret.entity.targetpageip);
                  		$("#edit_form").find("[name='date']").val(ret.entity.date);
                  		$("#edit_form").find("[name='createTime']").val(ret.entity.createTime);
                  }  
@@ -432,7 +440,7 @@
         onConfirm: function(){
         	var id = $("#edit_form").find("[name='id']").val();
         	jQuery.ajax({
-          		url:"${pageContext.request.contextPath}/ada-channel-stat/delete.do?id="+id,
+          		url:"${pageContext.request.contextPath}/ada-domain-stat/delete.do?id="+id,
           		success:function(ret){
           			if(ret.success){
           				$("body").toggleClass("page-quick-sidebar-open");

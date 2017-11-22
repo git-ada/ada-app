@@ -1,46 +1,65 @@
 package com.ada.app.domain;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.sql.Timestamp;
+import java.math.BigDecimal;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import cn.com.jiand.mvc.framework.domain.AbstractEntity;
 
-/** 
- * 域名
- * @author ASUS
- *
+/**
+ * 域名 Entity
+ * @author Wanghl.cn By Code Generator
  */
 @Entity
 @Table(name = "ada_domain")
-public class AdaDomain {
-
-    /** 域名ID */
+public class AdaDomain extends AbstractEntity<Integer> {
+    /** 链接ID */
 	private Integer id;                    
     /** 站点ID */
-	private Integer siteId;
-	/** domain*/
-	private String domain;
+	private Integer siteId;                    
+    /** 网页链接地址 */
+	private String domain;                    
+    /** 创建时间 */
+	private Timestamp createTime;                    
 	
 	@Id	
 	@GeneratedValue
-	public Integer getId() {
-		return id;
+	public Integer getId(){
+		return this.id;
 	}
-	public Integer getSiteId() {
-		return siteId;
-	}
-	public void setId(Integer id) {
+	
+	public void setId(Integer id){
 		this.id = id;
 	}
-	public void setSiteId(Integer siteId) {
+	
+	public Integer getSiteId(){
+		return this.siteId;
+	}
+	
+	public void setSiteId(Integer siteId){
 		this.siteId = siteId;
 	}
-	public String getDomain() {
-		return domain;
+	
+	public String getDomain(){
+		return this.domain;
 	}
-	public void setDomain(String domain) {
+	
+	public void setDomain(String domain){
 		this.domain = domain;
 	}
 	
-
+	public Timestamp getCreateTime(){
+		return this.createTime;
+	}
+	
+	public void setCreateTime(Timestamp createTime){
+		this.createTime = createTime;
+	}
+	
+	
 }
