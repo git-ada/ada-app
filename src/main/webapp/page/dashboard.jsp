@@ -332,7 +332,9 @@
 		}
 	} 
 	 
-	 window.setInterval(function(){
+	 window.setTimeout('ajaxRefreshPage()',2000); 
+	  
+	 function ajaxRefreshPage(){
 		 jQuery.ajax({
 				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do",
 				success : function(data) {
@@ -382,8 +384,9 @@
 					}
 				}
 			});
-	 },2000); 
-	  
+		 
+		 window.setTimeout('ajaxRefreshPage()',2000); 
+	 }
 	 
 </script>
 
