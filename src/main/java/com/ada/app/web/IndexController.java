@@ -24,19 +24,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.com.jiand.mvc.framework.utils.Dates;
 
-import com.ada.app.bean.ChannelStat;
-import com.ada.app.bean.SiteStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaSiteStatDao;
+import com.ada.app.dao.AdaDomainDao;
 import com.ada.app.domain.AdaChannel;
+import com.ada.app.domain.AdaChannelStat;
+import com.ada.app.domain.AdaDomain;
+import com.ada.app.domain.AdaDomainStat;
 import com.ada.app.domain.AdaSite;
 import com.ada.app.domain.AdaSiteStat;
 import com.ada.app.service.AdaChannelStatService;
 import com.ada.app.service.SecurityService;
 import com.ada.app.service.StatService;
 import com.ada.app.util.Sessions;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
@@ -65,8 +66,11 @@ public class IndexController {
 	private StatService statService;
 	@Autowired
 	private AdaChannelDao adaChannelDao;
-	
+	@Autowired
 	private AdaChannelStatService adaChannelStatService;
+	@Autowired
+	private AdaDomainDao adaDomainDao;
+	
 
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request,HttpServletResponse response, Model model) {
@@ -97,23 +101,20 @@ public class IndexController {
 		
 		/** 获取当前站点统计信息 **/
 		Date today = Dates.todayStart();
-		SiteStat siteStat = statService.statSite(adaSite.getId(), today);
+		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
 		
 		/** 获取站点下渠道统计信息 **/
 		Map sumMap = getChannelStat_list(today);
 		List<Map> ChannelStat_list = (List<Map>) sumMap.get("ChannelStat_list");
-		 /** 根据ip数排序 **/
-		 Collections.sort(ChannelStat_list,new Comparator<Map>(){
-				public int compare(Map map1, Map map2) {
-					Integer integer = (Integer) map1.get("ip");
-					Integer integer2 = (Integer) map2.get("ip");
-					return integer2.compareTo(integer);
-				}
-	        });
+		List<Map> DomainStat_list = (List<Map>) sumMap.get("DomainStat_list");
 		 
 		 model.addAttribute("pageResults", ChannelStat_list);
 		 model.addAttribute("channelSumIP", sumMap.get("channelSumIP"));/** 渠道ip总数 **/
 		 model.addAttribute("channelSumPV", sumMap.get("channelSumPV"));/** 渠道PV总数 **/
+		 model.addAttribute("DomainStat_list", DomainStat_list);
+		 model.addAttribute("domainSumIP", sumMap.get("domainSumIP"));
+		 model.addAttribute("domainSumPV", sumMap.get("domainSumPV"));
+		 
 		 model.addAttribute("siteStat", siteStat);
 		return "dashboard";
 	}
@@ -138,30 +139,26 @@ public class IndexController {
 	@RequestMapping("ajaxRefreshPage")
 	public void ajaxRefreshPage(HttpServletRequest request,HttpServletResponse response ,Model model){
 		
-		JSONArray array=new JSONArray();
 		JSONObject json=new JSONObject();
 		/** 从sessions中获取站点信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();//
 		
 		/** 获取当前站点统计信息 **/
 		Date today = Dates.todayStart();
-		SiteStat siteStat = statService.statSite(adaSite.getId(), today);
+		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
 		
 		/** 获取站点下渠道统计信息 **/
 		Map sumMap = getChannelStat_list(today);
 		List<Map> ChannelStat_list = (List<Map>) sumMap.get("ChannelStat_list");
-		 /** 根据ip数排序 **/
-		 Collections.sort(ChannelStat_list,new Comparator<Map>(){
-				public int compare(Map map1, Map map2) {
-					Integer integer = (Integer) map1.get("ip");
-					Integer integer2 = (Integer) map2.get("ip");
-					return integer2.compareTo(integer);
-				}
-	        });
+		List<Map> DomainStat_list = (List<Map>) sumMap.get("DomainStat_list");
+		
 		 json.put("siteStat", siteStat);
 		 json.put("channelSumIP", sumMap.get("channelSumIP"));/** 渠道ip总数 **/
 		 json.put("channelSumPV", sumMap.get("channelSumPV"));/** 渠道PV总数 **/
 		 json.put("ChannelStat_list", ChannelStat_list);
+		 json.put("domainSumIP", sumMap.get("domainSumIP"));
+		 json.put("domainSumPV", sumMap.get("domainSumPV"));
+		 json.put("DomainStat_list", DomainStat_list);
 		 
 		 try {
 				response.setContentType("text/html;charset=utf-8");
@@ -234,13 +231,15 @@ public class IndexController {
 
 	public Map getChannelStat_list(Date date){
 		/** 从sessions中获取站点信息 **/
-		AdaSite adaSite = Sessions.getCurrentSite();//
+		AdaSite adaSite = Sessions.getCurrentSite();
+		
+		/** 渠道列表数据 **/
 		List<Map> ChannelStat_list = new ArrayList<Map>();
 		 List<AdaChannel> channels = adaChannelDao.findBySiteId(adaSite.getId());
 		 Integer channelSumIP = 0;/** 渠道ip总数 **/
 		 Integer channelSumPV = 0;/** 渠道PV总数 **/
 		 for (AdaChannel adaChannel : channels) {
-			 ChannelStat channelStat =  statService.statChannel(adaSite.getId(), adaChannel.getId(), date);
+			 AdaChannelStat channelStat =  statService.statChannel(adaSite.getId(), adaChannel.getId(), date);
 			 Map map = new HashMap();
 			 map.put("channelName",adaChannelDao.findById(channelStat.getChannelId()).getChannelName());
 			 map.put("ip", channelStat.getIp());
@@ -269,11 +268,69 @@ public class IndexController {
 			 channelSumPV+=channelStat.getPv();
 			 ChannelStat_list.add(map);
 		}
+		
+		 /** 根据ip数排序 **/
+		 Collections.sort(ChannelStat_list,new Comparator<Map>(){
+				public int compare(Map map1, Map map2) {
+					Integer integer = (Integer) map1.get("ip");
+					Integer integer2 = (Integer) map2.get("ip");
+					return integer2.compareTo(integer);
+				}
+	        });
+		
+		 
+		 /** 域名列表信息 **/
+		 List<Map> DomainStat_list = new ArrayList<Map>();
+		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
+		 Integer domainSumIP = 0;/** 渠道ip总数 **/
+		 Integer domainSumPV = 0;/** 渠道PV总数 **/
+		 for (AdaDomain domain : domains) {
+			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domain.getId(), date);
+			Map map = new HashMap();
+			 map.put("domain",adaDomainDao.findById(domainStat.getDomainId()).getDomain());
+			 map.put("ip", domainStat.getIp());
+			 map.put("pv", domainStat.getPv());
+			 map.put("clickip1", domainStat.getClickip1());
+			 map.put("clickip2", domainStat.getClickip2());
+			 map.put("clickip3", domainStat.getClickip3());
+			 map.put("clickip4", domainStat.getClickip4());
+			 map.put("targetpageip", domainStat.getTargetpageip());
+			 NumberFormat numberFormat = NumberFormat.getInstance();     
+			 numberFormat.setMaximumFractionDigits(2);
+			 if(domainStat.getIp()!=null && domainStat.getIp()>0){
+				 map.put("c1", numberFormat.format((float)domainStat.getClickip1()/(float)domainStat.getIp()*100));
+				 map.put("c2", numberFormat.format((float)domainStat.getClickip2()/(float)domainStat.getIp()*100));
+				 map.put("c3", numberFormat.format((float)domainStat.getClickip3()/(float)domainStat.getIp()*100));
+				 map.put("c4", numberFormat.format((float)domainStat.getClickip4()/(float)domainStat.getIp()*100));
+				 map.put("tgp", numberFormat.format((float)domainStat.getTargetpageip()/(float)domainStat.getIp()*100));
+			 }else{
+				 map.put("c1", 0);
+				 map.put("c2", 0);
+				 map.put("c3", 0);
+				 map.put("c4", 0);
+				 map.put("tgp", 0);
+			 }
+			 domainSumIP+=domainStat.getIp();
+			 domainSumPV+=domainStat.getPv();
+			 DomainStat_list.add(map);
+		}
+		 /** 根据ip数排序 **/
+		 Collections.sort(DomainStat_list,new Comparator<Map>(){
+				public int compare(Map map1, Map map2) {
+					Integer integer = (Integer) map1.get("ip");
+					Integer integer2 = (Integer) map2.get("ip");
+					return integer2.compareTo(integer);
+				}
+	        });
 		 
 		 Map map = new HashMap();
 		 map.put("ChannelStat_list", ChannelStat_list);
 		 map.put("channelSumIP", channelSumIP);
 		 map.put("channelSumPV", channelSumPV);
+		 
+		 map.put("DomainStat_list", DomainStat_list);
+		 map.put("domainSumIP", domainSumIP);
+		 map.put("domainSumPV", domainSumPV);
 		 
 		 return map;
 	}

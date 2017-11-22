@@ -29,8 +29,20 @@ public class AdaSiteStat extends AbstractEntity<Integer> {
     /** 日期 */
 	private Date date;                    
     /** 创建时间 */
-	private Timestamp createTime;                    
+	private Timestamp createTime;
 	
+	public AdaSiteStat() {
+		super();
+	}
+
+	public AdaSiteStat(Integer siteId, Integer ip, Integer pv, Date date) {
+		super();
+		this.siteId = siteId;
+		this.ip = ip;
+		this.pv = pv;
+		this.date = date;
+	}
+
 	@Id	
 	@GeneratedValue
 	public Integer getId(){

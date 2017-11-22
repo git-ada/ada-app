@@ -30,5 +30,4 @@ public interface AdaDomainDao extends EntityJpaDao<AdaDomain, Integer> {
      */
 	public List<AdaDomain> findByCreateTime(Timestamp createTime);
 
-
 }

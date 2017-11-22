@@ -2,9 +2,9 @@ package com.ada.app.service;
 
 import java.util.Date;
 
-import com.ada.app.bean.ChannelStat;
-import com.ada.app.bean.DomainStat;
-import com.ada.app.bean.SiteStat;
+import com.ada.app.domain.AdaChannelStat;
+import com.ada.app.domain.AdaDomainStat;
+import com.ada.app.domain.AdaSiteStat;
 
 /**
  * 统计数据
@@ -17,20 +17,20 @@ public interface StatService {
 	 * @param site
 	 * @return
 	 */
-	public SiteStat statSite(Integer site,Date date);
+	public AdaSiteStat statSite(Integer site,Date date);
 	
 	/**
 	 * 统计域名
 	 * @param channelId
 	 * @return
 	 */
-	public DomainStat statDomain(Integer siteId,Integer domainId,Date date);
+	public AdaDomainStat statDomain(Integer siteId,Integer domainId,Date date);
 
 	/**
 	 * 统计渠道
 	 * @param channelId
 	 * @return
 	 */
-	public ChannelStat statChannel(Integer siteId,Integer channelId,Date date);
+	public AdaChannelStat statChannel(Integer siteId,Integer channelId,Date date);
 
 }

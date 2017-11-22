@@ -47,8 +47,30 @@ public class AdaChannelStat extends AbstractEntity<Integer> {
     /** 日期 */
 	private Date date;                    
     /** 创建时间 */
-	private Timestamp createTime;                    
+	private Timestamp createTime;
 	
+	
+	
+	public AdaChannelStat() {
+		super();
+	}
+
+	public AdaChannelStat(Integer siteId, Integer channelId, Integer ip,
+			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
+			Integer clickip4, Integer targetpageip, Date date) {
+		super();
+		this.siteId = siteId;
+		this.channelId = channelId;
+		this.ip = ip;
+		this.pv = pv;
+		this.clickip1 = clickip1;
+		this.clickip2 = clickip2;
+		this.clickip3 = clickip3;
+		this.clickip4 = clickip4;
+		this.targetpageip = targetpageip;
+		this.date = date;
+	}
+
 	@Id	
 	@GeneratedValue
 	public Integer getId(){

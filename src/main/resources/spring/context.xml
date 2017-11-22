@@ -22,5 +22,8 @@
         <property name="maxWait" value="${redis.maxWait}" />  
         <property name="testOnBorrow" value="${redis.testOnBorrow}" />  
     </bean>
+    
+    <task:annotation-driven scheduler="qbScheduler" mode="proxy"/>  
+    <task:scheduler id="qbScheduler" pool-size="10"/>
 
 </beans>
