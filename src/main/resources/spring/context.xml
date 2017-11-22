@@ -14,8 +14,10 @@
 	<import resource="profiles.xml" />
 	<import resource="jpa.xml" />
 	
-	<context:component-scan base-package="com.ada.app.service" />
-	
+	<context:component-scan base-package="com.ada.app" >
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+		
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
         <property name="maxIdle" value="${redis.maxIdle}" />  
         <property name="maxActive" value="${redis.maxActive}" />  
