@@ -236,6 +236,7 @@
 	    <!-- 数据列表 END -->
 	</div>
 <!-- 域名数据列表 -->
+<c:if test="${not empty DomainStat_list}">
 	<div class="portlet-body" style="margin-top: 25px;">
 		
 	    <div class="table-scrollable">
@@ -243,7 +244,7 @@
 	            <thead>
 	                <tr>
 	                	<th scope="col" style="width: 120px;">日期</th>		 
-						<th scope="col" style="width: 150px;">渠道</th>			
+						<th scope="col" style="width: 150px;">域名</th>			
 						<th scope="col" style="width: 120px;">IP</th>			
 						<th scope="col" style="width: 120px;">PV</th>			
 						<th scope="col" style="width: 100px;">1-2次点击</th>			
@@ -253,7 +254,6 @@
 						<th scope="col" style="width: 100px;">进入目标页</th>
 				     </tr>
 	            </thead>
-	            <%request.setAttribute("today", new Date()); %>
 	            <tbody id="domain">
 	               <c:forEach var="item" items="${DomainStat_list}" varStatus="number">
 	                <tr>
@@ -273,7 +273,7 @@
 	    </div>
 	    <!-- 数据列表 END -->
 	</div>
-
+</c:if>
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
@@ -332,7 +332,11 @@
 		}
 	} 
 	 
-	 window.setInterval(function(){
+	 var ajaxTime = 2000;
+	 
+	 window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+	  
+	 function ajaxRefreshPage(){
 		 jQuery.ajax({
 				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do",
 				success : function(data) {
@@ -380,10 +384,15 @@
 						jQuery("#domain").empty();
 						jQuery("#domain").append(domain);
 					}
+					ajaxTime=2000;
+					window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+				},
+				error: function (data) {
+					ajaxTime=ajaxTime*2;
+					window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 				}
 			});
-	 },2000); 
-	  
+	 }
 	 
 </script>
 
