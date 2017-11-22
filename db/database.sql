@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/11/17 18:25:36                          */
+/* Created on:     2017/11/22 10:43:56                          */
 /*==============================================================*/
 
 
@@ -9,6 +9,10 @@ drop table if exists ada_channel;
 drop table if exists ada_channel_link;
 
 drop table if exists ada_channel_stat;
+
+drop table if exists ada_domain;
+
+drop table if exists ada_domain_stat;
 
 drop table if exists ada_site;
 
@@ -66,6 +70,40 @@ create table ada_channel_stat
    primary key (id)
 )
 ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT='渠道统计';
+
+/*==============================================================*/
+/* Table: ada_domain                                            */
+/*==============================================================*/
+create table ada_domain
+(
+   id                   int(11) not null auto_increment comment '链接ID',
+   siteId               int(11) comment '站点ID',
+   domain               varchar(64) not null comment '网页链接地址',
+   createTime           datetime default NULL comment '创建时间',
+   primary key (id)
+)
+ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT='域名';
+
+/*==============================================================*/
+/* Table: ada_domain_stat                                       */
+/*==============================================================*/
+create table ada_domain_stat
+(
+   id                   int(11) not null auto_increment comment 'ID',
+   siteId               int(11) comment '站点ID',
+   domainId             int(11) comment '渠道ID',
+   ip                   int(11) comment 'IP',
+   pv                   int(11) comment 'PV',
+   clickip1             int(11) comment '1-2次点击',
+   clickip2             int(11) comment '3-5次点击',
+   clickip3             int(11) comment '6-10次点击',
+   clickip4             int(11) comment '10+次点击',
+   targetpageip         int(11) comment '目标页访问',
+   date                 date comment '日期',
+   createTime           datetime default NULL comment '创建时间',
+   primary key (id)
+)
+ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT='域名统计';
 
 /*==============================================================*/
 /* Table: ada_site                                              */
