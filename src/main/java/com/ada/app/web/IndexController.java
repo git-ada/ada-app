@@ -51,6 +51,9 @@ public class IndexController {
 	@Value("${cdn.server:}")
 	private String cdnServer;
 	
+	@Value("${log.server:}")
+	private String logServer;
+	
 	@Autowired
 	private SecurityService securityService;
 	
@@ -175,7 +178,7 @@ public class IndexController {
 	@RequestMapping(value = "site-jscode")
 	public String siteJSscode(HttpServletRequest request,HttpServletResponse response, Model model) {
 //		String jscode = "&lt;script id=&quot;adajs&quot; src=&quot;"+cdnServer+"/log.js?siteId="+Sessions.getCurrentSite().getId()+"&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;";
-		String jscode = "<script id=\"adajs\" src=\""+cdnServer+"/log.js?siteId="+Sessions.getCurrentSite().getId()+"\" type=\"text/javascript\"></script>";
+		String jscode = "<script id=\"adajs\" src=\""+logServer+"/log.js?siteId="+Sessions.getCurrentSite().getId()+"\" type=\"text/javascript\"></script>";
 		model.addAttribute("jscode", jscode);
 		
 		return "ada-site-jscode";
