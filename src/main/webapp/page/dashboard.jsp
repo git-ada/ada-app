@@ -332,7 +332,11 @@
 		}
 	} 
 	 
-	 window.setInterval(function(){
+	 var ajaxTime = 2000;
+	 
+	 window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+	  
+	 function ajaxRefreshPage(){
 		 jQuery.ajax({
 				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do",
 				success : function(data) {
@@ -380,10 +384,15 @@
 						jQuery("#domain").empty();
 						jQuery("#domain").append(domain);
 					}
+					ajaxTime=2000;
+					window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+				},
+				error: function (data) {
+					ajaxTime=ajaxTime*2;
+					window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 				}
 			});
-	 },2000); 
-	  
+	 }
 	 
 </script>
 

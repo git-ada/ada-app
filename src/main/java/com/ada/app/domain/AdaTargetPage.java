@@ -25,7 +25,9 @@ public class AdaTargetPage extends AbstractEntity<Integer> {
     /** 网页地址 */
 	private String url;                    
     /** 创建时间 */
-	private Timestamp createTime;                    
+	private Timestamp createTime;
+	/** 匹配模式 1全匹配 2前缀匹配 3模糊匹配（包含）**/
+	private Integer matchModel;
 	
 	@Id	
 	@GeneratedValue
@@ -60,6 +62,15 @@ public class AdaTargetPage extends AbstractEntity<Integer> {
 	public void setCreateTime(Timestamp createTime){
 		this.createTime = createTime;
 	}
+
+	public Integer getMatchModel() {
+		return matchModel;
+	}
+
+	public void setMatchModel(Integer matchModel) {
+		this.matchModel = matchModel;
+	}
+
 	
 	
 }

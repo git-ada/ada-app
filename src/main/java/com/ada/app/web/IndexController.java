@@ -244,18 +244,34 @@ public class IndexController {
 			 map.put("channelName",adaChannelDao.findById(channelStat.getChannelId()).getChannelName());
 			 map.put("ip", channelStat.getIp());
 			 map.put("pv", channelStat.getPv());
-			 map.put("clickip1", channelStat.getClickip1());
-			 map.put("clickip2", channelStat.getClickip2());
-			 map.put("clickip3", channelStat.getClickip3());
-			 map.put("clickip4", channelStat.getClickip4());
+			 Integer clickip1=0;
+			 Integer clickip2=0;
+			 Integer clickip3=0;
+			 Integer clickip4=0;
+			 if(channelStat.getClickip1()>=0){
+				 clickip1 = channelStat.getClickip1();
+			 }
+			 if(channelStat.getClickip2()>=0){
+				 clickip2 = channelStat.getClickip2();
+			 }
+			 if(channelStat.getClickip3()>=0){
+				 clickip3 = channelStat.getClickip3();
+			 }
+			 if(channelStat.getClickip4()>=0){
+				 clickip4 = channelStat.getClickip4();
+			 }
+			 map.put("clickip1", clickip1);
+			 map.put("clickip2", clickip2);
+			 map.put("clickip3", clickip3);
+			 map.put("clickip4", clickip4);
 			 map.put("targetpageip", channelStat.getTargetpageip());
 			 NumberFormat numberFormat = NumberFormat.getInstance();     
 			 numberFormat.setMaximumFractionDigits(2);
 			 if(channelStat.getIp()!=null && channelStat.getIp()>0){
-				 map.put("c1", numberFormat.format((float)channelStat.getClickip1()/(float)channelStat.getIp()*100));
-				 map.put("c2", numberFormat.format((float)channelStat.getClickip2()/(float)channelStat.getIp()*100));
-				 map.put("c3", numberFormat.format((float)channelStat.getClickip3()/(float)channelStat.getIp()*100));
-				 map.put("c4", numberFormat.format((float)channelStat.getClickip4()/(float)channelStat.getIp()*100));
+				 map.put("c1", numberFormat.format((float)clickip1/(float)channelStat.getIp()*100));
+				 map.put("c2", numberFormat.format((float)clickip2/(float)channelStat.getIp()*100));
+				 map.put("c3", numberFormat.format((float)clickip3/(float)channelStat.getIp()*100));
+				 map.put("c4", numberFormat.format((float)clickip4/(float)channelStat.getIp()*100));
 				 map.put("tgp", numberFormat.format((float)channelStat.getTargetpageip()/(float)channelStat.getIp()*100));
 			 }else{
 				 map.put("c1", 0);
@@ -290,18 +306,35 @@ public class IndexController {
 			 map.put("domain",adaDomainDao.findById(domainStat.getDomainId()).getDomain());
 			 map.put("ip", domainStat.getIp());
 			 map.put("pv", domainStat.getPv());
-			 map.put("clickip1", domainStat.getClickip1());
-			 map.put("clickip2", domainStat.getClickip2());
-			 map.put("clickip3", domainStat.getClickip3());
-			 map.put("clickip4", domainStat.getClickip4());
+			 Integer clickip1=0;
+			 Integer clickip2=0;
+			 Integer clickip3=0;
+			 Integer clickip4=0;
+			 if(domainStat.getClickip1()>=0){
+				 clickip1 = domainStat.getClickip1();
+			 }
+			 if(domainStat.getClickip2()>=0){
+				 clickip2 = domainStat.getClickip2();
+			 }
+			 if(domainStat.getClickip3()>=0){
+				 clickip3 = domainStat.getClickip3();
+			 }
+			 if(domainStat.getClickip4()>=0){
+				 clickip4 = domainStat.getClickip4();
+			 }
+			 map.put("clickip1", clickip1);
+			 map.put("clickip2", clickip2);
+			 map.put("clickip3", clickip3);
+			 map.put("clickip4", clickip4);
+			 
 			 map.put("targetpageip", domainStat.getTargetpageip());
 			 NumberFormat numberFormat = NumberFormat.getInstance();     
 			 numberFormat.setMaximumFractionDigits(2);
 			 if(domainStat.getIp()!=null && domainStat.getIp()>0){
-				 map.put("c1", numberFormat.format((float)domainStat.getClickip1()/(float)domainStat.getIp()*100));
-				 map.put("c2", numberFormat.format((float)domainStat.getClickip2()/(float)domainStat.getIp()*100));
-				 map.put("c3", numberFormat.format((float)domainStat.getClickip3()/(float)domainStat.getIp()*100));
-				 map.put("c4", numberFormat.format((float)domainStat.getClickip4()/(float)domainStat.getIp()*100));
+				 map.put("c1", numberFormat.format((float)clickip1/(float)domainStat.getIp()*100));
+				 map.put("c2", numberFormat.format((float)clickip2/(float)domainStat.getIp()*100));
+				 map.put("c3", numberFormat.format((float)clickip3/(float)domainStat.getIp()*100));
+				 map.put("c4", numberFormat.format((float)clickip4/(float)domainStat.getIp()*100));
 				 map.put("tgp", numberFormat.format((float)domainStat.getTargetpageip()/(float)domainStat.getIp()*100));
 			 }else{
 				 map.put("c1", 0);

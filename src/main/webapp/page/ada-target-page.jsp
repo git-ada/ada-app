@@ -40,7 +40,9 @@
 	                            <span></span>
 	                        </label>
 	                    </th>	
-						<th scope="col">目标页</th>		
+						<th scope="col">目标页</th>
+						<th scope="col">匹配类型</th>	
+						<th scope="col">操作</th>	
 				     </tr>
 	            </thead>
 	            <tbody>
@@ -53,6 +55,15 @@
 	                        </label>
 	                    </td>
 							<td>${item.url}</td>
+							<c:if test="${item.matchModel == 1}">
+							<td>全匹配</td>
+							</c:if>
+							<c:if test="${item.matchModel == 2}">
+							<td>前缀匹配</td>
+							</c:if>
+							<c:if test="${item.matchModel == 3}">
+							<td>模糊匹配</td>
+							</c:if>
 	                    <td>
 	                    	<a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-target-page/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
 	                    	<a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-target-page/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a>
@@ -261,7 +272,29 @@
 					                <textarea rows="8" name="url" class="form-control" required="required" maxlength="128"></textarea>
 								</div>
 			               	</div>
-		               	</div>  
+			               	
+				             <div class="form-group">
+		                   	 <label >匹配模式<span class="required" > * </span></label>
+			                    <div class="mt-radio-inline">
+									<label class="mt-radio">
+										<input id="optionsRadios4" name="matchModel" value="1"  type="radio">
+										全匹配
+										<span></span>
+									</label>
+									<label class="mt-radio">
+									<input id="optionsRadios5" name="matchModel" value="2" type="radio">
+										前缀匹配
+										<span></span>
+									</label>
+									<label class="mt-radio mt-radio-disabled">
+									<input id="optionsRadios6" name="matchModel" value="3" checked="" type="radio">
+										模糊匹配
+										<span></span>
+									</label>
+								</div>
+					  		</div>				
+		               	</div>
+		               	  
 			        </form> 
 			    </div>
             </div>
