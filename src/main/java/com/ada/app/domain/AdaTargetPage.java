@@ -27,7 +27,7 @@ public class AdaTargetPage extends AbstractEntity<Integer> {
     /** 创建时间 */
 	private Timestamp createTime;
 	/** 匹配模式 1全匹配 2前缀匹配 3模糊匹配（包含）**/
-	private Integer matchModel;
+	private Integer matchMode;
 	
 	@Id	
 	@GeneratedValue
@@ -63,13 +63,14 @@ public class AdaTargetPage extends AbstractEntity<Integer> {
 		this.createTime = createTime;
 	}
 
-	public Integer getMatchModel() {
-		return matchModel;
+	public Integer getMatchMode() {
+		return matchMode;
 	}
 
-	public void setMatchModel(Integer matchModel) {
-		this.matchModel = matchModel;
+	public void setMatchMode(Integer matchMode) {
+		this.matchMode = matchMode;
 	}
+
 
 	
 	

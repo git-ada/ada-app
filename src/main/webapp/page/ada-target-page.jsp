@@ -55,13 +55,13 @@
 	                        </label>
 	                    </td>
 							<td>${item.url}</td>
-							<c:if test="${item.matchModel == 1}">
+							<c:if test="${item.matchMode == 1}">
 							<td>全匹配</td>
 							</c:if>
-							<c:if test="${item.matchModel == 2}">
+							<c:if test="${item.matchMode == 2}">
 							<td>前缀匹配</td>
 							</c:if>
-							<c:if test="${item.matchModel == 3}">
+							<c:if test="${item.matchMode == 3}">
 							<td>模糊匹配</td>
 							</c:if>
 	                    <td>
@@ -277,17 +277,17 @@
 		                   	 <label >匹配模式<span class="required" > * </span></label>
 			                    <div class="mt-radio-inline">
 									<label class="mt-radio">
-										<input id="optionsRadios4" name="matchModel" value="1"  type="radio">
+										<input id="optionsRadios4" name="matchMode" value="1"  type="radio">
 										全匹配
 										<span></span>
 									</label>
 									<label class="mt-radio">
-									<input id="optionsRadios5" name="matchModel" value="2" type="radio">
+									<input id="optionsRadios5" name="matchMode" value="2" type="radio">
 										前缀匹配
 										<span></span>
 									</label>
 									<label class="mt-radio mt-radio-disabled">
-									<input id="optionsRadios6" name="matchModel" value="3" checked="" type="radio">
+									<input id="optionsRadios6" name="matchMode" value="3" checked="" type="radio">
 										模糊匹配
 										<span></span>
 									</label>
