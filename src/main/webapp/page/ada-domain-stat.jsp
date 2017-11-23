@@ -81,7 +81,7 @@
 	               <c:forEach var="item" items="${page.pageResults}" varStatus="number">
 	                <tr>
                    		<td><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td>
-						<td>${item.adaDomain.domain}</td>
+						<td>${item.domain.domain}</td>
 						<td>${item.ip}</td>
 						<td>${item.pv}</td>
 						<td>${item.clickip1}</td>

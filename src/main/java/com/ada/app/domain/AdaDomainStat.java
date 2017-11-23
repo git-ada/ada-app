@@ -168,18 +168,18 @@ public class AdaDomainStat extends AbstractEntity<Integer> {
 		this.createTime = createTime;
 	}
 
-	private AdaDomain adaDomain;
+	private AdaDomain domain;
 
 
 	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaDomain.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "domainId", insertable = false, updatable = false)
 	@NotFound(action=NotFoundAction.IGNORE)
-	public AdaDomain getAdaDomain() {
-		return adaDomain;
+	public AdaDomain getDomain() {
+		return domain;
 	}
 
-	public void setAdaDomain(AdaDomain adaDomain) {
-		this.adaDomain = adaDomain;
+	public void setDomain(AdaDomain domain) {
+		this.domain = domain;
 	}
 	
 }
