@@ -171,7 +171,7 @@ public class AdaDomainStat extends AbstractEntity<Integer> {
 	private AdaDomain adaDomain;
 
 
-	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaChannel.class, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaDomain.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "domainId", insertable = false, updatable = false)
 	@NotFound(action=NotFoundAction.IGNORE)
 	public AdaDomain getAdaDomain() {
