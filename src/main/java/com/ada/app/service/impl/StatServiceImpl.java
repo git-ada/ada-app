@@ -39,6 +39,10 @@ public class StatServiceImpl implements StatService{
 		Integer clickip2 = 0;
 		Integer clickip3 = 0;
 		Integer clickip4 = 0;
+		Integer staytimeip1 = 0;
+		Integer staytimeip2 = 0;
+		Integer staytimeip3 = 0;
+		Integer staytimeip4 = 0;
 		
 		//取出渠道IPSet集合
 		int channelIP = jedis.scard(RedisKeys.ChannelIP.getKey()+channelId+"").intValue();
@@ -59,8 +63,23 @@ public class StatServiceImpl implements StatService{
 		
 		String ChannelC4IP = jedis.get(RedisKeys.ChannelC4IP.getKey()+channelId+"");
 		if(ChannelC4IP != null) clickip4 = Integer.valueOf(ChannelC4IP);
+		//取出渠道多个停留区间
+		String Staytimeip1 = jedis.get(RedisKeys.ChannelStayTime1IP.getKey()+channelId+"");
+		if(Staytimeip1 !=null) staytimeip1 = Integer.valueOf(Staytimeip1);
+		
+		String Staytimeip2 = jedis.get(RedisKeys.ChannelStayTime2IP.getKey()+channelId+"");
+		if(Staytimeip2 !=null) staytimeip2 = Integer.valueOf(Staytimeip2);
+		
+		String Staytimeip3 = jedis.get(RedisKeys.ChannelStayTime3IP.getKey()+channelId+"");
+		if(Staytimeip3 !=null) staytimeip3 = Integer.valueOf(Staytimeip3);
+		
+		String Staytimeip4 = jedis.get(RedisKeys.ChannelStayTime4IP.getKey()+channelId+"");
+		if(Staytimeip4 !=null) staytimeip4 = Integer.valueOf(Staytimeip4);
+		
 		returnResource(date,jedis);
-		return new AdaChannelStat(siteId, channelId, channelIP, site_ChannelPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date);
+		
+		
+		return new AdaChannelStat(siteId, channelId, channelIP, site_ChannelPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date,staytimeip1,staytimeip2,staytimeip3,staytimeip4);
 	}
 	
 	public AdaDomainStat statDomain(Integer siteId, Integer domainId, Date date) {
@@ -70,6 +89,10 @@ public class StatServiceImpl implements StatService{
 		Integer clickip2 = 0;
 		Integer clickip3 = 0;
 		Integer clickip4 = 0;
+		Integer staytimeip1 = 0;
+		Integer staytimeip2 = 0;
+		Integer staytimeip3 = 0;
+		Integer staytimeip4 = 0;
 		
 		//取出域名IPSet集合
 		int domainIP = jedis.scard(RedisKeys.DomainIP.getKey()+domainId+"").intValue();
@@ -90,8 +113,22 @@ public class StatServiceImpl implements StatService{
 		
 		String domainC4IP = jedis.get(RedisKeys.DomainC4IP.getKey()+domainId+"");
 		if(domainC4IP != null) clickip4 = Integer.valueOf(domainC4IP);
+		
+		//取出渠道多个停留区间
+		String Staytimeip1 = jedis.get(RedisKeys.DomainStayTime1IP.getKey()+domainId+"");
+		if(Staytimeip1 !=null) staytimeip1 = Integer.valueOf(Staytimeip1);
+		
+		String Staytimeip2 = jedis.get(RedisKeys.DomainStayTime2IP.getKey()+domainId+"");
+		if(Staytimeip2 !=null) staytimeip2 = Integer.valueOf(Staytimeip2);
+		
+		String Staytimeip3 = jedis.get(RedisKeys.DomainStayTime3IP.getKey()+domainId+"");
+		if(Staytimeip3 !=null) staytimeip3 = Integer.valueOf(Staytimeip3);
+		
+		String Staytimeip4 = jedis.get(RedisKeys.DomainStayTime4IP.getKey()+domainId+"");
+		if(Staytimeip4 !=null) staytimeip4 = Integer.valueOf(Staytimeip4);
+		
 		returnResource(date,jedis);
-		return new AdaDomainStat(siteId, domainId, domainIP, site_domainPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date);
+		return new AdaDomainStat(siteId, domainId, domainIP, site_domainPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date,staytimeip1,staytimeip2,staytimeip3,staytimeip4);
 	}
 
 	protected Jedis getJedis(Date date){	
