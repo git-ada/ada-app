@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>钻石统计</title>
+        <title>${platformName}</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -62,7 +62,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <!-- BEGIN LOGO -->
                 <div class="page-logo" style="background: #e53e49">
                     <a>
+                    	<!-- 
                         <img src="/assets/img/logetext.png" alt="logo" class="logo-default" style="height: 17px;"/> </a>
+                         -->
                     <!-- 
                     <span style="color: #f7f0f0;padding-top: 40px;line-height: 52px;font-size: 17px;padding-left: 0px;" class="logo-default">钻石统计</span>
                      -->
