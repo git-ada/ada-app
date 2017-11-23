@@ -91,7 +91,6 @@
 						<td>${item.clickip3}</td>
 						<td>${item.clickip4}</td>
 						<td>${item.targetpageip}</td>
-	                    <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 	                </tr>
 	                </c:forEach>
 	                <c:if test="${empty page.pageResults}">
