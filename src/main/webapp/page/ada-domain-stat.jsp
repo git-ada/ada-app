@@ -67,8 +67,7 @@
 	            <thead>
 	                <tr>
 	                    <th scope="col" style="width: 120px;">日期</th>		
-						<th scope="col" style="width: 120px;">站点ID</th>			
-						<th scope="col" style="width: 120px;">渠道ID</th>			
+						<th scope="col" style="width: 150px;">域名</th>			
 						<th scope="col" style="width: 120px;">IP</th>			
 						<th scope="col" style="width: 120px;">PV</th>			
 						<th scope="col" style="width: 120px;">1-2次点击</th>			
@@ -82,8 +81,7 @@
 	               <c:forEach var="item" items="${page.pageResults}" varStatus="number">
 	                <tr>
                    		<td><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td>
-						<td>${item.siteId}</td>
-						<td>${item.domainId}</td>
+						<td>${item.adaDomain.domain}</td>
 						<td>${item.ip}</td>
 						<td>${item.pv}</td>
 						<td>${item.clickip1}</td>
