@@ -64,6 +64,9 @@
 							<c:if test="${item.matchMode == 3}">
 							<td>模糊匹配</td>
 							</c:if>
+							<c:if test="${item.matchMode != 3 && item.matchMode!=2 && item.matchMode!=1}">
+							<td></td>
+							</c:if>
 	                    <td>
 	                    	<a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-target-page/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
 	                    	<a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-target-page/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a>
@@ -274,19 +277,19 @@
 			               	</div>
 			               	
 				             <div class="form-group">
-		                   	 <label >匹配模式<span class="required" > * </span></label>
-			                    <div class="mt-radio-inline">
-									<label class="mt-radio">
+		                   	 <label class="col-md-4 control-label" style="float: none;">匹配模式<span class="required" > * </span></label>
+			                    <div class="mt-radio-list" style="margin-left: 80px;">
+									<label class="mt-radio mt-radio-outline">
 										<input id="optionsRadios4" name="matchMode" value="1"  type="radio">
 										全匹配
 										<span></span>
 									</label>
-									<label class="mt-radio">
+									<label class="mt-radio mt-radio-outline">
 									<input id="optionsRadios5" name="matchMode" value="2" type="radio">
 										前缀匹配
 										<span></span>
 									</label>
-									<label class="mt-radio mt-radio-disabled">
+									<label class="mt-radio mt-radio-outline">
 									<input id="optionsRadios6" name="matchMode" value="3" checked="" type="radio">
 										模糊匹配
 										<span></span>
