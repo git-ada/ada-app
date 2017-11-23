@@ -204,10 +204,9 @@
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
 	            <thead>
 	                <tr>
-	                	<th scope="col" style="width: 120px;">日期</th>		 
 						<th scope="col" style="width: 150px;">渠道</th>			
-						<th scope="col" style="width: 120px;">IP</th>			
-						<th scope="col" style="width: 120px;">PV</th>			
+						<th scope="col" style="width: 100px;">IP</th>			
+						<th scope="col" style="width: 100px;">PV</th>			
 						<th scope="col" style="width: 100px;">1-2次点击</th>			
 						<th scope="col" style="width: 100px;">3-5次点击</th>			
 						<th scope="col" style="width: 100px;">6-10次点击</th>			
@@ -223,7 +222,6 @@
 	            <tbody id="tbody">
 	               <c:forEach var="item" items="${pageResults}" varStatus="number">
 	                <tr>
-	                	<td style=""><fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/></td>      
 						<td style="">${item.channelName}</td>
 						<td style="">${item.ip}</td>
 						<td style="">${item.pv}</td>
@@ -251,10 +249,9 @@
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
 	            <thead>
 	                <tr>
-	                	<th scope="col" style="width: 120px;">日期</th>		 
 						<th scope="col" style="width: 150px;">域名</th>			
-						<th scope="col" style="width: 120px;">IP</th>			
-						<th scope="col" style="width: 120px;">PV</th>			
+						<th scope="col" style="width: 100px;">IP</th>			
+						<th scope="col" style="width: 100px;">PV</th>			
 						<th scope="col" style="width: 100px;">1-2次点击</th>			
 						<th scope="col" style="width: 100px;">3-5次点击</th>			
 						<th scope="col" style="width: 100px;">6-10次点击</th>			
@@ -269,7 +266,6 @@
 	            <tbody id="domain">
 	               <c:forEach var="item" items="${DomainStat_list}" varStatus="number">
 	                <tr>
-	                	<td style=""><fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/></td>      
 						<td style="">${item.domain}</td>
 						<td style="">${item.ip}</td>
 						<td style="">${item.pv}</td>
@@ -368,7 +364,7 @@
 						var open = "";
 						for(var i=0;i<list.length;i++){
 							var tr = "";
-							 tr+="<tr><td><fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/></td>" + 
+							 tr+="<tr>" + 
 							      "<td>"+list[i].channelName+"</td>"+
 								  "<td>"+list[i].ip+"</td>"+
 								  "<td>"+list[i].pv+"</td>"+
@@ -391,7 +387,7 @@
 						var domain = "";
 						for(var i=0;i<domainList.length;i++){
 							var tr = "";
-							 tr+="<tr><td><fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/></td>" + 
+							 tr+="<tr>" + 
 							      "<td>"+domainList[i].domain+"</td>"+
 								  "<td>"+domainList[i].ip+"</td>"+
 								  "<td>"+domainList[i].pv+"</td>"+
