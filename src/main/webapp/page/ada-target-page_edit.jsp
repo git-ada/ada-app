@@ -34,9 +34,29 @@
         <input type="hidden" name="siteId" value="${_CURRENT_SITE.id}">
             <div class="form-body">				
 				  <div class="form-group">
-	                    <label class="col-md-1 control-label">网页地址<span class="required" > * </span>：</label>
+	                    <label class="col-md-1 control-label">网页地址<span class="required" > * </span></label>
 	                    <div class="col-md-4">
 			                <input type="text" name="url" class="form-control input-big" required="required" maxlength="128">
+						</div>
+				  </div>
+				  <div class="form-group">
+	                    <label class="col-md-1 control-label">匹配模式<span class="required" > * </span></label>
+	                    <div class="mt-radio-inline">
+							<label class="mt-radio">
+								<input id="optionsRadios4" name="matchMode" value="1"  type="radio">
+								全匹配
+								<span></span>
+							</label>
+							<label class="mt-radio">
+							<input id="optionsRadios5" name="matchMode" value="2" type="radio">
+								前缀匹配
+								<span></span>
+							</label>
+							<label class="mt-radio mt-radio-disabled">
+							<input id="optionsRadios6" name="matchMode" value="3" checked="" type="radio">
+								模糊匹配
+								<span></span>
+							</label>
 						</div>
 				  </div>				
 				  <input name="createTime" type="hidden" value="<%=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) %>" >							
