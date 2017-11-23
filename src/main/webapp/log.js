@@ -199,7 +199,7 @@ function adaGetcookie(name){
 /** 推送日志 **/
 function adaPutLog1() {
 	try{
-		var httprequest = getHttpRequest();
+		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
 		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
 		httprequest.send();
@@ -209,29 +209,25 @@ function adaPutLog1() {
 
 function adaPutLog2() {
 	try{
-		if(adaChannelId!=null &&  adaChannelId != ""){
-			var httprequest = getHttpRequest();
-			var encodeURI = encodeURIComponent(window.location.href);
-			httprequest.open("get", adaLogServer + "/l2?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMouseClickTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
-			httprequest.send();
-		}
+		var httprequest = adagetHttpRequest();
+		var encodeURI = encodeURIComponent(window.location.href);
+		httprequest.open("get", adaLogServer + "/l2?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMouseClickTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
+		httprequest.send();
 	} catch(e){
 	}
 }
 
 function adaPutLog3() {
 	try{
-		if(adaChannelId!=null &&  adaChannelId != ""){
-			var httprequest = getHttpRequest();
-			var encodeURI = encodeURIComponent(window.location.href);
-			httprequest.open("get", adaLogServer + "/l3?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaPageStopTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
-			httprequest.send();
-		}
+		var httprequest = adagetHttpRequest();
+		var encodeURI = encodeURIComponent(window.location.href);
+		httprequest.open("get", adaLogServer + "/l3?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaPageStopTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
+		httprequest.send();
 	} catch(e){
 	}
 }
 
-function getHttpRequest(){
+function adagetHttpRequest(){
 	try{
 		var httprequest = null;
 		if (window.XMLHttpRequest) {
