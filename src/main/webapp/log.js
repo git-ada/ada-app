@@ -6,6 +6,7 @@ var adaClientId;
 var adaChannelId="";
 var adaMouseMoveTiems;
 var adaMouseClickTimes=0;
+var adaPageStopTimes = 0;
 var adaHasPutLog=false;
 var adaHasPutLogReturn=false;
 
@@ -102,7 +103,26 @@ function adaGetLongTimeExpires(){
 	} catch(e){
 	}
 }
-
+/*************************************************************************************/
+/**  页面停留累计时长  **/
+setInterval("adaStopTime()","1000");
+function adaStopTime(){
+	try{
+		/** 判断如果Cookie中未生成,则生成新的时长 **/
+		var existsAdaPageStopTimes = (document.cookie.indexOf("adaPageStopTimes=") != -1);
+		if(existsAdaPageStopTimes){
+			lastStopTimes = adaGetcookie("adaPageStopTimes").split("=")[1];
+		}else {
+			lastStopTimes = 0;
+		}
+		adaPageStopTimes = parseInt(lastStopTimes) + 1;
+		document.cookie = "adaPageStopTimes="+adaPageStopTimes+";expires="+adaGetTodayExpires();
+		if(adaPageStopTimes == 5 || adaPageStopTimes == 10 || adaPageStopTimes == 15 || adaPageStopTimes == 30){
+			adaPutLog3();
+		}
+	} catch(e){
+	}
+};
 
 function adaGetTodayExpires (){
 	try{
@@ -193,6 +213,18 @@ function adaPutLog2() {
 			var httprequest = getHttpRequest();
 			var encodeURI = encodeURIComponent(window.location.href);
 			httprequest.open("get", adaLogServer + "/l2?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMouseClickTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
+			httprequest.send();
+		}
+	} catch(e){
+	}
+}
+
+function adaPutLog3() {
+	try{
+		if(adaChannelId!=null &&  adaChannelId != ""){
+			var httprequest = getHttpRequest();
+			var encodeURI = encodeURIComponent(window.location.href);
+			httprequest.open("get", adaLogServer + "/l3?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaPageStopTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
 			httprequest.send();
 		}
 	} catch(e){
