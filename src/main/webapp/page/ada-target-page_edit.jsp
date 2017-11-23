@@ -41,18 +41,18 @@
 				  </div>
 				  <div class="form-group">
 	                    <label class="col-md-1 control-label">匹配模式<span class="required" > * </span></label>
-	                    <div class="mt-radio-inline">
-							<label class="mt-radio">
+	                    <div class="col-md-4" style="margin-top: 8px;">
+							<label class="mt-radio mt-radio-outline">
 								<input id="optionsRadios4" name="matchMode" value="1"  type="radio">
 								全匹配
 								<span></span>
 							</label>
-							<label class="mt-radio">
+							<label class="mt-radio mt-radio-outline">
 							<input id="optionsRadios5" name="matchMode" value="2" type="radio">
 								前缀匹配
 								<span></span>
 							</label>
-							<label class="mt-radio mt-radio-disabled">
+							<label class="mt-radio mt-radio-outline">
 							<input id="optionsRadios6" name="matchMode" value="3" checked="" type="radio">
 								模糊匹配
 								<span></span>
