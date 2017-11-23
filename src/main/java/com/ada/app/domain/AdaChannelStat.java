@@ -48,6 +48,14 @@ public class AdaChannelStat extends AbstractEntity<Integer> {
 	private Date date;                    
     /** 创建时间 */
 	private Timestamp createTime;
+	/** 0-5秒停留*/
+	private Integer staytimeip1;
+	/** 6-10秒停留*/
+	private Integer staytimeip2;
+	/** 11-15秒停留*/
+	private Integer staytimeip3;
+	/** 15+秒停留*/
+	private Integer staytimeip4;
 	
 	
 	
@@ -69,6 +77,30 @@ public class AdaChannelStat extends AbstractEntity<Integer> {
 		this.clickip4 = clickip4;
 		this.targetpageip = targetpageip;
 		this.date = date;
+	}
+	
+	
+
+	public AdaChannelStat(Integer siteId, Integer channelId, Integer ip,
+			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
+			Integer clickip4, Integer targetpageip, Date date,
+			Integer staytimeip1, Integer staytimeip2, Integer staytimeip3,
+			Integer staytimeip4) {
+		super();
+		this.siteId = siteId;
+		this.channelId = channelId;
+		this.ip = ip;
+		this.pv = pv;
+		this.clickip1 = clickip1;
+		this.clickip2 = clickip2;
+		this.clickip3 = clickip3;
+		this.clickip4 = clickip4;
+		this.targetpageip = targetpageip;
+		this.date = date;
+		this.staytimeip1 = staytimeip1;
+		this.staytimeip2 = staytimeip2;
+		this.staytimeip3 = staytimeip3;
+		this.staytimeip4 = staytimeip4;
 	}
 
 	@Id	
@@ -181,5 +213,37 @@ public class AdaChannelStat extends AbstractEntity<Integer> {
 
 	public void setChannel(AdaChannel channel) {
 		this.channel = channel;
+	}
+
+	public Integer getStaytimeip1() {
+		return staytimeip1;
+	}
+
+	public void setStaytimeip1(Integer staytimeip1) {
+		this.staytimeip1 = staytimeip1;
+	}
+
+	public Integer getStaytimeip2() {
+		return staytimeip2;
+	}
+
+	public void setStaytimeip2(Integer staytimeip2) {
+		this.staytimeip2 = staytimeip2;
+	}
+
+	public Integer getStaytimeip3() {
+		return staytimeip3;
+	}
+
+	public void setStaytimeip3(Integer staytimeip3) {
+		this.staytimeip3 = staytimeip3;
+	}
+
+	public Integer getStaytimeip4() {
+		return staytimeip4;
+	}
+
+	public void setStaytimeip4(Integer staytimeip4) {
+		this.staytimeip4 = staytimeip4;
 	}
 }

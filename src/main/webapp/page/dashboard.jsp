@@ -213,6 +213,10 @@
 						<th scope="col" style="width: 100px;">6-10次点击</th>			
 						<th scope="col" style="width: 100px;">10+次点击</th>			
 						<th scope="col" style="width: 100px;">进入目标页</th>
+						<th scope="col" style="width: 100px;">0-5秒停留</th>
+						<th scope="col" style="width: 100px;">6-10秒停留</th>
+						<th scope="col" style="width: 100px;">11-15秒停留</th>
+						<th scope="col" style="width: 100px;">16-30秒停留</th>
 				     </tr>
 	            </thead>
 	            <%request.setAttribute("today", new Date()); %>
@@ -228,6 +232,10 @@
 						<td style="">${item.clickip3} (${item.c3}%)</td>
 						<td style="">${item.clickip4} (${item.c4}%)</td>
 						<td style="">${item.targetpageip} (${item.tgp}%)</td>
+						<td style="">${item.staytimeip1} (${item.s1}%)</td>
+						<td style="">${item.staytimeip2} (${item.s2}%)</td>
+						<td style="">${item.staytimeip3} (${item.s3}%)</td>
+						<td style="">${item.staytimeip4} (${item.s4}%)</td>
 	                </tr>
 	                </c:forEach>
 	            </tbody>
@@ -252,6 +260,10 @@
 						<th scope="col" style="width: 100px;">6-10次点击</th>			
 						<th scope="col" style="width: 100px;">10+次点击</th>			
 						<th scope="col" style="width: 100px;">进入目标页</th>
+						<th scope="col" style="width: 100px;">0-5秒停留</th>
+						<th scope="col" style="width: 100px;">6-10秒停留</th>
+						<th scope="col" style="width: 100px;">11-15秒停留</th>
+						<th scope="col" style="width: 100px;">16-30秒停留</th>
 				     </tr>
 	            </thead>
 	            <tbody id="domain">
@@ -266,6 +278,10 @@
 						<td style="">${item.clickip3} (${item.c3}%)</td>
 						<td style="">${item.clickip4} (${item.c4}%)</td>
 						<td style="">${item.targetpageip} (${item.tgp}%)</td>
+						<td style="">${item.staytimeip1} (${item.s1}%)</td>
+						<td style="">${item.staytimeip2} (${item.s2}%)</td>
+						<td style="">${item.staytimeip3} (${item.s3}%)</td>
+						<td style="">${item.staytimeip4} (${item.s4}%)</td>
 	                </tr>
 	                </c:forEach>
 	            </tbody>
@@ -360,7 +376,12 @@
 								  "<td>"+list[i].clickip2+" ("+list[i].c2+"%)</td>"+
 								  "<td>"+list[i].clickip3+" ("+list[i].c3+"%)</td>"+
 								  "<td>"+list[i].clickip4+" ("+list[i].c4+"%)</td>"+
-								  "<td>"+list[i].targetpageip+" ("+list[i].tgp+"%)</td></tr>";
+								  "<td>"+list[i].targetpageip+" ("+list[i].tgp+"%)</td>"+
+								  "<td>"+list[i].staytimeip1+" ("+list[i].s1+"%)</td>"+
+								  "<td>"+list[i].staytimeip2+" ("+list[i].s2+"%)</td>"+
+								  "<td>"+list[i].staytimeip3+" ("+list[i].s3+"%)</td>"+
+								  "<td>"+list[i].staytimeip4+" ("+list[i].s4+"%)</td>"+
+								  "</tr>";
 							open+=tr;
 						}
 						jQuery("#tbody").empty();
@@ -378,7 +399,13 @@
 								  "<td>"+domainList[i].clickip2+" ("+domainList[i].c2+"%)</td>"+
 								  "<td>"+domainList[i].clickip3+" ("+domainList[i].c3+"%)</td>"+
 								  "<td>"+domainList[i].clickip4+" ("+domainList[i].c4+"%)</td>"+
-								  "<td>"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td></tr>";
+								  "<td>"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td>"+
+								  "<td>"+domainList[i].staytimeip1+" ("+domainList[i].s1+"%)</td>"+
+								  "<td>"+domainList[i].staytimeip2+" ("+domainList[i].s2+"%)</td>"+
+								  "<td>"+domainList[i].staytimeip3+" ("+domainList[i].s3+"%)</td>"+
+								  "<td>"+domainList[i].staytimeip4+" ("+domainList[i].s4+"%)</td>"+
+								  "</tr>";
+								  "</tr>";
 							domain+=tr;
 						}
 						jQuery("#domain").empty();
