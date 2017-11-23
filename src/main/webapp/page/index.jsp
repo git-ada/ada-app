@@ -60,17 +60,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="page-header navbar navbar-fixed-top">
             <div class="page-header-inner ">
                 <!-- BEGIN LOGO -->
-                <div class="page-logo" style="background: #e53e49">
-                    <a>
-                    	<!-- 
+                <div class="page-logo">
+                	<!-- 
+                    <!-- <a>
                         <img src="/assets/img/logetext.png" alt="logo" class="logo-default" style="height: 17px;"/> </a>
                          -->
                     <span style="color: #f7f0f0;padding-top: 40px;line-height: 52px;font-size: 17px;padding-left: 0px;" class="logo-default">${platformName}</span>
+                    
                     <div class="menu-toggler sidebar-toggler">
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
                         <span></span>
                     </div>
                 </div>
+                
                 <!-- END LOGO -->
                 <!-- BEGIN RESPONSIVE MENU TOGGLER -->
                 <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
