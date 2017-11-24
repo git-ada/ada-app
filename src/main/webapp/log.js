@@ -4,9 +4,10 @@ var adaPageInTime = 0;
 var adaSiteId;
 var adaClientId;
 var adaChannelId="";
-var adaMouseMoveTiems;
+var adaMouseMoveTiems = 0;
 var adaMouseClickTimes=0;
 var adaPageStopTimes = 0;
+var adaMousescrollTiems = 0;
 var adaHasPutLog=false;
 var adaHasPutLogReturn=false;
 
@@ -117,12 +118,100 @@ function adaStopTime(){
 		}
 		adaPageStopTimes = parseInt(lastStopTimes) + 1;
 		document.cookie = "adaPageStopTimes="+adaPageStopTimes+";expires="+adaGetTodayExpires();
-		if(adaPageStopTimes == 5 || adaPageStopTimes == 10 || adaPageStopTimes == 15 || adaPageStopTimes == 30){
+		if(adaPageStopTimes == 30 || adaPageStopTimes == 60 || adaPageStopTimes == 120 || adaPageStopTimes == 300 || adaPageStopTimes == 301){
 			adaPutLog3();
 		}
 	} catch(e){
 	}
 };
+
+/*************************************************************************************/
+/**  获取鼠标滚动次数 **/
+var adaMousesScrollNum = 0;
+window.setInterval(function (){
+	adaMousesScrollNum = adaGetMousescrollNum();
+	if(adaMousesScrollNum > 0){
+		adaMousesScrollNum = 0;
+		adaMousescroll();
+	}
+},1000);
+function adaMousescroll(){
+	try{
+		/** 判断如果Cookie中未生成,则生成新的滚动次数 **/
+		var existsAdaMousescrollTiems = (document.cookie.indexOf("adaMousescrollTiems=") != -1);
+		if(existsAdaMousescrollTiems){
+			lastMousescrollTiems = adaGetcookie("adaMousescrollTiems").split("=")[1];
+		}else {
+			lastMousescrollTiems = 0;
+		}
+		adaMousescrollTiems = parseInt(lastMousescrollTiems) + 1;
+		document.cookie = "adaMousescrollTiems="+adaMousescrollTiems+";expires="+adaGetTodayExpires();
+		if(adaMousescrollTiems == 1 || adaMousescrollTiems == 3 || adaMousescrollTiems == 5 || adaMousescrollTiems == 10){
+			adaPutLog5();
+		}
+	} catch(e){
+	}
+}
+function adaGetMousescrollNum(){
+	try{
+		var agent = navigator.userAgent;
+		if (/.*Firefox.*/.test(agent)) {
+			document.addEventListener("DOMMouseScroll", function(e) {
+				e = e || window.event;
+				var detail = e.detail;
+				if (detail = 0) {
+					adaMousesScrollNum ;
+				} else {
+					adaMousesScrollNum ++ ;
+				}
+			});
+		}else {
+			document.onmousewheel = function(e) {
+				e = e || window.event;
+				var wheelDelta = e.wheelDelta;
+				if (wheelDelta = 0) {
+					adaMousesScrollNum ;
+				} else {
+					adaMousesScrollNum ++ ;
+				}
+			};
+		}
+		return adaMousesScrollNum;
+	} catch(e){
+	}
+}
+
+
+
+/*************************************************************************************/
+/** 获取鼠标移动次数 **/
+var _AMMcount = 0;
+window.setInterval(function (){
+	if(_AMMcount > 0){
+		_AMMcount = 0;
+		adaMouseMove();
+	}
+},1000);
+document.onmousemove=function(even){
+	_AMMcount ++;
+};
+function adaMouseMove(){
+	try{
+		/** 判断如果Cookie中未生成,则生成新的移动次数 **/
+		var existsadaMouseMoveNum = (document.cookie.indexOf("adaMouseMoveTiems=") != -1);
+		if(existsadaMouseMoveNum){
+			lastadaMouseMoveNum = adaGetcookie("adaMouseMoveTiems").split("=")[1];
+		}else {
+			lastadaMouseMoveNum = 0;
+		}
+		adaMouseMoveTiems = parseInt(lastadaMouseMoveNum) + 1;
+		document.cookie = "adaMouseMoveTiems="+adaMouseMoveTiems+";expires="+adaGetTodayExpires();
+		if(adaMouseMoveTiems == 1 || adaMouseMoveTiems == 3 || adaMouseMoveTiems == 5 || adaMouseMoveTiems == 10){
+			adaPutLog4();
+		}
+	} catch(e){
+	}
+}
 
 function adaGetTodayExpires (){
 	try{
@@ -142,9 +231,7 @@ function adaGetTodayExpires (){
 	} catch(e){
 	}
 }
-
 /*************************************************************************************/
-
 /** 查询渠道ID并村粗COOKIE**/
 function adaQueryChannelId() {
 	try{
@@ -226,6 +313,27 @@ function adaPutLog3() {
 	} catch(e){
 	}
 }
+
+function adaPutLog4() {
+	try{
+		var httprequest = adagetHttpRequest();
+		var encodeURI = encodeURIComponent(window.location.href);
+		httprequest.open("get", adaLogServer + "/l4?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMouseMoveTiems+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
+		httprequest.send();
+	} catch(e){
+	}
+}
+
+function adaPutLog5() {
+	try{
+		var httprequest = adagetHttpRequest();
+		var encodeURI = encodeURIComponent(window.location.href);
+		httprequest.open("get", adaLogServer + "/l5?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMousescrollTiems+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
+		httprequest.send();
+	} catch(e){
+	}
+}
+
 
 function adagetHttpRequest(){
 	try{
