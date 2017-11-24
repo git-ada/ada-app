@@ -213,10 +213,10 @@
 						<th scope="col" style="width: 100px;">6-10次点击</th>			
 						<th scope="col" style="width: 100px;">10+次点击</th>			
 						<th scope="col" style="width: 100px;">进入目标页</th>
-						<th scope="col" style="width: 100px;">0-5秒停留</th>
-						<th scope="col" style="width: 100px;">6-10秒停留</th>
-						<th scope="col" style="width: 100px;">11-15秒停留</th>
-						<th scope="col" style="width: 100px;">16-30秒停留</th>
+						<th scope="col" style="width: 100px;">5-30秒停留</th>
+						<th scope="col" style="width: 100px;">31-120秒停留</th>
+						<th scope="col" style="width: 100px;">121-300秒停留</th>
+						<th scope="col" style="width: 100px;">300+秒停留</th>
 						<th scope="col" style="width: 100px;">1-2次滚动</th>
 						<th scope="col" style="width: 100px;">3-5次滚动</th>
 						<th scope="col" style="width: 100px;">6-10次滚动</th>
@@ -274,10 +274,10 @@
 						<th scope="col" style="width: 100px;">6-10次点击</th>			
 						<th scope="col" style="width: 100px;">10+次点击</th>			
 						<th scope="col" style="width: 100px;">进入目标页</th>
-						<th scope="col" style="width: 100px;">0-5秒停留</th>
-						<th scope="col" style="width: 100px;">6-10秒停留</th>
-						<th scope="col" style="width: 100px;">11-15秒停留</th>
-						<th scope="col" style="width: 100px;">16-30秒停留</th>
+						<th scope="col" style="width: 100px;">5-30秒停留</th>
+						<th scope="col" style="width: 100px;">31-120秒停留</th>
+						<th scope="col" style="width: 100px;">121-300秒停留</th>
+						<th scope="col" style="width: 100px;">300+秒停留</th>
 						<th scope="col" style="width: 100px;">1-2次滚动</th>
 						<th scope="col" style="width: 100px;">3-5次滚动</th>
 						<th scope="col" style="width: 100px;">6-10次滚动</th>
