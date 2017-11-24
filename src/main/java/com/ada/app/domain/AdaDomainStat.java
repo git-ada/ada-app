@@ -56,6 +56,22 @@ public class AdaDomainStat extends AbstractEntity<Integer> {
 	private Integer staytimeip3;
 	/** 15+秒停留*/
 	private Integer staytimeip4;
+	/** 1-2次滚动*/
+	private Integer scrollip1;
+	/** 3-5次滚动*/
+	private Integer scrollip2;
+	/** 6-10次滚动*/
+	private Integer scrollip3;
+	/** 10+次滚动*/
+	private Integer scrollip4;
+	/** 1-2次移动*/
+	private Integer moveip1;
+	/** 3-5次移动*/
+	private Integer moveip2;
+	/** 6-10次移动*/
+	private Integer moveip3;
+	/** 10+次移动*/
+	private Integer moveip4;
 	
 	public AdaDomainStat() {
 		super();
@@ -97,6 +113,38 @@ public class AdaDomainStat extends AbstractEntity<Integer> {
 		this.staytimeip2 = staytimeip2;
 		this.staytimeip3 = staytimeip3;
 		this.staytimeip4 = staytimeip4;
+	}
+
+	public AdaDomainStat(Integer siteId, Integer domainId, Integer ip,
+			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
+			Integer clickip4, Integer targetpageip, Date date,
+			Integer staytimeip1, Integer staytimeip2, Integer staytimeip3,
+			Integer staytimeip4, Integer scrollip1, Integer scrollip2,
+			Integer scrollip3, Integer scrollip4, Integer moveip1,
+			Integer moveip2, Integer moveip3, Integer moveip4) {
+		super();
+		this.siteId = siteId;
+		this.domainId = domainId;
+		this.ip = ip;
+		this.pv = pv;
+		this.clickip1 = clickip1;
+		this.clickip2 = clickip2;
+		this.clickip3 = clickip3;
+		this.clickip4 = clickip4;
+		this.targetpageip = targetpageip;
+		this.date = date;
+		this.staytimeip1 = staytimeip1;
+		this.staytimeip2 = staytimeip2;
+		this.staytimeip3 = staytimeip3;
+		this.staytimeip4 = staytimeip4;
+		this.scrollip1 = scrollip1;
+		this.scrollip2 = scrollip2;
+		this.scrollip3 = scrollip3;
+		this.scrollip4 = scrollip4;
+		this.moveip1 = moveip1;
+		this.moveip2 = moveip2;
+		this.moveip3 = moveip3;
+		this.moveip4 = moveip4;
 	}
 
 	@Id	
@@ -240,6 +288,70 @@ public class AdaDomainStat extends AbstractEntity<Integer> {
 
 	public void setStaytimeip4(Integer staytimeip4) {
 		this.staytimeip4 = staytimeip4;
+	}
+
+	public Integer getScrollip1() {
+		return scrollip1;
+	}
+
+	public void setScrollip1(Integer scrollip1) {
+		this.scrollip1 = scrollip1;
+	}
+
+	public Integer getScrollip2() {
+		return scrollip2;
+	}
+
+	public void setScrollip2(Integer scrollip2) {
+		this.scrollip2 = scrollip2;
+	}
+
+	public Integer getScrollip3() {
+		return scrollip3;
+	}
+
+	public void setScrollip3(Integer scrollip3) {
+		this.scrollip3 = scrollip3;
+	}
+
+	public Integer getScrollip4() {
+		return scrollip4;
+	}
+
+	public void setScrollip4(Integer scrollip4) {
+		this.scrollip4 = scrollip4;
+	}
+
+	public Integer getMoveip1() {
+		return moveip1;
+	}
+
+	public void setMoveip1(Integer moveip1) {
+		this.moveip1 = moveip1;
+	}
+
+	public Integer getMoveip2() {
+		return moveip2;
+	}
+
+	public void setMoveip2(Integer moveip2) {
+		this.moveip2 = moveip2;
+	}
+
+	public Integer getMoveip3() {
+		return moveip3;
+	}
+
+	public void setMoveip3(Integer moveip3) {
+		this.moveip3 = moveip3;
+	}
+
+	public Integer getMoveip4() {
+		return moveip4;
+	}
+
+	public void setMoveip4(Integer moveip4) {
+		this.moveip4 = moveip4;
 	}
 	
 }
