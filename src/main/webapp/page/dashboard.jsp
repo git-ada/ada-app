@@ -199,13 +199,11 @@
 
 <!-- 渠道数据列表 BEGIN -->
 <div class="portlet-body" style="margin-top: 25px;">
-		
 	    <div class="dataTables_scrollBody" style="position: relative; overflow: auto; height: 500px; width: 100%;">
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
-	        
 	            <thead>
 	                <tr>
-						<th scope="col" style="min-width: 150px;">渠道</th>			
+						<th scope="col" style="min-width: 150px;">渠道 / 域名</th>			
 						<th scope="col" style="min-width: 100px;">IP</th>			
 						<th scope="col" style="min-width: 100px;">PV</th>			
 						<th scope="col" style="min-width: 100px;">1-2次点击</th>			
@@ -258,7 +256,7 @@
 	        <!-- 域名数据列表 -->
 	        <c:if test="${not empty DomainStat_list}">
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
-	            <thead>
+	            <!-- <thead>
 	                <tr style="border-top: 1px solid #e7ecf1;">
 						<th scope="col" style="min-width: 150px;">域名</th>			
 						<th scope="col" style="min-width: 100px;">IP</th>			
@@ -281,30 +279,30 @@
 						<th scope="col" style="min-width: 100px;">6-10次移动</th>
 						<th scope="col" style="min-width: 100px;">10+次移动</th>
 				     </tr>
-	            </thead>
+	            </thead> -->
 	            <tbody id="domain">
 	               <c:forEach var="item" items="${DomainStat_list}" varStatus="number">
 	                <tr>
-						<td style="" title="${item.domain}">${item.subDomain}</td>
-						<td style="">${item.ip}</td>
-						<td style="">${item.pv}</td>
-						<td style="">${item.clickip1} (${item.c1}%)</td>
-						<td style="">${item.clickip2} (${item.c2}%)</td>
-						<td style="">${item.clickip3} (${item.c3}%)</td>
-						<td style="">${item.clickip4} (${item.c4}%)</td>
-						<td style="">${item.targetpageip} (${item.tgp}%)</td>
-						<td style="">${item.staytimeip1} (${item.s1}%)</td>
-						<td style="">${item.staytimeip2} (${item.s2}%)</td>
-						<td style="">${item.staytimeip3} (${item.s3}%)</td>
-						<td style="">${item.staytimeip4} (${item.s4}%)</td>
-						<td style="">${item.scrollip1} (${item.sc1}%)</td>
-						<td style="">${item.scrollip2} (${item.sc2}%)</td>
-						<td style="">${item.scrollip3} (${item.sc3}%)</td>
-						<td style="">${item.scrollip4} (${item.sc4}%)</td>
-						<td style="">${item.moveip1} (${item.m1}%)</td>
-						<td style="">${item.moveip2} (${item.m2}%)</td>
-						<td style="">${item.moveip3} (${item.m3}%)</td>
-						<td style="">${item.moveip4} (${item.m4}%)</td>
+						<td style="min-width: 150px;" title="${item.domain}">${item.subDomain}</td>
+						<td style="min-width: 100px;">${item.ip}</td>
+						<td style="min-width: 100px;">${item.pv}</td>
+						<td style="min-width: 100px;">${item.clickip1} (${item.c1}%)</td>
+						<td style="min-width: 100px;">${item.clickip2} (${item.c2}%)</td>
+						<td style="min-width: 100px;">${item.clickip3} (${item.c3}%)</td>
+						<td style="min-width: 100px;">${item.clickip4} (${item.c4}%)</td>
+						<td style="min-width: 100px;">${item.targetpageip} (${item.tgp}%)</td>
+						<td style="min-width: 100px;">${item.staytimeip1} (${item.s1}%)</td>
+						<td style="min-width: 100px;">${item.staytimeip2} (${item.s2}%)</td>
+						<td style="min-width: 120px;">${item.staytimeip3} (${item.s3}%)</td>
+						<td style="min-width: 100px;">${item.staytimeip4} (${item.s4}%)</td>
+						<td style="min-width: 100px;">${item.scrollip1} (${item.sc1}%)</td>
+						<td style="min-width: 100px;">${item.scrollip2} (${item.sc2}%)</td>
+						<td style="min-width: 100px;">${item.scrollip3} (${item.sc3}%)</td>
+						<td style="min-width: 100px;">${item.scrollip4} (${item.sc4}%)</td>
+						<td style="min-width: 100px;">${item.moveip1} (${item.m1}%)</td>
+						<td style="min-width: 100px;">${item.moveip2} (${item.m2}%)</td>
+						<td style="min-width: 100px;">${item.moveip3} (${item.m3}%)</td>
+						<td style="min-width: 100px;">${item.moveip4} (${item.m4}%)</td>
 	                </tr>
 	                </c:forEach>
 	            </tbody>
@@ -312,7 +310,7 @@
 	        </c:if>
 	    </div>
 	    <!-- 数据列表 END -->
-	</div>
+</div>
 
 
 <!-- START PAGE SCRIPTS -->
@@ -425,27 +423,26 @@
 						for(var i=0;i<domainList.length;i++){
 							var tr = "";
 							 tr+="<tr>" + 
-							      "<td title='${item.domain}'>"+domainList[i].subDomain+"</td>"+
-								  "<td>"+domainList[i].ip+"</td>"+
-								  "<td>"+domainList[i].pv+"</td>"+
-								  "<td>"+domainList[i].clickip1+" ("+domainList[i].c1+"%)</td>"+
-								  "<td>"+domainList[i].clickip2+" ("+domainList[i].c2+"%)</td>"+
-								  "<td>"+domainList[i].clickip3+" ("+domainList[i].c3+"%)</td>"+
-								  "<td>"+domainList[i].clickip4+" ("+domainList[i].c4+"%)</td>"+
-								  "<td>"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td>"+
-								  "<td>"+domainList[i].staytimeip1+" ("+domainList[i].s1+"%)</td>"+
-								  "<td>"+domainList[i].staytimeip2+" ("+domainList[i].s2+"%)</td>"+
-								  "<td>"+domainList[i].staytimeip3+" ("+domainList[i].s3+"%)</td>"+
-								  "<td>"+domainList[i].staytimeip4+" ("+domainList[i].s4+"%)</td>"+
-								  "<td>"+domainList[i].scrollip1+" ("+domainList[i].sc1+"%)</td>"+
-								  "<td>"+domainList[i].scrollip2+" ("+domainList[i].sc2+"%)</td>"+
-								  "<td>"+domainList[i].scrollip3+" ("+domainList[i].sc3+"%)</td>"+
-								  "<td>"+domainList[i].scrollip4+" ("+domainList[i].sc4+"%)</td>"+
-								  "<td>"+domainList[i].moveip1+" ("+domainList[i].m1+"%)</td>"+
-								  "<td>"+domainList[i].moveip2+" ("+domainList[i].m2+"%)</td>"+
-								  "<td>"+domainList[i].moveip3+" ("+domainList[i].m3+"%)</td>"+
-								  "<td>"+domainList[i].moveip4+" ("+domainList[i].m4+"%)</td>"+
-								  "</tr>";
+							      "<td style='min-width: 150px;' title='${item.domain}'>"+domainList[i].subDomain+"</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].ip+"</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].pv+"</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].clickip1+" ("+domainList[i].c1+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].clickip2+" ("+domainList[i].c2+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].clickip3+" ("+domainList[i].c3+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].clickip4+" ("+domainList[i].c4+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].staytimeip1+" ("+domainList[i].s1+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].staytimeip2+" ("+domainList[i].s2+"%)</td>"+
+								  "<td style='min-width: 120px;'>"+domainList[i].staytimeip3+" ("+domainList[i].s3+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].staytimeip4+" ("+domainList[i].s4+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].scrollip1+" ("+domainList[i].sc1+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].scrollip2+" ("+domainList[i].sc2+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].scrollip3+" ("+domainList[i].sc3+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].scrollip4+" ("+domainList[i].sc4+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].moveip1+" ("+domainList[i].m1+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].moveip2+" ("+domainList[i].m2+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].moveip3+" ("+domainList[i].m3+"%)</td>"+
+								  "<td style='min-width: 100px;'>"+domainList[i].moveip4+" ("+domainList[i].m4+"%)</td>"+
 								  "</tr>";
 							domain+=tr;
 						}
