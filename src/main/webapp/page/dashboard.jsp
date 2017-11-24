@@ -200,7 +200,7 @@
 <!-- 渠道数据列表 BEGIN -->
 <div class="portlet-body" style="margin-top: 25px;">
 		
-	    <div class="table-scrollable">
+	    <div class="dataTables_scrollBody" style="position: relative; overflow: auto; height: 500px; width: 100%;">
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
 	        
 	            <thead>
@@ -215,7 +215,7 @@
 						<th scope="col" style="min-width: 100px;">进入目标页</th>
 						<th scope="col" style="min-width: 100px;">5-30秒停留</th>
 						<th scope="col" style="min-width: 100px;">31-120秒停留</th>
-						<th scope="col" style="min-width: 100px;">121-300秒停留</th>
+						<th scope="col" style="min-width: 120px;">121-300秒停留</th>
 						<th scope="col" style="min-width: 100px;">300+秒停留</th>
 						<th scope="col" style="min-width: 100px;">1-2次滚动</th>
 						<th scope="col" style="min-width: 100px;">3-5次滚动</th>
@@ -270,7 +270,7 @@
 						<th scope="col" style="min-width: 100px;">进入目标页</th>
 						<th scope="col" style="min-width: 100px;">5-30秒停留</th>
 						<th scope="col" style="min-width: 100px;">31-120秒停留</th>
-						<th scope="col" style="min-width: 100px;">121-300秒停留</th>
+						<th scope="col" style="min-width: 120px;">121-300秒停留</th>
 						<th scope="col" style="min-width: 100px;">300+秒停留</th>
 						<th scope="col" style="min-width: 100px;">1-2次滚动</th>
 						<th scope="col" style="min-width: 100px;">3-5次滚动</th>
