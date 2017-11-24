@@ -205,26 +205,26 @@
 	        
 	            <thead>
 	                <tr>
-						<th scope="col" style="width: 150px;">渠道</th>			
-						<th scope="col" style="width: 100px;">IP</th>			
-						<th scope="col" style="width: 100px;">PV</th>			
-						<th scope="col" style="width: 100px;">1-2次点击</th>			
-						<th scope="col" style="width: 100px;">3-5次点击</th>			
-						<th scope="col" style="width: 100px;">6-10次点击</th>			
-						<th scope="col" style="width: 100px;">10+次点击</th>			
-						<th scope="col" style="width: 100px;">进入目标页</th>
-						<th scope="col" style="width: 100px;">5-30秒停留</th>
-						<th scope="col" style="width: 100px;">31-120秒停留</th>
-						<th scope="col" style="width: 100px;">121-300秒停留</th>
-						<th scope="col" style="width: 100px;">300+秒停留</th>
-						<th scope="col" style="width: 100px;">1-2次滚动</th>
-						<th scope="col" style="width: 100px;">3-5次滚动</th>
-						<th scope="col" style="width: 100px;">6-10次滚动</th>
-						<th scope="col" style="width: 100px;">10+次滚动</th>
-						<th scope="col" style="width: 100px;">1-2次移动</th>
-						<th scope="col" style="width: 100px;">3-5次移动</th>
-						<th scope="col" style="width: 100px;">6-10次移动</th>
-						<th scope="col" style="width: 100px;">10+次移动</th>
+						<th scope="col" style="min-width: 150px;">渠道</th>			
+						<th scope="col" style="min-width: 100px;">IP</th>			
+						<th scope="col" style="min-width: 100px;">PV</th>			
+						<th scope="col" style="min-width: 100px;">1-2次点击</th>			
+						<th scope="col" style="min-width: 100px;">3-5次点击</th>			
+						<th scope="col" style="min-width: 100px;">6-10次点击</th>			
+						<th scope="col" style="min-width: 100px;">10+次点击</th>			
+						<th scope="col" style="min-width: 100px;">进入目标页</th>
+						<th scope="col" style="min-width: 100px;">5-30秒停留</th>
+						<th scope="col" style="min-width: 100px;">31-120秒停留</th>
+						<th scope="col" style="min-width: 100px;">121-300秒停留</th>
+						<th scope="col" style="min-width: 100px;">300+秒停留</th>
+						<th scope="col" style="min-width: 100px;">1-2次滚动</th>
+						<th scope="col" style="min-width: 100px;">3-5次滚动</th>
+						<th scope="col" style="min-width: 100px;">6-10次滚动</th>
+						<th scope="col" style="min-width: 100px;">10+次滚动</th>
+						<th scope="col" style="min-width: 100px;">1-2次移动</th>
+						<th scope="col" style="min-width: 100px;">3-5次移动</th>
+						<th scope="col" style="min-width: 100px;">6-10次移动</th>
+						<th scope="col" style="min-width: 100px;">10+次移动</th>
 				     </tr>
 	            </thead>
 	            <%request.setAttribute("today", new Date()); %>
@@ -266,26 +266,26 @@
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
 	            <thead>
 	                <tr>
-						<th scope="col" style="width: 150px;">域名</th>			
-						<th scope="col" style="width: 100px;">IP</th>			
-						<th scope="col" style="width: 100px;">PV</th>			
-						<th scope="col" style="width: 100px;">1-2次点击</th>			
-						<th scope="col" style="width: 100px;">3-5次点击</th>			
-						<th scope="col" style="width: 100px;">6-10次点击</th>			
-						<th scope="col" style="width: 100px;">10+次点击</th>			
-						<th scope="col" style="width: 100px;">进入目标页</th>
-						<th scope="col" style="width: 100px;">5-30秒停留</th>
-						<th scope="col" style="width: 100px;">31-120秒停留</th>
-						<th scope="col" style="width: 100px;">121-300秒停留</th>
-						<th scope="col" style="width: 100px;">300+秒停留</th>
-						<th scope="col" style="width: 100px;">1-2次滚动</th>
-						<th scope="col" style="width: 100px;">3-5次滚动</th>
-						<th scope="col" style="width: 100px;">6-10次滚动</th>
-						<th scope="col" style="width: 100px;">10+次滚动</th>
-						<th scope="col" style="width: 100px;">1-2次移动</th>
-						<th scope="col" style="width: 100px;">3-5次移动</th>
-						<th scope="col" style="width: 100px;">6-10次移动</th>
-						<th scope="col" style="width: 100px;">10+次移动</th>
+						<th scope="col" style="min-width: 150px;">域名</th>			
+						<th scope="col" style="min-width: 100px;">IP</th>			
+						<th scope="col" style="min-width: 100px;">PV</th>			
+						<th scope="col" style="min-width: 100px;">1-2次点击</th>			
+						<th scope="col" style="min-width: 100px;">3-5次点击</th>			
+						<th scope="col" style="min-width: 100px;">6-10次点击</th>			
+						<th scope="col" style="min-width: 100px;">10+次点击</th>			
+						<th scope="col" style="min-width: 100px;">进入目标页</th>
+						<th scope="col" style="min-width: 100px;">5-30秒停留</th>
+						<th scope="col" style="min-width: 100px;">31-120秒停留</th>
+						<th scope="col" style="min-width: 100px;">121-300秒停留</th>
+						<th scope="col" style="min-width: 100px;">300+秒停留</th>
+						<th scope="col" style="min-width: 100px;">1-2次滚动</th>
+						<th scope="col" style="min-width: 100px;">3-5次滚动</th>
+						<th scope="col" style="min-width: 100px;">6-10次滚动</th>
+						<th scope="col" style="min-width: 100px;">10+次滚动</th>
+						<th scope="col" style="min-width: 100px;">1-2次移动</th>
+						<th scope="col" style="min-width: 100px;">3-5次移动</th>
+						<th scope="col" style="min-width: 100px;">6-10次移动</th>
+						<th scope="col" style="min-width: 100px;">10+次移动</th>
 				     </tr>
 	            </thead>
 	            <tbody id="domain">
