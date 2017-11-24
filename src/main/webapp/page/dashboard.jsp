@@ -202,6 +202,7 @@
 		
 	    <div class="table-scrollable">
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
+	        
 	            <thead>
 	                <tr>
 						<th scope="col" style="width: 150px;">渠道</th>			
@@ -216,6 +217,14 @@
 						<th scope="col" style="width: 100px;">6-10秒停留</th>
 						<th scope="col" style="width: 100px;">11-15秒停留</th>
 						<th scope="col" style="width: 100px;">16-30秒停留</th>
+						<th scope="col" style="width: 100px;">1-2次滚动</th>
+						<th scope="col" style="width: 100px;">3-5次滚动</th>
+						<th scope="col" style="width: 100px;">6-10次滚动</th>
+						<th scope="col" style="width: 100px;">10+次滚动</th>
+						<th scope="col" style="width: 100px;">1-2次移动</th>
+						<th scope="col" style="width: 100px;">3-5次移动</th>
+						<th scope="col" style="width: 100px;">6-10次移动</th>
+						<th scope="col" style="width: 100px;">10+次移动</th>
 				     </tr>
 	            </thead>
 	            <%request.setAttribute("today", new Date()); %>
@@ -234,6 +243,14 @@
 						<td style="">${item.staytimeip2} (${item.s2}%)</td>
 						<td style="">${item.staytimeip3} (${item.s3}%)</td>
 						<td style="">${item.staytimeip4} (${item.s4}%)</td>
+						<td style="">${item.scrollip1} (${item.sc1}%)</td>
+						<td style="">${item.scrollip2} (${item.sc2}%)</td>
+						<td style="">${item.scrollip3} (${item.sc3}%)</td>
+						<td style="">${item.scrollip4} (${item.sc4}%)</td>
+						<td style="">${item.moveip1} (${item.m1}%)</td>
+						<td style="">${item.moveip2} (${item.m2}%)</td>
+						<td style="">${item.moveip3} (${item.m3}%)</td>
+						<td style="">${item.moveip4} (${item.m4}%)</td>
 	                </tr>
 	                </c:forEach>
 	            </tbody>
@@ -261,12 +278,20 @@
 						<th scope="col" style="width: 100px;">6-10秒停留</th>
 						<th scope="col" style="width: 100px;">11-15秒停留</th>
 						<th scope="col" style="width: 100px;">16-30秒停留</th>
+						<th scope="col" style="width: 100px;">1-2次滚动</th>
+						<th scope="col" style="width: 100px;">3-5次滚动</th>
+						<th scope="col" style="width: 100px;">6-10次滚动</th>
+						<th scope="col" style="width: 100px;">10+次滚动</th>
+						<th scope="col" style="width: 100px;">1-2次移动</th>
+						<th scope="col" style="width: 100px;">3-5次移动</th>
+						<th scope="col" style="width: 100px;">6-10次移动</th>
+						<th scope="col" style="width: 100px;">10+次移动</th>
 				     </tr>
 	            </thead>
 	            <tbody id="domain">
 	               <c:forEach var="item" items="${DomainStat_list}" varStatus="number">
 	                <tr>
-						<td style="">${item.domain}</td>
+						<td style="" title="${item.domain}">${item.subDomain}</td>
 						<td style="">${item.ip}</td>
 						<td style="">${item.pv}</td>
 						<td style="">${item.clickip1} (${item.c1}%)</td>
@@ -278,6 +303,14 @@
 						<td style="">${item.staytimeip2} (${item.s2}%)</td>
 						<td style="">${item.staytimeip3} (${item.s3}%)</td>
 						<td style="">${item.staytimeip4} (${item.s4}%)</td>
+						<td style="">${item.scrollip1} (${item.sc1}%)</td>
+						<td style="">${item.scrollip2} (${item.sc2}%)</td>
+						<td style="">${item.scrollip3} (${item.sc3}%)</td>
+						<td style="">${item.scrollip4} (${item.sc4}%)</td>
+						<td style="">${item.moveip1} (${item.m1}%)</td>
+						<td style="">${item.moveip2} (${item.m2}%)</td>
+						<td style="">${item.moveip3} (${item.m3}%)</td>
+						<td style="">${item.moveip4} (${item.m4}%)</td>
 	                </tr>
 	                </c:forEach>
 	            </tbody>
@@ -377,6 +410,14 @@
 								  "<td>"+list[i].staytimeip2+" ("+list[i].s2+"%)</td>"+
 								  "<td>"+list[i].staytimeip3+" ("+list[i].s3+"%)</td>"+
 								  "<td>"+list[i].staytimeip4+" ("+list[i].s4+"%)</td>"+
+								  "<td>"+list[i].scrollip1+" ("+list[i].sc1+"%)</td>"+
+								  "<td>"+list[i].scrollip2+" ("+list[i].sc2+"%)</td>"+
+								  "<td>"+list[i].scrollip3+" ("+list[i].sc3+"%)</td>"+
+								  "<td>"+list[i].scrollip4+" ("+list[i].sc4+"%)</td>"+
+								  "<td>"+list[i].moveip1+" ("+list[i].m1+"%)</td>"+
+								  "<td>"+list[i].moveip2+" ("+list[i].m2+"%)</td>"+
+								  "<td>"+list[i].moveip3+" ("+list[i].m3+"%)</td>"+
+								  "<td>"+list[i].moveip4+" ("+list[i].m4+"%)</td>"+
 								  "</tr>";
 							open+=tr;
 						}
@@ -388,7 +429,7 @@
 						for(var i=0;i<domainList.length;i++){
 							var tr = "";
 							 tr+="<tr>" + 
-							      "<td>"+domainList[i].domain+"</td>"+
+							      "<td title='${item.domain}'>"+domainList[i].subDomain+"</td>"+
 								  "<td>"+domainList[i].ip+"</td>"+
 								  "<td>"+domainList[i].pv+"</td>"+
 								  "<td>"+domainList[i].clickip1+" ("+domainList[i].c1+"%)</td>"+
@@ -400,6 +441,14 @@
 								  "<td>"+domainList[i].staytimeip2+" ("+domainList[i].s2+"%)</td>"+
 								  "<td>"+domainList[i].staytimeip3+" ("+domainList[i].s3+"%)</td>"+
 								  "<td>"+domainList[i].staytimeip4+" ("+domainList[i].s4+"%)</td>"+
+								  "<td>"+domainList[i].scrollip1+" ("+domainList[i].sc1+"%)</td>"+
+								  "<td>"+domainList[i].scrollip2+" ("+domainList[i].sc2+"%)</td>"+
+								  "<td>"+domainList[i].scrollip3+" ("+domainList[i].sc3+"%)</td>"+
+								  "<td>"+domainList[i].scrollip4+" ("+domainList[i].sc4+"%)</td>"+
+								  "<td>"+domainList[i].moveip1+" ("+domainList[i].m1+"%)</td>"+
+								  "<td>"+domainList[i].moveip2+" ("+domainList[i].m2+"%)</td>"+
+								  "<td>"+domainList[i].moveip3+" ("+domainList[i].m3+"%)</td>"+
+								  "<td>"+domainList[i].moveip4+" ("+domainList[i].m4+"%)</td>"+
 								  "</tr>";
 								  "</tr>";
 							domain+=tr;
