@@ -255,17 +255,11 @@
 	                </c:forEach>
 	            </tbody>
 	        </table>
-	    </div>
-	    <!-- 数据列表 END -->
-	</div>
-<!-- 域名数据列表 -->
-<c:if test="${not empty DomainStat_list}">
-	<div class="portlet-body" style="margin-top: 25px;">
-		
-	    <div class="table-scrollable">
+	        <!-- 域名数据列表 -->
+	        <c:if test="${not empty DomainStat_list}">
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
 	            <thead>
-	                <tr>
+	                <tr style="border-top: 1px solid #e7ecf1;">
 						<th scope="col" style="min-width: 150px;">域名</th>			
 						<th scope="col" style="min-width: 100px;">IP</th>			
 						<th scope="col" style="min-width: 100px;">PV</th>			
@@ -315,10 +309,12 @@
 	                </c:forEach>
 	            </tbody>
 	        </table>
+	        </c:if>
 	    </div>
 	    <!-- 数据列表 END -->
 	</div>
-</c:if>
+
+
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
