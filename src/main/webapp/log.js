@@ -118,7 +118,7 @@ function adaStopTime(){
 		}
 		adaPageStopTimes = parseInt(lastStopTimes) + 1;
 		document.cookie = "adaPageStopTimes="+adaPageStopTimes+";expires="+adaGetTodayExpires();
-		if(adaPageStopTimes == 30 || adaPageStopTimes == 60 || adaPageStopTimes == 120 || adaPageStopTimes == 300 || adaPageStopTimes == 301){
+		if(adaPageStopTimes == 5 || adaPageStopTimes == 30 || adaPageStopTimes == 120 || adaPageStopTimes == 300){
 			adaPutLog3();
 		}
 	} catch(e){
