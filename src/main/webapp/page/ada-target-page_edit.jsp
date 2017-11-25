@@ -32,7 +32,13 @@
         <form id="edit_form" action="${pageContext.request.contextPath}/ada-target-page/${action=='create'?'save':'update'}.do" class="form-horizontal" method="post">
         <jodd:form bean="adaTargetPage" scope="request">
         <input type="hidden" name="siteId" value="${_CURRENT_SITE.id}">
-            <div class="form-body">				
+            <div class="form-body">
+            		<div class="form-group">
+	                    <label class="col-md-1 control-label">网页名称<span class="required" > * </span></label>
+	                    <div class="col-md-4">
+			                <input type="text" name="pageName" class="form-control input-big" required="required" maxlength="128">
+						</div>
+				  </div>				
 				  <div class="form-group">
 	                    <label class="col-md-1 control-label">网页地址<span class="required" > * </span></label>
 	                    <div class="col-md-4">
