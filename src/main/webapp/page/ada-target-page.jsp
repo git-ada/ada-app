@@ -272,7 +272,7 @@
 			        	<input type="hidden" name="id">
 		               	<div class="form-body">
 		               		<div class="form-group">
-			               		<label class="col-md-4 control-label">网页地址<span class="required" > * </span></label>	
+			               		<label class="col-md-4 control-label">网页名称<span class="required" > * </span></label>	
 			               		<div class="col-md-8">
 					                <input type="text" name="pageName" class="form-control input-big" required="required" maxlength="128">
 								</div>
