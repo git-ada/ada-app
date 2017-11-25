@@ -101,18 +101,32 @@
 						<td>${item.clickip3}</td>
 						<td>${item.clickip4}</td>
 						<td>${item.targetpageip}</td>
-						<td style="">${item.staytimeip1}</td>
-						<td style="">${item.staytimeip2}</td>
-						<td style="">${item.staytimeip3}</td>
-						<td style="">${item.staytimeip4}</td>
-						<td style="">${item.scrollip1}</td>
-						<td style="">${item.scrollip2}</td>
-						<td style="">${item.scrollip3}</td>
-						<td style="">${item.scrollip4}</td>
-						<td style="">${item.moveip1}</td>
-						<td style="">${item.moveip2}</td>
-						<td style="">${item.moveip3}</td>
-						<td style="">${item.moveip4}</td>
+						<c:if test="${not empty item.staytimeip1}"><td>${item.staytimeip1}</td></c:if>
+						<c:if test="${empty item.staytimeip1}"><td>0</td></c:if>
+						<c:if test="${not empty item.staytimeip2}"><td>${item.staytimeip2}</td></c:if>
+						<c:if test="${empty item.staytimeip2}"><td>0</td></c:if>
+						<c:if test="${not empty item.staytimeip3}"><td>${item.staytimeip3}</td></c:if>
+						<c:if test="${empty item.staytimeip3}"><td>0</td></c:if>
+						<c:if test="${not empty item.staytimeip4}"><td>${item.staytimeip4}</td></c:if>
+						<c:if test="${empty item.staytimeip4}"><td>0</td></c:if>
+						
+						<c:if test="${not empty item.scrollip1}"><td>${item.scrollip1}</td></c:if>
+						<c:if test="${empty item.scrollip1}"><td>0</td></c:if>
+						<c:if test="${not empty item.scrollip2}"><td>${item.scrollip2}</td></c:if>
+						<c:if test="${empty item.scrollip2}"><td>0</td></c:if>
+						<c:if test="${not empty item.scrollip3}"><td>${item.scrollip3}</td></c:if>
+						<c:if test="${empty item.scrollip3}"><td>0</td></c:if>
+						<c:if test="${not empty item.scrollip4}"><td>${item.scrollip4}</td></c:if>
+						<c:if test="${empty item.scrollip4}"><td>0</td></c:if>
+						
+						<c:if test="${not empty item.moveip1}"><td>${item.moveip1}</td></c:if>
+						<c:if test="${empty item.moveip1}"><td>0</td></c:if>
+						<c:if test="${not empty item.moveip2}"><td>${item.moveip2}</td></c:if>
+						<c:if test="${empty item.moveip2}"><td>0</td></c:if>
+						<c:if test="${not empty item.moveip3}"><td>${item.moveip3}</td></c:if>
+						<c:if test="${empty item.moveip3}"><td>0</td></c:if>
+						<c:if test="${not empty item.moveip4}"><td>${item.moveip4}</td></c:if>
+						<c:if test="${empty item.moveip4}"><td>0</td></c:if>
 	                </tr>
 	                </c:forEach>
 	                <c:if test="${empty page.pageResults}">
