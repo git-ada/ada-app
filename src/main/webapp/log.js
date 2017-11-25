@@ -6,7 +6,7 @@ var adaClientId;
 var adaChannelId="";
 var adaMouseMoveTiems = 0;
 var adaMouseClickTimes=0;
-var adaPageStopTimes = 0;
+var adaPageStayTime = 0;
 var adaMousescrollTiems = 0;
 var adaHasPutLog=false;
 var adaHasPutLogReturn=false;
@@ -28,7 +28,7 @@ function adaPageIn(){
 		if(existsClientId){
 			adaClientId = adaGetcookie("adaClientId").split("=")[1];
 		}else {
-			adaClientId = createUUID();
+			adaClientId = adaCreateUUID();
 			/** 将客户端ID保存到Cookie中 **/
 			document.cookie = "adaClientId="+adaClientId+";expires="+adaGetLongTimeExpires();
 		}
@@ -45,7 +45,7 @@ function adaPageIn(){
 	}
 }
 
-function createUUID(){
+function adaCreateUUID(){
 	try{
 		var s = [];
 		var hexDigits = "0123456789abcdef";
@@ -106,19 +106,19 @@ function adaGetLongTimeExpires(){
 }
 /*************************************************************************************/
 /**  页面停留累计时长  **/
-setInterval("adaStopTime()","1000");
-function adaStopTime(){
+setInterval("adaStatStayTime()","1000");
+function adaStatStayTime(){
 	try{
 		/** 判断如果Cookie中未生成,则生成新的时长 **/
-		var existsAdaPageStopTimes = (document.cookie.indexOf("adaPageStopTimes=") != -1);
-		if(existsAdaPageStopTimes){
-			lastStopTimes = adaGetcookie("adaPageStopTimes").split("=")[1];
+		var existsAdaPageStayTime = (document.cookie.indexOf("adaPageStayTime=") != -1);
+		if(existsAdaPageStayTime){
+			lastStayTime = adaGetcookie("adaPageStayTime").split("=")[1];
 		}else {
-			lastStopTimes = 0;
+			lastStayTime = 0;
 		}
-		adaPageStopTimes = parseInt(lastStopTimes) + 1;
-		document.cookie = "adaPageStopTimes="+adaPageStopTimes+";expires="+adaGetTodayExpires();
-		if(adaPageStopTimes == 5 || adaPageStopTimes == 30 || adaPageStopTimes == 120 || adaPageStopTimes == 300){
+		adaPageStayTime = parseInt(lastStayTime) + 1;
+		document.cookie = "adaPageStayTime="+adaPageStayTime+";expires="+adaGetTodayExpires();
+		if(adaPageStayTime == 5 || adaPageStayTime == 30 || adaPageStayTime == 120 || adaPageStayTime == 300){
 			adaPutLog3();
 		}
 	} catch(e){
@@ -134,7 +134,7 @@ window.onscroll = function() {
 	};
 window.setInterval(function (){
 	adaMousesScrollNum = adaGetMousescrollNum();
-	if( IsPC() == true ){
+	if( adaIsPC() == true ){
 		if(adaMousesScrollNum > 0){
 			adaMousesScrollNum = 0;
 			adaMousescroll();
@@ -166,7 +166,7 @@ function adaMousescroll(){
 }
 
 /** 判断客户端是否为 PC 还是手持设备 **/
-function IsPC() {
+function adaIsPC() {
 	try{
 		var userAgentInfo = navigator.userAgent;
 		var Agents = ["Android", "iPhone",
@@ -217,15 +217,15 @@ function adaGetMousescrollNum(){
 
 /*************************************************************************************/
 /** 获取鼠标移动次数 **/
-var _AMMcount = 0;
+var adaMOveTempNum = 0;
 window.setInterval(function (){
-	if(_AMMcount > 0){
-		_AMMcount = 0;
+	if(adaMOveTempNum > 0){
+		adaMOveTempNum = 0;
 		adaMouseMove();
 	}
 },1000);
 document.onmousemove=function(even){
-	_AMMcount ++;
+	adaMOveTempNum ++;
 };
 function adaMouseMove(){
 	try{
@@ -340,7 +340,7 @@ function adaPutLog3() {
 	try{
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
-		httprequest.open("get", adaLogServer + "/l3?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaPageStopTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
+		httprequest.open("get", adaLogServer + "/l3?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaPageStayTime+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
 		httprequest.send();
 	} catch(e){
 	}
