@@ -39,8 +39,9 @@
 	                            <input type="checkbox" class="opt-select-all">
 	                            <span></span>
 	                        </label>
-	                    </th>	
-						<th scope="col">目标页</th>
+	                    </th>
+	                    <th scope="col">网页名称</th>	
+						<th scope="col">网页地址</th>
 						<th scope="col">匹配类型</th>	
 						<th scope="col">操作</th>	
 				     </tr>
@@ -54,6 +55,7 @@
 	                            <span></span>
 	                        </label>
 	                    </td>
+	                    	<td>${item.pageName}</td>
 							<td>${item.url}</td>
 							<c:if test="${item.matchMode == 1}">
 							<td>全匹配</td>
@@ -269,6 +271,12 @@
 					<form id="edit_form" action="${pageContext.request.contextPath}/ada-target-page/update.do" class="form-horizontal" method="post">
 			        	<input type="hidden" name="id">
 		               	<div class="form-body">
+		               		<div class="form-group">
+			               		<label class="col-md-4 control-label">网页地址<span class="required" > * </span></label>	
+			               		<div class="col-md-8">
+					                <input type="text" name="pageName" class="form-control input-big" required="required" maxlength="128">
+								</div>
+			               	</div>
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">网页地址<span class="required" > * </span></label>	
 			               		<div class="col-md-8">
@@ -278,7 +286,7 @@
 			               	
 				             <div class="form-group">
 		                   	 <label class="col-md-4 control-label" style="float: none;">匹配模式<span class="required" > * </span></label>
-			                    <div class="mt-radio-list" style="margin-left: 80px;">
+			                    <div class="mt-radio-list" style="margin-left: 120px;">
 									<label class="mt-radio mt-radio-outline">
 										<input id="optionsRadios4" name="matchMode" value="1"  type="radio">
 										全匹配
@@ -290,7 +298,7 @@
 										<span></span>
 									</label>
 									<label class="mt-radio mt-radio-outline">
-									<input id="optionsRadios6" name="matchMode" value="3" checked="" type="radio">
+									<input id="optionsRadios6" name="matchMode" value="3"  type="radio">
 										模糊匹配
 										<span></span>
 									</label>
@@ -319,8 +327,14 @@
                  success : function(ret) {
                  		$("#edit_form").find("[name='id']").val(ret.entity.id);
                  		$("#edit_form").find("[name='siteId']").val(ret.entity.siteId);
+                 		$("#edit_form").find("[name='pageName']").val(ret.entity.pageName);
                  		$("#edit_form").find("[name='url']").val(ret.entity.url);
                  		$("#edit_form").find("[name='createTime']").val(ret.entity.createTime);
+                 		$("#edit_form").find("[name='matchMode']").each(function(mode){
+                 			if($(this).val()==ret.entity.matchMode){
+                 				$(this).attr("checked","checked");
+                 			}
+                 		});
                  }  
              });
         $("body").toggleClass("page-quick-sidebar-open");

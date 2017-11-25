@@ -69,15 +69,27 @@
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
 	            <thead>
 	                <tr>
-	                	<th scope="col" style="width: 120px;">日期</th>			
-						<th scope="col" style="width: 150px;">渠道</th>			
-						<th scope="col" style="width: 120px;">IP</th>			
-						<th scope="col" style="width: 120px;">PV</th>			
-						<th scope="col" style="width: 120px;">1-2次点击</th>			
-						<th scope="col" style="width: 120px;">3-5次点击</th>			
-						<th scope="col" style="width: 120px;">6-10次点击</th>			
-						<th scope="col" style="width: 120px;">10+次点击</th>			
-						<th scope="col" style="width: 120px;">进入目标页</th>					
+	                	<th scope="col" style="min-width: 100px;">日期</th>		
+						<th scope="col" style="min-width: 150px;">域名</th>			
+						<th scope="col" style="min-width: 100px;">IP</th>			
+						<th scope="col" style="min-width: 100px;">PV</th>			
+						<th scope="col" style="min-width: 100px;">1-2次点击</th>			
+						<th scope="col" style="min-width: 100px;">3-5次点击</th>			
+						<th scope="col" style="min-width: 100px;">6-10次点击</th>			
+						<th scope="col" style="min-width: 100px;">10+次点击</th>			
+						<th scope="col" style="min-width: 100px;">目标页访问</th>
+						<th scope="col" style="min-width: 100px;">5-30秒停留</th>
+						<th scope="col" style="min-width: 100px;">31-120秒停留</th>
+						<th scope="col" style="min-width: 120px;">121-300秒停留</th>
+						<th scope="col" style="min-width: 100px;">300+秒停留</th>
+						<th scope="col" style="min-width: 100px;">1-2次滚动</th>
+						<th scope="col" style="min-width: 100px;">3-5次滚动</th>
+						<th scope="col" style="min-width: 100px;">6-10次滚动</th>
+						<th scope="col" style="min-width: 100px;">10+次滚动</th>
+						<th scope="col" style="min-width: 100px;">1-2次移动</th>
+						<th scope="col" style="min-width: 100px;">3-5次移动</th>
+						<th scope="col" style="min-width: 100px;">6-10次移动</th>
+						<th scope="col" style="min-width: 100px;">10+次移动</th>				
 				     </tr>
 	            </thead>
 	            <tbody>
@@ -92,6 +104,18 @@
 						<td>${item.clickip3}</td>
 						<td>${item.clickip4}</td>
 						<td>${item.targetpageip}</td>
+						<td style="">${item.staytimeip1}</td>
+						<td style="">${item.staytimeip2}</td>
+						<td style="">${item.staytimeip3}</td>
+						<td style="">${item.staytimeip4}</td>
+						<td style="">${item.scrollip1}</td>
+						<td style="">${item.scrollip2}</td>
+						<td style="">${item.scrollip3}</td>
+						<td style="">${item.scrollip4}</td>
+						<td style="">${item.moveip1}</td>
+						<td style="">${item.moveip2}</td>
+						<td style="">${item.moveip3}</td>
+						<td style="">${item.moveip4}</td>
 	                </tr>
 	                </c:forEach>
 	                <c:if test="${empty page.pageResults}">

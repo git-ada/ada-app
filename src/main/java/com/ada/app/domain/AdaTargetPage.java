@@ -28,6 +28,8 @@ public class AdaTargetPage extends AbstractEntity<Integer> {
 	private Timestamp createTime;
 	/** 匹配模式 1全匹配 2前缀匹配 3模糊匹配（包含）**/
 	private Integer matchMode;
+	/** 目标页名称*/
+	private String pageName;
 	
 	@Id	
 	@GeneratedValue
@@ -69,6 +71,14 @@ public class AdaTargetPage extends AbstractEntity<Integer> {
 
 	public void setMatchMode(Integer matchMode) {
 		this.matchMode = matchMode;
+	}
+
+	public String getPageName() {
+		return pageName;
+	}
+
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
 	}
 
 
