@@ -128,13 +128,25 @@ function adaStopTime(){
 /*************************************************************************************/
 /**  获取鼠标滚动次数 **/
 var adaMousesScrollNum = 0;
+var adaMobileScrollNum = 0;
+window.onscroll = function() {
+		adaMobileScrollNum++;
+	};
 window.setInterval(function (){
 	adaMousesScrollNum = adaGetMousescrollNum();
-	if(adaMousesScrollNum > 0){
-		adaMousesScrollNum = 0;
-		adaMousescroll();
+	if( IsPC() == true ){
+		if(adaMousesScrollNum > 0){
+			adaMousesScrollNum = 0;
+			adaMousescroll();
+		}
+	}else{
+		if(adaMobileScrollNum > 0){
+			adaMobileScrollNum = 0;
+			adaMousescroll();
+		}
 	}
 },1000);
+
 function adaMousescroll(){
 	try{
 		/** 判断如果Cookie中未生成,则生成新的滚动次数 **/
@@ -152,6 +164,26 @@ function adaMousescroll(){
 	} catch(e){
 	}
 }
+
+/** 判断客户端是否为 PC 还是手持设备 **/
+function IsPC() {
+	try{
+		var userAgentInfo = navigator.userAgent;
+		var Agents = ["Android", "iPhone",
+					"SymbianOS", "Windows Phone",
+					"iPad", "iPod"];
+		var flag = true;
+		for (var v = 0; v < Agents.length; v++) {
+			if (userAgentInfo.indexOf(Agents[v]) > 0) {
+				flag = false;
+				break;
+			}
+		}
+		return flag;
+	}catch(e){
+	}
+};
+/** PC 端滚动次数统计 **/
 function adaGetMousescrollNum(){
 	try{
 		var agent = navigator.userAgent;
