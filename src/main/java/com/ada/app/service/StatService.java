@@ -32,5 +32,14 @@ public interface StatService {
 	 * @return
 	 */
 	public AdaChannelStat statChannel(Integer siteId,Integer channelId,Date date);
+	
+	/**
+	 * 统计域名IP数
+	 * @param siteId
+	 * @param domainId
+	 * @param date
+	 * @return
+	 */
+	public Integer statDomainIP(Integer domainId,Date date);
 
 }
