@@ -4,6 +4,9 @@ import java.util.List;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.math.BigDecimal;
+
+import org.springframework.data.jpa.repository.Query;
+
 import cn.com.jiand.mvc.framework.dao.jpa.EntityJpaDao;
 import com.ada.app.domain.AdaDomainStat;
 
@@ -61,6 +64,9 @@ public interface AdaDomainStatDao extends EntityJpaDao<AdaDomainStat, Integer> {
      *通过创建时间查询
      */
 	public List<AdaDomainStat> findByCreateTime(Timestamp createTime);
+	/** 通过站点id和时间查询 */
+	@Query(value="select * from ada_domain_stat where siteId=? and date=? order by ip",nativeQuery=true)
+	public List<AdaDomainStat> findBySiteIdandDate(Integer siteId,String date);
 
 
 }
