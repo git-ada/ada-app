@@ -92,6 +92,7 @@ function adaNewOrOldJudge(){
 		/** 判断如果Cookie中未生成,则生成新的 **/
 		var existsAdaOldTime = (document.cookie.indexOf("KaiEcGsT=") != -1);
 		if(existsAdaOldTime){
+			var adaLastTime ;
 			adaLastTime = adaGetcookie("KaiEcGsT").split("=")[1];
 			var adaLastTime = new Date(adaLastTime);
 			var adaTimeDiff = getAdaTimeDiff(adaPageInTime, adaLastTime);
