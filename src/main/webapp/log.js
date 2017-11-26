@@ -29,7 +29,7 @@ function adaPageIn(){
 			adaClientId = adaCreateUUID();
 			/** 将客户端ID保存到Cookie中 **/
 			document.cookie = "7kDWBXPQ="+adaClientId+";expires="+adaGetLongTimeExpires();
-			document.cookie = "KaiEcGsT="+1+";expires="+adaGetLongTimeExpires();
+			document.cookie = "KaiEcGsT="+adaPageInTime+";expires="+adaGetLongTimeExpires();
 		}
 	
 		/** 判断渠道ID是否存在，如果不存在则查询渠道ID **/
