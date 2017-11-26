@@ -38,6 +38,7 @@ function adaPageIn(){
 		var existsChannelId = (document.cookie.indexOf("7kDWBXdf=") != -1);
 		if(existsChannelId){
 			adaChannelId = adaGetcookie("7kDWBXdf").split("=")[1];
+			
 		}
 		adaPutLog1();
 	} catch(e){
@@ -73,14 +74,22 @@ function adaGetSiteId(){
 	}
 }
 /*************************************************************************************/
-/** 获取两个日期相差的天数 **/
-function getAdaTimeDiff(time1, time2){
+/** 判断传入的日期是否是今天 **/
+function getAdaTimeDiff(date1, date2){
 	try{
-		var time1 = arguments[0], time2 = arguments[1];
-		time1 = Date.parse(time1)/1000;
-		time2 = Date.parse(time2)/1000;
-		var time_ = time1 - time2;
-		return (time_/(3600*24));
+		var num=24*60*60*1000 ;  	//一天的毫秒数
+		var cha=date2.getTime()-date1.getTime(); //两个时间的毫秒差
+		if(cha>0){
+			if(cha>num){
+				return false;
+			}else if(date1.getDate()!=date2.getDate()){
+				return false;
+			}else {
+				return true;
+			}	
+		}else{
+			return true;
+		}
 	} catch(e){
 	}
 }
@@ -93,8 +102,8 @@ function adaNewOrOldJudge(){
 			var adaLastTime ;
 			adaLastTime = adaGetcookie("KaiEcGsT").split("=")[1];
 			var adaLastTime1 = new Date(adaLastTime);
-			var adaTimeDiff = getAdaTimeDiff(adaPageInTime, adaLastTime1);
-			if( adaTimeDiff >= 1 ){
+			var adaTimeDiff = getAdaTimeDiff(adaLastTime1,adaPageInTime);
+			if( adaTimeDiff == false ){
 				adaNewOrOldValue = 1;			
 			}else{
 				adaNewOrOldValue = 0;
@@ -326,7 +335,7 @@ function adaPutLog1() {
 				if (httprequest.status == 200) {
 				   var ret = httprequest.responseText;
 				   //console.log("查询渠道ID,ret->"+ret);
-				   if(ret != null && ret!= "undefined" && ret != ""){
+				   if(ret != null && ret!= "undefined" && ret != "" ){
 					   adaChannelId = ret;
 					   document.cookie = "7kDWBXdf="+adaChannelId+";expires="+adaGetLongTimeExpires();
 				   }
@@ -342,7 +351,6 @@ function adaPutLog1() {
 
 function adaPutLog2() {
 	try{
-		adaChannelId = adaGetcookie("7kDWBXdf").split("=")[1];
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
 		httprequest.open("get", adaLogServer + "/l2?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMouseClickTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
@@ -353,7 +361,6 @@ function adaPutLog2() {
 
 function adaPutLog3() {
 	try{
-		adaChannelId = adaGetcookie("7kDWBXdf").split("=")[1];
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
 		httprequest.open("get", adaLogServer + "/l3?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaPageStayTime+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
@@ -364,7 +371,6 @@ function adaPutLog3() {
 
 function adaPutLog4() {
 	try{
-		adaChannelId = adaGetcookie("7kDWBXdf").split("=")[1];
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
 		httprequest.open("get", adaLogServer + "/l4?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMouseMoveTiems+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
@@ -375,7 +381,6 @@ function adaPutLog4() {
 
 function adaPutLog5() {
 	try{
-		adaChannelId = adaGetcookie("7kDWBXdf").split("=")[1];
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
 		httprequest.open("get", adaLogServer + "/l5?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMousescrollTiems+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
