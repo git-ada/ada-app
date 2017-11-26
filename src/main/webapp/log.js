@@ -104,7 +104,13 @@ function adaNewOrOldJudge(){
 			var adaLastTime1 = new Date(adaLastTime);
 			var adaTimeDiff = getTimeIsToday(adaLastTime1,adaPageInTime);
 			if( adaTimeDiff == false ){
-				adaNewOrOldValue = 1;			
+				var existsAdaOldRecord = (document.cookie.indexOf("KaiEcGsTRe=") != -1);
+				if(existsAdaOldRecord){
+					adaNewOrOldValue = 0;
+				}else{
+					adaNewOrOldValue = 1;	
+					document.cookie = "KaiEcGsTRe="+1+";expires="+adaGetTodayExpires();
+				}	
 			}else{
 				adaNewOrOldValue = 0;
 			}
