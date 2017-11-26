@@ -166,7 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <!-- END CONTAINER -->
         <!-- BEGIN FOOTER -->
-        <div class="page-footer">
+        <div class="page-footer" style="display: none;">
             <!-- END FOOTER -->
             <!-- BEGIN QUICK NAV -->
             <nav class="quick-nav" style="display:none;">

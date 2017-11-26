@@ -226,7 +226,7 @@
 						
 				     </tr>
 	            </thead>
-	            <tbody id="tbody" style="max-height:400px;overflow-y: scroll;display: block;">
+	            <tbody id="tbody" style="overflow-y: scroll;display: block;">
 	               <c:forEach var="item" items="${pageResults}" varStatus="number">
 	                <tr>
 						<td style="min-width: 150px;">${item.channelName}</td>
@@ -288,6 +288,7 @@
 <script type="text/javascript">
 
 	jQuery(document).ready(function() {
+		$('#tbody').css("height",document.body.scrollHeight-465+"px");
 		graphicLoading(1);
 	});
 	
