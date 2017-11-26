@@ -3,14 +3,11 @@ var adaLogServer = "http://45.125.219.106:8001";
 var adaPageInTime = 0;
 var adaSiteId;
 var adaClientId;
-var adaChannelId="";
+var adaChannelId = "";
 var adaMouseMoveTiems = 0;
 var adaMouseClickTimes=0;
 var adaPageStayTime = 0;
-var adaMousescrollTiems = 0;
-var adaHasPutLog=false;
-var adaHasPutLogReturn=false;
-var adaNewOrOldValue ; 
+var adaMousescrollTimes = 0;
 
 /** JS页面加载后立即执行 **/
 adaPageIn();
@@ -32,6 +29,7 @@ function adaPageIn(){
 			adaClientId = adaCreateUUID();
 			/** 将客户端ID保存到Cookie中 **/
 			document.cookie = "7kDWBXPQ="+adaClientId+";expires="+adaGetLongTimeExpires();
+			document.cookie = "KaiEcGsT="+1+";expires="+adaGetLongTimeExpires();
 		}
 	
 		/** 判断渠道ID是否存在，如果不存在则查询渠道ID **/
@@ -76,51 +74,35 @@ function adaGetSiteId(){
 	}
 }
 /*************************************************************************************/
-/** 判断传入的日期是否是今天 **/
-function getTimeIsToday(date1, date2){
+/** 判断传入的日期是否同一天 **/
+function adaIsSameDay(date1, date2){
 	try{
-		var num=24*60*60*1000 ;  	//一天的毫秒数
-		var cha=date2.getTime()-date1.getTime(); //两个时间的毫秒差
-		if(cha>0){
-			if(cha>num){
-				return false;
-			}else if(date1.getDate()!=date2.getDate()){
-				return false;
-			}else {
+		if(date1!=null && date2!=null){
+			if(   data1.getYear()==data2.getYear()
+			   && data1.getMonth()==data2.getMonth()
+			   && data1.getDate()==data2.getDate()){
 				return true;
-			}	
-		}else{
-			return true;
+			}
 		}
+		return false;
 	} catch(e){
 	}
 }
-/** 获取判断新或者老用户的参数 **/
-function adaNewOrOldJudge(){
+
+/** 获取当前用户是否老用户 **/
+function adaIsOldUser(){
 	try{
-		/** 判断如果Cookie中未生成,则生成新的 **/
-		var existsAdaOldTime = (document.cookie.indexOf("KaiEcGsT=") != -1);
-		if(existsAdaOldTime){
-			var adaLastTime ;
-			adaLastTime = adaGetcookie("KaiEcGsT").split("=")[1];
-			var adaLastTime1 = new Date(adaLastTime);
-			var adaTimeDiff = getTimeIsToday(adaLastTime1,adaPageInTime);
-			if( adaTimeDiff == false ){
-				var existsAdaOldRecord = (document.cookie.indexOf("KaiEcGsTRe=") != -1);
-				if(existsAdaOldRecord){
-					adaNewOrOldValue = 0;
-				}else{
-					adaNewOrOldValue = 1;	
-					document.cookie = "KaiEcGsTRe="+1+";expires="+adaGetTodayExpires();
-				}	
-			}else{
-				adaNewOrOldValue = 0;
-			}
-		}else {
-			document.cookie = "KaiEcGsT="+adaPageInTime+";expires="+adaGetLongTimeExpires();
-			adaNewOrOldValue = 0;
+		/** 获取Cookie首次创建时间 **/
+		var firstTime =  adaGetcookie("KaiEcGsT").split("=")[1];
+		var isSameDay = adaIsSameDay( new Date(firstTime),adaPageInTime);
+		
+		/** 判断如果页面进入时间和首次创建时间是同一天，说明是新用户 **/
+		if(isSameDay){
+			/** 是同一天说明是新用户，**/
+			return false;
+		}else{
+			return true;
 		}
-		return adaNewOrOldValue;
 	} catch(e){
 	}
 }
@@ -199,15 +181,15 @@ window.setInterval(function (){
 function adaMousescroll(){
 	try{
 		/** 判断如果Cookie中未生成,则生成新的滚动次数 **/
-		var existsAdaMousescrollTiems = (document.cookie.indexOf("HmrswNQk=") != -1);
-		if(existsAdaMousescrollTiems){
+		var existsadaMousescrollTimes = (document.cookie.indexOf("HmrswNQk=") != -1);
+		if(existsadaMousescrollTimes){
 			lastMousescrollTiems = adaGetcookie("HmrswNQk").split("=")[1];
 		}else {
 			lastMousescrollTiems = 0;
 		}
-		adaMousescrollTiems = parseInt(lastMousescrollTiems) + 1;
-		document.cookie = "HmrswNQk="+adaMousescrollTiems+";expires="+adaGetTodayExpires();
-		if(adaMousescrollTiems == 1 || adaMousescrollTiems == 3 || adaMousescrollTiems == 5 || adaMousescrollTiems == 10){
+		adaMousescrollTimes = parseInt(lastMousescrollTiems) + 1;
+		document.cookie = "HmrswNQk="+adaMousescrollTimes+";expires="+adaGetTodayExpires();
+		if(adaMousescrollTimes == 1 || adaMousescrollTimes == 3 || adaMousescrollTimes == 5 || adaMousescrollTimes == 10){
 			adaPutLog5();
 		}
 	} catch(e){
@@ -341,7 +323,7 @@ function adaQueryChannelId() {
 			httprequest = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		if (!httprequest) {
-			console.log("初始化Httprequest失败");
+			//console.log("初始化Httprequest失败");
 		}
 		var encodeURI = encodeURIComponent(window.location.href);
 		httprequest.open("get",adaLogServer+"/q?u="+adaClientId+"&s="+adaSiteId+"&p="+encodeURI+"&t="+Date.parse(new Date()),true); 
@@ -349,14 +331,14 @@ function adaQueryChannelId() {
 			if (httprequest.readyState == 4) {
 				if (httprequest.status == 200) {
 				   var ret = httprequest.responseText;
-				   console.log("查询渠道ID,ret->"+ret);
+				   //console.log("查询渠道ID,ret->"+ret);
 				   if(ret != null && ret!= "undefined" && ret != ""){
 					   adaChannelId = ret;
 					   document.cookie = "adaChannelId="+adaChannelId+";expires="+adaGetLongTimeExpires();
 				   }
 				   adaPutLog1();
 				}else{
-					console.log("查询渠道ID失败");
+					//console.log("查询渠道ID失败");
 				}
 			}
 		};
@@ -369,7 +351,8 @@ function adaPutLog1() {
 	try{
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
-		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&uu="+adaNewOrOldJudge()+"&t="+Date.parse(new Date()), true);
+		var o = adaIsOldUser()?1:0;
+		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&o="+o+"&t="+Date.parse(new Date()), true);
 		httprequest.send();
 	} catch(e){
 	}
@@ -409,7 +392,7 @@ function adaPutLog5() {
 	try{
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
-		httprequest.open("get", adaLogServer + "/l5?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMousescrollTiems+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
+		httprequest.open("get", adaLogServer + "/l5?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&n="+adaMousescrollTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
 		httprequest.send();
 	} catch(e){
 	}
