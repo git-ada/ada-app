@@ -38,9 +38,11 @@ function adaPageIn(){
 		var existsChannelId = (document.cookie.indexOf("7kDWBXdf=") != -1);
 		if(existsChannelId){
 			adaChannelId = adaGetcookie("7kDWBXdf").split("=")[1];
-			
+			adaPutLog1();
+		}else{
+			adaQueryChannelId();
 		}
-		adaPutLog1();
+		
 	} catch(e){
 	}
 }
@@ -330,26 +332,44 @@ function adaGetcookie(name){
 };
 
 /*************************************************************************************/
+function adaQueryChannelId() {
+	try{
+		var httprequest = null;
+		if (window.XMLHttpRequest) {
+			httprequest = new XMLHttpRequest();
+		}else if (window.ActiveXObject) {
+			httprequest = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		if (!httprequest) {
+			console.log("初始化Httprequest失败");
+		}
+		var encodeURI = encodeURIComponent(window.location.href);
+		httprequest.open("get",adaLogServer+"/q?u="+adaClientId+"&s="+adaSiteId+"&p="+encodeURI+"&t="+Date.parse(new Date()),true); 
+		httprequest.onreadystatechange = function () {
+			if (httprequest.readyState == 4) {
+				if (httprequest.status == 200) {
+				   var ret = httprequest.responseText;
+				   console.log("查询渠道ID,ret->"+ret);
+				   if(ret != null && ret!= "undefined" && ret != ""){
+					   adaChannelId = ret;
+					   document.cookie = "adaChannelId="+adaChannelId+";expires="+adaGetLongTimeExpires();
+				   }
+				   adaPutLog1();
+				}else{
+					console.log("查询渠道ID失败");
+				}
+			}
+		};
+		httprequest.send();
+	} catch(e){
+	}
+};
 /** 推送日志 **/
 function adaPutLog1() {
 	try{
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
-		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&p="+encodeURI+"&c="+adaNewOrOldJudge()+"&t="+Date.parse(new Date()), true);
-		httprequest.onreadystatechange = function () {
-			if (httprequest.readyState == 4) {
-				if (httprequest.status == 200) {
-				   var ret = httprequest.responseText;
-				   //console.log("查询渠道ID,ret->"+ret);
-				   if(ret != null && ret!= "undefined" && ret != "" ){
-					   adaChannelId = ret;
-					   document.cookie = "7kDWBXdf="+adaChannelId+";expires="+adaGetLongTimeExpires();
-				   }
-				}else{
-					//console.log("查询渠道ID失败");
-				}
-			}
-		};
+		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&uu="+adaNewOrOldJudge()+"&t="+Date.parse(new Date()), true);
 		httprequest.send();
 	} catch(e){
 	}
