@@ -95,7 +95,7 @@
 	               <c:forEach var="item" items="${domainstatList}" varStatus="number">
 	                <tr>
                    		<td style="min-width: 100px;"><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td>
-						<td style="min-width: 150px;">${item.channelName}</td>
+						<td style="min-width: 150px;" title="${item.domain}">${item.subdoamin}</td>
 						<td style="min-width: 120px;">${item.ip}</td>
 						<td style="min-width: 120px;">${item.pv}</td>
 						<td style="min-width: 120px;">${item.olduserip} (${item.old}%)</td>
