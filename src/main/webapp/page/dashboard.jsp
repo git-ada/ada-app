@@ -288,7 +288,7 @@
 <script type="text/javascript">
 
 	jQuery(document).ready(function() {
-		$('#tbody').css("height",document.body.scrollHeight-465+"px");
+		$('#tbody').css("height",window.screen.height-465+"px");
 		graphicLoading(1);
 	});
 	
