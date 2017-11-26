@@ -89,7 +89,8 @@
 						<th scope="col" style="min-width: 100px;">1-2次移动</th>
 						<th scope="col" style="min-width: 100px;">3-5次移动</th>
 						<th scope="col" style="min-width: 100px;">6-10次移动</th>
-						<th scope="col" style="min-width: 100px;">10+次移动</th>				
+						<th scope="col" style="min-width: 100px;">10+次移动</th>
+						<th scope="col" style="min-width: 100px;">老用户数</th>				
 				     </tr>
 	            </thead>
 	            <tbody>
@@ -130,6 +131,9 @@
 						<c:if test="${empty item.moveip3}"><td>0</td></c:if>
 						<c:if test="${not empty item.moveip4}"><td>${item.moveip4}</td></c:if>
 						<c:if test="${empty item.moveip4}"><td>0</td></c:if>
+						
+						<c:if test="${not empty item.olduserip}"><td>${item.olduserip}</td></c:if>
+						<c:if test="${empty item.olduserip}"><td>0</td></c:if>
 	                </tr>
 	                </c:forEach>
 	                <c:if test="${empty page.pageResults}">
