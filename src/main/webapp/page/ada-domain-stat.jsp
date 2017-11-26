@@ -148,7 +148,7 @@
 </div>
 <script type="text/javascript">
 	
-	$('#domainStatHistory').css("height",window.screen.height-465+"px");
+	$('#domainStatHistory').css("height",window.screen.height-370+"px");
 	
 	//初始化时间器
 	initatepicker();
