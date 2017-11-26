@@ -105,7 +105,7 @@ public class AdaDomainStatManagerController extends AbstractJQueryEntityControll
     		if(adaDomainStat.getDomain().getDomain().length()>18){
     			map.put("subdoamin", adaDomainStat.getDomain().getDomain().substring(0, 18));
     		}else{
-    			map.put("subdoamin", adaDomainStat.getDomain());
+    			map.put("subdoamin", adaDomainStat.getDomain().getDomain());
     		}
     		map.put("ip", ip);
     		map.put("pv", pv);
