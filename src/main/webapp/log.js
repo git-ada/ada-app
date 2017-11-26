@@ -75,7 +75,7 @@ function adaGetSiteId(){
 }
 /*************************************************************************************/
 /** 判断传入的日期是否是今天 **/
-function getAdaTimeDiff(date1, date2){
+function getTimeIsToday(date1, date2){
 	try{
 		var num=24*60*60*1000 ;  	//一天的毫秒数
 		var cha=date2.getTime()-date1.getTime(); //两个时间的毫秒差
@@ -102,7 +102,7 @@ function adaNewOrOldJudge(){
 			var adaLastTime ;
 			adaLastTime = adaGetcookie("KaiEcGsT").split("=")[1];
 			var adaLastTime1 = new Date(adaLastTime);
-			var adaTimeDiff = getAdaTimeDiff(adaLastTime1,adaPageInTime);
+			var adaTimeDiff = getTimeIsToday(adaLastTime1,adaPageInTime);
 			if( adaTimeDiff == false ){
 				adaNewOrOldValue = 1;			
 			}else{
