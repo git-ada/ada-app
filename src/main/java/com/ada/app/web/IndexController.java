@@ -25,9 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import cn.com.jiand.mvc.framework.utils.Dates;
 
 import com.ada.app.dao.AdaChannelDao;
+import com.ada.app.dao.AdaDomainDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaSiteStatDao;
-import com.ada.app.dao.AdaDomainDao;
 import com.ada.app.domain.AdaChannel;
 import com.ada.app.domain.AdaChannelStat;
 import com.ada.app.domain.AdaDomain;
@@ -355,8 +355,25 @@ public class IndexController {
 		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
 		 Integer domainSumIP = 0;/** 渠道ip总数 **/
 		 Integer domainSumPV = 0;/** 渠道PV总数 **/
-		 for (AdaDomain domain : domains) {
-			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domain.getId(), date);
+		 
+		 List<Integer[]> domainIps = new ArrayList();
+		 
+		 for(AdaDomain domain : domains){
+			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
+			 if(domainIp!=null && domainIp>0){
+				 domainIps.add(new Integer[]{domain.getId(),domainIp});
+			 }
+		 }
+		 
+		 Collections.sort(domainIps,new Comparator<Integer[]>(){
+			public int compare(Integer[] arg0, Integer[] arg1) {
+				return arg1[1].compareTo(arg0[0]);
+			}
+		 });
+		 
+		 for(int i=0;i<domainIps.size()&&i<300;i++){
+			Integer domainId = domainIps.get(i)[0];
+			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
 			Map map = new HashMap();
 			String domainstr = adaDomainDao.findById(domainStat.getDomainId()).getDomain();
 			 map.put("domain",domainstr);

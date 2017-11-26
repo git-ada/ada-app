@@ -116,6 +116,17 @@ public class StatServiceImpl implements StatService{
 				scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4);
 	}
 	
+	
+	@Override
+	public Integer statDomainIP(Integer domainId,Date date) {
+		Jedis jedis = getJedis(date);
+		//取出域名IPSet集合
+		int domainIP = jedis.scard(RedisKeys.DomainIP.getKey()+domainId+"").intValue();
+		returnResource(date,jedis);
+		return domainIP;
+	}
+
+	
 	public AdaDomainStat statDomain(Integer siteId, Integer domainId, Date date) {
 		Jedis jedis = getJedis(date);
 		Integer site_domainPV = 0;
@@ -204,6 +215,7 @@ public class StatServiceImpl implements StatService{
 	public void returnResource(Date date,Jedis jedis) {
 		jedisPools.returnResource(date.getDay(),jedis);
     }
+
 
 
 }
