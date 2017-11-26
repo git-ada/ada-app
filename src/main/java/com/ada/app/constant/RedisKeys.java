@@ -53,8 +53,14 @@ public enum RedisKeys {
 	DomainScroll1IP("","DomainScroll1IP_",""),
 	DomainScroll2IP("","DomainScroll2IP_",""),
 	DomainScroll3IP("","DomainScroll3IP_",""),
-	DomainScroll4IP("","DomainScroll4IP_","")		
+	DomainScroll4IP("","DomainScroll4IP_",""),
+	
+	SiteOldUserIP("站点老用户数","SiteOldUserIP_",""),
+	ChannelOldUserIP("渠道老用户数","ChannelOldUserIP_",""),
+	DomainOldUserIP("域名老用户数","DomainOldUserIP_","")
 
+
+	
 	;
 	private String title;
 	private String key;

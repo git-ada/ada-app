@@ -107,13 +107,14 @@ public class StatServiceImpl implements StatService{
 		
 		String Moveip4 = jedis.get(RedisKeys.ChannelMouseMove4IP.getKey()+channelId+"");
 		if(Moveip4 != null) moveip4 = Integer.valueOf(Moveip4);
-		
+		//老用户数
+		int olduserip = jedis.scard(RedisKeys.ChannelOldUserIP.getKey()+channelId+"").intValue();
 		
 		returnResource(date,jedis);
 		
 		
 		return new AdaChannelStat(siteId, channelId, channelIP, site_ChannelPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date,staytimeip1,staytimeip2,staytimeip3,staytimeip4,
-				scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4);
+				scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4,olduserip);
 	}
 	
 	
@@ -202,10 +203,12 @@ public class StatServiceImpl implements StatService{
 		
 		String Moveip4 = jedis.get(RedisKeys.DomainMouseMove4IP.getKey()+domainId+"");
 		if(Moveip4 != null) moveip4 = Integer.valueOf(Moveip4);
-		
+		//老用户数
+		int olduserip = jedis.scard(RedisKeys.DomainOldUserIP.getKey()+domainId+"").intValue();
+
 		returnResource(date,jedis);
 		return new AdaDomainStat(siteId, domainId, domainIP, site_domainPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date,staytimeip1,staytimeip2,staytimeip3,staytimeip4,
-				scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4);
+				scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4,olduserip);
 	}
 
 	protected Jedis getJedis(Date date){	

@@ -72,7 +72,8 @@ public class AdaChannelStat extends AbstractEntity<Integer> {
 	private Integer moveip3;
 	/** 10+次移动*/
 	private Integer moveip4;
-	
+	/** 老用户数量*/
+	private Integer olduserip;
 	
 	public AdaChannelStat() {
 		super();
@@ -148,6 +149,40 @@ public class AdaChannelStat extends AbstractEntity<Integer> {
 		this.moveip2 = moveip2;
 		this.moveip3 = moveip3;
 		this.moveip4 = moveip4;
+	}
+	
+
+	public AdaChannelStat(Integer siteId, Integer channelId, Integer ip,
+			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
+			Integer clickip4, Integer targetpageip, Date date,
+			Integer staytimeip1, Integer staytimeip2, Integer staytimeip3,
+			Integer staytimeip4, Integer scrollip1, Integer scrollip2,
+			Integer scrollip3, Integer scrollip4, Integer moveip1,
+			Integer moveip2, Integer moveip3, Integer moveip4, Integer olduserip) {
+		super();
+		this.siteId = siteId;
+		this.channelId = channelId;
+		this.ip = ip;
+		this.pv = pv;
+		this.clickip1 = clickip1;
+		this.clickip2 = clickip2;
+		this.clickip3 = clickip3;
+		this.clickip4 = clickip4;
+		this.targetpageip = targetpageip;
+		this.date = date;
+		this.staytimeip1 = staytimeip1;
+		this.staytimeip2 = staytimeip2;
+		this.staytimeip3 = staytimeip3;
+		this.staytimeip4 = staytimeip4;
+		this.scrollip1 = scrollip1;
+		this.scrollip2 = scrollip2;
+		this.scrollip3 = scrollip3;
+		this.scrollip4 = scrollip4;
+		this.moveip1 = moveip1;
+		this.moveip2 = moveip2;
+		this.moveip3 = moveip3;
+		this.moveip4 = moveip4;
+		this.olduserip = olduserip;
 	}
 
 	@Id	
@@ -356,6 +391,14 @@ public class AdaChannelStat extends AbstractEntity<Integer> {
 
 	public void setMoveip4(Integer moveip4) {
 		this.moveip4 = moveip4;
+	}
+
+	public Integer getOlduserip() {
+		return olduserip;
+	}
+
+	public void setOlduserip(Integer olduserip) {
+		this.olduserip = olduserip;
 	}
 	
 	

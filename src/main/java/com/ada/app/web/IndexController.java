@@ -260,6 +260,7 @@ public class IndexController {
 			 Integer moveip2 = 0;
 			 Integer moveip3 = 0;
 			 Integer moveip4 = 0;
+			 Integer olduserip = 0;
 			 
 			 if(channelStat.getClickip1()>0)clickip1 = channelStat.getClickip1();
 			 if(channelStat.getClickip2()>0)clickip2 = channelStat.getClickip2();
@@ -277,6 +278,7 @@ public class IndexController {
 			 if(channelStat.getMoveip2()>0)moveip2 = channelStat.getMoveip2();
 			 if(channelStat.getMoveip3()>0)moveip3 = channelStat.getMoveip3();
 			 if(channelStat.getMoveip4()>0)moveip4 = channelStat.getMoveip4();
+			 if(channelStat.getOlduserip()>0)olduserip = channelStat.getOlduserip();
 			 
 			 map.put("clickip1", clickip1);
 			 map.put("clickip2", clickip2);
@@ -294,6 +296,7 @@ public class IndexController {
 			 map.put("moveip2", moveip2);
 			 map.put("moveip3", moveip3);
 			 map.put("moveip4", moveip4);
+			 map.put("olduserip", olduserip);
 			 map.put("targetpageip", channelStat.getTargetpageip());
 			 NumberFormat numberFormat = NumberFormat.getInstance();     
 			 numberFormat.setMaximumFractionDigits(2);
@@ -314,7 +317,7 @@ public class IndexController {
 				 map.put("m2", numberFormat.format((float)moveip2/(float)channelStat.getIp()*100));
 				 map.put("m3", numberFormat.format((float)moveip3/(float)channelStat.getIp()*100));
 				 map.put("m4", numberFormat.format((float)moveip4/(float)channelStat.getIp()*100));
-				 
+				 map.put("old", numberFormat.format((float)olduserip/(float)channelStat.getIp()*100));
 				 map.put("tgp", numberFormat.format((float)channelStat.getTargetpageip()/(float)channelStat.getIp()*100));
 			 }else{
 				 map.put("c1", 0);
@@ -333,6 +336,7 @@ public class IndexController {
 				 map.put("m2", 0);
 				 map.put("m3", 0);
 				 map.put("m4", 0);
+				 map.put("old", 0);
 				 map.put("tgp", 0);
 			 }
 			 channelSumIP+=channelStat.getIp();
@@ -400,6 +404,7 @@ public class IndexController {
 			 Integer moveip2 = 0;
 			 Integer moveip3 = 0;
 			 Integer moveip4 = 0;
+			 Integer olduserip = 0;
 			 if(domainStat.getClickip1()>0)clickip1 = domainStat.getClickip1();
 			 if(domainStat.getClickip2()>0)clickip2 = domainStat.getClickip2();
 			 if(domainStat.getClickip3()>0)clickip3 = domainStat.getClickip3();
@@ -416,7 +421,7 @@ public class IndexController {
 			 if(domainStat.getMoveip2()>0)moveip2 = domainStat.getMoveip2();
 			 if(domainStat.getMoveip3()>0)moveip3 = domainStat.getMoveip3();
 			 if(domainStat.getMoveip4()>0)moveip4 = domainStat.getMoveip4();
-			 
+			 if(domainStat.getOlduserip()>0)olduserip = domainStat.getOlduserip();
 			 map.put("clickip1", clickip1);
 			 map.put("clickip2", clickip2);
 			 map.put("clickip3", clickip3);
@@ -433,6 +438,7 @@ public class IndexController {
 			 map.put("moveip2", moveip2);
 			 map.put("moveip3", moveip3);
 			 map.put("moveip4", moveip4);
+			 map.put("olduserip", olduserip);
 			 map.put("targetpageip", domainStat.getTargetpageip());
 			 NumberFormat numberFormat = NumberFormat.getInstance();     
 			 numberFormat.setMaximumFractionDigits(2);
@@ -453,6 +459,7 @@ public class IndexController {
 				 map.put("m2", numberFormat.format((float)moveip2/(float)domainStat.getIp()*100));
 				 map.put("m3", numberFormat.format((float)moveip3/(float)domainStat.getIp()*100));
 				 map.put("m4", numberFormat.format((float)moveip4/(float)domainStat.getIp()*100));
+				 map.put("old", numberFormat.format((float)olduserip/(float)domainStat.getIp()*100));
 				 map.put("tgp", numberFormat.format((float)domainStat.getTargetpageip()/(float)domainStat.getIp()*100));
 			 }else{
 				 map.put("c1", 0);
@@ -471,6 +478,7 @@ public class IndexController {
 				 map.put("m2", 0);
 				 map.put("m3", 0);
 				 map.put("m4", 0);
+				 map.put("old", 0);
 				 map.put("tgp", 0);
 			 }
 			 domainSumIP+=domainStat.getIp();
