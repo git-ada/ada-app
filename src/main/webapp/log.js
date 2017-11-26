@@ -274,7 +274,7 @@ function adaQueryChannelId() {
 			httprequest = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		if (!httprequest) {
-			console.log("初始化Httprequest失败");
+			//console.log("初始化Httprequest失败");
 		}
 		var encodeURI = encodeURIComponent(window.location.href);
 		httprequest.open("get",adaLogServer+"/q?u="+adaClientId+"&s="+adaSiteId+"&p="+encodeURI+"&t="+Date.parse(new Date()),true); 
@@ -282,14 +282,14 @@ function adaQueryChannelId() {
 			if (httprequest.readyState == 4) {
 				if (httprequest.status == 200) {
 				   var ret = httprequest.responseText;
-				   console.log("查询渠道ID,ret->"+ret);
+				   //console.log("查询渠道ID,ret->"+ret);
 				   if(ret != null && ret!= "undefined" && ret != ""){
 					   adaChannelId = ret;
 					   document.cookie = "adaChannelId="+adaChannelId+";expires="+adaGetLongTimeExpires();
 				   }
 				   adaPutLog1();
 				}else{
-					console.log("查询渠道ID失败");
+					//console.log("查询渠道ID失败");
 				}
 			}
 		};
@@ -297,6 +297,7 @@ function adaQueryChannelId() {
 	} catch(e){
 	}
 };
+
 function adaGetcookie(name){
 	try{
 		var arr= document.cookie.indexOf(name+"=");
@@ -377,7 +378,7 @@ function adagetHttpRequest(){
 			httprequest = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		if (!httprequest) {
-			console.log("初始化httprequest失败");
+			//console.log("初始化httprequest失败");
 		}
 		return httprequest;
 	} catch(e){
