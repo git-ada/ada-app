@@ -78,9 +78,9 @@ function adaGetSiteId(){
 function adaIsSameDay(date1, date2){
 	try{
 		if(date1!=null && date2!=null){
-			if(   data1.getYear()==data2.getYear()
-			   && data1.getMonth()==data2.getMonth()
-			   && data1.getDate()==data2.getDate()){
+			if(   date1.getYear()==date2.getYear()
+			   && date1.getMonth()==date2.getMonth()
+			   && date1.getDate()==date2.getDate()){
 				return true;
 			}
 		}
@@ -94,14 +94,16 @@ function adaIsOldUser(){
 	try{
 		/** 获取Cookie首次创建时间 **/
 		var firstTime =  adaGetcookie("KaiEcGsT").split("=")[1];
-		var isSameDay = adaIsSameDay( new Date(firstTime),adaPageInTime);
+		var isSameDay = adaIsSameDay(new Date(firstTime),adaPageInTime);
 		
 		/** 判断如果页面进入时间和首次创建时间是同一天，说明是新用户 **/
-		if(isSameDay){
+		if(isSameDay==true){
 			/** 是同一天说明是新用户，**/
 			return false;
-		}else{
+		}else if (isSameDay==false){
 			return true;
+		}else{
+			return false;
 		}
 	} catch(e){
 	}
@@ -331,14 +333,11 @@ function adaQueryChannelId() {
 			if (httprequest.readyState == 4) {
 				if (httprequest.status == 200) {
 				   var ret = httprequest.responseText;
-				   //console.log("查询渠道ID,ret->"+ret);
 				   if(ret != null && ret!= "undefined" && ret != ""){
 					   adaChannelId = ret;
-					   document.cookie = "adaChannelId="+adaChannelId+";expires="+adaGetLongTimeExpires();
+					   document.cookie = "7kDWBXdf="+adaChannelId+";expires="+adaGetLongTimeExpires();
 				   }
 				   adaPutLog1();
-				}else{
-					//console.log("查询渠道ID失败");
 				}
 			}
 		};
@@ -351,8 +350,23 @@ function adaPutLog1() {
 	try{
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
-		var o = adaIsOldUser()?1:0;
+		var o = 0;
+		var isOldUser = adaIsOldUser();
+		if(isOldUser == true){
+			o = 1;
+		}
 		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&o="+o+"&t="+Date.parse(new Date()), true);
+		httprequest.onreadystatechange = function () {
+			if (httprequest.readyState == 4) {
+				if (httprequest.status == 200) {
+				   var ret = httprequest.responseText;
+				   if(ret != null && ret!= "undefined" && ret != "" && ret != "ok"){
+					   adaChannelId = ret;
+					   document.cookie = "7kDWBXdf="+adaChannelId+";expires="+adaGetLongTimeExpires();
+				   }
+				}
+			}
+		};
 		httprequest.send();
 	} catch(e){
 	}
