@@ -65,8 +65,13 @@ public interface AdaDomainStatDao extends EntityJpaDao<AdaDomainStat, Integer> {
      */
 	public List<AdaDomainStat> findByCreateTime(Timestamp createTime);
 	/** 通过站点id和时间查询 */
-	@Query(value="select * from ada_domain_stat where siteId=? and date=? order by ip",nativeQuery=true)
+	@Query(value="select * from ada_domain_stat where siteId=? and date=? order by ip desc",nativeQuery=true)
 	public List<AdaDomainStat> findBySiteIdandDate(Integer siteId,String date);
+	
+	
+	@Query(value="select ads.* from ada_domain_stat ads left join ada_domain d on " +
+			"ads.domainId=d.id where ads.siteId=? and ads.date=? and d.domain like concat('%',?,'%') order by ads.ip desc",nativeQuery=true)
+	public List<AdaDomainStat> findBySiteIdandDateandDomain(Integer siteId,String date,String domain);
 
 
 }

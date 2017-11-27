@@ -205,7 +205,7 @@
 						<th scope="col" style="min-width: 150px;">渠道 / 域名</th>
 						<th scope="col" style="min-width: 120px;">IP</th>			
 						<th scope="col" style="min-width: 120px;">PV</th>
-						<th scope="col" style="min-width: 120px;">老用户数</th>	
+						<th scope="col" style="min-width: 120px;">登录用户数</th>	
 						<th scope="col" style="min-width: 120px;">1-2次点击</th>			
 						<th scope="col" style="min-width: 120px;">3-5次点击</th>			
 						<th scope="col" style="min-width: 120px;">6-10次点击</th>			
@@ -288,8 +288,11 @@
 <script type="text/javascript">
 
 	jQuery(document).ready(function() {
+		
+		
 		$('#tbody').css("height",window.screen.height-465+"px");
 		graphicLoading(1);
+		
 	});
 	
 	
@@ -304,6 +307,7 @@
 		$("#backoff").attr("data-value",""); //上一月
 	 
 			graphicLoading(1);
+		
 	}
 
 
@@ -344,7 +348,7 @@
 	 
 	 var ajaxTime = 2000;
 	 
-	 window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+	 var t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 	  
 	 function ajaxRefreshPage(){
 		 jQuery.ajax({
@@ -426,12 +430,17 @@
 						//jQuery("#domain").empty();
 						//jQuery("#domain").append(domain);
 					}
-					ajaxTime=2000;
-					window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+					clearTimeout(t);
+					if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0){
+						ajaxTime=2000;
+						t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+					}
+					
 				},
 				error: function (data) {
+					clearTimeout(t);
 					ajaxTime=ajaxTime*2;
-					window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+					t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 				}
 			});
 	 }

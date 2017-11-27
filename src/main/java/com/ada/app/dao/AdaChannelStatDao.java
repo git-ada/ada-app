@@ -4,6 +4,9 @@ import java.util.List;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.math.BigDecimal;
+
+import org.springframework.data.jpa.repository.Query;
+
 import cn.com.jiand.mvc.framework.dao.jpa.EntityJpaDao;
 import com.ada.app.domain.AdaChannelStat;
 
@@ -57,6 +60,13 @@ public interface AdaChannelStatDao extends EntityJpaDao<AdaChannelStat, Integer>
      *通过创建时间查询
      */
 	public List<AdaChannelStat> findByCreateTime(Timestamp createTime);
+	
+	@Query(value="select * from ada_channel_stat where siteId=? and date=? order by ip desc",nativeQuery=true)
+	public List<AdaChannelStat> findBySiteIdandDate(Integer siteId,String date);
+	
+	@Query(value="select ads.* from ada_channel_stat ads left join ada_channel d " +
+			"on ads.channelId=d.id where ads.siteId=? and ads.date=? and d.channelName like concat('%',?,'%') order by ads.ip desc",nativeQuery=true)
+	public List<AdaChannelStat> findBySiteIdandDateAndChannelname(Integer siteId,String date,String channelName);
 
 
 }

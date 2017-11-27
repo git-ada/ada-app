@@ -67,14 +67,28 @@ public class AdaDomainStatManagerController extends AbstractJQueryEntityControll
 	}
     
     @RequestMapping(value = "stat")
-    public String domainstat(HttpServletRequest request,HttpServletResponse response, Model model){
-    	/** 获取昨天的日期*/
-    	Calendar cal=Calendar.getInstance();
-    	cal.add(Calendar.DATE,-1);
-    	Date time=cal.getTime();
-    	String date = new SimpleDateFormat("yyyy-MM-dd").format(time);
-    	
-    	List<AdaDomainStat> domainstatList = adaDomainStatDao.findBySiteIdandDate(Sessions.getCurrentSite().getId(), date);
+    public String domainstat(HttpServletRequest request,HttpServletResponse response, Model model,
+    		String search_GTE_date,String domain){
+    	String domainstr =domain==null?"":domain.trim();
+    	model.addAttribute("domain", domainstr);
+    	String date = "";
+    	if(search_GTE_date!=null && !"".equals(search_GTE_date)){
+    		date = search_GTE_date;
+    	}else{
+    		/** 获取昨天的日期*/
+        	Calendar cal=Calendar.getInstance();
+        	cal.add(Calendar.DATE,-1);
+        	Date time=cal.getTime();
+        	 date = new SimpleDateFormat("yyyy-MM-dd").format(time);
+    	}
+    	model.addAttribute("search_GTE_date", date);
+    	List<AdaDomainStat> domainstatList = null;
+    	if(!"".equals(domainstr)){
+    		domainstatList = adaDomainStatDao.findBySiteIdandDateandDomain(Sessions.getCurrentSite().getId(), date,domainstr);
+    	}else{
+    		domainstatList = adaDomainStatDao.findBySiteIdandDate(Sessions.getCurrentSite().getId(), date);
+    	}
+        
     	List<Map> list = new ArrayList<Map>();
     	for(int i=0;i<domainstatList.size();i++){
     		AdaDomainStat adaDomainStat = domainstatList.get(i);
