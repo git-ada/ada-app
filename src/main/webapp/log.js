@@ -8,6 +8,7 @@ var adaMouseMoveTiems = 0;
 var adaMouseClickTimes=0;
 var adaPageStayTime = 0;
 var adaMousescrollTimes = 0;
+var adaFirstTime ="";
 
 /** JS页面加载后立即执行 **/
 adaPageIn();
@@ -29,18 +30,18 @@ function adaPageIn(){
 			adaClientId = adaCreateUUID();
 			/** 将客户端ID保存到Cookie中 **/
 			document.cookie = "7kDWBXPQ="+adaClientId+";expires="+adaGetLongTimeExpires();
-			document.cookie = "KaiEcGsT="+adaPageInTime+";expires="+adaGetLongTimeExpires();
+		}
+		
+		if(document.cookie.indexOf("KaiEcGsT=") != -1){
+			adaFirstTime = adaGetcookie("KaiEcGsT").split("=")[1];
 		}
 	
 		/** 判断渠道ID是否存在，如果不存在则查询渠道ID **/
 		var existsChannelId = (document.cookie.indexOf("7kDWBXdf=") != -1);
 		if(existsChannelId){
 			adaChannelId = adaGetcookie("7kDWBXdf").split("=")[1];
-			adaPutLog1();
-		}else{
-			adaQueryChannelId();
 		}
-		
+		adaPutLog1();
 	} catch(e){
 	}
 }
@@ -313,6 +314,7 @@ function adaGetcookie(name){
 		}
 	} catch(e){
 	}
+	return "";
 };
 
 /*************************************************************************************/
@@ -350,19 +352,28 @@ function adaPutLog1() {
 	try{
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
-		var o = 0;
-		var isOldUser = adaIsOldUser();
-		if(isOldUser == true){
-			o = 1;
-		}
-		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&o="+o+"&t="+Date.parse(new Date()), true);
+		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&o="+adaFirstTime+"&t="+Date.parse(new Date()), true);
 		httprequest.onreadystatechange = function () {
 			if (httprequest.readyState == 4) {
 				if (httprequest.status == 200) {
 				   var ret = httprequest.responseText;
 				   if(ret != null && ret!= "undefined" && ret != "" && ret != "ok"){
-					   adaChannelId = ret;
-					   document.cookie = "7kDWBXdf="+adaChannelId+";expires="+adaGetLongTimeExpires();
+						 try {
+							   var jet = JSON.parse(ret);
+							   if(adaChannelId == null || adaChannelId == ""){
+								   if(jet.c !=null && jet.c !="undefined" && jet.c != ""){
+									   adaChannelId = jet.c;
+									   document.cookie = "7kDWBXdf="+adaChannelId+";expires="+adaGetLongTimeExpires();
+								   }
+							   }
+							   if(adaFirstTime==null || adaFirstTime == ""){
+								   if(jet.o !=null && jet.o !="undefined" && jet.o != ""){
+									   adaFirstTime = jet.o;
+									   document.cookie = "KaiEcGsT="+adaFirstTime+";expires="+adaGetLongTimeExpires();
+								   }
+							   }
+						} catch (e) {
+						}
 				   }
 				}
 			}
