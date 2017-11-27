@@ -288,8 +288,11 @@
 <script type="text/javascript">
 
 	jQuery(document).ready(function() {
+		
+		
 		$('#tbody').css("height",window.screen.height-465+"px");
 		graphicLoading(1);
+		
 	});
 	
 	
@@ -304,6 +307,7 @@
 		$("#backoff").attr("data-value",""); //上一月
 	 
 			graphicLoading(1);
+		
 	}
 
 
@@ -344,7 +348,7 @@
 	 
 	 var ajaxTime = 2000;
 	 
-	 window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+	 var t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 	  
 	 function ajaxRefreshPage(){
 		 jQuery.ajax({
@@ -426,12 +430,17 @@
 						//jQuery("#domain").empty();
 						//jQuery("#domain").append(domain);
 					}
-					ajaxTime=2000;
-					window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+					clearTimeout(t);
+					if(browsingHistory[browsingHistory.length-1]=="/ada-app/dashboard.jhtm"){
+						ajaxTime=2000;
+						t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+					}
+					
 				},
 				error: function (data) {
+					clearTimeout(t);
 					ajaxTime=ajaxTime*2;
-					window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+					t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 				}
 			});
 	 }
