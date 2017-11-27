@@ -27,7 +27,7 @@
 			<div class="col-md-10 col-sm-12 left">
 		    <div class="caption">
 				<div class="clearfix ">
-				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-domain-stat/list.jhtm" method="get">
+				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-domain-stat/stat.jhtm" method="get">
 				    	<!--
 				    		支持操作符 :EQ, NOTEQ , LIKE, LLIKE, RLIKE, NLIKE, GT, LT, GTE, LTE, IN, NOTIN, NULL, NOTNULL,
 				    		如:search_EQ_name 会自动添加条件，like '%value%';
@@ -35,11 +35,13 @@
 				    	<!-- 页码  -->
 					    <input type="hidden" id="page" name="page">
 						<div class="row">
+							<div class="col-md-2 col-sm-12">
+								<input type="text" class="form-control search-field input-medium" name="domain" value="${domain}"  placeholder="渠道"/>
+							</div>
 							<div class="col-md-3 col-sm-12">
 						         <div class="input-group input-medium">
                                       <input type="text" class="form-control daterangepick"  placeholder="日期" readonly="readonly">
-                                      <input type="hidden" name="search_GTE_date" value="${param.search_GTE_date}">
-                                      <input type="hidden" name="search_LTE_date" value="${param.search_LTE_date}">
+                                      <input type="hidden" name="search_GTE_date" value="${search_GTE_date}">
                                  </div>
 						    </div>
 						    <div class="col-md-1 col-sm-12 right">
@@ -70,7 +72,7 @@
 						<th scope="col" style="min-width: 150px;">域名</th>			
 						<th scope="col" style="min-width: 120px;">IP</th>			
 						<th scope="col" style="min-width: 120px;">PV</th>
-						<th scope="col" style="min-width: 120px;">老用户数</th>			
+						<th scope="col" style="min-width: 120px;">登录用户数</th>			
 						<th scope="col" style="min-width: 120px;">1-2次点击</th>			
 						<th scope="col" style="min-width: 120px;">3-5次点击</th>			
 						<th scope="col" style="min-width: 120px;">6-10次点击</th>			
@@ -151,7 +153,7 @@
 	$('#domainStatHistory').css("height",window.screen.height-370+"px");
 	
 	//初始化时间器
-	initatepicker();
+	domaininitatepicker();
 	//初始化操作权限
 	initOpts();
 
@@ -309,6 +311,67 @@
      var disableOpts = function(){
     	 $('.opt-depend-select').removeClass('red').addClass('disabled');
      };
+     
+     function domaininitatepicker(){
+    		$('.datepick').datepicker({autoclose:true});
+    		$('.datetimepick').datetimepicker({language:'zh-CN',defaultTime:false,autoclose:true});
+    		
+    		$(".daterangepick").each(function(){
+    			var _startDate = $(this).next().val();
+    			var _endDate = $(this).next().next().val();
+
+    			if(_startDate==""){
+    				_startDate = moment().subtract("days", 29);
+    				_endDate = moment();
+    			}
+    			
+    			var dp = $(this).daterangepicker({
+    		        opens: App.isRTL() ? "left" : "right",
+    		        dateLimit: {
+    		            days: 92
+    		        },
+    		        autoclose:true,
+    		        autoApply:true,
+    		        autoUpdateInput:true,
+    		        maxDate:moment().subtract("days", 1),
+    		        
+    		        startDate:_startDate,
+    		        ranges: {
+    		        	今天: [moment()],
+    		           	 昨天: [moment().subtract("days", 1)],
+    		            "前天": [moment().subtract("days", 2)],
+    		            "大前天": [moment().subtract("days", 3)]
+    		        },
+    		        locale: {
+    		        	format:"YYYY-MM-DD",
+    		            separator: " - ",
+    		            applyLabel: "应用",
+    		            cancelLabel: '取消',
+    		            fromLabel: "提交",
+    		            toLabel: "To",
+    		            customRangeLabel: "其他",
+    		            daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
+    		            monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+    		            firstDay: 1
+    		        },
+    		        singleDatePicker: true
+    		    }, function(start, end , label) {
+    		      console.log(start,end,label);
+    		      //this.element.val(start.format("YYYY-MM-DD") + " -> " + end.format("YYYY-MM-DD"));
+    		      var _startDate = this.element.next();
+    		      //var _endDate = this.element.next().next();
+    		      _startDate.val(start.format("YYYY-MM-DD"));
+    		     // _endDate.val(end.format("YYYY-MM-DD"));
+    		      
+    		      //this.element.val(start.format("MM-DD") + " -> " + end.format("MM-DD"));
+    		    });
+
+    			if( $(this).next().val() == ""){
+    				$(this).val("");
+    			}
+    		});
+    	}
+    
 </script>
 
 <!-- 侧拉编辑栏 BEGIN -->
@@ -480,6 +543,8 @@
           	});
         }
 	 });
+    
+    
 </script>
 <!-- 侧拉编辑栏 END -->
 

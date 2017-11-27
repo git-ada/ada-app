@@ -27,7 +27,7 @@
 			<div class="col-md-10 col-sm-12 left">
 		    <div class="caption">
 				<div class="clearfix ">
-				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-channel-stat/list.jhtm" method="get">
+				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-channel-stat/stat.jhtm" method="get">
 				    	<!--
 				    		支持操作符 :EQ, NOTEQ , LIKE, LLIKE, RLIKE, NLIKE, GT, LT, GTE, LTE, IN, NOTIN, NULL, NOTNULL,
 				    		如:search_EQ_name 会自动添加条件，like '%value%';
@@ -36,13 +36,13 @@
 					    <input type="hidden" id="page" name="page">
 						<div class="row">
 						    <div class="col-md-2 col-sm-12">
-								<input type="text" class="form-control search-field input-medium" name="search_EQ_channelName" value="${param.search_EQ_channelName}"  placeholder="渠道"/>
+								<input type="text" class="form-control search-field input-medium" name="channelName" value="${channelName}"  placeholder="渠道"/>
 							</div>
 							<div class="col-md-2 col-sm-12">
 						         <div class="input-group input-medium">
                                        <input type="text" class="form-control daterangepick"  placeholder="日期" readonly="readonly">
-                                       <input type="hidden" name="search_GTE_date" value="${param.search_GTE_date}">
-                                       <input type="hidden" name="search_LTE_date" value="${param.search_LTE_date}">
+                                       <input type="hidden" name="search_GTE_date" value="${search_GTE_date}">
+                                       <%-- <input type="hidden" name="search_LTE_date" value="${param.search_LTE_date}"> --%>
                                   </div>
 						    </div>
 						    <div class="col-md-2 col-sm-12 right">
@@ -56,10 +56,10 @@
 		    <!-- 顶部搜索栏 END -->
 		    
 		    <!-- 右上角工具栏 BEGIN -->
-		    <div class="col-md-2 col-sm-12 right">
+		    <!-- <div class="col-md-2 col-sm-12 right">
 	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-channel-stat/export"><span>导出表格</span></a>
 	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a>
-		    </div>
+		    </div> -->
 	    </div>
 	    <!-- 右上角工具栏 END -->
 	</div>
@@ -67,77 +67,62 @@
 		<!-- 数据列表 BEGIN -->
 	    <div class="table-scrollable">
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
-	            <thead>
+	            <thead style="display:block;border-bottom:1px solid #eee;">
 	                <tr>
 	                	<th scope="col" style="min-width: 100px;">日期</th>		
 						<th scope="col" style="min-width: 150px;">域名</th>			
-						<th scope="col" style="min-width: 100px;">IP</th>			
-						<th scope="col" style="min-width: 100px;">PV</th>			
-						<th scope="col" style="min-width: 100px;">1-2次点击</th>			
-						<th scope="col" style="min-width: 100px;">3-5次点击</th>			
-						<th scope="col" style="min-width: 100px;">6-10次点击</th>			
-						<th scope="col" style="min-width: 100px;">10+次点击</th>			
-						<th scope="col" style="min-width: 100px;">目标页访问</th>
-						<th scope="col" style="min-width: 100px;">5-30秒停留</th>
-						<th scope="col" style="min-width: 100px;">31-120秒停留</th>
+						<th scope="col" style="min-width: 120px;">IP</th>			
+						<th scope="col" style="min-width: 120px;">PV</th>
+						<th scope="col" style="min-width: 120px;">登录用户数</th>			
+						<th scope="col" style="min-width: 120px;">1-2次点击</th>			
+						<th scope="col" style="min-width: 120px;">3-5次点击</th>			
+						<th scope="col" style="min-width: 120px;">6-10次点击</th>			
+						<th scope="col" style="min-width: 120px;">10+次点击</th>			
+						<th scope="col" style="min-width: 120px;">目标页访问</th>
+						<th scope="col" style="min-width: 120px;">5-30秒停留</th>
+						<th scope="col" style="min-width: 120px;">31-120秒停留</th>
 						<th scope="col" style="min-width: 120px;">121-300秒停留</th>
-						<th scope="col" style="min-width: 100px;">300+秒停留</th>
-						<th scope="col" style="min-width: 100px;">1-2次滚动</th>
-						<th scope="col" style="min-width: 100px;">3-5次滚动</th>
-						<th scope="col" style="min-width: 100px;">6-10次滚动</th>
-						<th scope="col" style="min-width: 100px;">10+次滚动</th>
-						<th scope="col" style="min-width: 100px;">1-2次移动</th>
-						<th scope="col" style="min-width: 100px;">3-5次移动</th>
-						<th scope="col" style="min-width: 100px;">6-10次移动</th>
-						<th scope="col" style="min-width: 100px;">10+次移动</th>
-						<th scope="col" style="min-width: 100px;">老用户数</th>				
+						<th scope="col" style="min-width: 120px;">300+秒停留</th>
+						<th scope="col" style="min-width: 120px;">1-2次滚动</th>
+						<th scope="col" style="min-width: 120px;">3-5次滚动</th>
+						<th scope="col" style="min-width: 120px;">6-10次滚动</th>
+						<th scope="col" style="min-width: 120px;">10+次滚动</th>
+						<th scope="col" style="min-width: 120px;">1-2次移动</th>
+						<th scope="col" style="min-width: 120px;">3-5次移动</th>
+						<th scope="col" style="min-width: 120px;">6-10次移动</th>
+						<th scope="col" style="min-width: 120px;">10+次移动</th>
+										
 				     </tr>
 	            </thead>
-	            <tbody>
-	               <c:forEach var="item" items="${page.pageResults}" varStatus="number">
+	            <tbody id="channelStatHistory" style="overflow-y: scroll;display: block;">
+	               <c:forEach var="item" items="${channelstatList}" varStatus="number">
 	                <tr>      
-	                	<td><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td>
-						<td>${item.channel.channelName}</td>
-						<td>${item.ip}</td>
-						<td>${item.pv}</td>
-						<td>${item.clickip1}</td>
-						<td>${item.clickip2}</td>
-						<td>${item.clickip3}</td>
-						<td>${item.clickip4}</td>
-						<td>${item.targetpageip}</td>
-						<c:if test="${not empty item.staytimeip1}"><td>${item.staytimeip1}</td></c:if>
-						<c:if test="${empty item.staytimeip1}"><td>0</td></c:if>
-						<c:if test="${not empty item.staytimeip2}"><td>${item.staytimeip2}</td></c:if>
-						<c:if test="${empty item.staytimeip2}"><td>0</td></c:if>
-						<c:if test="${not empty item.staytimeip3}"><td>${item.staytimeip3}</td></c:if>
-						<c:if test="${empty item.staytimeip3}"><td>0</td></c:if>
-						<c:if test="${not empty item.staytimeip4}"><td>${item.staytimeip4}</td></c:if>
-						<c:if test="${empty item.staytimeip4}"><td>0</td></c:if>
-						
-						<c:if test="${not empty item.scrollip1}"><td>${item.scrollip1}</td></c:if>
-						<c:if test="${empty item.scrollip1}"><td>0</td></c:if>
-						<c:if test="${not empty item.scrollip2}"><td>${item.scrollip2}</td></c:if>
-						<c:if test="${empty item.scrollip2}"><td>0</td></c:if>
-						<c:if test="${not empty item.scrollip3}"><td>${item.scrollip3}</td></c:if>
-						<c:if test="${empty item.scrollip3}"><td>0</td></c:if>
-						<c:if test="${not empty item.scrollip4}"><td>${item.scrollip4}</td></c:if>
-						<c:if test="${empty item.scrollip4}"><td>0</td></c:if>
-						
-						<c:if test="${not empty item.moveip1}"><td>${item.moveip1}</td></c:if>
-						<c:if test="${empty item.moveip1}"><td>0</td></c:if>
-						<c:if test="${not empty item.moveip2}"><td>${item.moveip2}</td></c:if>
-						<c:if test="${empty item.moveip2}"><td>0</td></c:if>
-						<c:if test="${not empty item.moveip3}"><td>${item.moveip3}</td></c:if>
-						<c:if test="${empty item.moveip3}"><td>0</td></c:if>
-						<c:if test="${not empty item.moveip4}"><td>${item.moveip4}</td></c:if>
-						<c:if test="${empty item.moveip4}"><td>0</td></c:if>
-						
-						<c:if test="${not empty item.olduserip}"><td>${item.olduserip}</td></c:if>
-						<c:if test="${empty item.olduserip}"><td>0</td></c:if>
+	                	<td style="min-width: 100px;"><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td>
+						<td style="min-width: 150px;">${item.channelName}</td>
+						<td style="min-width: 120px;">${item.ip}</td>
+						<td style="min-width: 120px;">${item.pv}</td>
+						<td style="min-width: 120px;">${item.olduserip} (${item.old}%)</td>
+						<td style="min-width: 120px;">${item.clickip1} (${item.c1}%)</td>
+						<td style="min-width: 120px;">${item.clickip2} (${item.c2}%)</td>
+						<td style="min-width: 120px;">${item.clickip3} (${item.c3}%)</td>
+						<td style="min-width: 120px;">${item.clickip4} (${item.c4}%)</td>
+						<td style="min-width: 120px;">${item.targetpageip} (${item.tgp}%)</td>
+						<td style="min-width: 120px;">${item.staytimeip1} (${item.s1}%)</td>
+						<td style="min-width: 120px;">${item.staytimeip2} (${item.s2}%)</td>
+						<td style="min-width: 120px;">${item.staytimeip3} (${item.s3}%)</td>
+						<td style="min-width: 120px;">${item.staytimeip4} (${item.s4}%)</td>
+						<td style="min-width: 120px;">${item.scrollip1} (${item.sc1}%)</td>
+						<td style="min-width: 120px;">${item.scrollip2} (${item.sc2}%)</td>
+						<td style="min-width: 120px;">${item.scrollip3} (${item.sc3}%)</td>
+						<td style="min-width: 120px;">${item.scrollip4} (${item.sc4}%)</td>
+						<td style="min-width: 120px;">${item.moveip1} (${item.m1}%)</td>
+						<td style="min-width: 120px;">${item.moveip2} (${item.m2}%)</td>
+						<td style="min-width: 120px;">${item.moveip3} (${item.m3}%)</td>
+						<td style="min-width: 120px;">${item.moveip4} (${item.m4}%)</td>
 	                </tr>
 	                </c:forEach>
-	                <c:if test="${empty page.pageResults}">
-	            		<tr><td colspan="11">无</td></tr>
+	                <c:if test="${empty channelstatList}">
+	            		<tr><td colspan="11">暂无数据</td></tr>
 	            	</c:if>
 	            </tbody>
 	        </table>
@@ -145,20 +130,22 @@
 	    <!-- 数据列表 END -->
 	    
 	    <!-- 底部功能区 BEGIN -->
-	    <c:if test="${not empty page.pageResults}">
+	  <%--   <c:if test="${not empty page.pageResults}">
 		    <div class="row">
 		        <!-- 底部分页 -->
 		        <div class="col-md-4 col-sm-12">
 		        	 <jsp:include page="/include/paging_footer.jsp"/>
 		        </div>
 		    </div>
-		</c:if>
+		</c:if> --%>
 	    <!-- 底部功能区 END -->
 	</div>
 </div>
 <script type="text/javascript">
+
+$('#channelStatHistory').css("height",window.screen.height-370+"px");
 	//初始化时间器
-	initatepicker();
+	domaininitatepicker();
 	//初始化操作权限
 	initOpts();
 
@@ -316,6 +303,66 @@
      var disableOpts = function(){
     	 $('.opt-depend-select').removeClass('red').addClass('disabled');
      };
+     
+     function domaininitatepicker(){
+ 		$('.datepick').datepicker({autoclose:true});
+ 		$('.datetimepick').datetimepicker({language:'zh-CN',defaultTime:false,autoclose:true});
+ 		
+ 		$(".daterangepick").each(function(){
+ 			var _startDate = $(this).next().val();
+ 			var _endDate = $(this).next().next().val();
+
+ 			if(_startDate==""){
+ 				_startDate = moment().subtract("days", 29);
+ 				_endDate = moment();
+ 			}
+ 			
+ 			var dp = $(this).daterangepicker({
+ 		        opens: App.isRTL() ? "left" : "right",
+ 		        dateLimit: {
+ 		            days: 92
+ 		        },
+ 		        autoclose:true,
+ 		        autoApply:true,
+ 		        autoUpdateInput:true,
+ 		        maxDate:moment().subtract("days", 1),
+ 		        
+ 		        startDate:_startDate,
+ 		        ranges: {
+ 		        	今天: [moment()],
+ 		           	 昨天: [moment().subtract("days", 1)],
+ 		            "前天": [moment().subtract("days", 2)],
+ 		            "大前天": [moment().subtract("days", 3)]
+ 		        },
+ 		        locale: {
+ 		        	format:"YYYY-MM-DD",
+ 		            separator: " - ",
+ 		            applyLabel: "应用",
+ 		            cancelLabel: '取消',
+ 		            fromLabel: "提交",
+ 		            toLabel: "To",
+ 		            customRangeLabel: "其他",
+ 		            daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
+ 		            monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+ 		            firstDay: 1
+ 		        },
+ 		        singleDatePicker: true
+ 		    }, function(start, end , label) {
+ 		      console.log(start,end,label);
+ 		      //this.element.val(start.format("YYYY-MM-DD") + " -> " + end.format("YYYY-MM-DD"));
+ 		      var _startDate = this.element.next();
+ 		      //var _endDate = this.element.next().next();
+ 		      _startDate.val(start.format("YYYY-MM-DD"));
+ 		     // _endDate.val(end.format("YYYY-MM-DD"));
+ 		      
+ 		      //this.element.val(start.format("MM-DD") + " -> " + end.format("MM-DD"));
+ 		    });
+
+ 			if( $(this).next().val() == ""){
+ 				$(this).val("");
+ 			}
+ 		});
+ 	}
 </script>
 
 <!-- 侧拉编辑栏 BEGIN -->

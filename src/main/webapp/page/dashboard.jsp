@@ -205,7 +205,7 @@
 						<th scope="col" style="min-width: 150px;">渠道 / 域名</th>
 						<th scope="col" style="min-width: 120px;">IP</th>			
 						<th scope="col" style="min-width: 120px;">PV</th>
-						<th scope="col" style="min-width: 120px;">老用户数</th>	
+						<th scope="col" style="min-width: 120px;">登录用户数</th>	
 						<th scope="col" style="min-width: 120px;">1-2次点击</th>			
 						<th scope="col" style="min-width: 120px;">3-5次点击</th>			
 						<th scope="col" style="min-width: 120px;">6-10次点击</th>			
