@@ -36,7 +36,7 @@
 					    <input type="hidden" id="page" name="page">
 						<div class="row">
 							<div class="col-md-2 col-sm-12">
-								<input type="text" class="form-control search-field input-medium" name="domain" value="${domain}"  placeholder="渠道"/>
+								<input type="text" class="form-control search-field input-medium" name="domain" value="${domain}"  placeholder="域名"/>
 							</div>
 							<div class="col-md-3 col-sm-12">
 						         <div class="input-group input-medium">
