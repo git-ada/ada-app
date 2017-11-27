@@ -70,11 +70,13 @@ public class ArchiveService {
 			 for(AdaChannel channel:channels){
 				try {
 					AdaChannelStat channelStat =  statService.statChannel(site.getId(), channel.getId(), yestoday);
-					channelStat.setCreateTime(Dates.now());
-					adaChannelStatDao.save(channelStat);
-				    log.info("渠道 "+channel.getId()+":"+channel.getChannelName()+" 归档成功");
+					if(channelStat.getIp()>0){
+						channelStat.setCreateTime(Dates.now());
+						adaChannelStatDao.save(channelStat);
+					    log.info("渠道 "+channel.getId()+":"+channel.getChannelName()+" 归档成功");
+					}
 				} catch (Exception e) {
-					log.info("渠道 "+channel.getId()+":"+channel.getChannelName()+" 归档失败,Msg->"+e.getMessage(),e);
+					log.error("渠道 "+channel.getId()+":"+channel.getChannelName()+" 归档失败,Msg->"+e.getMessage(),e);
 				}
 			 }
 			 
@@ -83,11 +85,13 @@ public class ArchiveService {
 			 for(AdaDomain domain:domains){
 				try {
 					AdaDomainStat domainStat =  statService.statDomain(site.getId(), domain.getId(), yestoday);
-					domainStat.setCreateTime(Dates.now());
-					adaDomainStatDao.save(domainStat);
-				    log.info("域名 "+domain.getId()+":"+domain.getDomain()+" 归档成功");
+					if(domainStat.getIp()>0){
+						domainStat.setCreateTime(Dates.now());
+						adaDomainStatDao.save(domainStat);
+					    log.info("域名 "+domain.getId()+":"+domain.getDomain()+" 归档成功");
+					}
 				} catch (Exception e) {
-					log.info("域名 "+domain.getId()+":"+domain.getDomain()+" 归档失败,Msg->"+e.getMessage(),e);
+					log.error("域名 "+domain.getId()+":"+domain.getDomain()+" 归档失败,Msg->"+e.getMessage(),e);
 				}
 			 }
 		}
