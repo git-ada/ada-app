@@ -431,7 +431,7 @@
 						//jQuery("#domain").append(domain);
 					}
 					clearTimeout(t);
-					if(browsingHistory[browsingHistory.length-1]=="/ada-app/dashboard.jhtm"){
+					if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0){
 						ajaxTime=2000;
 						t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 					}
