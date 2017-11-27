@@ -378,7 +378,7 @@ public class IndexController {
 		 for(int i=0;i<domainIps.size()&&i<300;i++){
 			Integer domainId = domainIps.get(i)[0];
 			Integer domainIp = domainIps.get(i)[1];
-			if(domainIp<10 && i>20){
+			if(domainIp<10 && i>19){
 				 break;
 			 }
 			
