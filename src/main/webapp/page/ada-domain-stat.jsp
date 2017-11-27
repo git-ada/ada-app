@@ -54,8 +54,8 @@
 		    
 		    <!-- 右上角工具栏 BEGIN -->
 		    <div class="col-md-2 col-sm-12 right">
-	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-domain-stat/export"><span>导出表格</span></a>
-	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a>
+	            <!-- <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-domain-stat/export"><span>导出表格</span></a>
+	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a> -->
 		    </div>
 	    </div>
 	    <!-- 右上角工具栏 END -->
@@ -64,77 +64,62 @@
 		<!-- 数据列表 BEGIN -->
 	    <div class="table-scrollable">
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
-	            <thead>
+	            <thead style="display:block;border-bottom:1px solid #eee;">
 	                <tr>
 	                    <th scope="col" style="min-width: 100px;">日期</th>		
 						<th scope="col" style="min-width: 150px;">域名</th>			
-						<th scope="col" style="min-width: 100px;">IP</th>			
-						<th scope="col" style="min-width: 100px;">PV</th>			
-						<th scope="col" style="min-width: 100px;">1-2次点击</th>			
-						<th scope="col" style="min-width: 100px;">3-5次点击</th>			
-						<th scope="col" style="min-width: 100px;">6-10次点击</th>			
-						<th scope="col" style="min-width: 100px;">10+次点击</th>			
-						<th scope="col" style="min-width: 100px;">目标页访问</th>
-						<th scope="col" style="min-width: 100px;">5-30秒停留</th>
-						<th scope="col" style="min-width: 100px;">31-120秒停留</th>
+						<th scope="col" style="min-width: 120px;">IP</th>			
+						<th scope="col" style="min-width: 120px;">PV</th>
+						<th scope="col" style="min-width: 120px;">老用户数</th>			
+						<th scope="col" style="min-width: 120px;">1-2次点击</th>			
+						<th scope="col" style="min-width: 120px;">3-5次点击</th>			
+						<th scope="col" style="min-width: 120px;">6-10次点击</th>			
+						<th scope="col" style="min-width: 120px;">10+次点击</th>			
+						<th scope="col" style="min-width: 120px;">目标页访问</th>
+						<th scope="col" style="min-width: 120px;">5-30秒停留</th>
+						<th scope="col" style="min-width: 120px;">31-120秒停留</th>
 						<th scope="col" style="min-width: 120px;">121-300秒停留</th>
-						<th scope="col" style="min-width: 100px;">300+秒停留</th>
-						<th scope="col" style="min-width: 100px;">1-2次滚动</th>
-						<th scope="col" style="min-width: 100px;">3-5次滚动</th>
-						<th scope="col" style="min-width: 100px;">6-10次滚动</th>
-						<th scope="col" style="min-width: 100px;">10+次滚动</th>
-						<th scope="col" style="min-width: 100px;">1-2次移动</th>
-						<th scope="col" style="min-width: 100px;">3-5次移动</th>
-						<th scope="col" style="min-width: 100px;">6-10次移动</th>
-						<th scope="col" style="min-width: 100px;">10+次移动</th>
-						<th scope="col" style="min-width: 100px;">老用户数</th>					
+						<th scope="col" style="min-width: 120px;">300+秒停留</th>
+						<th scope="col" style="min-width: 120px;">1-2次滚动</th>
+						<th scope="col" style="min-width: 120px;">3-5次滚动</th>
+						<th scope="col" style="min-width: 120px;">6-10次滚动</th>
+						<th scope="col" style="min-width: 120px;">10+次滚动</th>
+						<th scope="col" style="min-width: 120px;">1-2次移动</th>
+						<th scope="col" style="min-width: 120px;">3-5次移动</th>
+						<th scope="col" style="min-width: 120px;">6-10次移动</th>
+						<th scope="col" style="min-width: 120px;">10+次移动</th>
+											
 				     </tr>
 	            </thead>
-	            <tbody>
-	               <c:forEach var="item" items="${page.pageResults}" varStatus="number">
+	            <tbody id="domainStatHistory" style="overflow-y: scroll;display: block;">
+	               <c:forEach var="item" items="${domainstatList}" varStatus="number">
 	                <tr>
-                   		<td><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td>
-						<td>${item.domain.domain}</td>
-						<td>${item.ip}</td>
-						<td>${item.pv}</td>
-						<td>${item.clickip1}</td>
-						<td>${item.clickip2}</td>
-						<td>${item.clickip3}</td>
-						<td>${item.clickip4}</td>
-						<td>${item.targetpageip}</td>
-						<c:if test="${not empty item.staytimeip1}"><td>${item.staytimeip1}</td></c:if>
-						<c:if test="${empty item.staytimeip1}"><td>0</td></c:if>
-						<c:if test="${not empty item.staytimeip2}"><td>${item.staytimeip2}</td></c:if>
-						<c:if test="${empty item.staytimeip2}"><td>0</td></c:if>
-						<c:if test="${not empty item.staytimeip3}"><td>${item.staytimeip3}</td></c:if>
-						<c:if test="${empty item.staytimeip3}"><td>0</td></c:if>
-						<c:if test="${not empty item.staytimeip4}"><td>${item.staytimeip4}</td></c:if>
-						<c:if test="${empty item.staytimeip4}"><td>0</td></c:if>
-						
-						<c:if test="${not empty item.scrollip1}"><td>${item.scrollip1}</td></c:if>
-						<c:if test="${empty item.scrollip1}"><td>0</td></c:if>
-						<c:if test="${not empty item.scrollip2}"><td>${item.scrollip2}</td></c:if>
-						<c:if test="${empty item.scrollip2}"><td>0</td></c:if>
-						<c:if test="${not empty item.scrollip3}"><td>${item.scrollip3}</td></c:if>
-						<c:if test="${empty item.scrollip3}"><td>0</td></c:if>
-						<c:if test="${not empty item.scrollip4}"><td>${item.scrollip4}</td></c:if>
-						<c:if test="${empty item.scrollip4}"><td>0</td></c:if>
-						
-						<c:if test="${not empty item.moveip1}"><td>${item.moveip1}</td></c:if>
-						<c:if test="${empty item.moveip1}"><td>0</td></c:if>
-						<c:if test="${not empty item.moveip2}"><td>${item.moveip2}</td></c:if>
-						<c:if test="${empty item.moveip2}"><td>0</td></c:if>
-						<c:if test="${not empty item.moveip3}"><td>${item.moveip3}</td></c:if>
-						<c:if test="${empty item.moveip3}"><td>0</td></c:if>
-						<c:if test="${not empty item.moveip4}"><td>${item.moveip4}</td></c:if>
-						<c:if test="${empty item.moveip4}"><td>0</td></c:if>
-						
-						<c:if test="${not empty item.olduserip}"><td>${item.olduserip}</td></c:if>
-						<c:if test="${empty item.olduserip}"><td>0</td></c:if>
+                   		<td style="min-width: 100px;"><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td>
+						<td style="min-width: 150px;" title="${item.domain}">${item.subdoamin}</td>
+						<td style="min-width: 120px;">${item.ip}</td>
+						<td style="min-width: 120px;">${item.pv}</td>
+						<td style="min-width: 120px;">${item.olduserip} (${item.old}%)</td>
+						<td style="min-width: 120px;">${item.clickip1} (${item.c1}%)</td>
+						<td style="min-width: 120px;">${item.clickip2} (${item.c2}%)</td>
+						<td style="min-width: 120px;">${item.clickip3} (${item.c3}%)</td>
+						<td style="min-width: 120px;">${item.clickip4} (${item.c4}%)</td>
+						<td style="min-width: 120px;">${item.targetpageip} (${item.tgp}%)</td>
+						<td style="min-width: 120px;">${item.staytimeip1} (${item.s1}%)</td>
+						<td style="min-width: 120px;">${item.staytimeip2} (${item.s2}%)</td>
+						<td style="min-width: 120px;">${item.staytimeip3} (${item.s3}%)</td>
+						<td style="min-width: 120px;">${item.staytimeip4} (${item.s4}%)</td>
+						<td style="min-width: 120px;">${item.scrollip1} (${item.sc1}%)</td>
+						<td style="min-width: 120px;">${item.scrollip2} (${item.sc2}%)</td>
+						<td style="min-width: 120px;">${item.scrollip3} (${item.sc3}%)</td>
+						<td style="min-width: 120px;">${item.scrollip4} (${item.sc4}%)</td>
+						<td style="min-width: 120px;">${item.moveip1} (${item.m1}%)</td>
+						<td style="min-width: 120px;">${item.moveip2} (${item.m2}%)</td>
+						<td style="min-width: 120px;">${item.moveip3} (${item.m3}%)</td>
+						<td style="min-width: 120px;">${item.moveip4} (${item.m4}%)</td>
 	                </tr>
 	                </c:forEach>
-	                <c:if test="${empty page.pageResults}">
-	            		<tr><td colspan="20">无</td></tr>
+	                <c:if test="${empty domainstatList}">
+	            		<tr><td colspan="20" >暂无数据</td></tr>
 	            	</c:if>
 	            </tbody>
 	        </table>
@@ -142,9 +127,9 @@
 	    <!-- 数据列表 END -->
 	    
 	    <!-- 底部功能区 BEGIN -->
-	    <div class="row">
+	    <%-- <div class="row">
 	        <!-- 底部分页 -->
-	        <c:if test="${not empty page.pageResults}">
+	        <c:if test="${not empty domainstatList}">
 	        	<div class="col-md-4 col-sm-12">
 		            <button class="btn btn-sm btn-select-all">全选 </button>
 		            <button class="btn btn-sm btn-select-invert">反选 </button>
@@ -157,11 +142,14 @@
 			        </div>
 			    </div>
 		    </c:if>
-	    </div>
+	    </div> --%>
 	    <!-- 底部功能区 END -->
 	</div>
 </div>
 <script type="text/javascript">
+	
+	$('#domainStatHistory').css("height",window.screen.height-370+"px");
+	
 	//初始化时间器
 	initatepicker();
 	//初始化操作权限
