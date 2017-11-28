@@ -533,9 +533,9 @@ var initTable1 = function () {
 								  
 								  var tr2 = "";
 									tr2+="<tr>"+
-									 "<td style='min-width: 150px;'>"+list[i].channelName+"</td>"+
-									  "<td style='min-width: 120px;'>"+list[i].ip+"</td>"+
-									  "<td style='min-width: 120px;'>"+list[i].pv+"</td>"+
+											 "<td style='min-width: 150px;' title='${item.domain}'>"+domainList[i].subDomain+"</td>"+
+											  "<td style='min-width: 120px;'>"+domainList[i].ip+"</td>"+
+											  "<td style='min-width: 120px;'>"+domainList[i].pv+"</td>"+
 										"<tr>";
 									lefttale+=tr2;
 						}
