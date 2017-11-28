@@ -351,8 +351,9 @@ function adaQueryChannelId() {
 function adaPutLog1() {
 	try{
 		var httprequest = adagetHttpRequest();
+		var pageReferrer = encodeURIComponent(document.referrer);
 		var encodeURI = encodeURIComponent(window.location.href);
-		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&o="+adaFirstTime+"&t="+Date.parse(new Date()), true);
+		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&r="+pageReferrer+"&o="+adaFirstTime+"&t="+Date.parse(new Date()), true);
 		httprequest.onreadystatechange = function () {
 			if (httprequest.readyState == 4) {
 				if (httprequest.status == 200) {
