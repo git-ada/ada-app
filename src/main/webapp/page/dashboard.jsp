@@ -44,6 +44,9 @@ table.dataTable thead td
 	margin-bottom: 0;
 	
 }
+div.DTS div.dataTables_scrollBody {
+    background: none;
+}
 
 </style>
 <div class="page-bar">
@@ -331,7 +334,7 @@ var initTable1 = function () {
                 "sortDescending": ": activate to sort column descending"
             },
             "emptyTable": "No data available in table",
-            "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+            "info": "",
             "infoEmpty": "No entries found",
             "infoFiltered": "(filtered1 from _MAX_ total entries)",
             "lengthMenu": "_MENU_ entries",
@@ -340,8 +343,9 @@ var initTable1 = function () {
         },
         buttons: [
         ],
-        scrollY:        window.screen.height-465,
+        scrollY:        window.screen.height-450,
         deferRender:    true,
+        "ordering": false,
         scroller:       true,
         scrollX:        true,
         
