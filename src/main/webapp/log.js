@@ -353,7 +353,14 @@ function adaPutLog1() {
 		var httprequest = adagetHttpRequest();
 		var pageReferrer = encodeURIComponent(document.referrer);
 		var encodeURI = encodeURIComponent(window.location.href);
-		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&r="+pageReferrer+"&o="+adaFirstTime+"&t="+Date.parse(new Date()), true);
+		var f = "";
+		if(document.cookie.indexOf("fr8itTYL=") != -1){
+			f = null;
+		}else {
+			f = Date.parse(adaPageInTime);
+			document.cookie = "fr8itTYL="+adaPageInTime+";expires="+adaGetTodayExpires();
+		}
+		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&r="+pageReferrer+"&o="+adaFirstTime+"&f="+f+"&t="+Date.parse(new Date()), true);
 		httprequest.onreadystatechange = function () {
 			if (httprequest.readyState == 4) {
 				if (httprequest.status == 200) {
