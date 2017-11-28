@@ -354,9 +354,7 @@ function adaPutLog1() {
 		var pageReferrer = encodeURIComponent(document.referrer);
 		var encodeURI = encodeURIComponent(window.location.href);
 		var f = "";
-		if(document.cookie.indexOf("fr8itTYL=") != -1){
-			f = null;
-		}else {
+		if(document.cookie.indexOf("fr8itTYL=") == -1){
 			f = Date.parse(adaPageInTime);
 			document.cookie = "fr8itTYL="+adaPageInTime+";expires="+adaGetTodayExpires();
 		}
