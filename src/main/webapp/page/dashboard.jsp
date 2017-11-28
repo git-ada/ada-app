@@ -11,6 +11,40 @@
 		padding-bottom: 0;
 		margin-bottom: 0;
 	}
+table.dataTable {
+    clear: both;
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+    max-width: none !important;
+}
+
+table.dataTable thead td
+{
+	border-top:none!important;	
+	border-bottom:none!important;	
+}
+
+.DTFC_LeftHeadWrapper .no-footer {
+	border-bottom: 1px solid #e7ecf1!important;
+}
+
+
+.dataTables_scrollHead {
+	border-top:none!important;	
+    border-bottom: 1px solid #e7ecf1!important;
+}
+
+.DTFC_LeftBodyLiner tbody td{
+	border-top:none!important;
+	border-bottom: 1px solid #e7ecf1!important;
+}
+
+.DTFC_LeftBodyLiner table {
+	border-top:none!important;
+	margin-bottom: 0;
+	
+}
+
 </style>
 <div class="page-bar">
     <ul class="page-breadcrumb" style="width: 100%">
@@ -198,102 +232,165 @@
 </div>
 <!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
 <div class="portlet-body " style="margin-top: 25px;">
-	<div class="table-scrollable">
-		<table class="table table-striped dataTableg table-bordered table-hover data-table">
-	            <thead style="display:block;border-bottom:1px solid #eee;">
-	                <tr>
-						<th scope="col" style="min-width: 150px;">渠道 / 域名</th>
-						<th scope="col" style="min-width: 120px;">IP</th>			
-						<th scope="col" style="min-width: 120px;">PV</th>
-						<th scope="col" style="min-width: 120px;">登录用户数</th>	
-						<th scope="col" style="min-width: 120px;">1-2次点击</th>			
-						<th scope="col" style="min-width: 120px;">3-5次点击</th>			
-						<th scope="col" style="min-width: 120px;">6-10次点击</th>			
-						<th scope="col" style="min-width: 120px;">10+次点击</th>			
-						<th scope="col" style="min-width: 120px;">进入目标页</th>
-						<th scope="col" style="min-width: 120px;">5-30秒停留</th>
-						<th scope="col" style="min-width: 120px;">31-120秒停留</th>
-						<th scope="col" style="min-width: 120px;">121-300秒停留</th>
-						<th scope="col" style="min-width: 120px;">300+秒停留</th>
-						<th scope="col" style="min-width: 120px;">1-2次滚动</th>
-						<th scope="col" style="min-width: 120px;">3-5次滚动</th>
-						<th scope="col" style="min-width: 120px;">6-10次滚动</th>
-						<th scope="col" style="min-width: 120px;">10+次滚动</th>
-						<th scope="col" style="min-width: 120px;">1-2次移动</th>
-						<th scope="col" style="min-width: 120px;">3-5次移动</th>
-						<th scope="col" style="min-width: 120px;">6-10次移动</th>
-						<th scope="col" style="min-width: 120px;">10+次移动</th>
-						
-				     </tr>
-	            </thead>
-	            <tbody id="tbody" style="overflow-y: scroll;display: block;">
-	               <c:forEach var="item" items="${pageResults}" varStatus="number">
-	                <tr>
-						<td style="min-width: 150px;">${item.channelName}</td>
-						<td style="min-width: 120px;">${item.ip}</td>
-						<td style="min-width: 120px;">${item.pv}</td>
-						<td style="min-width: 120px;">${item.olduserip} (${item.old}%)</td>
-						<td style="min-width: 120px;">${item.clickip1} (${item.c1}%)</td>
-						<td style="min-width: 120px;">${item.clickip2} (${item.c2}%)</td>
-						<td style="min-width: 120px;">${item.clickip3} (${item.c3}%)</td>
-						<td style="min-width: 120px;">${item.clickip4} (${item.c4}%)</td>
-						<td style="min-width: 120px;">${item.targetpageip} (${item.tgp}%)</td>
-						<td style="min-width: 120px;">${item.staytimeip1} (${item.s1}%)</td>
-						<td style="min-width: 120px;">${item.staytimeip2} (${item.s2}%)</td>
-						<td style="min-width: 120px;">${item.staytimeip3} (${item.s3}%)</td>
-						<td style="min-width: 120px;">${item.staytimeip4} (${item.s4}%)</td>
-						<td style="min-width: 120px;">${item.scrollip1} (${item.sc1}%)</td>
-						<td style="min-width: 120px;">${item.scrollip2} (${item.sc2}%)</td>
-						<td style="min-width: 120px;">${item.scrollip3} (${item.sc3}%)</td>
-						<td style="min-width: 120px;">${item.scrollip4} (${item.sc4}%)</td>
-						<td style="min-width: 120px;">${item.moveip1} (${item.m1}%)</td>
-						<td style="min-width: 120px;">${item.moveip2} (${item.m2}%)</td>
-						<td style="min-width: 120px;">${item.moveip3} (${item.m3}%)</td>
-						<td style="min-width: 120px;">${item.moveip4} (${item.m4}%)</td>
-						
-	                </tr>
-	                </c:forEach>
-	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
-	                <tr>
-						<td style="min-width: 150px;" title="${domain.domain}">${domain.subDomain}</td>
-						<td style="min-width: 120px;">${domain.ip}</td>
-						<td style="min-width: 120px;">${domain.pv}</td>
-						<td style="min-width: 120px;">${domain.olduserip} (${domain.old}%)</td>
-						<td style="min-width: 120px;">${domain.clickip1} (${domain.c1}%)</td>
-						<td style="min-width: 120px;">${domain.clickip2} (${domain.c2}%)</td>
-						<td style="min-width: 120px;">${domain.clickip3} (${domain.c3}%)</td>
-						<td style="min-width: 120px;">${domain.clickip4} (${domain.c4}%)</td>
-						<td style="min-width: 120px;">${domain.targetpageip} (${domain.tgp}%)</td>
-						<td style="min-width: 120px;">${domain.staytimeip1} (${domain.s1}%)</td>
-						<td style="min-width: 120px;">${domain.staytimeip2} (${domain.s2}%)</td>
-						<td style="min-width: 120px;">${domain.staytimeip3} (${domain.s3}%)</td>
-						<td style="min-width: 120px;">${domain.staytimeip4} (${domain.s4}%)</td>
-						<td style="min-width: 120px;">${domain.scrollip1} (${domain.sc1}%)</td>
-						<td style="min-width: 120px;">${domain.scrollip2} (${domain.sc2}%)</td>
-						<td style="min-width: 120px;">${domain.scrollip3} (${domain.sc3}%)</td>
-						<td style="min-width: 120px;">${domain.scrollip4} (${domain.sc4}%)</td>
-						<td style="min-width: 120px;">${domain.moveip1} (${domain.m1}%)</td>
-						<td style="min-width: 120px;">${domain.moveip2} (${domain.m2}%)</td>
-						<td style="min-width: 120px;">${domain.moveip3} (${domain.m3}%)</td>
-						<td style="min-width: 120px;">${domain.moveip4} (${domain.m4}%)</td>
-						
-	                </tr>
-	                </c:forEach>
-	            </tbody>
-	        </table>
-	</div>
+	<table id="scrolltable" class="table table-striped table-bordered table-hover order-column">
+            <thead>
+                <tr>
+					<th scope="col" style="min-width: 150px;">渠道 / 域名</th>
+					<th scope="col" style="min-width: 120px;">IP</th>			
+					<th scope="col" style="min-width: 120px;">PV</th>
+					<th scope="col" style="min-width: 120px;">登录用户数</th>	
+					<th scope="col" style="min-width: 120px;">1-2次点击</th>			
+					<th scope="col" style="min-width: 120px;">3-5次点击</th>			
+					<th scope="col" style="min-width: 120px;">6-10次点击</th>			
+					<th scope="col" style="min-width: 120px;">10+次点击</th>			
+					<th scope="col" style="min-width: 120px;">进入目标页</th>
+					<th scope="col" style="min-width: 120px;">5-30秒停留</th>
+					<th scope="col" style="min-width: 120px;">31-120秒停留</th>
+					<th scope="col" style="min-width: 120px;">121-300秒停留</th>
+					<th scope="col" style="min-width: 120px;">300+秒停留</th>
+					<th scope="col" style="min-width: 120px;">1-2次滚动</th>
+					<th scope="col" style="min-width: 120px;">3-5次滚动</th>
+					<th scope="col" style="min-width: 120px;">6-10次滚动</th>
+					<th scope="col" style="min-width: 120px;">10+次滚动</th>
+					<th scope="col" style="min-width: 120px;">1-2次移动</th>
+					<th scope="col" style="min-width: 120px;">3-5次移动</th>
+					<th scope="col" style="min-width: 120px;">6-10次移动</th>
+					<th scope="col" style="min-width: 120px;">10+次移动</th>
+					
+			     </tr>
+            </thead>
+            <tbody id="tbody">
+               <c:forEach var="item" items="${pageResults}" varStatus="number">
+                <tr>
+					<td style="min-width: 150px;">${item.channelName}</td>
+					<td style="min-width: 120px;">${item.ip}</td>
+					<td style="min-width: 120px;">${item.pv}</td>
+					<td style="min-width: 120px;">${item.olduserip} (${item.old}%)</td>
+					<td style="min-width: 120px;">${item.clickip1} (${item.c1}%)</td>
+					<td style="min-width: 120px;">${item.clickip2} (${item.c2}%)</td>
+					<td style="min-width: 120px;">${item.clickip3} (${item.c3}%)</td>
+					<td style="min-width: 120px;">${item.clickip4} (${item.c4}%)</td>
+					<td style="min-width: 120px;">${item.targetpageip} (${item.tgp}%)</td>
+					<td style="min-width: 120px;">${item.staytimeip1} (${item.s1}%)</td>
+					<td style="min-width: 120px;">${item.staytimeip2} (${item.s2}%)</td>
+					<td style="min-width: 120px;">${item.staytimeip3} (${item.s3}%)</td>
+					<td style="min-width: 120px;">${item.staytimeip4} (${item.s4}%)</td>
+					<td style="min-width: 120px;">${item.scrollip1} (${item.sc1}%)</td>
+					<td style="min-width: 120px;">${item.scrollip2} (${item.sc2}%)</td>
+					<td style="min-width: 120px;">${item.scrollip3} (${item.sc3}%)</td>
+					<td style="min-width: 120px;">${item.scrollip4} (${item.sc4}%)</td>
+					<td style="min-width: 120px;">${item.moveip1} (${item.m1}%)</td>
+					<td style="min-width: 120px;">${item.moveip2} (${item.m2}%)</td>
+					<td style="min-width: 120px;">${item.moveip3} (${item.m3}%)</td>
+					<td style="min-width: 120px;">${item.moveip4} (${item.m4}%)</td>
+					
+                </tr>
+                </c:forEach>
+                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
+                <tr>
+					<td style="min-width: 150px;" title="${domain.domain}">${domain.subDomain}</td>
+					<td style="min-width: 120px;">${domain.ip}</td>
+					<td style="min-width: 120px;">${domain.pv}</td>
+					<td style="min-width: 120px;">${domain.olduserip} (${domain.old}%)</td>
+					<td style="min-width: 120px;">${domain.clickip1} (${domain.c1}%)</td>
+					<td style="min-width: 120px;">${domain.clickip2} (${domain.c2}%)</td>
+					<td style="min-width: 120px;">${domain.clickip3} (${domain.c3}%)</td>
+					<td style="min-width: 120px;">${domain.clickip4} (${domain.c4}%)</td>
+					<td style="min-width: 120px;">${domain.targetpageip} (${domain.tgp}%)</td>
+					<td style="min-width: 120px;">${domain.staytimeip1} (${domain.s1}%)</td>
+					<td style="min-width: 120px;">${domain.staytimeip2} (${domain.s2}%)</td>
+					<td style="min-width: 120px;">${domain.staytimeip3} (${domain.s3}%)</td>
+					<td style="min-width: 120px;">${domain.staytimeip4} (${domain.s4}%)</td>
+					<td style="min-width: 120px;">${domain.scrollip1} (${domain.sc1}%)</td>
+					<td style="min-width: 120px;">${domain.scrollip2} (${domain.sc2}%)</td>
+					<td style="min-width: 120px;">${domain.scrollip3} (${domain.sc3}%)</td>
+					<td style="min-width: 120px;">${domain.scrollip4} (${domain.sc4}%)</td>
+					<td style="min-width: 120px;">${domain.moveip1} (${domain.m1}%)</td>
+					<td style="min-width: 120px;">${domain.moveip2} (${domain.m2}%)</td>
+					<td style="min-width: 120px;">${domain.moveip3} (${domain.m3}%)</td>
+					<td style="min-width: 120px;">${domain.moveip4} (${domain.m4}%)</td>
+					
+                </tr>
+                </c:forEach>
+            </tbody>
+        </table>
 </div>
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 
+var initTable1 = function () {
+    var table = $('#scrolltable');
+
+    var oTable = table.dataTable({
+
+        // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+        "language": {
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            },
+            "emptyTable": "No data available in table",
+            "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+            "infoEmpty": "No entries found",
+            "infoFiltered": "(filtered1 from _MAX_ total entries)",
+            "lengthMenu": "_MENU_ entries",
+            "search": "Search:",
+            "zeroRecords": "No matching records found"
+        },
+        buttons: [
+        ],
+        scrollY:        window.screen.height-465,
+        deferRender:    true,
+        scroller:       true,
+        scrollX:        true,
+        
+        stateSave:      true,
+        "searching": false,
+        fixedColumns:   {
+            leftColumns: 3
+        },
+        "order": [
+            [0, 'asc']
+        ],
+        "lengthMenu": [
+            [10, 15, 20, -1],
+            [10, 15, 20, "All"] // change per page values here
+        ],
+        // set the initial value
+        "pageLength": 10,
+
+        "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+
+        // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+        // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
+        // So when dropdowns used the scrollable div should be removed. 
+        //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+    });
+}
+
 	jQuery(document).ready(function() {
 		
+
+	    
+	    initTable1();
 		
-		$('#tbody').css("height",window.screen.height-465+"px");
-		graphicLoading(1);
+		
+		//$('#tbody').css("height",window.screen.height-465+"px");
+		/* var table = $('#sample_1').DataTable( {
+	        scrollY:        "300px",
+	        scrollX:        true,
+	        scrollCollapse: false,
+	        paging:         false,
+	        "searching": false,
+	        fixedColumns:   {
+	            leftColumns: 1
+	        }
+	    } ); */
+		//graphicLoading(1);
 		
 	});
+	
 	
 	
 	var pageSize;
@@ -306,7 +403,7 @@
 		$("#forward").attr("data-value",1); //下一月
 		$("#backoff").attr("data-value",""); //上一月
 	 
-			graphicLoading(1);
+			//graphicLoading(1);
 		
 	}
 
@@ -364,6 +461,7 @@
 						/** 渠道数据列表 **/
 						var list = json.ChannelStat_list;
 						var open = "";
+						var lefttale = "";
 						for(var i=0;i<list.length;i++){
 							var tr = "";
 							 tr+="<tr>" + 
@@ -391,6 +489,15 @@
 								  
 								  "</tr>";
 							open+=tr;
+							
+							var tr2 = "";
+								tr2+="<tr>"+
+								 "<td style='min-width: 150px;'>"+list[i].channelName+"</td>"+
+								  "<td style='min-width: 120px;'>"+list[i].ip+"</td>"+
+								  "<td style='min-width: 120px;'>"+list[i].pv+"</td>"+
+									"<tr>";
+								lefttale+=tr2;
+							
 						}
 						
 						/** 域名数据列表 **/
@@ -423,10 +530,23 @@
 								  
 								  "</tr>";
 								  open+=tr;
+								  
+								  var tr2 = "";
+									tr2+="<tr>"+
+									 "<td style='min-width: 150px;'>"+list[i].channelName+"</td>"+
+									  "<td style='min-width: 120px;'>"+list[i].ip+"</td>"+
+									  "<td style='min-width: 120px;'>"+list[i].pv+"</td>"+
+										"<tr>";
+									lefttale+=tr2;
 						}
 						
 						jQuery("#tbody").empty();
 						jQuery("#tbody").append(open);
+						
+						jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
+						jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttale);
+						//DTFC_LeftBodyWrapper
+						//initTable1();
 						//jQuery("#domain").empty();
 						//jQuery("#domain").append(domain);
 					}
