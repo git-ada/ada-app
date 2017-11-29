@@ -161,7 +161,7 @@ public class IndexController {
 			e.printStackTrace();
 		}
 	}
-	/** ajax刷新页面信息 **/
+	/** ajax刷新域名列表信息 **/
 	@RequestMapping("ajaxRefreshPage")
 	public void ajaxRefreshPage(HttpServletRequest request,HttpServletResponse response ,Model model){
 		
@@ -186,6 +186,35 @@ public class IndexController {
 		 json.put("domainSumPV", sumMap.get("domainSumPV"));
 		 json.put("DomainStat_list", DomainStat_list);
 		 
+		 try {
+				response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.print(json);
+				out.flush();
+				out.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+	
+	/***ajax刷新渠道列表信息 */
+	@RequestMapping(value = "ajax_channelList")
+	public void ajax_channelList(HttpServletRequest request,HttpServletResponse response ,Model model,
+			String domainId,String domain){
+		
+		JSONObject json=new JSONObject();
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();//
+		
+		Date today = Dates.todayStart();
+		
+		/** 获取站点下域名统计信息 **/
+		Map sumMap = getChannelStat_list(today,domainId);
+		List<Map> ChannelStat_list = (List<Map>) sumMap.get("ChannelStat_list");
+		
+		 json.put("channelSumIP", sumMap.get("channelSumIP"));/** 渠道ip总数 **/
+		 json.put("channelSumPV", sumMap.get("channelSumPV"));/** 渠道PV总数 **/
+		 json.put("ChannelStat_list", ChannelStat_list);
 		 try {
 				response.setContentType("text/html;charset=utf-8");
 				PrintWriter out = response.getWriter();

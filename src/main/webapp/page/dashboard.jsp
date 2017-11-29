@@ -265,7 +265,7 @@ div.DTS div.dataTables_scrollBody {
             <tbody id="tbody">
                 	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
                 <tr>
-					<td style="min-width: 150px;" title="${domain.domain}"><a href="${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}">${domain.subDomain}</a> </td>
+					<td style="min-width: 150px;" title="${domain.domain}"><a href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}</a> </td>
 					<td style="min-width: 80px">${domain.ip}</td>
 					<td style="min-width: 80px">${domain.pv}</td>
 					<td style="min-width: 80px">${domain.olduserip} (${domain.old}%)</td>
@@ -289,9 +289,6 @@ div.DTS div.dataTables_scrollBody {
 					
                 </tr>
                 </c:forEach>
-                <c:if test="${empty DomainStat_list}">
-	            		<tr><td colspan="20">暂无数据</td></tr>
-	            	</c:if>
             </tbody>
         </table>
 </div>
@@ -310,9 +307,9 @@ var initTable1 = function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No data available in table",
+            "emptyTable": "暂无数据",
             "info": "",
-            "infoEmpty": "No entries found",
+            "infoEmpty": "",
             "infoFiltered": "(filtered1 from _MAX_ total entries)",
             "lengthMenu": "_MENU_ entries",
             "search": "Search:",
@@ -450,7 +447,7 @@ var initTable1 = function () {
 						for(var i=0;i<domainList.length;i++){
 							var tr = "";
 							 tr+="<tr>" + 
-							      "<td  title='"+domainList[i].domain+"'><a href='${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"'>"+domainList[i].subDomain+"</a></td>"+
+							      "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a> </td>"+
 								  "<td >"+domainList[i].ip+"</td>"+
 								  "<td >"+domainList[i].pv+"</td>"+
 								  "<td >"+domainList[i].olduserip+" ("+domainList[i].old+"%)</td>"+
@@ -477,7 +474,7 @@ var initTable1 = function () {
 								  
 								  var tr2 = "";
 									tr2+="<tr>"+
-											 "<td  title='"+domainList[i].domain+"'><a href='${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"'>"+domainList[i].subDomain+"</a></td>"+
+									"<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a> </td>"+
 											  "<td >"+domainList[i].ip+"</td>"+
 											  "<td >"+domainList[i].pv+"</td>"+
 										"<tr>";
