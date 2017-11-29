@@ -18,15 +18,15 @@ import cn.com.jiand.mvc.framework.domain.AbstractEntity;
 @Entity
 @Table(name = "ada_ad_page")
 public class AdaAdPage extends AbstractEntity<Integer> {
-    /** 渠道ID */
+    /** 广告页ID */
 	private Integer id;                    
     /** 站点ID */
 	private Integer siteId;                    
-    /** 渠道名称 */
+    /** 广告页匹配内容 */
 	private String matchContent;                    
-    /** 创建时间 */
+    /** 渠道参数名 */
 	private String channelKey;                    
-    /** createTime */
+    /** 创建时间 */
 	private Timestamp createTime;                    
 	
 	@Id	

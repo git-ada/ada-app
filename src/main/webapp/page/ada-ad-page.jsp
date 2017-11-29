@@ -35,22 +35,13 @@
 				    	<!-- 页码  -->
 					    <input type="hidden" id="page" name="page">
 						<div class="row">
+										
 										<div class="col-md-1 col-sm-12">
-										<input type="text" class="form-control search-field input-small" name="search_EQ_siteId" value="${param.search_EQ_siteId}"  placeholder="站点ID"/>
+										<input type="text" class="form-control search-field input-small" name="search_LIKE_matchContent" value="${param.search_LIKE_matchContent}"  placeholder="匹配内容"/>
 										</div>
 										<div class="col-md-1 col-sm-12">
-										<input type="text" class="form-control search-field input-small" name="search_LIKE_matchContent" value="${param.search_LIKE_matchContent}"  placeholder="渠道名称"/>
+										<input type="text" class="form-control search-field input-small" name="search_LIKE_channelKey" value="${param.search_LIKE_channelKey}"  placeholder="渠道参数名"/>
 										</div>
-										<div class="col-md-1 col-sm-12">
-										<input type="text" class="form-control search-field input-small" name="search_LIKE_channelKey" value="${param.search_LIKE_channelKey}"  placeholder="创建时间"/>
-										</div>
-										<div class="col-md-2 col-sm-12">
-									         <div class="input-group input-medium">
-                                                 <input type="text" class="form-control daterangepick"  placeholder="createTime" readonly="readonly">
-                                                 <input type="hidden" name="search_GTE_createTime" value="${param.search_GTE_createTime}">
-                                                 <input type="hidden" name="search_LTE_createTime" value="${param.search_LTE_createTime}">
-                                            </div>
-									    </div>
 						    <div class="col-md-1 col-sm-12">
 						    	<button class="btn  btn-default opt-search" type="button" >&nbsp;&nbsp;搜索&nbsp;&nbsp;<i class="fa fa-search">&nbsp;&nbsp;</i></button>
 						    </div>
@@ -94,12 +85,9 @@
 	                            <span></span>
 	                        </label>
 	                    </th>
-						<th scope="col">渠道ID</th>			
-						<th scope="col">站点ID</th>			
-						<th scope="col">渠道名称</th>			
-						<th scope="col">创建时间</th>			
-						<th scope="col">createTime</th>			
-				        <th scope="col" style="font-weight: bolder;font-size: 16px;">··· ···</th>
+						<th scope="col">匹配内容</th>			
+						<th scope="col">渠道参数名</th>			
+				        <th scope="col" style="font-weight: bolder;font-size: 16px;">操作</th>
 				     </tr>
 	            </thead>
 	            <tbody>
@@ -113,11 +101,8 @@
 	                    </td>
 	                   
 	                    
-							<td>${item.id}</td>
-							<td>${item.siteId}</td>
 							<td>${item.matchContent}</td>
 							<td>${item.channelKey}</td>
-		                    <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 	                    <td>
 	                    	<a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-ad-page/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
 	                    	<a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-ad-page/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a>
@@ -325,29 +310,18 @@
 			        	<input type="hidden" name="id">
 		               	<div class="form-body">
 			               	<div class="form-group">
-			               		<label class="col-md-4 control-label">站点ID</label>	
-			               		<div class="col-md-8">
-					                <input type="text" name="siteId" class="form-control"  maxlength="10">
-								</div>
-			               	</div>
-			               	<div class="form-group">
-			               		<label class="col-md-4 control-label">渠道名称<span class="required" > * </span></label>	
+			               		<label class="col-md-4 control-label">匹配内容<span class="required" > * </span></label>	
 			               		<div class="col-md-8">
 					                <input type="text" name="matchContent" class="form-control" required="required" maxlength="64">
 								</div>
 			               	</div>
 			               	<div class="form-group">
-			               		<label class="col-md-4 control-label">创建时间</label>	
+			               		<label class="col-md-4 control-label">渠道参数名</label>	
 			               		<div class="col-md-8">
 					                <input type="text" name="channelKey" class="form-control"  maxlength="64">
 								</div>
 			               	</div>
-			               	<div class="form-group">
-			               		<label class="col-md-4 control-label">createTime</label>	
-			               		<div class="col-md-8">
-									<input name="createTime" class="form-control form-control-inline datetimepick" type="text" data-date-format="yyyy-mm-dd hh:ii:ss" value="<fmt:formatDate value="${adaAdPage.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly">
-								</div>
-			               	</div>
+			               	
 		               	</div>  
 			        </form> 
 			    </div>
