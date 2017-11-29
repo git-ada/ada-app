@@ -207,10 +207,9 @@ var initTable1 = function () {
 	jQuery(document).ready(function() {
 	    initTable1();
 	});
-	 
+	 var t;
 	 var ajaxTime = 2000;
-	 
-	 var t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+     t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 	  
 	 function ajaxRefreshPage(){
 		 jQuery.ajax({
@@ -260,11 +259,15 @@ var initTable1 = function () {
 							
 						}
 						
-						jQuery("#tbody").empty();
-						jQuery("#tbody").append(open);
+						if(list.length>0){
+							jQuery("#tbody").empty();
+							jQuery("#tbody").append(open);
+							
+							jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
+							jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttale);
+						}
 						
-						jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
-						jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttale);
+						
 						
 					}
 					clearTimeout(t);
