@@ -366,7 +366,7 @@ function adaIsBrowser(){
 		if (userAgent.indexOf("QQ") > -1)  return "QQ";
 		if (userAgent.indexOf("Sogou") > -1)  return "Sogou";
 		if (!!window.ActiveXObject || "ActiveXObject" in window) return "IE";
-		return userAgent;
+		return "";
 	}catch(e){
 	}
 }
@@ -407,7 +407,7 @@ function adaIsOS() {
 			var isWin10 = sUserAgent.indexOf("Windows NT 10.0") > -1 || sUserAgent.indexOf("Windows 10") > -1; 
 			if (isWin10) return "Win10";
 		}
-		return sUserAgent;
+		return "";
 	}catch(e){
 	}
 }
