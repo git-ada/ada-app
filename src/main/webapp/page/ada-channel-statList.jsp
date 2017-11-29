@@ -56,18 +56,21 @@ div.DTS div.dataTables_scrollBody {
         </li>
         <li>
             <span>域名统计</span>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+        	<span>${domain}</span>
         </li>
     </ul>
 </div>
 <!-- 顶部导航 END-->
-<div class="portlet light" style="margin-bottom: 0px;">
-	<div class="portlet-title">
+	<div class="portlet-title" style="margin-top: 10px;">
 		<!-- 顶部搜索栏 BEGIN -->
 		<div class="row">
 			<div class="col-md-10 col-sm-12 left">
 		    <div class="caption">
 				<div class="clearfix ">
-				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-domain-stat/stat.jhtm" method="get">
+				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-channel-stat/stat.jhtm" method="get">
 				    	<!--
 				    		支持操作符 :EQ, NOTEQ , LIKE, LLIKE, RLIKE, NLIKE, GT, LT, GTE, LTE, IN, NOTIN, NULL, NOTNULL,
 				    		如:search_EQ_name 会自动添加条件，like '%value%';
@@ -75,18 +78,6 @@ div.DTS div.dataTables_scrollBody {
 				    	<!-- 页码  -->
 					    <input type="hidden" id="page" name="page">
 						<div class="row">
-							<div class="col-md-2 col-sm-12">
-								<input type="text" class="form-control search-field input-medium" name="domain" value="${domain}"  placeholder="域名"/>
-							</div>
-							<div class="col-md-3 col-sm-12">
-						         <div class="input-group input-medium">
-                                      <input type="text" class="form-control daterangepick"  placeholder="日期" readonly="readonly">
-                                      <input type="hidden" name="search_GTE_date" value="${search_GTE_date}">
-                                 </div>
-						    </div>
-						    <div class="col-md-1 col-sm-12 right">
-						    	<button class="btn  btn-default opt-search" type="button" >&nbsp;&nbsp;搜索&nbsp;&nbsp;<i class="fa fa-search">&nbsp;&nbsp;</i></button>
-						    </div>
 						</div>
 				    </form>
 				 </div>
@@ -96,19 +87,19 @@ div.DTS div.dataTables_scrollBody {
 		    
 		    <!-- 右上角工具栏 BEGIN -->
 		    <div class="col-md-2 col-sm-12 right">
-	            <!-- <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-domain-stat/export"><span>导出表格</span></a>
-	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a> -->
+	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" onclick="gotoHistoryPage(-1)" ><span>返回</span></a>
 		    </div>
 	    </div>
 	    <!-- 右上角工具栏 END -->
 	</div>
+
 	<div class="portlet-body">
 		<!-- 数据列表 BEGIN -->
-	        <table id="domainStatHistory" class="table table-striped table-bordered table-hover order-column">
+	        <table id="channelStatListHistory" class="table table-striped table-bordered table-hover order-column">
 	            <thead>
 	                <tr>
 	                    <th scope="col" style="min-width: 80px;">日期</th>		
-						<th scope="col" style="min-width: 120px;">域名</th>			
+						<th scope="col" style="min-width: 120px;">渠道匹配串</th>			
 						<th scope="col" style="min-width: 80px;">IP</th>			
 						<th scope="col" style="min-width: 80px;">PV</th>
 						<th scope="col" style="min-width: 80px;">登录用户数</th>			
@@ -133,10 +124,10 @@ div.DTS div.dataTables_scrollBody {
 				     </tr>
 	            </thead>
 	            <tbody>
-	               <c:forEach var="item" items="${domainstatList}" varStatus="number">
+	               <c:forEach var="item" items="${channelstatList}" varStatus="number">
 	                <tr>
                    		<td style=""><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td>
-						<td style="" title="${item.domain}"><a href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/ada-channel-stat/channel_statList.jhtm?domainId=${item.id}&domain=${item.domain}&date=${search_GTE_date}')">${item.subdoamin}</a></td>
+						<td style="">${item.channelStr}</td>
 						<td style="">${item.ip}</td>
 						<td style="">${item.pv}</td>
 						<td style="">${item.olduserip} (${item.old}%)</td>
@@ -182,11 +173,10 @@ div.DTS div.dataTables_scrollBody {
 	    </div> --%>
 	    <!-- 底部功能区 END -->
 	</div>
-</div>
 <script type="text/javascript">
 
 var initTable1 = function () {
-    var table = $('#domainStatHistory');
+    var table = $('#channelStatListHistory');
 
     var oTable = table.dataTable({
 
@@ -206,7 +196,7 @@ var initTable1 = function () {
         },
         buttons: [
         ],
-        scrollY:        window.screen.height-425,
+        scrollY:        window.screen.height-350,
         deferRender:    true,
         "ordering": false,
         scroller:       true,

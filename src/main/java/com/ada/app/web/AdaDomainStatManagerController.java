@@ -93,6 +93,7 @@ public class AdaDomainStatManagerController extends AbstractJQueryEntityControll
     	for(int i=0;i<domainstatList.size();i++){
     		AdaDomainStat adaDomainStat = domainstatList.get(i);
     		Map map = new HashMap();
+    		map.put("id", adaDomainStat.getId());
     		Integer ip = adaDomainStat.getIp()==null?0:adaDomainStat.getIp();
     		Integer pv = adaDomainStat.getPv()==null?0:adaDomainStat.getPv();
     		Integer targetpageip = adaDomainStat.getTargetpageip()==null?0:adaDomainStat.getTargetpageip();

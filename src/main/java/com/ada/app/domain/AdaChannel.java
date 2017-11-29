@@ -25,7 +25,13 @@ public class AdaChannel extends AbstractEntity<Integer> {
     /** 渠道名称 */
 	private String channelName;                    
     /** 创建时间 */
-	private Timestamp createTime;                    
+	private Timestamp createTime;
+	/** 域名ID*/
+	private Integer domainId;
+	/** 广告页ID*/
+	private Integer adId;
+	/** 渠道匹配串*/
+	private String channelStr;
 	
 	@Id	
 	@GeneratedValue
@@ -59,6 +65,30 @@ public class AdaChannel extends AbstractEntity<Integer> {
 	
 	public void setCreateTime(Timestamp createTime){
 		this.createTime = createTime;
+	}
+
+	public Integer getDomainId() {
+		return domainId;
+	}
+
+	public void setDomainId(Integer domainId) {
+		this.domainId = domainId;
+	}
+
+	public Integer getAdId() {
+		return adId;
+	}
+
+	public void setAdId(Integer adId) {
+		this.adId = adId;
+	}
+
+	public String getChannelStr() {
+		return channelStr;
+	}
+
+	public void setChannelStr(String channelStr) {
+		this.channelStr = channelStr;
 	}
 	
 	

@@ -74,6 +74,10 @@ public class AdaChannelStat extends AbstractEntity<Integer> {
 	private Integer moveip4;
 	/** 老用户数量*/
 	private Integer olduserip;
+	/** 域名ID*/
+	private Integer domainId;
+	/** 广告页ID*/
+	private Integer adId;
 	
 	public AdaChannelStat() {
 		super();
@@ -399,6 +403,22 @@ public class AdaChannelStat extends AbstractEntity<Integer> {
 
 	public void setOlduserip(Integer olduserip) {
 		this.olduserip = olduserip;
+	}
+
+	public Integer getDomainId() {
+		return domainId;
+	}
+
+	public void setDomainId(Integer domainId) {
+		this.domainId = domainId;
+	}
+
+	public Integer getAdId() {
+		return adId;
+	}
+
+	public void setAdId(Integer adId) {
+		this.adId = adId;
 	}
 	
 	
