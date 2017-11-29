@@ -124,7 +124,7 @@ div.DTS div.dataTables_scrollBody {
 					
 			     </tr>
             </thead>
-            <tbody id="tbody">
+            <tbody id="channellisttbody">
                <c:forEach var="item" items="${ChannelStat_list}" varStatus="number">
                 <tr>
 					<td style="">${item.channelStr}</td>
@@ -260,11 +260,11 @@ var initTable1 = function () {
 						}
 						
 						if(list.length>0){
-							jQuery("#tbody").empty();
-							jQuery("#tbody").append(open);
+							jQuery("#channellisttbody").empty();
+							jQuery("#channellisttbody").append(open);
 							
-							jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
-							jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttale);
+							jQuery(".DTFC_LeftBodyWrapper #channellisttbody").empty();
+							jQuery(".DTFC_LeftBodyWrapper #channellisttbody").append(lefttale);
 						}
 						
 						
