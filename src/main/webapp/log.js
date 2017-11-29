@@ -357,6 +357,7 @@ function adaIsBrowser(){
 		if (userAgent.indexOf("Opera") > -1) return "Opera"; 
 		if (userAgent.indexOf("Firefox") > -1) return "Firefox"; 
 		if (userAgent.indexOf("Liebao") > -1)  return "Liebao";
+		if (userAgent.indexOf("Weixin") > -1)  return "Weixin";
 		if (userAgent.indexOf("360") > -1)  return "360";
 		if (userAgent.indexOf("Duba") > -1)  return "Duba";
 		if (userAgent.indexOf("Chrome") > -1)  return "Chrome";
@@ -365,7 +366,7 @@ function adaIsBrowser(){
 		if (userAgent.indexOf("QQ") > -1)  return "QQ";
 		if (userAgent.indexOf("Sogou") > -1)  return "Sogou";
 		if (!!window.ActiveXObject || "ActiveXObject" in window) return "IE";
-		return "other";
+		return userAgent;
 	}catch(e){
 	}
 }
@@ -382,6 +383,14 @@ function adaIsOS() {
 		if (isUnix) return "Unix";
 		var isLinux = (String(navigator.platform).indexOf("Linux") > -1);
 		if (isLinux) return "Linux";
+		var isIos = (String(navigator.platform).indexOf("IOS") > -1);
+		if (isIos) return "IOS";
+		var isAndroid = (String(navigator.platform).indexOf("Android") > -1);
+		if (isAndroid) return "Android";
+		var isIPad = (String(navigator.platform).indexOf("IPad") > -1);
+		if (isIPad) return "IPad";
+		var isIPhone = (String(navigator.platform).indexOf("IPhone") > -1);
+		if (isIPhone) return "IPhone";
 		if (isWin) {
 			var isWin2K = sUserAgent.indexOf("Windows NT 5.0") > -1 || sUserAgent.indexOf("Windows 2000") > -1;
 			if (isWin2K) return "Win2000";
@@ -398,7 +407,7 @@ function adaIsOS() {
 			var isWin10 = sUserAgent.indexOf("Windows NT 10.0") > -1 || sUserAgent.indexOf("Windows 10") > -1; 
 			if (isWin10) return "Win10";
 		}
-		return "other";
+		return sUserAgent;
 	}catch(e){
 	}
 }
@@ -412,16 +421,22 @@ function adaPutLog1() {
 		/** 
 		网页分辨率 **/
 		var pageSize = document.body.offsetWidth+"x"+document.documentElement.clientHeight;
+		var userAgent = navigator.userAgent;
 		var httprequest = adagetHttpRequest();
 		var pageReferrer = encodeURIComponent(document.referrer);
 		var encodeURI = encodeURIComponent(window.location.href);
+		var iSiframe = "";
+		if (self != top) {    
+			iSiframe = 1;  
+		} else{
+			iSiframe = 0;  
+		} 
 		var f = "";
 		if(document.cookie.indexOf("fr8itTYL=") == -1){
 			f = Date.parse(adaPageInTime);
 			document.cookie = "fr8itTYL="+adaPageInTime+";expires="+adaGetTodayExpires();
 		}
-		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&r="+pageReferrer+
-				"&o="+adaFirstTime+"&f="+f+"&os="+adaIsOS()+"&br="+adaIsBrowser()+"&ss="+screenSize+"&ps="+pageSize+"&if="+"&t="+Date.parse(new Date()), true);
+		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&r="+pageReferrer+"&o="+adaFirstTime+"&f="+f+"&os="+adaIsOS()+"&br="+adaIsBrowser()+"&ss="+screenSize+"&ps="+pageSize+"&if="+iSiframe+"&ua="+userAgent+"&t="+Date.parse(new Date()), true);
 		httprequest.onreadystatechange = function () {
 			if (httprequest.readyState == 4) {
 				if (httprequest.status == 200) {

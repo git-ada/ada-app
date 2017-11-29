@@ -1,3 +1,5 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -30,31 +32,22 @@
         <form id="edit_form" action="${pageContext.request.contextPath}/ada-ad-page/${action=='create'?'save':'update'}.do" class="form-horizontal" method="post">
         <jodd:form bean="adaAdPage" scope="request">
             <div class="form-body">
+				<input type="hidden" name="siteId" value="${_CURRENT_SITE.id}">				
 					<div class="form-group">
-	                    <label class="col-md-2 control-label">站点ID：</label>
-	                    <div class="col-md-4">
-			                <input type="text" name="siteId" class="form-control input-medium"  maxlength="10">
-						</div>
-				  </div>				
-					<div class="form-group">
-	                    <label class="col-md-2 control-label">渠道名称<span class="required" > * </span>：</label>
+	                    <label class="col-md-2 control-label">匹配内容<span class="required" > * </span>：</label>
 	                    <div class="col-md-4">
 			                <input type="text" name="matchContent" class="form-control input-medium" required="required" maxlength="64">
 						</div>
 				  </div>				
 					<div class="form-group">
-	                    <label class="col-md-2 control-label">创建时间：</label>
+	                    <label class="col-md-2 control-label">渠道参数名<span class="required" > * </span>：</label>
 	                    <div class="col-md-4">
 			                <input type="text" name="channelKey" class="form-control input-medium"  maxlength="64">
 						</div>
 				  </div>				
-					<div class="form-group">
-	                    <label class="col-md-2 control-label">createTime：</label>
-	                    <div class="col-md-4">
-							<input name="createTime" class="form-control form-control-inline input-medium datetimepick" type="text" data-date-format="yyyy-mm-dd hh:ii:ss" value="<fmt:formatDate value="${adaAdPage.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly">
-						</div>
-				  </div>				
+					
             </div>
+            <input name="createTime" type="hidden" value="<%=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) %>" >
             <div class="form-actions">
                 <div class="row">
                     <div class="col-md-offset-2 col-md-4">
