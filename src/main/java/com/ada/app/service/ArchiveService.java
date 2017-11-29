@@ -70,6 +70,8 @@ public class ArchiveService {
 			 for(AdaChannel channel:channels){
 				try {
 					AdaChannelStat channelStat =  statService.statChannel(site.getId(), channel.getId(), yestoday);
+					channelStat.setDomainId(channel.getDomainId());
+					channelStat.setAdId(channel.getAdId());
 					if(channelStat.getIp()>0){
 						channelStat.setCreateTime(Dates.now());
 						adaChannelStatDao.save(channelStat);

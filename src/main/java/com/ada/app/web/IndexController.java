@@ -92,7 +92,13 @@ public class IndexController {
 		return "index";
 	}
 
-	
+	/**
+	 * 实时数据页面 获取域名列表数据
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "dashboard")
 	public String now(HttpServletRequest request,HttpServletResponse response, Model model) {
 		
@@ -103,14 +109,14 @@ public class IndexController {
 		Date today = Dates.todayStart();
 		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
 		
-		/** 获取站点下渠道统计信息 **/
-		Map sumMap = getChannelStat_list(today);
-		List<Map> ChannelStat_list = (List<Map>) sumMap.get("ChannelStat_list");
+		/** 获取站点下域名统计信息 **/
+		Map sumMap = getDomainStat_list(today);
+		//List<Map> ChannelStat_list = (List<Map>) sumMap.get("ChannelStat_list");
 		List<Map> DomainStat_list = (List<Map>) sumMap.get("DomainStat_list");
 		 
-		 model.addAttribute("pageResults", ChannelStat_list);
-		 model.addAttribute("channelSumIP", sumMap.get("channelSumIP"));/** 渠道ip总数 **/
-		 model.addAttribute("channelSumPV", sumMap.get("channelSumPV"));/** 渠道PV总数 **/
+		 //model.addAttribute("pageResults", ChannelStat_list);
+		// model.addAttribute("channelSumIP", sumMap.get("channelSumIP"));/** 渠道ip总数 **/
+		 //model.addAttribute("channelSumPV", sumMap.get("channelSumPV"));/** 渠道PV总数 **/
 		 model.addAttribute("DomainStat_list", DomainStat_list);
 		 model.addAttribute("domainSumIP", sumMap.get("domainSumIP"));
 		 model.addAttribute("domainSumPV", sumMap.get("domainSumPV"));
@@ -118,6 +124,26 @@ public class IndexController {
 		 model.addAttribute("siteStat", siteStat);
 		return "dashboard";
 	}
+	/**
+	 * 实时数据页面 渠道列表
+	 * @return
+	 */
+	@RequestMapping(value = "dashboard_channelList")
+	public String dashboard_channelList(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId,String domain){
+		Date today = Dates.todayStart();
+		Map sumMap = getChannelStat_list(today,domainId);
+		List<Map> ChannelStat_list = (List<Map>) sumMap.get("ChannelStat_list");
+		
+		model.addAttribute("ChannelStat_list", ChannelStat_list);
+		model.addAttribute("channelSumIP", sumMap.get("channelSumIP"));/** 渠道ip总数 **/
+		model.addAttribute("channelSumPV", sumMap.get("channelSumPV"));/** 渠道PV总数 **/
+		
+		model.addAttribute("domainId", domainId);
+		model.addAttribute("domain", domain);
+		return "dashboard_channelList";
+	}
+	
 	
 	@RequestMapping("ajaxLoadData")
 	public void ajaxLoadData(HttpServletRequest request,HttpServletResponse response ,Model model){
@@ -147,8 +173,8 @@ public class IndexController {
 		Date today = Dates.todayStart();
 		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
 		
-		/** 获取站点下渠道统计信息 **/
-		Map sumMap = getChannelStat_list(today);
+		/** 获取站点下域名统计信息 **/
+		Map sumMap = getDomainStat_list(today);
 		List<Map> ChannelStat_list = (List<Map>) sumMap.get("ChannelStat_list");
 		List<Map> DomainStat_list = (List<Map>) sumMap.get("DomainStat_list");
 		
@@ -229,131 +255,9 @@ public class IndexController {
 		return json;
 	}
 
-	public Map getChannelStat_list(Date date){
+	public Map getDomainStat_list(Date date){
 		/** 从sessions中获取站点信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();
-		
-		/** 渠道列表数据 **/
-		List<Map> ChannelStat_list = new ArrayList<Map>();
-		 List<AdaChannel> channels = adaChannelDao.findBySiteId(adaSite.getId());
-		 Integer channelSumIP = 0;/** 渠道ip总数 **/
-		 Integer channelSumPV = 0;/** 渠道PV总数 **/
-		 for (AdaChannel adaChannel : channels) {
-			 AdaChannelStat channelStat =  statService.statChannel(adaSite.getId(), adaChannel.getId(), date);
-			 Map map = new HashMap();
-			 map.put("channelName",adaChannelDao.findById(channelStat.getChannelId()).getChannelName());
-			 map.put("ip", channelStat.getIp());
-			 map.put("pv", channelStat.getPv());
-			 Integer clickip1=0;
-			 Integer clickip2=0;
-			 Integer clickip3=0;
-			 Integer clickip4=0;
-			 Integer staytimeip1=0;
-			 Integer staytimeip2=0;
-			 Integer staytimeip3=0;
-			 Integer staytimeip4=0;
-			 Integer scrollip1 = 0;
-			 Integer scrollip2 = 0;
-			 Integer scrollip3 = 0;
-			 Integer scrollip4 = 0;
-			 Integer moveip1 = 0;
-			 Integer moveip2 = 0;
-			 Integer moveip3 = 0;
-			 Integer moveip4 = 0;
-			 Integer olduserip = 0;
-			 
-			 if(channelStat.getClickip1()>0)clickip1 = channelStat.getClickip1();
-			 if(channelStat.getClickip2()>0)clickip2 = channelStat.getClickip2();
-			 if(channelStat.getClickip3()>0)clickip3 = channelStat.getClickip3();
-			 if(channelStat.getClickip4()>0)clickip4 = channelStat.getClickip4();
-			 if(channelStat.getStaytimeip1()>0)staytimeip1 = channelStat.getStaytimeip1();
-			 if(channelStat.getStaytimeip2()>0)staytimeip2 = channelStat.getStaytimeip2();
-			 if(channelStat.getStaytimeip3()>0)staytimeip3 = channelStat.getStaytimeip3();
-			 if(channelStat.getStaytimeip4()>0)staytimeip4 = channelStat.getStaytimeip4();
-			 if(channelStat.getScrollip1()>0)scrollip1 = channelStat.getScrollip1();
-			 if(channelStat.getScrollip2()>0)scrollip2 = channelStat.getScrollip2();
-			 if(channelStat.getScrollip3()>0)scrollip3 = channelStat.getScrollip3();
-			 if(channelStat.getScrollip4()>0)scrollip4 = channelStat.getScrollip4();
-			 if(channelStat.getMoveip1()>0)moveip1 = channelStat.getMoveip1();
-			 if(channelStat.getMoveip2()>0)moveip2 = channelStat.getMoveip2();
-			 if(channelStat.getMoveip3()>0)moveip3 = channelStat.getMoveip3();
-			 if(channelStat.getMoveip4()>0)moveip4 = channelStat.getMoveip4();
-			 if(channelStat.getOlduserip()>0)olduserip = channelStat.getOlduserip();
-			 
-			 map.put("clickip1", clickip1);
-			 map.put("clickip2", clickip2);
-			 map.put("clickip3", clickip3);
-			 map.put("clickip4", clickip4);
-			 map.put("staytimeip1", staytimeip1);
-			 map.put("staytimeip2", staytimeip2);
-			 map.put("staytimeip3", staytimeip3);
-			 map.put("staytimeip4", staytimeip4);
-			 map.put("scrollip1", scrollip1);
-			 map.put("scrollip2", scrollip2);
-			 map.put("scrollip3", scrollip3);
-			 map.put("scrollip4", scrollip4);
-			 map.put("moveip1", moveip1);
-			 map.put("moveip2", moveip2);
-			 map.put("moveip3", moveip3);
-			 map.put("moveip4", moveip4);
-			 map.put("olduserip", olduserip);
-			 map.put("targetpageip", channelStat.getTargetpageip());
-			 NumberFormat numberFormat = NumberFormat.getInstance();     
-			 numberFormat.setMaximumFractionDigits(2);
-			 if(channelStat.getIp()!=null && channelStat.getIp()>0){
-				 map.put("c1", numberFormat.format((float)clickip1/(float)channelStat.getIp()*100));
-				 map.put("c2", numberFormat.format((float)clickip2/(float)channelStat.getIp()*100));
-				 map.put("c3", numberFormat.format((float)clickip3/(float)channelStat.getIp()*100));
-				 map.put("c4", numberFormat.format((float)clickip4/(float)channelStat.getIp()*100));
-				 map.put("s1", numberFormat.format((float)staytimeip1/(float)channelStat.getIp()*100));
-				 map.put("s2", numberFormat.format((float)staytimeip2/(float)channelStat.getIp()*100));
-				 map.put("s3", numberFormat.format((float)staytimeip3/(float)channelStat.getIp()*100));
-				 map.put("s4", numberFormat.format((float)staytimeip4/(float)channelStat.getIp()*100));
-				 map.put("sc1", numberFormat.format((float)scrollip1/(float)channelStat.getIp()*100));
-				 map.put("sc2", numberFormat.format((float)scrollip2/(float)channelStat.getIp()*100));
-				 map.put("sc3", numberFormat.format((float)scrollip3/(float)channelStat.getIp()*100));
-				 map.put("sc4", numberFormat.format((float)scrollip4/(float)channelStat.getIp()*100));
-				 map.put("m1", numberFormat.format((float)moveip1/(float)channelStat.getIp()*100));
-				 map.put("m2", numberFormat.format((float)moveip2/(float)channelStat.getIp()*100));
-				 map.put("m3", numberFormat.format((float)moveip3/(float)channelStat.getIp()*100));
-				 map.put("m4", numberFormat.format((float)moveip4/(float)channelStat.getIp()*100));
-				 map.put("old", numberFormat.format((float)olduserip/(float)channelStat.getIp()*100));
-				 map.put("tgp", numberFormat.format((float)channelStat.getTargetpageip()/(float)channelStat.getIp()*100));
-			 }else{
-				 map.put("c1", 0);
-				 map.put("c2", 0);
-				 map.put("c3", 0);
-				 map.put("c4", 0);
-				 map.put("s1", 0);
-				 map.put("s2", 0);
-				 map.put("s3", 0);
-				 map.put("s4", 0);
-				 map.put("sc1", 0);
-				 map.put("sc2", 0);
-				 map.put("sc3", 0);
-				 map.put("sc4", 0);
-				 map.put("m1", 0);
-				 map.put("m2", 0);
-				 map.put("m3", 0);
-				 map.put("m4", 0);
-				 map.put("old", 0);
-				 map.put("tgp", 0);
-			 }
-			 channelSumIP+=channelStat.getIp();
-			 channelSumPV+=channelStat.getPv();
-			 ChannelStat_list.add(map);
-		}
-		
-		 /** 根据ip数排序 **/
-		 Collections.sort(ChannelStat_list,new Comparator<Map>(){
-				public int compare(Map map1, Map map2) {
-					Integer integer = (Integer) map1.get("ip");
-					Integer integer2 = (Integer) map2.get("ip");
-					return integer2.compareTo(integer);
-				}
-	        });
-		
-		 
 		 /** 域名列表信息 **/
 		 List<Map> DomainStat_list = new ArrayList<Map>();
 		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
@@ -384,6 +288,7 @@ public class IndexController {
 			
 			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
 			Map map = new HashMap();
+			map.put("id", domainId);
 			String domainstr = adaDomainDao.findById(domainStat.getDomainId()).getDomain();
 			 map.put("domain",domainstr);
 			 if(domainstr.length()>18){
@@ -500,15 +405,143 @@ public class IndexController {
 	        });
 		 
 		 Map map = new HashMap();
-		 map.put("ChannelStat_list", ChannelStat_list);
-		 map.put("channelSumIP", channelSumIP);
-		 map.put("channelSumPV", channelSumPV);
+		
 		 
 		 map.put("DomainStat_list", DomainStat_list);
 		 map.put("domainSumIP", domainSumIP);
 		 map.put("domainSumPV", domainSumPV);
 		 
 		 return map;
+	}
+	
+	public Map getChannelStat_list(Date date,String domainId){
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();
+		/** 渠道列表数据 **/
+		List<Map> ChannelStat_list = new ArrayList<Map>();
+		 List<AdaChannel> channels = adaChannelDao.findByDomainId(Integer.valueOf(domainId));
+		 Integer channelSumIP = 0;/** 渠道ip总数 **/
+		 Integer channelSumPV = 0;/** 渠道PV总数 **/
+		 for (AdaChannel adaChannel : channels) {
+			 AdaChannelStat channelStat =  statService.statChannel(adaSite.getId(), adaChannel.getId(), date);
+			 Map map = new HashMap();
+			 map.put("channelStr",adaChannelDao.findById(channelStat.getChannelId()).getChannelStr());
+			 map.put("ip", channelStat.getIp());
+			 map.put("pv", channelStat.getPv());
+			 Integer clickip1=0;
+			 Integer clickip2=0;
+			 Integer clickip3=0;
+			 Integer clickip4=0;
+			 Integer staytimeip1=0;
+			 Integer staytimeip2=0;
+			 Integer staytimeip3=0;
+			 Integer staytimeip4=0;
+			 Integer scrollip1 = 0;
+			 Integer scrollip2 = 0;
+			 Integer scrollip3 = 0;
+			 Integer scrollip4 = 0;
+			 Integer moveip1 = 0;
+			 Integer moveip2 = 0;
+			 Integer moveip3 = 0;
+			 Integer moveip4 = 0;
+			 Integer olduserip = 0;
+			 
+			 if(channelStat.getClickip1()>0)clickip1 = channelStat.getClickip1();
+			 if(channelStat.getClickip2()>0)clickip2 = channelStat.getClickip2();
+			 if(channelStat.getClickip3()>0)clickip3 = channelStat.getClickip3();
+			 if(channelStat.getClickip4()>0)clickip4 = channelStat.getClickip4();
+			 if(channelStat.getStaytimeip1()>0)staytimeip1 = channelStat.getStaytimeip1();
+			 if(channelStat.getStaytimeip2()>0)staytimeip2 = channelStat.getStaytimeip2();
+			 if(channelStat.getStaytimeip3()>0)staytimeip3 = channelStat.getStaytimeip3();
+			 if(channelStat.getStaytimeip4()>0)staytimeip4 = channelStat.getStaytimeip4();
+			 if(channelStat.getScrollip1()>0)scrollip1 = channelStat.getScrollip1();
+			 if(channelStat.getScrollip2()>0)scrollip2 = channelStat.getScrollip2();
+			 if(channelStat.getScrollip3()>0)scrollip3 = channelStat.getScrollip3();
+			 if(channelStat.getScrollip4()>0)scrollip4 = channelStat.getScrollip4();
+			 if(channelStat.getMoveip1()>0)moveip1 = channelStat.getMoveip1();
+			 if(channelStat.getMoveip2()>0)moveip2 = channelStat.getMoveip2();
+			 if(channelStat.getMoveip3()>0)moveip3 = channelStat.getMoveip3();
+			 if(channelStat.getMoveip4()>0)moveip4 = channelStat.getMoveip4();
+			 if(channelStat.getOlduserip()>0)olduserip = channelStat.getOlduserip();
+			 
+			 map.put("clickip1", clickip1);
+			 map.put("clickip2", clickip2);
+			 map.put("clickip3", clickip3);
+			 map.put("clickip4", clickip4);
+			 map.put("staytimeip1", staytimeip1);
+			 map.put("staytimeip2", staytimeip2);
+			 map.put("staytimeip3", staytimeip3);
+			 map.put("staytimeip4", staytimeip4);
+			 map.put("scrollip1", scrollip1);
+			 map.put("scrollip2", scrollip2);
+			 map.put("scrollip3", scrollip3);
+			 map.put("scrollip4", scrollip4);
+			 map.put("moveip1", moveip1);
+			 map.put("moveip2", moveip2);
+			 map.put("moveip3", moveip3);
+			 map.put("moveip4", moveip4);
+			 map.put("olduserip", olduserip);
+			 map.put("targetpageip", channelStat.getTargetpageip());
+			 NumberFormat numberFormat = NumberFormat.getInstance();     
+			 numberFormat.setMaximumFractionDigits(2);
+			 if(channelStat.getIp()!=null && channelStat.getIp()>0){
+				 map.put("c1", numberFormat.format((float)clickip1/(float)channelStat.getIp()*100));
+				 map.put("c2", numberFormat.format((float)clickip2/(float)channelStat.getIp()*100));
+				 map.put("c3", numberFormat.format((float)clickip3/(float)channelStat.getIp()*100));
+				 map.put("c4", numberFormat.format((float)clickip4/(float)channelStat.getIp()*100));
+				 map.put("s1", numberFormat.format((float)staytimeip1/(float)channelStat.getIp()*100));
+				 map.put("s2", numberFormat.format((float)staytimeip2/(float)channelStat.getIp()*100));
+				 map.put("s3", numberFormat.format((float)staytimeip3/(float)channelStat.getIp()*100));
+				 map.put("s4", numberFormat.format((float)staytimeip4/(float)channelStat.getIp()*100));
+				 map.put("sc1", numberFormat.format((float)scrollip1/(float)channelStat.getIp()*100));
+				 map.put("sc2", numberFormat.format((float)scrollip2/(float)channelStat.getIp()*100));
+				 map.put("sc3", numberFormat.format((float)scrollip3/(float)channelStat.getIp()*100));
+				 map.put("sc4", numberFormat.format((float)scrollip4/(float)channelStat.getIp()*100));
+				 map.put("m1", numberFormat.format((float)moveip1/(float)channelStat.getIp()*100));
+				 map.put("m2", numberFormat.format((float)moveip2/(float)channelStat.getIp()*100));
+				 map.put("m3", numberFormat.format((float)moveip3/(float)channelStat.getIp()*100));
+				 map.put("m4", numberFormat.format((float)moveip4/(float)channelStat.getIp()*100));
+				 map.put("old", numberFormat.format((float)olduserip/(float)channelStat.getIp()*100));
+				 map.put("tgp", numberFormat.format((float)channelStat.getTargetpageip()/(float)channelStat.getIp()*100));
+			 }else{
+				 map.put("c1", 0);
+				 map.put("c2", 0);
+				 map.put("c3", 0);
+				 map.put("c4", 0);
+				 map.put("s1", 0);
+				 map.put("s2", 0);
+				 map.put("s3", 0);
+				 map.put("s4", 0);
+				 map.put("sc1", 0);
+				 map.put("sc2", 0);
+				 map.put("sc3", 0);
+				 map.put("sc4", 0);
+				 map.put("m1", 0);
+				 map.put("m2", 0);
+				 map.put("m3", 0);
+				 map.put("m4", 0);
+				 map.put("old", 0);
+				 map.put("tgp", 0);
+			 }
+			 channelSumIP+=channelStat.getIp();
+			 channelSumPV+=channelStat.getPv();
+			 ChannelStat_list.add(map);
+		}
+		
+		 /** 根据ip数排序 **/
+		 Collections.sort(ChannelStat_list,new Comparator<Map>(){
+				public int compare(Map map1, Map map2) {
+					Integer integer = (Integer) map1.get("ip");
+					Integer integer2 = (Integer) map2.get("ip");
+					return integer2.compareTo(integer);
+				}
+	        });
+		
+		Map map = new HashMap();
+		map.put("ChannelStat_list", ChannelStat_list);
+		map.put("channelSumIP", channelSumIP);
+		map.put("channelSumPV", channelSumPV);
+		return map;
 	}
 	
 }
