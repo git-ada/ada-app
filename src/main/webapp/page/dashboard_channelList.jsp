@@ -67,11 +67,36 @@ div.DTS div.dataTables_scrollBody {
 </div>
 
 
-
-<!--数据列表-->
-
+<div class="portlet-title" style="margin-top: 10px;">
+		<!-- 顶部搜索栏 BEGIN -->
+		<div class="row">
+			<div class="col-md-10 col-sm-12 left">
+		    <div class="caption">
+				<div class="clearfix ">
+				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-channel-stat/stat.jhtm" method="get">
+				    	<!--
+				    		支持操作符 :EQ, NOTEQ , LIKE, LLIKE, RLIKE, NLIKE, GT, LT, GTE, LTE, IN, NOTIN, NULL, NOTNULL,
+				    		如:search_EQ_name 会自动添加条件，like '%value%';
+				    	-->
+				    	<!-- 页码  -->
+					    <input type="hidden" id="page" name="page">
+						<div class="row">
+						</div>
+				    </form>
+				 </div>
+		    </div>
+		    </div>
+		    <!-- 顶部搜索栏 END -->
+		    
+		    <!-- 右上角工具栏 BEGIN -->
+		    <div class="col-md-2 col-sm-12 right">
+	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" onclick="gotoHistoryPage(-1)" ><span>返回</span></a>
+		    </div>
+	    </div>
+	    <!-- 右上角工具栏 END -->
+	</div>
 <!-- 渠道数据列表     -->
-<div class="portlet-body " style="margin-top: 25px;">
+<div class="portlet-body ">
 	<table id="channelscrolltable" class="table table-striped table-bordered table-hover order-column">
             <thead>
                 <tr>

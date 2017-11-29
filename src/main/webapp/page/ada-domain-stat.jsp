@@ -107,7 +107,7 @@ div.DTS div.dataTables_scrollBody {
 	        <table id="domainStatHistory" class="table table-striped table-bordered table-hover order-column">
 	            <thead>
 	                <tr>
-	                    <th scope="col" style="min-width: 100px;">日期</th>		
+	                    <th scope="col" style="min-width: 80px;">日期</th>		
 						<th scope="col" style="min-width: 120px;">域名</th>			
 						<th scope="col" style="min-width: 80px;">IP</th>			
 						<th scope="col" style="min-width: 80px;">PV</th>

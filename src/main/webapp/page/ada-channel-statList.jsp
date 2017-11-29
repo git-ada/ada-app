@@ -64,13 +64,41 @@ div.DTS div.dataTables_scrollBody {
     </ul>
 </div>
 <!-- 顶部导航 END-->
-<div class="portlet light" style="margin-bottom: 0px;">
+	<div class="portlet-title" style="margin-top: 10px;">
+		<!-- 顶部搜索栏 BEGIN -->
+		<div class="row">
+			<div class="col-md-10 col-sm-12 left">
+		    <div class="caption">
+				<div class="clearfix ">
+				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-channel-stat/stat.jhtm" method="get">
+				    	<!--
+				    		支持操作符 :EQ, NOTEQ , LIKE, LLIKE, RLIKE, NLIKE, GT, LT, GTE, LTE, IN, NOTIN, NULL, NOTNULL,
+				    		如:search_EQ_name 会自动添加条件，like '%value%';
+				    	-->
+				    	<!-- 页码  -->
+					    <input type="hidden" id="page" name="page">
+						<div class="row">
+						</div>
+				    </form>
+				 </div>
+		    </div>
+		    </div>
+		    <!-- 顶部搜索栏 END -->
+		    
+		    <!-- 右上角工具栏 BEGIN -->
+		    <div class="col-md-2 col-sm-12 right">
+	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" onclick="gotoHistoryPage(-1)" ><span>返回</span></a>
+		    </div>
+	    </div>
+	    <!-- 右上角工具栏 END -->
+	</div>
+
 	<div class="portlet-body">
 		<!-- 数据列表 BEGIN -->
 	        <table id="channelStatListHistory" class="table table-striped table-bordered table-hover order-column">
 	            <thead>
 	                <tr>
-	                    <th scope="col" style="min-width: 100px;">日期</th>		
+	                    <th scope="col" style="min-width: 80px;">日期</th>		
 						<th scope="col" style="min-width: 120px;">渠道匹配串</th>			
 						<th scope="col" style="min-width: 80px;">IP</th>			
 						<th scope="col" style="min-width: 80px;">PV</th>
@@ -145,7 +173,6 @@ div.DTS div.dataTables_scrollBody {
 	    </div> --%>
 	    <!-- 底部功能区 END -->
 	</div>
-</div>
 <script type="text/javascript">
 
 var initTable1 = function () {
