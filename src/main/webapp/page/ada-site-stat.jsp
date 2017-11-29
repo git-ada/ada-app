@@ -92,17 +92,16 @@
 	    <!-- 底部功能区 BEGIN -->
 	    <div class="row">
 	        <div class="col-md-4 col-sm-12">
-	            
+	            <!-- 底部功能区 BEGIN -->
+			    <c:if test="${not empty page.pageResults}">
+				    <div class="row">
+				        <!-- 底部分页 -->
+				        <div class="col-md-4 col-sm-12">
+				        	 <jsp:include page="/include/paging_footer.jsp"/>
+				        </div>
+				    </div>
+				</c:if>
 	        </div>
-	        <!-- 底部功能区 BEGIN -->
-		    <c:if test="${not empty page.pageResults}">
-			    <div class="row">
-			        <!-- 底部分页 -->
-			        <div class="col-md-4 col-sm-12">
-			        	 <jsp:include page="/include/paging_footer.jsp"/>
-			        </div>
-			    </div>
-			</c:if>
 	    </div>
 	    <!-- 底部功能区 END -->
 	</div>
