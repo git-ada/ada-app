@@ -90,8 +90,8 @@
 	    <!-- 数据列表 END -->
 	    
 	    <!-- 底部功能区 BEGIN -->
-	    <div class="row">
-	        <div class="col-md-4 col-sm-12">
+	    <div class="row"> 
+	        <div class="col-md-6 col-sm-12">
 	            <!-- 底部功能区 BEGIN -->
 			    <c:if test="${not empty page.pageResults}">
 				    <div class="row">
