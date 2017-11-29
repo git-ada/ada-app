@@ -29,6 +29,9 @@ public interface AdaChannelDao extends EntityJpaDao<AdaChannel, Integer> {
      *通过创建时间查询
      */
 	public List<AdaChannel> findByCreateTime(Timestamp createTime);
-
+	/** 
+     *通过域名ID查询
+     */
+	public List<AdaChannel> findByDomainId(Integer domainId);
 
 }

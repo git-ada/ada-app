@@ -37,9 +37,9 @@ function adaPageIn(){
 		}
 	
 		/** 判断渠道ID是否存在，如果不存在则查询渠道ID **/
-		var existsChannelId = (document.cookie.indexOf("7kDWBXdf=") != -1);
+		var existsChannelId = (document.cookie.indexOf("tqTY092G=") != -1);
 		if(existsChannelId){
-			adaChannelId = adaGetcookie("7kDWBXdf").split("=")[1];
+			adaChannelId = adaGetcookie("tqTY092G").split("=")[1];
 		}
 		adaPutLog1();
 	} catch(e){
@@ -337,7 +337,7 @@ function adaQueryChannelId() {
 				   var ret = httprequest.responseText;
 				   if(ret != null && ret!= "undefined" && ret != ""){
 					   adaChannelId = ret;
-					   document.cookie = "7kDWBXdf="+adaChannelId+";expires="+adaGetLongTimeExpires();
+					   document.cookie = "tqTY092G="+adaChannelId+";expires="+adaGetLongTimeExpires();
 				   }
 				   adaPutLog1();
 				}
@@ -347,9 +347,71 @@ function adaQueryChannelId() {
 	} catch(e){
 	}
 };
+
+/**
+浏览器版本**/
+function adaIsBrowser(){
+	try{
+		//取得浏览器的userAgent字符串
+		var userAgent = navigator.userAgent; 
+		if (userAgent.indexOf("Opera") > -1) return "Opera"; 
+		if (userAgent.indexOf("Firefox") > -1) return "Firefox"; 
+		if (userAgent.indexOf("Liebao") > -1)  return "Liebao";
+		if (userAgent.indexOf("360") > -1)  return "360";
+		if (userAgent.indexOf("Duba") > -1)  return "Duba";
+		if (userAgent.indexOf("Chrome") > -1)  return "Chrome";
+		if (userAgent.indexOf("Safari") > -1) return "Safari";
+		if (userAgent.indexOf("UC") > -1)  return "UC";
+		if (userAgent.indexOf("QQ") > -1)  return "QQ";
+		if (userAgent.indexOf("Sogou") > -1)  return "Sogou";
+		if (!!window.ActiveXObject || "ActiveXObject" in window) return "IE";
+		return "other";
+	}catch(e){
+	}
+}
+/**
+操作系统版本**/
+function adaIsOS() {
+	try{
+		//取得浏览器的userAgent字符串
+		var sUserAgent = navigator.userAgent;
+		var isWin = (navigator.platform == "Win32") ||(navigator.platform == "Win64")  || (navigator.platform == "Windows");
+		var isMac = (navigator.platform == "Mac68K") || (navigator.platform == "MacPPC") || (navigator.platform == "Macintosh") || (navigator.platform == "MacIntel");
+		if (isMac) return "Mac";
+		var isUnix = (navigator.platform == "X11") && !isWin && !isMac;
+		if (isUnix) return "Unix";
+		var isLinux = (String(navigator.platform).indexOf("Linux") > -1);
+		if (isLinux) return "Linux";
+		if (isWin) {
+			var isWin2K = sUserAgent.indexOf("Windows NT 5.0") > -1 || sUserAgent.indexOf("Windows 2000") > -1;
+			if (isWin2K) return "Win2000";
+			var isWinXP = sUserAgent.indexOf("Windows NT 5.1") > -1 || sUserAgent.indexOf("Windows XP") > -1;
+			if (isWinXP) return "WinXP";
+			var isWin2003 = sUserAgent.indexOf("Windows NT 5.2") > -1 || sUserAgent.indexOf("Windows 2003") > -1;
+			if (isWin2003) return "Win2003";
+			var isWinVista= sUserAgent.indexOf("Windows NT 6.0") > -1 || sUserAgent.indexOf("Windows Vista") > -1;
+			if (isWinVista) return "WinVista";
+			var isWin7 = sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1; 
+			if (isWin7) return "Win7";
+			var isWin10 =  sUserAgent.indexOf("Windows 2008") > -1; 
+			if (isWin10) return "Win8";
+			var isWin10 = sUserAgent.indexOf("Windows NT 10.0") > -1 || sUserAgent.indexOf("Windows 10") > -1; 
+			if (isWin10) return "Win10";
+		}
+		return "other";
+	}catch(e){
+	}
+}
+
 /** 推送日志 **/
 function adaPutLog1() {
 	try{
+		/** 
+		屏幕分辨率 **/
+		var screenSize = window.screen.width+"x"+window.screen.height;
+		/** 
+		网页分辨率 **/
+		var pageSize = document.body.offsetWidth+"x"+document.documentElement.clientHeight;
 		var httprequest = adagetHttpRequest();
 		var pageReferrer = encodeURIComponent(document.referrer);
 		var encodeURI = encodeURIComponent(window.location.href);
@@ -358,7 +420,8 @@ function adaPutLog1() {
 			f = Date.parse(adaPageInTime);
 			document.cookie = "fr8itTYL="+adaPageInTime+";expires="+adaGetTodayExpires();
 		}
-		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&r="+pageReferrer+"&o="+adaFirstTime+"&f="+f+"&t="+Date.parse(new Date()), true);
+		httprequest.open("get", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&p="+encodeURI+"&r="+pageReferrer+
+				"&o="+adaFirstTime+"&f="+f+"&os="+adaIsOS()+"&br="+adaIsBrowser()+"&ss="+screenSize+"&ps="+pageSize+"&if="+"&t="+Date.parse(new Date()), true);
 		httprequest.onreadystatechange = function () {
 			if (httprequest.readyState == 4) {
 				if (httprequest.status == 200) {
@@ -369,7 +432,7 @@ function adaPutLog1() {
 							   if(adaChannelId == null || adaChannelId == ""){
 								   if(jet.c !=null && jet.c !="undefined" && jet.c != ""){
 									   adaChannelId = jet.c;
-									   document.cookie = "7kDWBXdf="+adaChannelId+";expires="+adaGetLongTimeExpires();
+									   document.cookie = "tqTY092G="+adaChannelId+";expires="+adaGetLongTimeExpires();
 								   }
 							   }
 							   if(adaFirstTime==null || adaFirstTime == ""){

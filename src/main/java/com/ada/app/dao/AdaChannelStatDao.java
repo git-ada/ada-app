@@ -68,5 +68,7 @@ public interface AdaChannelStatDao extends EntityJpaDao<AdaChannelStat, Integer>
 			"on ads.channelId=d.id where ads.siteId=? and ads.date=? and d.channelName like concat('%',?,'%') order by ads.ip desc",nativeQuery=true)
 	public List<AdaChannelStat> findBySiteIdandDateAndChannelname(Integer siteId,String date,String channelName);
 
+	@Query(value="select * from ada_channel_stat where domainId=? and date=?",nativeQuery=true)
+	public List<AdaChannelStat> findByDomainIdAndDate(Integer domainId,String date);
 
 }

@@ -238,9 +238,9 @@ div.DTS div.dataTables_scrollBody {
 	<table id="scrolltable" class="table table-striped table-bordered table-hover order-column">
             <thead>
                 <tr>
-					<th scope="col" style="min-width: 120px;">渠道 / 域名</th>
-					<th scope="col" style="min-width: 60px">IP</th>			
-					<th scope="col" style="min-width: 60px">PV</th>
+					<th scope="col" style="min-width: 120px;">域名</th>
+					<th scope="col" style="min-width: 80px">IP</th>			
+					<th scope="col" style="min-width: 80px">PV</th>
 					<th scope="col" style="min-width: 80px">登录用户数</th>	
 					<th scope="col" style="min-width: 80px">1-2次点击</th>			
 					<th scope="col" style="min-width: 80px">3-5次点击</th>			
@@ -263,35 +263,9 @@ div.DTS div.dataTables_scrollBody {
 			     </tr>
             </thead>
             <tbody id="tbody">
-               <c:forEach var="item" items="${pageResults}" varStatus="number">
-                <tr>
-					<td style="min-width: 150px;">${item.channelName}</td>
-					<td style="min-width: 80px">${item.ip}</td>
-					<td style="min-width: 80px">${item.pv}</td>
-					<td style="min-width: 80px">${item.olduserip} (${item.old}%)</td>
-					<td style="min-width: 80px">${item.clickip1} (${item.c1}%)</td>
-					<td style="min-width: 80px">${item.clickip2} (${item.c2}%)</td>
-					<td style="min-width: 80px">${item.clickip3} (${item.c3}%)</td>
-					<td style="min-width: 80px">${item.clickip4} (${item.c4}%)</td>
-					<td style="min-width: 80px">${item.targetpageip} (${item.tgp}%)</td>
-					<td style="min-width: 80px">${item.staytimeip1} (${item.s1}%)</td>
-					<td style="min-width: 80px">${item.staytimeip2} (${item.s2}%)</td>
-					<td style="min-width: 80px">${item.staytimeip3} (${item.s3}%)</td>
-					<td style="min-width: 80px">${item.staytimeip4} (${item.s4}%)</td>
-					<td style="min-width: 80px">${item.scrollip1} (${item.sc1}%)</td>
-					<td style="min-width: 80px">${item.scrollip2} (${item.sc2}%)</td>
-					<td style="min-width: 80px">${item.scrollip3} (${item.sc3}%)</td>
-					<td style="min-width: 80px">${item.scrollip4} (${item.sc4}%)</td>
-					<td style="min-width: 80px">${item.moveip1} (${item.m1}%)</td>
-					<td style="min-width: 80px">${item.moveip2} (${item.m2}%)</td>
-					<td style="min-width: 80px">${item.moveip3} (${item.m3}%)</td>
-					<td style="min-width: 80px">${item.moveip4} (${item.m4}%)</td>
-					
-                </tr>
-                </c:forEach>
                 	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
                 <tr>
-					<td style="min-width: 150px;" title="${domain.domain}">${domain.subDomain}</td>
+					<td style="min-width: 150px;" title="${domain.domain}"><a href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}</a> </td>
 					<td style="min-width: 80px">${domain.ip}</td>
 					<td style="min-width: 80px">${domain.pv}</td>
 					<td style="min-width: 80px">${domain.olduserip} (${domain.old}%)</td>
@@ -333,9 +307,9 @@ var initTable1 = function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No data available in table",
+            "emptyTable": "暂无数据",
             "info": "",
-            "infoEmpty": "No entries found",
+            "infoEmpty": "",
             "infoFiltered": "(filtered1 from _MAX_ total entries)",
             "lengthMenu": "_MENU_ entries",
             "search": "Search:",
@@ -466,43 +440,6 @@ var initTable1 = function () {
 						var list = json.ChannelStat_list;
 						var open = "";
 						var lefttale = "";
-						for(var i=0;i<list.length;i++){
-							var tr = "";
-							 tr+="<tr>" + 
-							      "<td >"+list[i].channelName+"</td>"+
-								  "<td >"+list[i].ip+"</td>"+
-								  "<td >"+list[i].pv+"</td>"+
-								  "<td >"+list[i].olduserip+" ("+list[i].old+"%)</td>"+
-								  "<td >"+list[i].clickip1+" ("+list[i].c1+"%)</td>"+
-								  "<td >"+list[i].clickip2+" ("+list[i].c2+"%)</td>"+
-								  "<td >"+list[i].clickip3+" ("+list[i].c3+"%)</td>"+
-								  "<td >"+list[i].clickip4+" ("+list[i].c4+"%)</td>"+
-								  "<td >"+list[i].targetpageip+" ("+list[i].tgp+"%)</td>"+
-								  "<td >"+list[i].staytimeip1+" ("+list[i].s1+"%)</td>"+
-								  "<td >"+list[i].staytimeip2+" ("+list[i].s2+"%)</td>"+
-								  "<td >"+list[i].staytimeip3+" ("+list[i].s3+"%)</td>"+
-								  "<td >"+list[i].staytimeip4+" ("+list[i].s4+"%)</td>"+
-								  "<td >"+list[i].scrollip1+" ("+list[i].sc1+"%)</td>"+
-								  "<td >"+list[i].scrollip2+" ("+list[i].sc2+"%)</td>"+
-								  "<td >"+list[i].scrollip3+" ("+list[i].sc3+"%)</td>"+
-								  "<td >"+list[i].scrollip4+" ("+list[i].sc4+"%)</td>"+
-								  "<td >"+list[i].moveip1+" ("+list[i].m1+"%)</td>"+
-								  "<td >"+list[i].moveip2+" ("+list[i].m2+"%)</td>"+
-								  "<td >"+list[i].moveip3+" ("+list[i].m3+"%)</td>"+
-								  "<td >"+list[i].moveip4+" ("+list[i].m4+"%)</td>"+
-								  
-								  "</tr>";
-							open+=tr;
-							
-							var tr2 = "";
-								tr2+="<tr>"+
-								 "<td >"+list[i].channelName+"</td>"+
-								  "<td >"+list[i].ip+"</td>"+
-								  "<td >"+list[i].pv+"</td>"+
-									"<tr>";
-								lefttale+=tr2;
-							
-						}
 						
 						/** 域名数据列表 **/
 						var domainList = json.DomainStat_list;
@@ -510,7 +447,7 @@ var initTable1 = function () {
 						for(var i=0;i<domainList.length;i++){
 							var tr = "";
 							 tr+="<tr>" + 
-							      "<td  title='${item.domain}'>"+domainList[i].subDomain+"</td>"+
+							      "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a> </td>"+
 								  "<td >"+domainList[i].ip+"</td>"+
 								  "<td >"+domainList[i].pv+"</td>"+
 								  "<td >"+domainList[i].olduserip+" ("+domainList[i].old+"%)</td>"+
@@ -537,7 +474,7 @@ var initTable1 = function () {
 								  
 								  var tr2 = "";
 									tr2+="<tr>"+
-											 "<td  title='${item.domain}'>"+domainList[i].subDomain+"</td>"+
+									"<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a> </td>"+
 											  "<td >"+domainList[i].ip+"</td>"+
 											  "<td >"+domainList[i].pv+"</td>"+
 										"<tr>";
