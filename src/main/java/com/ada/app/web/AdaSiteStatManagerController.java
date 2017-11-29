@@ -1,5 +1,6 @@
 package com.ada.app.web;
 
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,8 +20,13 @@ import cn.com.jiand.mvc.framework.module.Permission;
 import cn.com.jiand.mvc.framework.web.AbstractJQueryEntityController;
 import cn.com.jiand.mvc.framework.web.support.JsonEntityResult;
 import cn.com.jiand.mvc.framework.web.support.JsonResult;
+import cn.com.jiand.mvc.framework.web.support.Servlets;
+
+import com.ada.app.domain.AdaChannel;
 import com.ada.app.domain.AdaSiteStat;
 import com.ada.app.service.AdaSiteStatService;
+import com.ada.app.util.Sessions;
+
 import java.util.TreeMap;
 
 @Controller
@@ -48,6 +54,13 @@ public class AdaSiteStatManagerController extends AbstractJQueryEntityController
 	@RequestMapping(value = "list")
 	public String list(HttpServletRequest request,HttpServletResponse response, Model model) {
 		return super.list(request, response, model);
+	}
+    
+    protected Map<String, Object> getSearchParams(HttpServletRequest request) {
+    	Map<String, Object> paramMap =  Servlets.getParametersStartingWith(request, "search_");		
+		paramMap.put("EQ_siteId", Sessions.getCurrentSite().getId());
+		
+		return paramMap;
 	}
 	
 	@ModuleOperation(name="查看",requiresPerm=View.class)
