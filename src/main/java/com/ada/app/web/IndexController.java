@@ -120,7 +120,7 @@ public class IndexController {
 		 model.addAttribute("DomainStat_list", DomainStat_list);
 		 model.addAttribute("domainSumIP", sumMap.get("domainSumIP"));
 		 model.addAttribute("domainSumPV", sumMap.get("domainSumPV"));
-		 
+		 model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		 model.addAttribute("siteStat", siteStat);
 		return "dashboard";
 	}
@@ -141,6 +141,7 @@ public class IndexController {
 		
 		model.addAttribute("domainId", domainId);
 		model.addAttribute("domain", domain);
+		
 		return "dashboard_channelList";
 	}
 	
@@ -181,7 +182,7 @@ public class IndexController {
 		 json.put("domainSumIP", sumMap.get("domainSumIP"));
 		 json.put("domainSumPV", sumMap.get("domainSumPV"));
 		 json.put("DomainStat_list", DomainStat_list);
-		 
+		 json.put("lasttime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		 try {
 				response.setContentType("text/html;charset=utf-8");
 				PrintWriter out = response.getWriter();

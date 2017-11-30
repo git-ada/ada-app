@@ -1,4 +1,5 @@
-
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -49,6 +50,7 @@ div.DTS div.dataTables_scrollBody {
 }
 
 </style>
+<!-- 
 <div class="page-bar">
     <ul class="page-breadcrumb" style="width: 100%">
         <li>
@@ -61,8 +63,8 @@ div.DTS div.dataTables_scrollBody {
         </li>
     </ul>
 </div>
-
-<div class="row">
+ -->
+<div class="row" style="margin-bottom: 15px;">
 	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		<div class="dashboard-stat blue margin-bottom0">
 			<div class="visual">
@@ -74,8 +76,6 @@ div.DTS div.dataTables_scrollBody {
 				</div>
 				<div class="desc">今日全站独立IP数</div>
 			</div>
-			<a class="more" href="#"> <i class="m-icon-swapright m-icon-white"></i></a>
-			</a>
 		</div>
 	</div>
 
@@ -90,7 +90,6 @@ div.DTS div.dataTables_scrollBody {
 				</div>
 				<div class="desc">今日全站访问量</div>
 			</div>
-			<a class="more" href="#"> <i class="m-icon-swapright m-icon-white"></i></a>
 		</div>
 	</div>
 	
@@ -105,7 +104,6 @@ div.DTS div.dataTables_scrollBody {
 				</div>
 				<div class="desc">今日渠道独立IP数</div>
 			</div>
-			<a class="more" href="#"> <i class="m-icon-swapright m-icon-white"></i></a>
 		</div>
 	</div>
 	
@@ -120,136 +118,37 @@ div.DTS div.dataTables_scrollBody {
 				</div>
 				<div class="desc">今日渠道访问量</div>
 			</div>
-			<a class="more" href="#"> <i class="m-icon-swapright m-icon-white"></i></a>
-			</a>
-		</div>
-	</div>
-	
-</div>
-
-<!--数据列表-->
-<div class="row" style="display: none;">
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div >
-			<div class="portlet-body" style="padding: 0;">
-				<ul id="today_business" class="list-group" style="margin: 0;">
-					<li class="list-group-item">今日新增独立IP数 <span class="fr">
-						${todaykpi.userNumbers} (IP)</span></li>
-					<li class="list-group-item">昨日新增独立IP数 <span class="fr">
-						${yestodaykpi.userNumbers} (IP)</span></li>
-					<li class="list-group-item">本月新增独立IP数 <span class="fr">
-						${monthkpi.userNumbers} (IP)</span></li>
-					<li class="list-group-item">上月新增独立IP数<span class="fr">
-						${lastMonthkpi.userNumbers} (IP)</span></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="portlet box">
-			<div class="portlet-body" style="padding: 0;">
-				<ul id="today_increase" class="list-group" style="margin: 0;">
-					<li class="list-group-item">今日访问量 <span class="fr">
-							${todaykpi.orderNumbers} (PV)</span></li>
-					<li class="list-group-item">昨日访问量 <span class="fr">
-							${yestodaykpi.orderNumbers} (PV)</span></li>
-					<li class="list-group-item">本月访问量 <span class="fr">
-							${monthkpi.orderNumbers} (PV)</span></li>
-					<li class="list-group-item">上月访问量<span class="fr">
-							${lastMonthkpi.orderNumbers} (PV)</span></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="portlet box">
-			<div class="portlet-body" style="padding: 0;">
-				<ul id="yesterday_business" class="list-group" style="margin: 0;">
-					<li class="list-group-item">今日--<span class="fr">
-							 ${todaykpi.salesAmount} (-)</span></li>
-					<li class="list-group-item">昨日-- <span class="fr">
-							 ${yestodaykpi.salesAmount} (-)</span></li>
-					<li class="list-group-item">本月-- <span class="fr">
-							 ${monthkpi.salesAmount} (-)</span></li>
-				    <li class="list-group-item">上月-- <span class="fr">
-							 ${lastMonthkpi.salesAmount} (-)</span></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="portlet box" >
-			<div class="portlet-body" style="padding: 0;">
-				<ul id="yesterday_business" class="list-group" style="margin: 0;">
-					<li class="list-group-item">今日--<span class="fr">
-							 ${todaykpi.profitsAmount} (-)</span></li>
-					<li class="list-group-item">昨日-- <span class="fr">
-							 ${yestodaykpi.profitsAmount} (-)</span></li>
-					<li class="list-group-item">本月--<span class="fr">
-							 ${monthkpi.profitsAmount} (-)</span></li>
-				    <li class="list-group-item">上月--<span class="fr">
-							 ${lastMonthkpi.profitsAmount} (-)</span></li>
-				</ul>
-			</div>
 		</div>
 	</div>
 </div>
 
-<div class="row" style="margin-top: 30px;display: none;">
-	<div class="col-lg-12 col-xs-12 col-sm-12">
-		<div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-bar-chart"></i>
-                    <span class="caption-subject bold uppercase"> 历史访问量</span>
-                    <!-- 
-                    <span class="caption-helper">weekly stats...</span>
-                     -->
-                </div>
-                <div class="actions">
-                	<!-- 
-                    <a href="javascript:;" class="btn btn-circle btn-default">
-                        <i class="fa fa-pencil"></i> Edit </a>
-                    <a href="javascript:;" class="btn btn-circle btn-default">
-                        <i class="fa fa-plus"></i> Add </a>
-                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title=""> </a>
-                     -->
-                </div>
-            </div>
-            <div class="portlet-body">
-            	<div class="portlet-body index-zhuanzt">
-			   <div id="dashboard_amchart_1" class="CSSAnimationChart"	style="height: 350px;"></div>
-				<!--   <div id="dashboard_amchart_1" class="CSSAnimationChart" ></div> -->
-				<a href="javascript:graphicLoading(-1)" data-value="${lastMonth}"
-					id="backoff" title="" class="tubiao-btn-left"><i
-					class="fa fa-chevron-left"></i></a> <a
-					href="javascript:graphicLoading(1)" data-value="${nextMonth}"
-					id="forward" title="" class="tubiao-btn-right"><i
-					class="fa fa-chevron-right"></i></a>
-				</div>
-            </div>
+<div class="portlet light portlet-fit bordered">
+	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;">
+		<div class="caption" style="padding-bottom: 0px;">
+            <i class="icon-directions font-green hide"></i>
+            <span class="caption-subject bold font-dark uppercase "> 今日实时统计</span>
+            <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
         </div>
-	</div>
-</div>
-<div class="portlet light bordered">
-	<div class="portlet-title">
-		<div class="caption">
-			<i class="icon-share font-dark hide"></i>
-			<span class="caption-subject font-dark bold uppercase"><!-- Regional Stats --></span>
-		</div>
-		<div class="actions">
-			
-			
-			<a class="btn btn-circle btn-icon-only btn-default fullscreen" data-container="false" data-placement="bottom" href="javascript:;" data-original-title="" title=""> </a>
-			
-		</div>
+        <div class="inputs">
+            <!-- <div class="input-icon right" style="float: left;margin-right: 10px;">
+                   <i class="icon-magnifier"></i>
+            	<input type="text" class="form-control form-control-solid input-circle" placeholder="搜索...">
+            </div> -->
+            
+            <div class="actions" style="float: left;">
+				<a class="btn btn-circle btn-icon-only btn-default" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
+				<!-- 
+				<a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-control-pause"></i></a>  icon-control-pause
+				 -->
+				<a class="btn btn-circle btn-icon-only btn-default fullscreen"  id="fullscreenOractual"><i class="icon-size-fullscreen"></i></a>
+			</div>
+        </div>
+		
 	</div>
 	
 	<!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
-	<div class="portlet-body ">
-		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column">
+	<div class="portlet-body" style="margin: 0px;padding: 0;">
+		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column" style="border: 0">
 	            <thead>
 	                <tr>
 						<th scope="col" style="min-width: 120px;">域名</th>
@@ -273,15 +172,13 @@ div.DTS div.dataTables_scrollBody {
 						<th scope="col" style="min-width: 80px">3-5次移动</th>
 						<th scope="col" style="min-width: 80px">6-10次移动</th>
 						<th scope="col" style="min-width: 80px">10+次移动</th>
-						
 				     </tr>
 	            </thead>
 	            <tbody id="tbody">
 	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
 	                <tr>
-	                	<c:if test="${domain.channelNum>0}"><td style="min-width: 150px;" title="${domain.domain}"><a href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}<span class="badge badge-default"> ${domain.channelNum}</span></a> </td></c:if>
+	                	<c:if test="${domain.channelNum>0}"><td style="min-width: 150px;" title="${domain.domain}"><a style="text-decoration:underline;color: #333;" href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}</a> </td></c:if>
 	                	<c:if test="${domain.channelNum==0}"><td style="min-width: 150px;" title="${domain.domain}">${domain.subDomain}</td></c:if>
-						
 						<td style="min-width: 80px">${domain.ip}</td>
 						<td style="min-width: 80px">${domain.pv}</td>
 						<td style="min-width: 80px">${domain.olduserip} (${domain.old}%)</td>
@@ -302,7 +199,6 @@ div.DTS div.dataTables_scrollBody {
 						<td style="min-width: 80px">${domain.moveip2} (${domain.m2}%)</td>
 						<td style="min-width: 80px">${domain.moveip3} (${domain.m3}%)</td>
 						<td style="min-width: 80px">${domain.moveip4} (${domain.m4}%)</td>
-						
 	                </tr>
 	                </c:forEach>
 	            </tbody>
@@ -312,7 +208,7 @@ div.DTS div.dataTables_scrollBody {
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-
+var t;
 var initTable1 = function () {
     var table = $('#scrolltable');
     var oTable = table.dataTable({
@@ -356,6 +252,29 @@ var initTable1 = function () {
 
 	jQuery(document).ready(function() {
 	    initTable1();
+	    
+	     jQuery("#pauseOrplay").click(function(){
+	    	 if(jQuery("#pauseOrplay i").attr("class")=="icon-control-pause"){
+	    		 jQuery("#pauseOrplay i").removeClass("icon-control-pause");
+	    		 jQuery("#pauseOrplay i").addClass("icon-control-play");
+	    		 clearTimeout(t);
+	    	 }else if(jQuery("#pauseOrplay i").attr("class")=="icon-control-play"){
+	    		 jQuery("#pauseOrplay i").removeClass("icon-control-play");
+	    		 jQuery("#pauseOrplay i").addClass("icon-control-pause");
+	    		 ajaxTime=2000;
+				 t = window.setTimeout('ajaxRefreshPage()',ajaxTime);
+	    	 }
+	     });
+	    
+	    jQuery("#fullscreenOractual").click(function(){
+	    	 if(jQuery("#fullscreenOractual i").attr("class")=="icon-size-fullscreen"){
+	    		 jQuery("#fullscreenOractual i").removeClass("icon-size-fullscreen");
+	    		 jQuery("#fullscreenOractual i").addClass("icon-size-actual");
+	    	 }else if(jQuery("#fullscreenOractual i").attr("class")=="icon-size-actual"){
+	    		 jQuery("#fullscreenOractual i").removeClass("icon-size-actual");
+	    		 jQuery("#fullscreenOractual i").addClass("icon-size-fullscreen");
+	    	 }
+	     });  
 	});
 	
 	 function graphicLoading(obj) {
@@ -395,7 +314,7 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 
-	 var t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+	 t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 	  
 	 function ajaxRefreshPage(){
 		 jQuery.ajax({
@@ -423,7 +342,7 @@ var initTable1 = function () {
 								  var tr2 = "";
 								  	if(domainList[i].channelNum>0){
 								  		tr+="<tr>" + 
-									      "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a><span class='badge badge-default'> "+domainList[i].channelNum+" </span> </td>"+
+									      "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a></td>"+
 										  "<td >"+domainList[i].ip+"</td>"+
 										  "<td >"+domainList[i].pv+"</td>"+
 										  "<td >"+domainList[i].olduserip+" ("+domainList[i].old+"%)</td>"+
@@ -448,7 +367,7 @@ var initTable1 = function () {
 										  "</tr>";
 										  open+=tr;
 								  		tr2+="<tr>"+
-								          "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a><span class='badge badge-default'> "+domainList[i].channelNum+" </span> </td>"+
+								          "<td  title='"+domainList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a></td>"+
 										  "<td >"+domainList[i].ip+"</td>"+
 										  "<td >"+domainList[i].pv+"</td>"+
 											"<tr>";
@@ -479,7 +398,7 @@ var initTable1 = function () {
 										  
 										  "</tr>";
 										  open+=tr;
-								  		tr2+="<tr>"+
+								  		tr2+="<tr class='even'>"+
 								          "<td  title='"+domainList[i].domain+"'>"+domainList[i].domain+" </td>"+
 										  "<td >"+domainList[i].ip+"</td>"+
 										  "<td >"+domainList[i].pv+"</td>"+
@@ -494,6 +413,7 @@ var initTable1 = function () {
 						
 						jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
 						jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttale);
+						jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
 						//DTFC_LeftBodyWrapper
 						//initTable1();
 						//jQuery("#domain").empty();
