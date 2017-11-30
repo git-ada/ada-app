@@ -352,20 +352,24 @@ function adaQueryChannelId() {
 浏览器版本**/
 function adaIsBrowser(){
 	try{
-		//取得浏览器的userAgent字符串
+		//取得浏览器的userAgent字符串       
 		var userAgent = navigator.userAgent; 
 		if (userAgent.indexOf("Opera") > -1) return "Opera"; 
 		if (userAgent.indexOf("Firefox") > -1) return "Firefox"; 
-		if (userAgent.indexOf("Liebao") > -1)  return "Liebao";
-		if (userAgent.indexOf("Weixin") > -1)  return "Weixin";
 		if (userAgent.indexOf("360") > -1)  return "360";
+		if (userAgent.indexOf("LBBROWSER") > -1)  return "Liebao";
+		if (userAgent.indexOf("MicroMessenger") > -1)  return "Weixin";
 		if (userAgent.indexOf("Duba") > -1)  return "Duba";
-		if (userAgent.indexOf("Chrome") > -1)  return "Chrome";
-		if (userAgent.indexOf("Safari") > -1) return "Safari";
-		if (userAgent.indexOf("UC") > -1)  return "UC";
-		if (userAgent.indexOf("QQ") > -1)  return "QQ";
-		if (userAgent.indexOf("Sogou") > -1)  return "Sogou";
-		if (!!window.ActiveXObject || "ActiveXObject" in window) return "IE";
+		if (userAgent.indexOf("Edge") > -1)  return "Edge";
+		if (userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1)  return "Chrome";
+		if (userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") == -1) return "Safari";
+		if (userAgent.indexOf("UCBrowser") > -1)  return "UC";
+		if (userAgent.indexOf("MQQBrowser") > -1)  return "QQ";
+		if (userAgent.indexOf("SE") > -1)  return "Sogou";
+		if (userAgent.indexOf("BIDUBrowser") > -1)  return "baidu";
+		if (userAgent.indexOf("Maxthon") > -1)  return "Maxthon";
+		if (userAgent.indexOf("VIVOBrowser") > -1)  return "vivo";
+		if (userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("Trident/7.0;") > -1) return "IE";
 		return "";
 	}catch(e){
 	}
@@ -381,16 +385,18 @@ function adaIsOS() {
 		if (isMac) return "Mac";
 		var isUnix = (navigator.platform == "X11") && !isWin && !isMac;
 		if (isUnix) return "Unix";
+		var isAndroid = (String(navigator.platform).indexOf('Android') > -1 && String(navigator.platform).indexOf('Linux') > -1); 
+		if (isAndroid) return "Android";
+        var isiOS = !!String(navigator.platform).match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+		if (isiOS) return "IOS";
+		var isIPad = (String(navigator.platform).indexOf("iPad") > -1 );
+		if (isIPad) return "iPad";
+		var isIPhone = (String(navigator.platform).indexOf('iPhone') > -1 && String(navigator.platform).indexOf('Mac') > -1);
+		if (isIPhone) return "iPhone";
+		var iPod = (String(navigator.platform).indexOf("iPod") > -1);
+		if (iPod) return "iPod";
 		var isLinux = (String(navigator.platform).indexOf("Linux") > -1);
 		if (isLinux) return "Linux";
-		var isIos = (String(navigator.platform).indexOf("IOS") > -1);
-		if (isIos) return "IOS";
-		var isAndroid = (String(navigator.platform).indexOf("Android") > -1);
-		if (isAndroid) return "Android";
-		var isIPad = (String(navigator.platform).indexOf("IPad") > -1);
-		if (isIPad) return "IPad";
-		var isIPhone = (String(navigator.platform).indexOf("IPhone") > -1);
-		if (isIPhone) return "IPhone";
 		if (isWin) {
 			var isWin2K = sUserAgent.indexOf("Windows NT 5.0") > -1 || sUserAgent.indexOf("Windows 2000") > -1;
 			if (isWin2K) return "Win2000";
@@ -404,7 +410,7 @@ function adaIsOS() {
 			if (isWin7) return "Win7";
 			var isWin8 =  sUserAgent.indexOf("Windows 2008") > -1; 
 			if (isWin8) return "Win8";
-			var isWin10 = sUserAgent.indexOf("Windows NT 10.0") > -1 || sUserAgent.indexOf("Windows 10") > -1; 
+			var isWin10 = sUserAgent.indexOf("Windows NT 10.0") > -1 || sUserAgent.indexOf("Windows 10") > -1;
 			if (isWin10) return "Win10";
 		}
 		return "";
@@ -418,9 +424,11 @@ function adaPutLog1() {
 		/** 
 		屏幕分辨率 **/
 		var screenSize = window.screen.width+"x"+window.screen.height;
+		if(screenSize == "0x0" ) screenSize="";
 		/** 
 		网页分辨率 **/
 		var pageSize = document.body.offsetWidth+"x"+document.documentElement.clientHeight;
+		if(pageSize == "0x0" ) screenSize="";
 		var userAgent = navigator.userAgent;
 		var httprequest = adagetHttpRequest();
 		var pageReferrer = encodeURIComponent(document.referrer);
