@@ -100,7 +100,7 @@ div.DTS div.dataTables_scrollBody {
 	<table id="channelscrolltable" class="table table-striped table-bordered table-hover order-column">
             <thead>
                 <tr>
-					<th scope="col" style="min-width: 120px;">渠道匹配串</th>
+					<th scope="col" style="max-width: 120px;overflow: hidden;">渠道匹配串</th>
 					<th scope="col" style="min-width: 80px">IP</th>			
 					<th scope="col" style="min-width: 80px">PV</th>
 					<th scope="col" style="min-width: 80px">登录用户数</th>	
@@ -127,7 +127,7 @@ div.DTS div.dataTables_scrollBody {
             <tbody id="channellisttbody">
                <c:forEach var="item" items="${ChannelStat_list}" varStatus="number">
                 <tr>
-					<td style="">${item.channelStr}</td>
+					<td style="max-width: 120px;overflow: hidden;" title="${item.channelStr}">${item.channelStr}</td>
 					<td style="">${item.ip}</td>
 					<td style="">${item.pv}</td>
 					<td style="">${item.olduserip} (${item.old}%)</td>
@@ -224,7 +224,7 @@ var initTable1 = function () {
 						for(var i=0;i<list.length;i++){
 							var tr = "";
 							 tr+="<tr>" + 
-							      "<td >"+list[i].channelStr+"</td>"+
+							      "<td style='max-width: 120px;overflow: hidden;' title='"+list[i].channelStr+"'>"+list[i].channelStr+"</td>"+
 								  "<td >"+list[i].ip+"</td>"+
 								  "<td >"+list[i].pv+"</td>"+
 								  "<td >"+list[i].olduserip+" ("+list[i].old+"%)</td>"+
@@ -251,7 +251,7 @@ var initTable1 = function () {
 							
 							var tr2 = "";
 								tr2+="<tr>"+
-								  "<td >"+list[i].channelStr+"</td>"+
+								  "<td style='max-width: 120px;overflow: hidden;' title='"+list[i].channelStr+">"+list[i].channelStr+"</td>"+
 								  "<td >"+list[i].ip+"</td>"+
 								  "<td >"+list[i].pv+"</td>"+
 									"<tr>";
@@ -262,7 +262,6 @@ var initTable1 = function () {
 						if(list.length>0){
 							jQuery("#channellisttbody").empty();
 							jQuery("#channellisttbody").append(open);
-							
 							jQuery(".DTFC_LeftBodyWrapper #channellisttbody").empty();
 							jQuery(".DTFC_LeftBodyWrapper #channellisttbody").append(lefttale);
 						}

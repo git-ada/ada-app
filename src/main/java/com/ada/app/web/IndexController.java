@@ -175,13 +175,9 @@ public class IndexController {
 		
 		/** 获取站点下域名统计信息 **/
 		Map sumMap = getDomainStat_list(today);
-		List<Map> ChannelStat_list = (List<Map>) sumMap.get("ChannelStat_list");
 		List<Map> DomainStat_list = (List<Map>) sumMap.get("DomainStat_list");
 		
 		 json.put("siteStat", siteStat);
-		 json.put("channelSumIP", sumMap.get("channelSumIP"));/** 渠道ip总数 **/
-		 json.put("channelSumPV", sumMap.get("channelSumPV"));/** 渠道PV总数 **/
-		 json.put("ChannelStat_list", ChannelStat_list);
 		 json.put("domainSumIP", sumMap.get("domainSumIP"));
 		 json.put("domainSumPV", sumMap.get("domainSumPV"));
 		 json.put("DomainStat_list", DomainStat_list);
@@ -298,7 +294,7 @@ public class IndexController {
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
 			 if(domainIp!=null && domainIp>0){
-				 domainIps.add(new Integer[]{domain.getId(),domainIp});
+				 domainIps.add(new Integer[]{domain.getId(),domainIp,domain.getAdaChannels().size()});
 			 }
 		 }
 		 
@@ -311,6 +307,7 @@ public class IndexController {
 		 for(int i=0;i<domainIps.size()&&i<300;i++){
 			Integer domainId = domainIps.get(i)[0];
 			Integer domainIp = domainIps.get(i)[1];
+			Integer channelNum = domainIps.get(i)[2];
 //			if(domainIp<10 && i>19){
 //				 break;
 //			 }
@@ -318,6 +315,7 @@ public class IndexController {
 			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
 			Map map = new HashMap();
 			map.put("id", domainId);
+			map.put("channelNum", channelNum);
 			String domainstr = adaDomainDao.findById(domainStat.getDomainId()).getDomain();
 			 map.put("domain",domainstr);
 			 if(domainstr.length()>18){

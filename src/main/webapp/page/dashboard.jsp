@@ -233,64 +233,81 @@ div.DTS div.dataTables_scrollBody {
         </div>
 	</div>
 </div>
-<!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
-<div class="portlet-body " style="margin-top: 25px;">
-	<table id="scrolltable" class="table table-striped table-bordered table-hover order-column">
-            <thead>
-                <tr>
-					<th scope="col" style="min-width: 120px;">域名</th>
-					<th scope="col" style="min-width: 80px">IP</th>			
-					<th scope="col" style="min-width: 80px">PV</th>
-					<th scope="col" style="min-width: 80px">登录用户数</th>	
-					<th scope="col" style="min-width: 80px">1-2次点击</th>			
-					<th scope="col" style="min-width: 80px">3-5次点击</th>			
-					<th scope="col" style="min-width: 80px">6-10次点击</th>			
-					<th scope="col" style="min-width: 80px">10+次点击</th>			
-					<th scope="col" style="min-width: 80px">进入目标页</th>
-					<th scope="col" style="min-width: 80px">5-30秒停留</th>
-					<th scope="col" style="min-width: 80px">31-120秒</th>
-					<th scope="col" style="min-width: 80px">121-300秒</th>
-					<th scope="col" style="min-width: 80px">300+秒停留</th>
-					<th scope="col" style="min-width: 80px">1-2次滚动</th>
-					<th scope="col" style="min-width: 80px">3-5次滚动</th>
-					<th scope="col" style="min-width: 80px">6-10次滚动</th>
-					<th scope="col" style="min-width: 80px">10+次滚动</th>
-					<th scope="col" style="min-width: 80px">1-2次移动</th>
-					<th scope="col" style="min-width: 80px">3-5次移动</th>
-					<th scope="col" style="min-width: 80px">6-10次移动</th>
-					<th scope="col" style="min-width: 80px">10+次移动</th>
-					
-			     </tr>
-            </thead>
-            <tbody id="tbody">
-                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
-                <tr>
-					<td style="min-width: 150px;" title="${domain.domain}"><a href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}</a> </td>
-					<td style="min-width: 80px">${domain.ip}</td>
-					<td style="min-width: 80px">${domain.pv}</td>
-					<td style="min-width: 80px">${domain.olduserip} (${domain.old}%)</td>
-					<td style="min-width: 80px">${domain.clickip1} (${domain.c1}%)</td>
-					<td style="min-width: 80px">${domain.clickip2} (${domain.c2}%)</td>
-					<td style="min-width: 80px">${domain.clickip3} (${domain.c3}%)</td>
-					<td style="min-width: 80px">${domain.clickip4} (${domain.c4}%)</td>
-					<td style="min-width: 80px">${domain.targetpageip} (${domain.tgp}%)</td>
-					<td style="min-width: 80px">${domain.staytimeip1} (${domain.s1}%)</td>
-					<td style="min-width: 80px">${domain.staytimeip2} (${domain.s2}%)</td>
-					<td style="min-width: 80px">${domain.staytimeip3} (${domain.s3}%)</td>
-					<td style="min-width: 80px">${domain.staytimeip4} (${domain.s4}%)</td>
-					<td style="min-width: 80px">${domain.scrollip1} (${domain.sc1}%)</td>
-					<td style="min-width: 80px">${domain.scrollip2} (${domain.sc2}%)</td>
-					<td style="min-width: 80px">${domain.scrollip3} (${domain.sc3}%)</td>
-					<td style="min-width: 80px">${domain.scrollip4} (${domain.sc4}%)</td>
-					<td style="min-width: 80px">${domain.moveip1} (${domain.m1}%)</td>
-					<td style="min-width: 80px">${domain.moveip2} (${domain.m2}%)</td>
-					<td style="min-width: 80px">${domain.moveip3} (${domain.m3}%)</td>
-					<td style="min-width: 80px">${domain.moveip4} (${domain.m4}%)</td>
-					
-                </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+<div class="portlet light bordered">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="icon-share font-dark hide"></i>
+			<span class="caption-subject font-dark bold uppercase"><!-- Regional Stats --></span>
+		</div>
+		<div class="actions">
+			
+			
+			<a class="btn btn-circle btn-icon-only btn-default fullscreen" data-container="false" data-placement="bottom" href="javascript:;" data-original-title="" title=""> </a>
+			
+		</div>
+	</div>
+	
+	<!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
+	<div class="portlet-body ">
+		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column">
+	            <thead>
+	                <tr>
+						<th scope="col" style="min-width: 120px;">域名</th>
+						<th scope="col" style="min-width: 80px">IP</th>			
+						<th scope="col" style="min-width: 80px">PV</th>
+						<th scope="col" style="min-width: 80px">登录用户数</th>	
+						<th scope="col" style="min-width: 80px">1-2次点击</th>			
+						<th scope="col" style="min-width: 80px">3-5次点击</th>			
+						<th scope="col" style="min-width: 80px">6-10次点击</th>			
+						<th scope="col" style="min-width: 80px">10+次点击</th>			
+						<th scope="col" style="min-width: 80px">进入目标页</th>
+						<th scope="col" style="min-width: 80px">5-30秒停留</th>
+						<th scope="col" style="min-width: 80px">31-120秒</th>
+						<th scope="col" style="min-width: 80px">121-300秒</th>
+						<th scope="col" style="min-width: 80px">300+秒停留</th>
+						<th scope="col" style="min-width: 80px">1-2次滚动</th>
+						<th scope="col" style="min-width: 80px">3-5次滚动</th>
+						<th scope="col" style="min-width: 80px">6-10次滚动</th>
+						<th scope="col" style="min-width: 80px">10+次滚动</th>
+						<th scope="col" style="min-width: 80px">1-2次移动</th>
+						<th scope="col" style="min-width: 80px">3-5次移动</th>
+						<th scope="col" style="min-width: 80px">6-10次移动</th>
+						<th scope="col" style="min-width: 80px">10+次移动</th>
+						
+				     </tr>
+	            </thead>
+	            <tbody id="tbody">
+	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
+	                <tr>
+	                	<c:if test="${domain.channelNum>0}"><td style="min-width: 150px;" title="${domain.domain}"><a href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}<span class="badge badge-default"> ${domain.channelNum}</span></a> </td></c:if>
+	                	<c:if test="${domain.channelNum==0}"><td style="min-width: 150px;" title="${domain.domain}">${domain.subDomain}</td></c:if>
+						
+						<td style="min-width: 80px">${domain.ip}</td>
+						<td style="min-width: 80px">${domain.pv}</td>
+						<td style="min-width: 80px">${domain.olduserip} (${domain.old}%)</td>
+						<td style="min-width: 80px">${domain.clickip1} (${domain.c1}%)</td>
+						<td style="min-width: 80px">${domain.clickip2} (${domain.c2}%)</td>
+						<td style="min-width: 80px">${domain.clickip3} (${domain.c3}%)</td>
+						<td style="min-width: 80px">${domain.clickip4} (${domain.c4}%)</td>
+						<td style="min-width: 80px">${domain.targetpageip} (${domain.tgp}%)</td>
+						<td style="min-width: 80px">${domain.staytimeip1} (${domain.s1}%)</td>
+						<td style="min-width: 80px">${domain.staytimeip2} (${domain.s2}%)</td>
+						<td style="min-width: 80px">${domain.staytimeip3} (${domain.s3}%)</td>
+						<td style="min-width: 80px">${domain.staytimeip4} (${domain.s4}%)</td>
+						<td style="min-width: 80px">${domain.scrollip1} (${domain.sc1}%)</td>
+						<td style="min-width: 80px">${domain.scrollip2} (${domain.sc2}%)</td>
+						<td style="min-width: 80px">${domain.scrollip3} (${domain.sc3}%)</td>
+						<td style="min-width: 80px">${domain.scrollip4} (${domain.sc4}%)</td>
+						<td style="min-width: 80px">${domain.moveip1} (${domain.m1}%)</td>
+						<td style="min-width: 80px">${domain.moveip2} (${domain.m2}%)</td>
+						<td style="min-width: 80px">${domain.moveip3} (${domain.m3}%)</td>
+						<td style="min-width: 80px">${domain.moveip4} (${domain.m4}%)</td>
+						
+	                </tr>
+	                </c:forEach>
+	            </tbody>
+	        </table>
+	</div>
 </div>
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
@@ -298,10 +315,7 @@ div.DTS div.dataTables_scrollBody {
 
 var initTable1 = function () {
     var table = $('#scrolltable');
-
     var oTable = table.dataTable({
-
-        // Internationalisation. For more info refer to http://datatables.net/manual/i18n
         "language": {
             "aria": {
                 "sortAscending": ": activate to sort column ascending",
@@ -317,7 +331,7 @@ var initTable1 = function () {
         },
         buttons: [
         ],
-        scrollY:        window.screen.height-450,
+        scrollY:        window.screen.height-300,
         deferRender:    true,
         "ordering": false,
         scroller:       true,
@@ -335,57 +349,15 @@ var initTable1 = function () {
             [10, 15, 20, -1],
             [10, 15, 20, "All"] // change per page values here
         ],
-        // set the initial value
         "pageLength": 10,
-
         "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
-
-        // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
-        // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
-        // So when dropdowns used the scrollable div should be removed. 
-        //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
     });
 }
 
 	jQuery(document).ready(function() {
-		
-
-	    
 	    initTable1();
-		
-		
-		//$('#tbody').css("height",window.screen.height-465+"px");
-		/* var table = $('#sample_1').DataTable( {
-	        scrollY:        "300px",
-	        scrollX:        true,
-	        scrollCollapse: false,
-	        paging:         false,
-	        "searching": false,
-	        fixedColumns:   {
-	            leftColumns: 1
-	        }
-	    } ); */
-		//graphicLoading(1);
-		
 	});
 	
-	
-	
-	var pageSize;
-	
-	function a() {
-		var w = $(window).width();
-	 
-		pageSize=500>w ? 7 : (1000>w && w>=500) ? 12 : (1500>w && w>=1000) ? 20 : (2000>w && w>=1500) ? 30 : 30;
-		
-		$("#forward").attr("data-value",1); //下一月
-		$("#backoff").attr("data-value",""); //上一月
-	 
-			//graphicLoading(1);
-		
-	}
-
-
 	 function graphicLoading(obj) {
 		var pageNo = 1;
 
@@ -446,39 +418,75 @@ var initTable1 = function () {
 						var domain = "";
 						for(var i=0;i<domainList.length;i++){
 							var tr = "";
-							 tr+="<tr>" + 
-							      "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a> </td>"+
-								  "<td >"+domainList[i].ip+"</td>"+
-								  "<td >"+domainList[i].pv+"</td>"+
-								  "<td >"+domainList[i].olduserip+" ("+domainList[i].old+"%)</td>"+
-								  "<td >"+domainList[i].clickip1+" ("+domainList[i].c1+"%)</td>"+
-								  "<td >"+domainList[i].clickip2+" ("+domainList[i].c2+"%)</td>"+
-								  "<td >"+domainList[i].clickip3+" ("+domainList[i].c3+"%)</td>"+
-								  "<td >"+domainList[i].clickip4+" ("+domainList[i].c4+"%)</td>"+
-								  "<td >"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td>"+
-								  "<td >"+domainList[i].staytimeip1+" ("+domainList[i].s1+"%)</td>"+
-								  "<td >"+domainList[i].staytimeip2+" ("+domainList[i].s2+"%)</td>"+
-								  "<td >"+domainList[i].staytimeip3+" ("+domainList[i].s3+"%)</td>"+
-								  "<td >"+domainList[i].staytimeip4+" ("+domainList[i].s4+"%)</td>"+
-								  "<td >"+domainList[i].scrollip1+" ("+domainList[i].sc1+"%)</td>"+
-								  "<td >"+domainList[i].scrollip2+" ("+domainList[i].sc2+"%)</td>"+
-								  "<td >"+domainList[i].scrollip3+" ("+domainList[i].sc3+"%)</td>"+
-								  "<td >"+domainList[i].scrollip4+" ("+domainList[i].sc4+"%)</td>"+
-								  "<td >"+domainList[i].moveip1+" ("+domainList[i].m1+"%)</td>"+
-								  "<td >"+domainList[i].moveip2+" ("+domainList[i].m2+"%)</td>"+
-								  "<td >"+domainList[i].moveip3+" ("+domainList[i].m3+"%)</td>"+
-								  "<td >"+domainList[i].moveip4+" ("+domainList[i].m4+"%)</td>"+
-								  
-								  "</tr>";
-								  open+=tr;
+							 
 								  
 								  var tr2 = "";
-									tr2+="<tr>"+
-									"<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a> </td>"+
-											  "<td >"+domainList[i].ip+"</td>"+
-											  "<td >"+domainList[i].pv+"</td>"+
-										"<tr>";
-									lefttale+=tr2;
+								  	if(domainList[i].channelNum>0){
+								  		tr+="<tr>" + 
+									      "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a><span class='badge badge-default'> "+domainList[i].channelNum+" </span> </td>"+
+										  "<td >"+domainList[i].ip+"</td>"+
+										  "<td >"+domainList[i].pv+"</td>"+
+										  "<td >"+domainList[i].olduserip+" ("+domainList[i].old+"%)</td>"+
+										  "<td >"+domainList[i].clickip1+" ("+domainList[i].c1+"%)</td>"+
+										  "<td >"+domainList[i].clickip2+" ("+domainList[i].c2+"%)</td>"+
+										  "<td >"+domainList[i].clickip3+" ("+domainList[i].c3+"%)</td>"+
+										  "<td >"+domainList[i].clickip4+" ("+domainList[i].c4+"%)</td>"+
+										  "<td >"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td>"+
+										  "<td >"+domainList[i].staytimeip1+" ("+domainList[i].s1+"%)</td>"+
+										  "<td >"+domainList[i].staytimeip2+" ("+domainList[i].s2+"%)</td>"+
+										  "<td >"+domainList[i].staytimeip3+" ("+domainList[i].s3+"%)</td>"+
+										  "<td >"+domainList[i].staytimeip4+" ("+domainList[i].s4+"%)</td>"+
+										  "<td >"+domainList[i].scrollip1+" ("+domainList[i].sc1+"%)</td>"+
+										  "<td >"+domainList[i].scrollip2+" ("+domainList[i].sc2+"%)</td>"+
+										  "<td >"+domainList[i].scrollip3+" ("+domainList[i].sc3+"%)</td>"+
+										  "<td >"+domainList[i].scrollip4+" ("+domainList[i].sc4+"%)</td>"+
+										  "<td >"+domainList[i].moveip1+" ("+domainList[i].m1+"%)</td>"+
+										  "<td >"+domainList[i].moveip2+" ("+domainList[i].m2+"%)</td>"+
+										  "<td >"+domainList[i].moveip3+" ("+domainList[i].m3+"%)</td>"+
+										  "<td >"+domainList[i].moveip4+" ("+domainList[i].m4+"%)</td>"+
+										  
+										  "</tr>";
+										  open+=tr;
+								  		tr2+="<tr>"+
+								          "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a><span class='badge badge-default'> "+domainList[i].channelNum+" </span> </td>"+
+										  "<td >"+domainList[i].ip+"</td>"+
+										  "<td >"+domainList[i].pv+"</td>"+
+											"<tr>";
+											lefttale+=tr2;
+								  	}else{
+								  		tr+="<tr>" + 
+									      "<td  title='"+domainList[i].domain+"'>"+domainList[i].domain+"</td>"+
+										  "<td >"+domainList[i].ip+"</td>"+
+										  "<td >"+domainList[i].pv+"</td>"+
+										  "<td >"+domainList[i].olduserip+" ("+domainList[i].old+"%)</td>"+
+										  "<td >"+domainList[i].clickip1+" ("+domainList[i].c1+"%)</td>"+
+										  "<td >"+domainList[i].clickip2+" ("+domainList[i].c2+"%)</td>"+
+										  "<td >"+domainList[i].clickip3+" ("+domainList[i].c3+"%)</td>"+
+										  "<td >"+domainList[i].clickip4+" ("+domainList[i].c4+"%)</td>"+
+										  "<td >"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td>"+
+										  "<td >"+domainList[i].staytimeip1+" ("+domainList[i].s1+"%)</td>"+
+										  "<td >"+domainList[i].staytimeip2+" ("+domainList[i].s2+"%)</td>"+
+										  "<td >"+domainList[i].staytimeip3+" ("+domainList[i].s3+"%)</td>"+
+										  "<td >"+domainList[i].staytimeip4+" ("+domainList[i].s4+"%)</td>"+
+										  "<td >"+domainList[i].scrollip1+" ("+domainList[i].sc1+"%)</td>"+
+										  "<td >"+domainList[i].scrollip2+" ("+domainList[i].sc2+"%)</td>"+
+										  "<td >"+domainList[i].scrollip3+" ("+domainList[i].sc3+"%)</td>"+
+										  "<td >"+domainList[i].scrollip4+" ("+domainList[i].sc4+"%)</td>"+
+										  "<td >"+domainList[i].moveip1+" ("+domainList[i].m1+"%)</td>"+
+										  "<td >"+domainList[i].moveip2+" ("+domainList[i].m2+"%)</td>"+
+										  "<td >"+domainList[i].moveip3+" ("+domainList[i].m3+"%)</td>"+
+										  "<td >"+domainList[i].moveip4+" ("+domainList[i].m4+"%)</td>"+
+										  
+										  "</tr>";
+										  open+=tr;
+								  		tr2+="<tr>"+
+								          "<td  title='"+domainList[i].domain+"'>"+domainList[i].domain+" </td>"+
+										  "<td >"+domainList[i].ip+"</td>"+
+										  "<td >"+domainList[i].pv+"</td>"+
+											"<tr>";
+											lefttale+=tr2;
+								  	}
+									
 						}
 						
 						jQuery("#tbody").empty();
