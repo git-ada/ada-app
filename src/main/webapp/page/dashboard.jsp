@@ -177,8 +177,8 @@ div.DTS div.dataTables_scrollBody {
 	            <tbody id="tbody">
 	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
 	                <tr>
-	                	<c:if test="${domain.channelNum>0}"><td style="min-width: 150px;" title="${domain.domain}"><a style="text-decoration:underline;color: #333;" href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}</a> </td></c:if>
-	                	<c:if test="${domain.channelNum==0}"><td style="min-width: 150px;" title="${domain.domain}">${domain.subDomain}</td></c:if>
+	                	<c:if test="${domain.channelNum>0}"><td style="min-width: 120px;" title="${domain.domain}"><a style="text-decoration:underline;color: #333;" href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}</a> </td></c:if>
+	                	<c:if test="${domain.channelNum==0}"><td style="min-width: 120px;" title="${domain.domain}">${domain.subDomain}</td></c:if>
 						<td style="min-width: 80px">${domain.ip}</td>
 						<td style="min-width: 80px">${domain.pv}</td>
 						<td style="min-width: 80px">${domain.olduserip} (${domain.old}%)</td>
@@ -374,7 +374,7 @@ var initTable1 = function () {
 											lefttale+=tr2;
 								  	}else{
 								  		tr+="<tr>" + 
-									      "<td  title='"+domainList[i].domain+"'>"+domainList[i].domain+"</td>"+
+									      "<td  title='"+domainList[i].domain+"'>"+domainList[i].subDomain+"</td>"+
 										  "<td >"+domainList[i].ip+"</td>"+
 										  "<td >"+domainList[i].pv+"</td>"+
 										  "<td >"+domainList[i].olduserip+" ("+domainList[i].old+"%)</td>"+
@@ -399,7 +399,7 @@ var initTable1 = function () {
 										  "</tr>";
 										  open+=tr;
 								  		tr2+="<tr class='even'>"+
-								          "<td  title='"+domainList[i].domain+"'>"+domainList[i].domain+" </td>"+
+								          "<td  title='"+domainList[i].domain+"'>"+domainList[i].subDomain+" </td>"+
 										  "<td >"+domainList[i].ip+"</td>"+
 										  "<td >"+domainList[i].pv+"</td>"+
 											"<tr>";
