@@ -48,7 +48,12 @@ table.dataTable thead td
 div.DTS div.dataTables_scrollBody {
     background: none;
 }
-
+.table-scrollable{
+	margin-top: 0px !important;
+}
+th:last-child,td:last-child {
+    border-right-width: 1px !important;
+}
 </style>
 <!-- 
 <div class="page-bar">
@@ -252,7 +257,6 @@ var initTable1 = function () {
 
 	jQuery(document).ready(function() {
 	    initTable1();
-	    
 	     jQuery("#pauseOrplay").click(function(){
 	    	 if(jQuery("#pauseOrplay i").attr("class")=="icon-control-pause"){
 	    		 jQuery("#pauseOrplay i").removeClass("icon-control-pause");
@@ -398,7 +402,7 @@ var initTable1 = function () {
 										  
 										  "</tr>";
 										  open+=tr;
-								  		tr2+="<tr class='even'>"+
+								  		tr2+="<tr>"+
 								          "<td  title='"+domainList[i].domain+"'>"+domainList[i].subDomain+" </td>"+
 										  "<td >"+domainList[i].ip+"</td>"+
 										  "<td >"+domainList[i].pv+"</td>"+
@@ -414,6 +418,7 @@ var initTable1 = function () {
 						jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
 						jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttale);
 						jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
+						
 						//DTFC_LeftBodyWrapper
 						//initTable1();
 						//jQuery("#domain").empty();
