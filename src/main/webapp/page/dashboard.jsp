@@ -285,8 +285,7 @@ var initTable1 = function () {
 	    	 }else if(jQuery("#pauseOrplay i").attr("class")=="icon-control-play"){
 	    		 jQuery("#pauseOrplay i").removeClass("icon-control-play");
 	    		 jQuery("#pauseOrplay i").addClass("icon-control-pause");
-	    		 ajaxTime=2000;
-				 t = window.setTimeout('ajaxRefreshPage()',ajaxTime);
+				 ajaxRefreshPage();
 	    	 }
 	     });
 	    
@@ -295,6 +294,10 @@ var initTable1 = function () {
 	    		 
 	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-95);
 	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-55);
+	    		 
+	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-111);
+	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-111);
+	    		 
 	    		 jQuery("#fullscreenOractual i").removeClass("icon-size-fullscreen");
 	    		 jQuery("#fullscreenOractual i").addClass("icon-size-actual");
 	    		 
@@ -302,6 +305,10 @@ var initTable1 = function () {
 	    	 }else if(jQuery("#fullscreenOractual i").attr("class")=="icon-size-actual"){
 	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-290);
 	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-235);
+	    		
+	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-290);
+	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-290);
+	    		 
 	    		 jQuery("#fullscreenOractual i").removeClass("icon-size-actual");
 	    		 jQuery("#fullscreenOractual i").addClass("icon-size-fullscreen");
 	    		 
