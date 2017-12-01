@@ -1,8 +1,10 @@
+
 package com.ada.app.web;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,17 +19,15 @@ import cn.com.jiand.mvc.framework.module.Module;
 import cn.com.jiand.mvc.framework.module.ModuleIndex;
 import cn.com.jiand.mvc.framework.module.ModuleOperation;
 import cn.com.jiand.mvc.framework.module.Permission;
+import cn.com.jiand.mvc.framework.utils.Reflections;
 import cn.com.jiand.mvc.framework.web.AbstractJQueryEntityController;
 import cn.com.jiand.mvc.framework.web.support.JsonEntityResult;
 import cn.com.jiand.mvc.framework.web.support.JsonResult;
 import cn.com.jiand.mvc.framework.web.support.Servlets;
 
-import com.ada.app.domain.AdaChannel;
 import com.ada.app.domain.AdaSiteStat;
 import com.ada.app.service.AdaSiteStatService;
 import com.ada.app.util.Sessions;
-
-import java.util.TreeMap;
 
 @Controller
 @Module(name="站点统计")
@@ -123,6 +123,30 @@ public class AdaSiteStatManagerController extends AbstractJQueryEntityController
 	}
 	
 	protected String[] getExportTitles() {
-		return new String[]{"ID","站点ID","IP","PV","日期","创建时间",""};
+		return new String[]{"日期","IP","PV(访问量)"};
+	}
+	
+//	protected List<String> doMarshalEntityToXls(AdaSiteStat entity) {
+//		Set<String> simplePropertyNames = Reflections
+//				.getSimpleFieldNames(entity.getClass());
+//		String[] propertyNames = simplePropertyNames.toArray(new String[]{});
+//		String[] propertyNames2 = new String[3];
+//		propertyNames2[0] = propertyNames[4];
+//		propertyNames2[1] = propertyNames[5];
+//		propertyNames2[2] = propertyNames[3];
+//		//propertyNames2 = Arrays.copyOfRange(propertyNames, 3, 6);
+//		return Reflections.invokeGetterToString(entity, propertyNames2);
+//	}
+	
+	
+	protected List<String> doMarshalEntityToXls(AdaSiteStat entity) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		
+		List<String> list = new ArrayList();
+		list.add(df.format(entity.getDate()));
+		list.add(entity.getIp().toString());
+		list.add(entity.getPv().toString());
+		
+		return list;
 	}
 }
