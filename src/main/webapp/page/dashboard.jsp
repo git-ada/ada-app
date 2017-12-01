@@ -54,7 +54,24 @@ div.DTS div.dataTables_scrollBody {
 th:last-child,td:last-child {
     border-right-width: 1px !important;
 }
+.portlet {
+    border-radius: 4px;
+    margin-bottom: 0px !important;
+    margin-top: 0px;
+    padding: 0px;
+}
+.table-scrollable {
+    border: 1px solid #e7ecf1;
+    margin: 0px 0 !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+}
+.dataTables_scroll {
+    margin-bottom: 0px !important;
+}
 </style>
+
 <!-- 
 <div class="page-bar">
     <ul class="page-breadcrumb" style="width: 100%">
@@ -141,7 +158,7 @@ th:last-child,td:last-child {
             </div> -->
             
             <div class="actions" style="float: left;">
-				<a class="btn btn-circle btn-icon-only btn-default" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
+				<a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
 				<!-- 
 				<a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-control-pause"></i></a>  icon-control-pause
 				 -->
@@ -214,9 +231,12 @@ th:last-child,td:last-child {
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 var t;
+var oTable;
+var oTable2;
+var table;
 var initTable1 = function () {
-    var table = $('#scrolltable');
-    var oTable = table.dataTable({
+     table = $('#scrolltable');
+     oTable = table.dataTable({
         "language": {
             "aria": {
                 "sortAscending": ": activate to sort column ascending",
@@ -232,12 +252,12 @@ var initTable1 = function () {
         },
         buttons: [
         ],
-        scrollY:        window.screen.height-300,
+        scrollY:        document.documentElement.clientHeight-275,
         deferRender:    true,
         "ordering": false,
         scroller:       true,
         scrollX:        true,
-        
+        "info": false,
         stateSave:      true,
         "searching": false,
         fixedColumns:   {
@@ -272,11 +292,19 @@ var initTable1 = function () {
 	    
 	    jQuery("#fullscreenOractual").click(function(){
 	    	 if(jQuery("#fullscreenOractual i").attr("class")=="icon-size-fullscreen"){
+	    		 
+	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-95);
+	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-55);
 	    		 jQuery("#fullscreenOractual i").removeClass("icon-size-fullscreen");
 	    		 jQuery("#fullscreenOractual i").addClass("icon-size-actual");
+	    		 
+	    		   
 	    	 }else if(jQuery("#fullscreenOractual i").attr("class")=="icon-size-actual"){
+	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-290);
+	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-235);
 	    		 jQuery("#fullscreenOractual i").removeClass("icon-size-actual");
 	    		 jQuery("#fullscreenOractual i").addClass("icon-size-fullscreen");
+	    		 
 	    	 }
 	     });  
 	});
@@ -341,80 +369,77 @@ var initTable1 = function () {
 						var domain = "";
 						for(var i=0;i<domainList.length;i++){
 							var tr = "";
-							 
+						    var tr2 = "";
+						  	if(domainList[i].channelNum>0){
+						  		tr+="<tr>" + 
+							      "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a></td>"+
+								  "<td >"+domainList[i].ip+"</td>"+
+								  "<td >"+domainList[i].pv+"</td>"+
+								  "<td >"+domainList[i].olduserip+" ("+domainList[i].old+"%)</td>"+
+								  "<td >"+domainList[i].clickip1+" ("+domainList[i].c1+"%)</td>"+
+								  "<td >"+domainList[i].clickip2+" ("+domainList[i].c2+"%)</td>"+
+								  "<td >"+domainList[i].clickip3+" ("+domainList[i].c3+"%)</td>"+
+								  "<td >"+domainList[i].clickip4+" ("+domainList[i].c4+"%)</td>"+
+								  "<td >"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td>"+
+								  "<td >"+domainList[i].staytimeip1+" ("+domainList[i].s1+"%)</td>"+
+								  "<td >"+domainList[i].staytimeip2+" ("+domainList[i].s2+"%)</td>"+
+								  "<td >"+domainList[i].staytimeip3+" ("+domainList[i].s3+"%)</td>"+
+								  "<td >"+domainList[i].staytimeip4+" ("+domainList[i].s4+"%)</td>"+
+								  "<td >"+domainList[i].scrollip1+" ("+domainList[i].sc1+"%)</td>"+
+								  "<td >"+domainList[i].scrollip2+" ("+domainList[i].sc2+"%)</td>"+
+								  "<td >"+domainList[i].scrollip3+" ("+domainList[i].sc3+"%)</td>"+
+								  "<td >"+domainList[i].scrollip4+" ("+domainList[i].sc4+"%)</td>"+
+								  "<td >"+domainList[i].moveip1+" ("+domainList[i].m1+"%)</td>"+
+								  "<td >"+domainList[i].moveip2+" ("+domainList[i].m2+"%)</td>"+
+								  "<td >"+domainList[i].moveip3+" ("+domainList[i].m3+"%)</td>"+
+								  "<td >"+domainList[i].moveip4+" ("+domainList[i].m4+"%)</td>"+
+								  "</tr>";
+								  open+=tr;
 								  
-								  var tr2 = "";
-								  	if(domainList[i].channelNum>0){
-								  		tr+="<tr>" + 
-									      "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a></td>"+
-										  "<td >"+domainList[i].ip+"</td>"+
-										  "<td >"+domainList[i].pv+"</td>"+
-										  "<td >"+domainList[i].olduserip+" ("+domainList[i].old+"%)</td>"+
-										  "<td >"+domainList[i].clickip1+" ("+domainList[i].c1+"%)</td>"+
-										  "<td >"+domainList[i].clickip2+" ("+domainList[i].c2+"%)</td>"+
-										  "<td >"+domainList[i].clickip3+" ("+domainList[i].c3+"%)</td>"+
-										  "<td >"+domainList[i].clickip4+" ("+domainList[i].c4+"%)</td>"+
-										  "<td >"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td>"+
-										  "<td >"+domainList[i].staytimeip1+" ("+domainList[i].s1+"%)</td>"+
-										  "<td >"+domainList[i].staytimeip2+" ("+domainList[i].s2+"%)</td>"+
-										  "<td >"+domainList[i].staytimeip3+" ("+domainList[i].s3+"%)</td>"+
-										  "<td >"+domainList[i].staytimeip4+" ("+domainList[i].s4+"%)</td>"+
-										  "<td >"+domainList[i].scrollip1+" ("+domainList[i].sc1+"%)</td>"+
-										  "<td >"+domainList[i].scrollip2+" ("+domainList[i].sc2+"%)</td>"+
-										  "<td >"+domainList[i].scrollip3+" ("+domainList[i].sc3+"%)</td>"+
-										  "<td >"+domainList[i].scrollip4+" ("+domainList[i].sc4+"%)</td>"+
-										  "<td >"+domainList[i].moveip1+" ("+domainList[i].m1+"%)</td>"+
-										  "<td >"+domainList[i].moveip2+" ("+domainList[i].m2+"%)</td>"+
-										  "<td >"+domainList[i].moveip3+" ("+domainList[i].m3+"%)</td>"+
-										  "<td >"+domainList[i].moveip4+" ("+domainList[i].m4+"%)</td>"+
-										  
-										  "</tr>";
-										  open+=tr;
-								  		tr2+="<tr>"+
-								          "<td  title='"+domainList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a></td>"+
-										  "<td >"+domainList[i].ip+"</td>"+
-										  "<td >"+domainList[i].pv+"</td>"+
-											"<tr>";
-											lefttale+=tr2;
-								  	}else{
-								  		tr+="<tr>" + 
-									      "<td  title='"+domainList[i].domain+"'>"+domainList[i].subDomain+"</td>"+
-										  "<td >"+domainList[i].ip+"</td>"+
-										  "<td >"+domainList[i].pv+"</td>"+
-										  "<td >"+domainList[i].olduserip+" ("+domainList[i].old+"%)</td>"+
-										  "<td >"+domainList[i].clickip1+" ("+domainList[i].c1+"%)</td>"+
-										  "<td >"+domainList[i].clickip2+" ("+domainList[i].c2+"%)</td>"+
-										  "<td >"+domainList[i].clickip3+" ("+domainList[i].c3+"%)</td>"+
-										  "<td >"+domainList[i].clickip4+" ("+domainList[i].c4+"%)</td>"+
-										  "<td >"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td>"+
-										  "<td >"+domainList[i].staytimeip1+" ("+domainList[i].s1+"%)</td>"+
-										  "<td >"+domainList[i].staytimeip2+" ("+domainList[i].s2+"%)</td>"+
-										  "<td >"+domainList[i].staytimeip3+" ("+domainList[i].s3+"%)</td>"+
-										  "<td >"+domainList[i].staytimeip4+" ("+domainList[i].s4+"%)</td>"+
-										  "<td >"+domainList[i].scrollip1+" ("+domainList[i].sc1+"%)</td>"+
-										  "<td >"+domainList[i].scrollip2+" ("+domainList[i].sc2+"%)</td>"+
-										  "<td >"+domainList[i].scrollip3+" ("+domainList[i].sc3+"%)</td>"+
-										  "<td >"+domainList[i].scrollip4+" ("+domainList[i].sc4+"%)</td>"+
-										  "<td >"+domainList[i].moveip1+" ("+domainList[i].m1+"%)</td>"+
-										  "<td >"+domainList[i].moveip2+" ("+domainList[i].m2+"%)</td>"+
-										  "<td >"+domainList[i].moveip3+" ("+domainList[i].m3+"%)</td>"+
-										  "<td >"+domainList[i].moveip4+" ("+domainList[i].m4+"%)</td>"+
-										  
-										  "</tr>";
-										  open+=tr;
-								  		tr2+="<tr>"+
-								          "<td  title='"+domainList[i].domain+"'>"+domainList[i].subDomain+" </td>"+
-										  "<td >"+domainList[i].ip+"</td>"+
-										  "<td >"+domainList[i].pv+"</td>"+
-											"<tr>";
-											lefttale+=tr2;
-								  	}
+						  		tr2+="<tr>"+
+						          "<td  title='"+domainList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a></td>"+
+								  "<td style='min-width: 80px'>"+domainList[i].ip+"</td>"+
+								  "<td style='min-width: 80px'>"+domainList[i].pv+"</td>"+
+									"</tr>";
+									lefttale+=tr2;
+						  	}else{
+						  		tr+="<tr>" + 
+							      "<td  title='"+domainList[i].domain+"'>"+domainList[i].subDomain+"</td>"+
+								  "<td >"+domainList[i].ip+"</td>"+
+								  "<td >"+domainList[i].pv+"</td>"+
+								  "<td >"+domainList[i].olduserip+" ("+domainList[i].old+"%)</td>"+
+								  "<td >"+domainList[i].clickip1+" ("+domainList[i].c1+"%)</td>"+
+								  "<td >"+domainList[i].clickip2+" ("+domainList[i].c2+"%)</td>"+
+								  "<td >"+domainList[i].clickip3+" ("+domainList[i].c3+"%)</td>"+
+								  "<td >"+domainList[i].clickip4+" ("+domainList[i].c4+"%)</td>"+
+								  "<td >"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td>"+
+								  "<td >"+domainList[i].staytimeip1+" ("+domainList[i].s1+"%)</td>"+
+								  "<td >"+domainList[i].staytimeip2+" ("+domainList[i].s2+"%)</td>"+
+								  "<td >"+domainList[i].staytimeip3+" ("+domainList[i].s3+"%)</td>"+
+								  "<td >"+domainList[i].staytimeip4+" ("+domainList[i].s4+"%)</td>"+
+								  "<td >"+domainList[i].scrollip1+" ("+domainList[i].sc1+"%)</td>"+
+								  "<td >"+domainList[i].scrollip2+" ("+domainList[i].sc2+"%)</td>"+
+								  "<td >"+domainList[i].scrollip3+" ("+domainList[i].sc3+"%)</td>"+
+								  "<td >"+domainList[i].scrollip4+" ("+domainList[i].sc4+"%)</td>"+
+								  "<td >"+domainList[i].moveip1+" ("+domainList[i].m1+"%)</td>"+
+								  "<td >"+domainList[i].moveip2+" ("+domainList[i].m2+"%)</td>"+
+								  "<td >"+domainList[i].moveip3+" ("+domainList[i].m3+"%)</td>"+
+								  "<td >"+domainList[i].moveip4+" ("+domainList[i].m4+"%)</td>"+
+								  
+								  "</tr>";
+								  open+=tr;
+						  		tr2+="<tr>"+
+						          "<td  title='"+domainList[i].domain+"'>"+domainList[i].subDomain+" </td>"+
+								  "<td style='min-width: 80px'>"+domainList[i].ip+"</td>"+
+								  "<td style='min-width: 80px'>"+domainList[i].pv+"</td>"+
+									"</tr>";
+									lefttale+=tr2;
+						  	}
 									
 						}
 						
 						jQuery("#tbody").empty();
 						jQuery("#tbody").append(open);
-						
 						jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
 						jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttale);
 						jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
