@@ -74,6 +74,12 @@ public class AdaDomainStat extends AbstractEntity<Integer> {
 	private Integer moveip4;
 	/** 老用户数量*/
 	private Integer olduserip;
+	/** 老IP数量*/
+	private Integer oldip;
+	/** 用户登录数*/
+	private Integer loginip;
+	/** UV*/
+	private Integer uv;
 	
 	public AdaDomainStat() {
 		super();
@@ -155,7 +161,8 @@ public class AdaDomainStat extends AbstractEntity<Integer> {
 			Integer staytimeip1, Integer staytimeip2, Integer staytimeip3,
 			Integer staytimeip4, Integer scrollip1, Integer scrollip2,
 			Integer scrollip3, Integer scrollip4, Integer moveip1,
-			Integer moveip2, Integer moveip3, Integer moveip4, Integer olduserip) {
+			Integer moveip2, Integer moveip3, Integer moveip4, Integer olduserip,
+			Integer oldip,Integer loginip,Integer uv) {
 		super();
 		this.siteId = siteId;
 		this.domainId = domainId;
@@ -180,6 +187,9 @@ public class AdaDomainStat extends AbstractEntity<Integer> {
 		this.moveip3 = moveip3;
 		this.moveip4 = moveip4;
 		this.olduserip = olduserip;
+		this.oldip = oldip;
+		this.loginip = loginip;
+		this.uv = uv;
 	}
 
 	@Id	
@@ -395,6 +405,30 @@ public class AdaDomainStat extends AbstractEntity<Integer> {
 
 	public void setOlduserip(Integer olduserip) {
 		this.olduserip = olduserip;
+	}
+
+	public Integer getOldip() {
+		return oldip;
+	}
+
+	public void setOldip(Integer oldip) {
+		this.oldip = oldip;
+	}
+
+	public Integer getLoginip() {
+		return loginip;
+	}
+
+	public void setLoginip(Integer loginip) {
+		this.loginip = loginip;
+	}
+
+	public Integer getUv() {
+		return uv;
+	}
+
+	public void setUv(Integer uv) {
+		this.uv = uv;
 	}
 	
 }

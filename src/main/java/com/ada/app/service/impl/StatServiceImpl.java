@@ -147,11 +147,21 @@ public class StatServiceImpl implements StatService{
 		Integer moveip2 = 0;
 		Integer moveip3 = 0;
 		Integer moveip4 = 0;
+		Integer oldip = 0;
+		Integer loginip = 0;
 		//取出域名IPSet集合
 		int domainIP = jedis.scard(RedisKeys.DomainIP.getKey()+domainId+"").intValue();
+		//取出域名uv
+		int domainUV = jedis.scard(RedisKeys.DomainUV.getKey()+domainId+"").intValue();
 		//取出域名PV 
 		String domainPV = jedis.get(RedisKeys.DomainPV.getKey()+domainId+"");
 		if(domainPV != null) site_domainPV = Integer.valueOf(domainPV);
+		//老ip
+		String oldIP = jedis.get(RedisKeys.DomainOldIP.getKey()+domainId+"");
+		if(oldIP != null) oldip = Integer.valueOf(oldIP);
+		//用户登录数
+		String loginIP = jedis.get(RedisKeys.DomainLoginIp.getKey()+domainId+"");
+		if(loginIP != null) loginip = Integer.valueOf(loginIP);
 		//取出域名进入目标页IP集合
 		int targetpageIP  = jedis.scard(RedisKeys.DomainTIP.getKey()+domainId+"").intValue();
 		//取出域名多个点击区间次数
@@ -208,7 +218,7 @@ public class StatServiceImpl implements StatService{
 
 		returnResource(date,jedis);
 		return new AdaDomainStat(siteId, domainId, domainIP, site_domainPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date,staytimeip1,staytimeip2,staytimeip3,staytimeip4,
-				scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4,olduserip);
+				scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4,olduserip,oldip,loginip,domainUV);
 	}
 
 	protected Jedis getJedis(Date date){	

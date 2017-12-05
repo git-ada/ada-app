@@ -92,10 +92,10 @@ public enum RedisKeys {
 	DomainCityIPMap("域名下城市历史IPMap","DomainCityIPMap_",""),
 	DomainCityAdIPMap("域名下城市广告入口历史IPMap","DomainCityAdIPMap_",""),
 	
-	DomainOldLoginIp("域名登录用户数","DomainOldLoginIp_",""),
-	DomainAdOldLoginIp("域名广告入口登录用户数","DomainAdOldLoginIp_",""),
-	DomainCityOldLoginIp("域名下城市登录用户数","DomainCityOldLoginIp_",""),
-	DomainAdCityOldLoginIp("域名下城市广告入口登录用户数","DomainAdCityOldLoginIp_",""),
+	DomainLoginIp("域名登录用户数","DomainLoginIp_",""),
+	DomainAdLoginIp("域名广告入口登录用户数","DomainAdLoginIp_",""),
+	DomainCityLoginIp("域名下城市登录用户数","DomainCityLoginIp_",""),
+	DomainAdCityLoginIp("域名下城市广告入口登录用户数","DomainAdCityLoginIp_",""),
 	
 	DomainAdC1IP("域名广告入口鼠标点击1-2次IP数","DomainAdC1IP_",""),
 	DomainAdC2IP("域名广告入口鼠标点击3-5次IP数","DomainAdC2IP_",""),
