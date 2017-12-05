@@ -60,6 +60,8 @@ public enum RedisKeys {
 	DomainOldUserIP("域名老用户数","DomainOldUserIP_",""),
 
 	/**2017-12-04新增**/
+	DomainCitySet("当天访问域名的城市列表","DomainCitySet_",""),
+	
 	DomainAdIP("域名广告入口IP","DomainAdIP_",""),
 	DomainCityIP("域名下城市IP","DomainCityIP_",""),
 	DomainAdCityIP("域名下的城市广告入口IP","DomainAdCityIP_",""),
