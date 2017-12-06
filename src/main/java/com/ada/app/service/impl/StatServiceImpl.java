@@ -34,6 +34,10 @@ public class StatServiceImpl implements StatService{
 	private AdaDomainNotAd15mStatDao adaDomainNotAd15mStatDao;
 	@Autowired
 	private AdaDomainAd15mStatDao adaDomainAd15mStatDao;
+	@Autowired
+	private AdaDomainAd15mStatDao adaDomainAdStatDao;
+	@Autowired
+	private AdaDomainAd15mStatDao adaDomainNotAdStatDao;
 	
 	public AdaSiteStat statSite(Integer site, Date date) {
 		Jedis jedis = getJedis(date);
@@ -338,9 +342,7 @@ public class StatServiceImpl implements StatService{
 		returnResource(date,jedis);
 		return new AdaDomainAdStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, 
 				clickip3, clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
-//		return new AdaDomainAdStat(siteId, domainId, 1, 1, 1, 1, 1, 1, 2, 
-//				1, 3, 2, 1, 1, 2, 2, 1, 4, 4,
-//				6, 3, 2, 1, 4, 4, date);
+
 	}
 
 	@Override
@@ -401,9 +403,6 @@ public class StatServiceImpl implements StatService{
 		}
 		return new AdaDomainNotadStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, 
 				clickip3, clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
-//		return new AdaDomainNotadStat(siteId, domainId, 1, 1, 1, 1, 1, 1, 2, 
-//				1, 3, 2, 1, 1, 2, 2, 1, 4, 4,
-//				6, 3, 2, 1, 4, 4, date);
 	}
 
 	@Override
@@ -433,8 +432,8 @@ public class StatServiceImpl implements StatService{
 		Integer domainIP = 0;
 		//当前累计广告统计数据
 		AdaDomainAdStat currentAdStat = statDomainAd(siteId, domainId, date);
-		//历史15分钟广告统计数据
-		AdaDomainAd15mStat aDA15HS = adaDomainAd15mStatDao.findLast(siteId, domainId);
+		//历史广告统计数据
+		AdaDomainAd15mStat aDA15HS = adaDomainAdStatDao.findLast(siteId, domainId);
 //		AdaDomainAd15mStat aDA15HS = adaDomainAd15mHistryStat(siteId, domainId);
 		if(aDA15HS == null){
 			aDA15HS= new AdaDomainAd15mStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2,
@@ -468,9 +467,6 @@ public class StatServiceImpl implements StatService{
 		return new AdaDomainAd15mStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP,
 				clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2, 
 				scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
-//		return new AdaDomainAd15mStat(siteId, domainId, 1, 1, 1, 1, 1, 1, 2, 
-//				1, 3, 2, 1, 1, 2, 2, 1, 4, 4,
-//				6, 3, 2, 1, 4, 4, date);
 	}
 	
 	@Override
@@ -500,11 +496,11 @@ public class StatServiceImpl implements StatService{
 		Integer domainIP = 0;
 		//当前累计非广告统计数据
 		AdaDomainNotadStat currentNotAdStat = statDomainNotAd(siteId, domainId, date);
-		//历史15分钟非广告统计数据
-		AdaDomainNotad15mStat aDNA15HS = adaDomainNotAd15mStatDao.findLast(siteId, domainId);
-//		AdaDomainNotad15mStat aDNA15HS = adaDomainNotAd15mHistryStat(siteId, domainId);
+		//历史非广告统计数据
+		AdaDomainAd15mStat aDNA15HS = adaDomainNotAdStatDao.findLast(siteId, domainId);
+//		AdaDomainNotad15mStat aDNA15HS = adaDomainNotAd15mStatDao.findLast(siteId, domainId);
 		if(aDNA15HS == null){
-			aDNA15HS= new AdaDomainNotad15mStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2,
+			aDNA15HS= new AdaDomainAd15mStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2,
 					staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
 		}
 		domainIP = currentNotAdStat.getIp()-aDNA15HS.getIp();
@@ -535,9 +531,6 @@ public class StatServiceImpl implements StatService{
 		return new AdaDomainNotad15mStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, 
 				clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2,
 				scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
-//		return new AdaDomainNotad15mStat(siteId, domainId, 1, 1, 1, 1, 1, 1, 2, 
-//				1, 3, 2, 1, 1, 2, 2, 1, 4, 4,
-//				6, 3, 2, 1, 4, 4, date);
 	}
 	
 	protected Jedis getJedis(Date date){	
