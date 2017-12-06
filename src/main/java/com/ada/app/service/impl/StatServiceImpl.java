@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -168,16 +170,17 @@ public class StatServiceImpl implements StatService{
 		domainIP = jedis.scard(RedisKeys.DomainIP.getKey()+domainId+"").intValue();
 		if(domainIP != 0){
 			//取出域名uv
-			domainUV = jedis.scard(RedisKeys.DomainUV.getKey()+domainId+"").intValue();
+			String DomainUV = jedis.get(RedisKeys.DomainUV.getKey()+domainId+"");
+			if(DomainUV!=null) domainUV = Integer.valueOf(DomainUV);
 			//取出域名PV 
 			String domainPV = jedis.get(RedisKeys.DomainPV.getKey()+domainId+"");
 			if(domainPV != null) site_domainPV = Integer.valueOf(domainPV);
 			//老ip
-			String oldIP = jedis.get(RedisKeys.DomainOldIP.getKey()+domainId+"");
-			if(oldIP != null) oldip = Integer.valueOf(oldIP);
+			oldip = jedis.scard(RedisKeys.DomainOldIP.getKey()+domainId+"").intValue();
+			//老用户数
+			olduserip = jedis.scard(RedisKeys.DomainOldUserIP.getKey()+domainId+"").intValue();
 			//用户登录数
-			String loginIP = jedis.get(RedisKeys.DomainLoginIp.getKey()+domainId+"");
-			if(loginIP != null) loginip = Integer.valueOf(loginIP);
+			loginip = jedis.scard(RedisKeys.DomainLoginIp.getKey()+domainId+"").intValue();
 			//取出域名进入目标页IP集合
 			targetpageIP  = jedis.scard(RedisKeys.DomainTIP.getKey()+domainId+"").intValue();
 			//取出域名多个点击区间次数
@@ -229,8 +232,7 @@ public class StatServiceImpl implements StatService{
 			
 			String Moveip4 = jedis.get(RedisKeys.DomainMouseMove4IP.getKey()+domainId+"");
 			if(Moveip4 != null) moveip4 = Integer.valueOf(Moveip4);
-			//老用户数
-			olduserip = jedis.scard(RedisKeys.DomainOldUserIP.getKey()+domainId+"").intValue();
+			
 		}
 		returnResource(date,jedis);
 		return new AdaDomainStat(siteId, domainId, domainIP, site_domainPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date,staytimeip1,staytimeip2,staytimeip3,staytimeip4,
@@ -269,16 +271,17 @@ public class StatServiceImpl implements StatService{
 		domainIP = jedis.scard(RedisKeys.DomainAdIP.getKey()+domainId+"").intValue();
 		if(domainIP != 0){
 			//取出域名uv
-			domainUV = jedis.scard(RedisKeys.DomainAdUV.getKey()+domainId+"").intValue();
+			String DomainUV = jedis.get(RedisKeys.DomainAdUV.getKey()+domainId+"");
+			if(DomainUV != null) domainUV = Integer.valueOf(DomainUV);
 			//取出域名PV 
 			String domainPV = jedis.get(RedisKeys.DomainAdPV.getKey()+domainId+"");
 			if(domainPV != null) site_domainPV = Integer.valueOf(domainPV);
 			//老ip
-			String oldIP = jedis.get(RedisKeys.DomainAdOldIP.getKey()+domainId+"");
-			if(oldIP != null) oldip = Integer.valueOf(oldIP);
+			oldip = jedis.scard(RedisKeys.DomainAdOldIP.getKey()+domainId+"").intValue();
+			//老用户数
+			olduserip = jedis.scard(RedisKeys.DomainAdOldUserIP.getKey()+domainId+"").intValue();
 			//用户登录数
-			String loginIP = jedis.get(RedisKeys.DomainAdLoginIp.getKey()+domainId+"");
-			if(loginIP != null) loginip = Integer.valueOf(loginIP);
+			loginip = jedis.scard(RedisKeys.DomainAdLoginIp.getKey()+domainId+"").intValue();
 			//取出域名进入目标页IP集合
 			targetpageIP  = jedis.scard(RedisKeys.DomainAdTIP.getKey()+domainId+"").intValue();
 			//取出域名多个点击区间次数
@@ -330,8 +333,7 @@ public class StatServiceImpl implements StatService{
 			
 			String Moveip4 = jedis.get(RedisKeys.DomainAdMouseMove4IP.getKey()+domainId+"");
 			if(Moveip4 != null) moveip4 = Integer.valueOf(Moveip4);
-			//老用户数
-			olduserip = jedis.scard(RedisKeys.DomainAdOldUserIP.getKey()+domainId+"").intValue();
+			
 		}
 		returnResource(date,jedis);
 		return new AdaDomainAdStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, 
@@ -548,17 +550,264 @@ public class StatServiceImpl implements StatService{
     }
 
 	@Override
-	public DomainAreaStat statDomainRegionAd(Integer siteId,Integer domainId, Date date) {
+	public DomainAreaStat statDomainRegionAd(String regionName,Integer domainId, Date date) {
+		Jedis jedis = getJedis(date);
+		Integer IP = 0;
+		Integer PV = 0;
+		Integer UV = 0;
 		
+		Integer oldip = 0;
+		Integer loginip = 0;
+		Integer olduserip =0;
+		Integer targetpageIP = 0;
 		
-		return null;
+		Integer staytimeip1 = 0;
+		Integer staytimeip2 = 0;
+		Integer staytimeip3 = 0;
+		Integer staytimeip4 = 0;
+		
+		Integer clickip1 = 0;
+		Integer clickip2 = 0;
+		Integer clickip3 = 0;
+		Integer clickip4 = 0;
+		
+		Integer scrollip1 = 0;
+		Integer scrollip2 = 0;
+		Integer scrollip3 = 0;
+		Integer scrollip4 = 0;
+		
+		Integer moveip1 = 0;
+		Integer moveip2 = 0;
+		Integer moveip3 = 0;
+		Integer moveip4 = 0;
+		//取出地域广告入口IPSet集合
+		IP = jedis.scard(RedisKeys.DomainAdCityIP.getKey()+domainId+"_"+regionName+"").intValue();
+		if(IP!=null && IP>0){
+			
+			 String jpv = jedis.get(RedisKeys.DomainAdCityPV.getKey()+domainId+"_"+regionName+"");
+			 if(jpv!=null)PV = Integer.valueOf(jpv);
+			 
+			 String juv = jedis.get(RedisKeys.DomainAdCityUV.getKey()+domainId+"_"+regionName+"");
+			 if(juv!=null)UV = Integer.valueOf(juv);
+			 
+			 Integer joldip = jedis.scard(RedisKeys.DomainAdCityOldIP.getKey()+domainId+"_"+regionName+"").intValue();
+			 if(joldip!=null)oldip = Integer.valueOf(joldip);
+			 
+			 Integer jloginip = jedis.scard(RedisKeys.DomainAdCityLoginIp.getKey()+domainId+"_"+regionName+"").intValue();
+			 if(jloginip!=null)loginip = Integer.valueOf(jloginip);
+			 
+			 Integer jolduserip = jedis.scard(RedisKeys.DomainAdCityOldUserIP.getKey()+domainId+"_"+regionName+"").intValue();
+			 if(jolduserip!=null)olduserip = Integer.valueOf(jolduserip);
+			 
+			 Integer jtargetpageIP = jedis.scard(RedisKeys.DomainAdCityTIP.getKey()+domainId+"_"+regionName+"").intValue();
+			 if(jtargetpageIP!=null)targetpageIP = jtargetpageIP;
+			 
+			 String jstaytimeip1 = jedis.get(RedisKeys.DomainCityAdStayTime1IP.getKey()+domainId+"_"+regionName+"");
+			 if(jstaytimeip1!=null)staytimeip1 = Integer.valueOf(jstaytimeip1);
+			 
+			 String jstaytimeip2 = jedis.get(RedisKeys.DomainCityAdStayTime2IP.getKey()+domainId+"_"+regionName+"");
+			 if(jstaytimeip2!=null)staytimeip2 = Integer.valueOf(jstaytimeip2);
+			 
+			 String jstaytimeip3 = jedis.get(RedisKeys.DomainCityAdStayTime3IP.getKey()+domainId+"_"+regionName+"");
+			 if(jstaytimeip3!=null)staytimeip3 = Integer.valueOf(jstaytimeip3);
+			 
+			 String jstaytimeip4 = jedis.get(RedisKeys.DomainCityAdStayTime4IP.getKey()+domainId+"_"+regionName+"");
+			 if(jstaytimeip4!=null)staytimeip4 = Integer.valueOf(jstaytimeip4);
+			 
+			 String jclickip1 = jedis.get(RedisKeys.DomainCityAdC1IP.getKey()+domainId+"_"+regionName+"");
+			 if(jclickip1!=null)clickip1 = Integer.valueOf(jclickip1);
+			 
+			 String jclickip2 = jedis.get(RedisKeys.DomainCityAdC2IP.getKey()+domainId+"_"+regionName+"");
+			 if(jclickip2!=null)clickip2 = Integer.valueOf(jclickip2);
+			 
+			 String jclickip3 = jedis.get(RedisKeys.DomainCityAdC3IP.getKey()+domainId+"_"+regionName+"");
+			 if(jclickip3!=null)clickip3 = Integer.valueOf(jclickip3);
+			 
+			 String jclickip4 = jedis.get(RedisKeys.DomainCityAdC4IP.getKey()+domainId+"_"+regionName+"");
+			 if(jclickip4!=null)clickip4 = Integer.valueOf(jclickip4);
+			 
+			 String jscrollip1 = jedis.get(RedisKeys.DomainCityAdScroll1IP.getKey()+domainId+"_"+regionName+"");
+			 if(jscrollip1!=null)scrollip1 = Integer.valueOf(jscrollip1);
+			 
+			 String jscrollip2 = jedis.get(RedisKeys.DomainCityAdScroll2IP.getKey()+domainId+"_"+regionName+"");
+			 if(jscrollip2!=null)scrollip2 = Integer.valueOf(jscrollip2);
+			 
+			 String jscrollip3 = jedis.get(RedisKeys.DomainCityAdScroll3IP.getKey()+domainId+"_"+regionName+"");
+			 if(jscrollip3!=null)scrollip3 = Integer.valueOf(jscrollip3);
+			 
+			 String jscrollip4 = jedis.get(RedisKeys.DomainCityAdScroll4IP.getKey()+domainId+"_"+regionName+"");
+			 if(jscrollip4!=null)scrollip4 = Integer.valueOf(jscrollip4);
+			 
+			 String jmoveip1 = jedis.get(RedisKeys.DomainCityAdMouseMove1IP.getKey()+domainId+"_"+regionName+"");
+			 if(jmoveip1!=null)moveip1 = Integer.valueOf(jmoveip1);
+			 
+			 String jmoveip2 = jedis.get(RedisKeys.DomainCityAdMouseMove2IP.getKey()+domainId+"_"+regionName+"");
+			 if(jmoveip2!=null)moveip2 = Integer.valueOf(jmoveip2);
+			 
+			 String jmoveip3 = jedis.get(RedisKeys.DomainCityAdMouseMove3IP.getKey()+domainId+"_"+regionName+"");
+			 if(jmoveip3!=null)moveip3 = Integer.valueOf(jmoveip3);
+			 
+			 String jmoveip4 = jedis.get(RedisKeys.DomainCityAdMouseMove4IP.getKey()+domainId+"_"+regionName+"");
+			 if(jmoveip4!=null)moveip4 = Integer.valueOf(jmoveip4);
+		}
+		returnResource(date,jedis);
+		return new DomainAreaStat(IP,PV,UV,olduserip,loginip,oldip,targetpageIP,clickip1,clickip2,clickip3,clickip4,staytimeip1,staytimeip2,
+				staytimeip3,staytimeip4,scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4);
 	}
 
 	@Override
-	public DomainAreaStat statDomainRegionNotAd(Integer siteId,Integer domainId, Date date) {
+	public DomainAreaStat statDomainRegionNotAd(String regionName,Integer domainId, Date date) {
 		
+		DomainAreaStat all = statDomainRegion(regionName,domainId,date);
+		DomainAreaStat ad = statDomainRegionAd(regionName,domainId,date);
+		Integer IP = all.getIp()-ad.getIp();
+		Integer PV = all.getPv()-ad.getPv();
+		Integer UV = all.getUv()-ad.getUv();
 		
-		return null;
+		Integer oldip = all.getOldip()-ad.getOldip();
+		Integer loginip = all.getLoginip()-ad.getLoginip();
+		Integer olduserip =all.getOlduserip()-ad.getOlduserip();
+		Integer targetpageIP = all.getTargetpageip()-ad.getTargetpageip();
+		
+		Integer staytimeip1 = all.getStaytimeip1()-ad.getStaytimeip1();
+		Integer staytimeip2 = all.getStaytimeip2()-ad.getStaytimeip2();
+		Integer staytimeip3 = all.getStaytimeip3()-ad.getStaytimeip3();
+		Integer staytimeip4 = all.getStaytimeip4()-ad.getStaytimeip4();
+		
+		Integer clickip1 = all.getClickip1()-ad.getClickip1();
+		Integer clickip2 = all.getClickip2()-ad.getClickip2();
+		Integer clickip3 = all.getClickip3()-ad.getClickip3();
+		Integer clickip4 = all.getClickip4()-ad.getClickip4();
+		
+		Integer scrollip1 = all.getScrollip1()-ad.getScrollip1();
+		Integer scrollip2 = all.getScrollip2()-ad.getScrollip2();
+		Integer scrollip3 = all.getScrollip3()-ad.getScrollip3();
+		Integer scrollip4 = all.getScrollip4()-ad.getScrollip4();
+		
+		Integer moveip1 = all.getMoveip1()-ad.getMoveip1();
+		Integer moveip2 = all.getMoveip2()-ad.getMoveip2();
+		Integer moveip3 = all.getMoveip3()-ad.getMoveip3();
+		Integer moveip4 = all.getMoveip4()-ad.getMoveip4();
+		
+		return new DomainAreaStat(IP,PV,UV,olduserip,loginip,oldip,targetpageIP,clickip1,clickip2,clickip3,clickip4,staytimeip1,staytimeip2,
+				staytimeip3,staytimeip4,scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4);
+	}
+
+	@Override
+	public Set<String> getCityList(Integer domainId, Date date) {
+		// TODO Auto-generated method stub
+		Jedis jedis = getJedis(date);
+		Set<String> set = jedis.smembers(RedisKeys.DomainCitySet.getKey()+domainId+"");
+		
+		returnResource(date,jedis);
+		return set;
+	}
+
+	@Override
+	public DomainAreaStat statDomainRegion(String regionName, Integer domainId,
+			Date date) {
+		Jedis jedis = getJedis(date);
+		Integer IP = 0;
+		Integer PV = 0;
+		Integer UV = 0;
+		
+		Integer oldip = 0;
+		Integer loginip = 0;
+		Integer olduserip =0;
+		Integer targetpageIP = 0;
+		
+		Integer staytimeip1 = 0;
+		Integer staytimeip2 = 0;
+		Integer staytimeip3 = 0;
+		Integer staytimeip4 = 0;
+		
+		Integer clickip1 = 0;
+		Integer clickip2 = 0;
+		Integer clickip3 = 0;
+		Integer clickip4 = 0;
+		
+		Integer scrollip1 = 0;
+		Integer scrollip2 = 0;
+		Integer scrollip3 = 0;
+		Integer scrollip4 = 0;
+		
+		Integer moveip1 = 0;
+		Integer moveip2 = 0;
+		Integer moveip3 = 0;
+		Integer moveip4 = 0;
+		//取出地域广告入口IPSet集合
+		IP = jedis.scard(RedisKeys.DomainCityIP.getKey()+domainId+"_"+regionName+"").intValue();
+		if(IP!=null && IP>0){
+			
+			 String jpv = jedis.get(RedisKeys.DomainCityPV.getKey()+domainId+"_"+regionName+"");
+			 if(jpv!=null)PV = Integer.valueOf(jpv);
+			 
+			 String juv = jedis.get(RedisKeys.DomainCityUV.getKey()+domainId+"_"+regionName+"");
+			 if(juv!=null)UV = Integer.valueOf(juv);
+			 
+			 Integer joldip = jedis.scard(RedisKeys.DomainCityOldIP.getKey()+domainId+"_"+regionName+"").intValue();
+			 if(joldip!=null)oldip = Integer.valueOf(joldip);
+			 
+			 Integer jloginip = jedis.scard(RedisKeys.DomainCityLoginIp.getKey()+domainId+"_"+regionName+"").intValue();
+			 if(jloginip!=null)loginip = Integer.valueOf(jloginip);
+			 
+			 Integer jolduserip = jedis.scard(RedisKeys.DomainCityOldUserIP.getKey()+domainId+"_"+regionName+"").intValue();
+			 if(jolduserip!=null)olduserip = Integer.valueOf(jolduserip);
+			 
+			 Integer jtargetpageIP = jedis.scard(RedisKeys.DomainCityTIP.getKey()+domainId+"_"+regionName+"").intValue();
+			 if(jtargetpageIP!=null)targetpageIP = jtargetpageIP;
+			 
+			 String jstaytimeip1 = jedis.get(RedisKeys.DomainCityStayTime1IP.getKey()+domainId+"_"+regionName+"");
+			 if(jstaytimeip1!=null)staytimeip1 = Integer.valueOf(jstaytimeip1);
+			 
+			 String jstaytimeip2 = jedis.get(RedisKeys.DomainCityStayTime2IP.getKey()+domainId+"_"+regionName+"");
+			 if(jstaytimeip2!=null)staytimeip2 = Integer.valueOf(jstaytimeip2);
+			 
+			 String jstaytimeip3 = jedis.get(RedisKeys.DomainCityStayTime3IP.getKey()+domainId+"_"+regionName+"");
+			 if(jstaytimeip3!=null)staytimeip3 = Integer.valueOf(jstaytimeip3);
+			 
+			 String jstaytimeip4 = jedis.get(RedisKeys.DomainCityStayTime4IP.getKey()+domainId+"_"+regionName+"");
+			 if(jstaytimeip4!=null)staytimeip4 = Integer.valueOf(jstaytimeip4);
+			 
+			 String jclickip1 = jedis.get(RedisKeys.DomainCityC1IP.getKey()+domainId+"_"+regionName+"");
+			 if(jclickip1!=null)clickip1 = Integer.valueOf(jclickip1);
+			 
+			 String jclickip2 = jedis.get(RedisKeys.DomainCityC2IP.getKey()+domainId+"_"+regionName+"");
+			 if(jclickip2!=null)clickip2 = Integer.valueOf(jclickip2);
+			 
+			 String jclickip3 = jedis.get(RedisKeys.DomainCityC3IP.getKey()+domainId+"_"+regionName+"");
+			 if(jclickip3!=null)clickip3 = Integer.valueOf(jclickip3);
+			 
+			 String jclickip4 = jedis.get(RedisKeys.DomainCityC4IP.getKey()+domainId+"_"+regionName+"");
+			 if(jclickip4!=null)clickip4 = Integer.valueOf(jclickip4);
+			 
+			 String jscrollip1 = jedis.get(RedisKeys.DomainCityScroll1IP.getKey()+domainId+"_"+regionName+"");
+			 if(jscrollip1!=null)scrollip1 = Integer.valueOf(jscrollip1);
+			 
+			 String jscrollip2 = jedis.get(RedisKeys.DomainCityScroll2IP.getKey()+domainId+"_"+regionName+"");
+			 if(jscrollip2!=null)scrollip2 = Integer.valueOf(jscrollip2);
+			 
+			 String jscrollip3 = jedis.get(RedisKeys.DomainCityScroll3IP.getKey()+domainId+"_"+regionName+"");
+			 if(jscrollip3!=null)scrollip3 = Integer.valueOf(jscrollip3);
+			 
+			 String jscrollip4 = jedis.get(RedisKeys.DomainCityScroll4IP.getKey()+domainId+"_"+regionName+"");
+			 if(jscrollip4!=null)scrollip4 = Integer.valueOf(jscrollip4);
+			 
+			 String jmoveip1 = jedis.get(RedisKeys.DomainCityMouseMove1IP.getKey()+domainId+"_"+regionName+"");
+			 if(jmoveip1!=null)moveip1 = Integer.valueOf(jmoveip1);
+			 
+			 String jmoveip2 = jedis.get(RedisKeys.DomainCityMouseMove2IP.getKey()+domainId+"_"+regionName+"");
+			 if(jmoveip2!=null)moveip2 = Integer.valueOf(jmoveip2);
+			 
+			 String jmoveip3 = jedis.get(RedisKeys.DomainCityMouseMove3IP.getKey()+domainId+"_"+regionName+"");
+			 if(jmoveip3!=null)moveip3 = Integer.valueOf(jmoveip3);
+			 
+			 String jmoveip4 = jedis.get(RedisKeys.DomainCityMouseMove4IP.getKey()+domainId+"_"+regionName+"");
+			 if(jmoveip4!=null)moveip4 = Integer.valueOf(jmoveip4);
+		}
+		returnResource(date,jedis);
+		return new DomainAreaStat(IP,PV,UV,olduserip,loginip,oldip,targetpageIP,clickip1,clickip2,clickip3,clickip4,staytimeip1,staytimeip2,
+				staytimeip3,staytimeip4,scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4);
 	}
 
 	/**

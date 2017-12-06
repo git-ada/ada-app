@@ -141,6 +141,10 @@ public interface AdaDomainNotAd15mStatDao extends EntityJpaDao<AdaDomainNotad15m
      *通过创建时间查询
      */
 	public List<AdaDomainNotad15mStat> findByCreateTime(Timestamp createTime);
-
-
+	/**
+	 * 通过域名ID查询并根据开始时间排序
+	 */
+	@Query(value = "select * from ada_domain_notad_15m_stat obj where obj.domainId=?  order by obj.startTime desc limit 0,12",nativeQuery=true)
+	public List<AdaDomainNotad15mStat> findByDomainIdOrderByStartTime(Integer domainId);
+	
 }

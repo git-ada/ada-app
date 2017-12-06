@@ -1,6 +1,7 @@
 package com.ada.app.service;
 
 import java.util.Date;
+import java.util.Set;
 
 import com.ada.app.bean.DomainAreaStat;
 import com.ada.app.domain.AdaChannelStat;
@@ -74,25 +75,40 @@ public interface StatService {
 	 * @return
 	 */
 	public Integer statDomainIP(Integer domainId,Date date);
+	/**
+	 * 统计 域名 地域
+	 * @param regionName
+	 * @param domainId
+	 * @param date
+	 * @return
+	 */
+	public DomainAreaStat statDomainRegion(String regionName,Integer domainId,Date date);
 	
 	/**
-	 * 统计域名地域
+	 * 统计域名地域广告入口
 	 * @param siteId
 	 * @param domainId
 	 * @param date
 	 * @return
 	 */
-	public DomainAreaStat statDomainRegionAd(Integer siteId,Integer domainId,Date date);
+	public DomainAreaStat statDomainRegionAd(String regionName,Integer domainId,Date date);
 	
 	/**
-	 * 统计域名地域
+	 * 统计域名地域非广告入口
 	 * @param siteId
 	 * @param domainId
 	 * @param date
 	 * @return
 	 */
-	public DomainAreaStat statDomainRegionNotAd(Integer siteId,Integer domainId,Date date);
+	public DomainAreaStat statDomainRegionNotAd(String regionName,Integer domainId,Date date);
 	
+	/**
+	 * 获取当天城市列表
+	 * @param domainId
+	 * @param date
+	 * @return
+	 */
+	public Set<String> getCityList(Integer domainId,Date date);
 	
 
 }

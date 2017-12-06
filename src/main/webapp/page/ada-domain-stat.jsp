@@ -45,6 +45,42 @@ table.dataTable thead td
 div.DTS div.dataTables_scrollBody {
     background: none;
 }
+.portlet.light .portlet-body {
+    padding-top: 0px !important;
+}
+.portlet > .portlet-title {
+    border-bottom: none !important;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 0px !important;
+    min-height: 41px;
+    padding: 0;
+}
+.portlet.light > .portlet-title {
+    min-height: 34px;
+    padding: 0;
+}
+
+table.table-bordered.dataTable th, table.table-bordered.dataTable td {
+    border-left-width: 1px !important;
+}
+.portlet {
+    border-radius: 4px;
+    margin-bottom: 0px !important;
+    margin-top: 0px;
+    padding: 0px;
+}
+
+.dataTables_scroll {
+    margin-bottom: 0px !important;
+}
+.table-scrollable {
+    border: 1px solid #e7ecf1;
+    margin: 10px 0 !important;
+    margin-bottom: 0px !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+}
 </style>
 <!-- 顶部导航 BGEIN -->
 <div class="page-bar">
@@ -96,11 +132,13 @@ div.DTS div.dataTables_scrollBody {
 		    
 		    <!-- 右上角工具栏 BEGIN -->
 		    <div class="col-md-2 col-sm-12 right">
-	            <!-- <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-domain-stat/export"><span>导出表格</span></a>
-	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a> -->
+	             
+				<a class="btn btn-circle btn-icon-only btn-default fullscreen"  id="fullscreenOractual"><i class="icon-size-fullscreen"></i></a>
 		    </div>
 	    </div>
 	    <!-- 右上角工具栏 END -->
+	    
+	   
 	</div>
 	<div class="portlet-body">
 		<!-- 数据列表 BEGIN -->
@@ -136,7 +174,7 @@ div.DTS div.dataTables_scrollBody {
 	               <c:forEach var="item" items="${domainstatList}" varStatus="number">
 	                <tr>
                    		<td style=""><fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd"/></td>
-						<td style="" title="${item.domain}"><a href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/ada-channel-stat/channel_statList.jhtm?domainId=${item.id}&domain=${item.domain}&date=${search_GTE_date}')">${item.subdoamin}</a></td>
+						<td style="" title="${item.domain}"><a style="text-decoration:underline;color: #333;" href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/ada-channel-stat/channel_statList.jhtm?domainId=${item.id}&domain=${item.domain}&date=${search_GTE_date}')">${item.subdoamin}</a></td>
 						<td style="">${item.ip}</td>
 						<td style="">${item.pv}</td>
 						<td style="">${item.olduserip} (${item.old}%)</td>
@@ -206,12 +244,12 @@ var initTable1 = function () {
         },
         buttons: [
         ],
-        scrollY:        window.screen.height-425,
+        scrollY:        document.documentElement.clientHeight-200,
         deferRender:    true,
         "ordering": false,
         scroller:       true,
         scrollX:        true,
-        
+        "info": false,
         stateSave:      true,
         "searching": false,
         fixedColumns:   {
@@ -232,6 +270,33 @@ var initTable1 = function () {
 
 	jQuery(document).ready(function() {
 	    initTable1();
+	    
+	    jQuery("#fullscreenOractual").click(function(){
+	    	 if(jQuery("#fullscreenOractual i").attr("class")=="icon-size-fullscreen"){
+	    		 
+	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-100);
+	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-60);
+	    		 
+	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-106);
+	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-106);
+	    		 
+	    		 jQuery("#fullscreenOractual i").removeClass("icon-size-fullscreen");
+	    		 jQuery("#fullscreenOractual i").addClass("icon-size-actual");
+	    		 
+	    		   
+	    	 }else if(jQuery("#fullscreenOractual i").attr("class")=="icon-size-actual"){
+	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-200);
+	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-145);
+	    		
+	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-200);
+	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-200);
+	    		 
+	    		 
+	    		 jQuery("#fullscreenOractual i").removeClass("icon-size-actual");
+	    		 jQuery("#fullscreenOractual i").addClass("icon-size-fullscreen");
+	    		 
+	    	 }
+	     });
 	});
 
 	

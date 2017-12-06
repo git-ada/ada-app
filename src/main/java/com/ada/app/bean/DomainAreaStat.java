@@ -63,17 +63,16 @@ public class DomainAreaStat {
 		public DomainAreaStat() {
 			super();
 		}
-		public DomainAreaStat(Integer siteId, Integer domainId, Integer ip,
-				Integer pv, Integer uv, Integer olduserip, Integer loginip,
-				Integer oldip, Integer targetpageip, Integer clickip1,
-				Integer clickip2, Integer clickip3, Integer clickip4,
-				Integer staytimeip1, Integer staytimeip2, Integer staytimeip3,
-				Integer staytimeip4, Integer scrollip1, Integer scrollip2,
-				Integer scrollip3, Integer scrollip4, Integer moveip1,
-				Integer moveip2, Integer moveip3, Integer moveip4) {
+		
+		public DomainAreaStat(Integer ip, Integer pv, Integer uv,
+				Integer olduserip, Integer loginip, Integer oldip,
+				Integer targetpageip, Integer clickip1, Integer clickip2,
+				Integer clickip3, Integer clickip4, Integer staytimeip1,
+				Integer staytimeip2, Integer staytimeip3, Integer staytimeip4,
+				Integer scrollip1, Integer scrollip2, Integer scrollip3,
+				Integer scrollip4, Integer moveip1, Integer moveip2,
+				Integer moveip3, Integer moveip4) {
 			super();
-			this.siteId = siteId;
-			this.domainId = domainId;
 			this.ip = ip;
 			this.pv = pv;
 			this.uv = uv;
@@ -98,6 +97,7 @@ public class DomainAreaStat {
 			this.moveip3 = moveip3;
 			this.moveip4 = moveip4;
 		}
+
 		public Integer getSiteId() {
 			return siteId;
 		}

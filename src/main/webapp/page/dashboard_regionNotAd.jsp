@@ -86,79 +86,17 @@ th:last-child,td:last-child {
     </ul>
 </div>
  -->
-<div class="row" style="margin-bottom: 15px;">
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat blue margin-bottom0">
-			<div class="visual">
-				<i class="fa fa-comments"></i>
-			</div>
-			<div class="details">
-				<div class="number">
-					<span data-counter="counterup" data-value="${siteStat.ip}" id="ip">${siteStat.ip}</span>(个)
-				</div>
-				<div class="desc">今日全站独立IP数</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat green margin-bottom0">
-			<div class="visual">
-				<i class="fa fa-shopping-cart"></i>
-			</div>
-			<div class="details">
-				<div class="number">
-					<span data-counter="counterup" data-value="${siteStat.pv}" id="pv">${siteStat.pv}</span>(页)
-				</div>
-				<div class="desc">今日全站访问量</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat red margin-bottom0">
-			<div class="visual">
-				<i class="fa fa-bar-chart-o"></i>
-			</div>
-			<div class="details">
-				<div class="number">
-					<span data-counter="counterup" data-value="${channelSumIP}" id="cip">${channelSumIP}</span>(个)
-				</div>
-				<div class="desc">今日渠道独立IP数</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="dashboard-stat purple margin-bottom0">
-			<div class="visual">
-				<i class="fa fa-bar-chart-o"></i>
-			</div>
-			<div class="details">
-				<div class="number">
-					<span data-counter="counterup" data-value="${channelSumPV}" id="cpv">${channelSumPV}</span>(页)
-				</div>
-				<div class="desc">今日渠道访问量</div>
-			</div>
-		</div>
-	</div>
-</div>
 
 <div class="portlet light portlet-fit bordered">
 	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;">
 		<div class="caption" style="padding-bottom: 0px;">
             <i class="icon-directions font-green hide"></i>
-            <span class="caption-subject bold font-dark uppercase "> 今日实时统计</span>
-            <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
+            <span class="caption-subject bold font-dark  "> ${domain}</span>
+            <span class="caption-helper" id="lasttime">非广告入口</span>
         </div>
         <div class="inputs">
-            <!-- <div class="input-icon right" style="float: left;margin-right: 10px;">
-                   <i class="icon-magnifier"></i>
-            	<input type="text" class="form-control form-control-solid input-circle" placeholder="搜索...">
-            </div> -->
-            
             <div class="actions" style="float: left;">
-				<a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
+				<!-- <a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a> -->
 				<!-- 
 				<a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-control-pause"></i></a>  icon-control-pause
 				 -->
@@ -170,10 +108,10 @@ th:last-child,td:last-child {
 	
 	<!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
 	<div class="portlet-body" style="margin: 0px;padding: 0;">
-		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column" style="border: 0">
+		<table id="dashboard_regionNotAd" class="table table-striped table-bordered table-hover order-column" style="border: 0">
 	            <thead>
 	                <tr>
-						<th scope="col" style="min-width: 120px;">域名</th>
+						<th scope="col" style="min-width: 120px;">地域</th>
 						<th scope="col" style="min-width: 80px">IP</th>			
 						<th scope="col" style="min-width: 80px">PV</th>
 						<th scope="col" style="min-width: 80px">UV</th>
@@ -199,49 +137,33 @@ th:last-child,td:last-child {
 						<th scope="col" style="min-width: 80px">10+次移动</th>
 				     </tr>
 	            </thead>
-	            <tbody id="tbody">
-	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
+	            <tbody id="dashboard_regionNotAd_tbody">
+	                	<c:forEach var="item" items="${regionNotAd_list}" varStatus="number">
 	                <tr>
-	                	<%-- <c:if test="${domain.channelNum>0}"><td style="min-width: 120px;" title="${domain.domain}"><a style="text-decoration:underline;color: #333;" href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}</a> </td></c:if> --%>
-	                		<td style="min-width: 120px;" title="${domain.domain}"><a style="text-decoration:underline;color: #333;"  href="javascript:void(0);" data-toggle="dropdown">${domain.subDomain}</a>
-	                			<ul class="dropdown-menu" role="menu">
-	                				<li>
-                                        <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domain.id}')">分时统计</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（广告入口）</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionNotAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（非广告入口）</a>
-                                    </li>
-                                </ul>
-	                		</td>
-	                	
-	                	
-	                	<c:if test="${domain.channelNum==0}"><td style="min-width: 120px;" title="${domain.domain}">${domain.subDomain}</td></c:if>
-						<td style="min-width: 80px">${domain.ip}</td>
-						<td style="min-width: 80px">${domain.pv}</td>
-						<td style="min-width: 80px">${domain.uv}</td>
-						<td style="min-width: 80px">${domain.oldip} (${domain.oldi}%)</td>
-						<td style="min-width: 80px">${domain.loginip} (${domain.log}%)</td>
-						<td style="min-width: 80px">${domain.olduserip} (${domain.old}%)</td>
-						<td style="min-width: 80px">${domain.clickip1} (${domain.c1}%)</td>
-						<td style="min-width: 80px">${domain.clickip2} (${domain.c2}%)</td>
-						<td style="min-width: 80px">${domain.clickip3} (${domain.c3}%)</td>
-						<td style="min-width: 80px">${domain.clickip4} (${domain.c4}%)</td>
-						<td style="min-width: 80px">${domain.targetpageip} (${domain.tgp}%)</td>
-						<td style="min-width: 80px">${domain.staytimeip1} (${domain.s1}%)</td>
-						<td style="min-width: 80px">${domain.staytimeip2} (${domain.s2}%)</td>
-						<td style="min-width: 80px">${domain.staytimeip3} (${domain.s3}%)</td>
-						<td style="min-width: 80px">${domain.staytimeip4} (${domain.s4}%)</td>
-						<td style="min-width: 80px">${domain.scrollip1} (${domain.sc1}%)</td>
-						<td style="min-width: 80px">${domain.scrollip2} (${domain.sc2}%)</td>
-						<td style="min-width: 80px">${domain.scrollip3} (${domain.sc3}%)</td>
-						<td style="min-width: 80px">${domain.scrollip4} (${domain.sc4}%)</td>
-						<td style="min-width: 80px">${domain.moveip1} (${domain.m1}%)</td>
-						<td style="min-width: 80px">${domain.moveip2} (${domain.m2}%)</td>
-						<td style="min-width: 80px">${domain.moveip3} (${domain.m3}%)</td>
-						<td style="min-width: 80px">${domain.moveip4} (${domain.m4}%)</td>
+	                	<td style="min-width: 120px">${item.regionName}</td>
+						<td style="min-width: 80px">${item.ip}</td>
+						<td style="min-width: 80px">${item.pv}</td>
+						<td style="min-width: 80px">${item.uv}</td>
+						<td style="min-width: 80px">${item.oldip} (${item.oldi}%)</td>
+						<td style="min-width: 80px">${item.loginip} (${item.log}%)</td>
+						<td style="min-width: 80px">${item.olduserip} (${item.old}%)</td>
+						<td style="min-width: 80px">${item.clickip1} (${item.c1}%)</td>
+						<td style="min-width: 80px">${item.clickip2} (${item.c2}%)</td>
+						<td style="min-width: 80px">${item.clickip3} (${item.c3}%)</td>
+						<td style="min-width: 80px">${item.clickip4} (${item.c4}%)</td>
+						<td style="min-width: 80px">${item.targetpageip} (${item.tgp}%)</td>
+						<td style="min-width: 80px">${item.staytimeip1} (${item.s1}%)</td>
+						<td style="min-width: 80px">${item.staytimeip2} (${item.s2}%)</td>
+						<td style="min-width: 80px">${item.staytimeip3} (${item.s3}%)</td>
+						<td style="min-width: 80px">${item.staytimeip4} (${item.s4}%)</td>
+						<td style="min-width: 80px">${item.scrollip1} (${item.sc1}%)</td>
+						<td style="min-width: 80px">${item.scrollip2} (${item.sc2}%)</td>
+						<td style="min-width: 80px">${item.scrollip3} (${item.sc3}%)</td>
+						<td style="min-width: 80px">${item.scrollip4} (${item.sc4}%)</td>
+						<td style="min-width: 80px">${item.moveip1} (${item.m1}%)</td>
+						<td style="min-width: 80px">${item.moveip2} (${item.m2}%)</td>
+						<td style="min-width: 80px">${item.moveip3} (${item.m3}%)</td>
+						<td style="min-width: 80px">${item.moveip4} (${item.m4}%)</td>
 	                </tr>
 	                </c:forEach>
 	            </tbody>
@@ -256,7 +178,7 @@ var oTable;
 var oTable2;
 var table;
 var initTable1 = function () {
-     table = $('#scrolltable');
+     table = $('#dashboard_regionNotAd');
      oTable = table.dataTable({
         "language": {
             "aria": {
@@ -273,7 +195,7 @@ var initTable1 = function () {
         },
         buttons: [
         ],
-        scrollY:        document.documentElement.clientHeight-275,
+        scrollY:        document.documentElement.clientHeight-175,
         deferRender:    true,
         "ordering": false,
         scroller:       true,
@@ -324,11 +246,11 @@ var initTable1 = function () {
 	    		 
 	    		   
 	    	 }else if(jQuery("#fullscreenOractual i").attr("class")=="icon-size-actual"){
-	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-290);
-	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-235);
+	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-190);
+	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-135);
 	    		
-	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-290);
-	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-290);
+	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-190);
+	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-190);
 	    		 
 	    		 jQuery("#fullscreenOractual i").removeClass("icon-size-actual");
 	    		 jQuery("#fullscreenOractual i").addClass("icon-size-fullscreen");
@@ -374,9 +296,9 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 
-	 t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+	// t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 	  
-	 function ajaxRefreshPage(){
+	 function ajaxRefreshPage_NotAd(){
 		 jQuery.ajax({
 				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do",
 				success : function(data) {
@@ -398,8 +320,9 @@ var initTable1 = function () {
 						for(var i=0;i<domainList.length;i++){
 							var tr = "";
 						    var tr2 = "";
+						  	if(domainList[i].channelNum>0){
 						  		tr+="<tr>" + 
-							      "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' >"+domainList[i].subDomain+"</a></td>"+
+							      "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a></td>"+
 								  "<td >"+domainList[i].ip+"</td>"+
 								  "<td >"+domainList[i].pv+"</td>"+
 								  "<td >"+domainList[i].uv+"</td>"+
@@ -427,17 +350,12 @@ var initTable1 = function () {
 								  open+=tr;
 								  
 						  		tr2+="<tr>"+
-						          "<td  title='"+domainList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-toggle='dropdown'>"+domainList[i].subDomain+"</a>"+
-							         "<ul class='dropdown-menu' role='menu'>"+
-			                			"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+domainList[i].id+"\")'>分时统计</a></li>"+
-		                                 "<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_regionAd.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>地域统计（广告入口）</a></li>"+
-		                                 "<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_regionNotAd.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>地域统计（非广告入口）</a></li>"+
-						          "</ul></td>"+
+						          "<td  title='"+domainList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>"+domainList[i].subDomain+"</a></td>"+
 								  "<td style='min-width: 80px'>"+domainList[i].ip+"</td>"+
 								  "<td style='min-width: 80px'>"+domainList[i].pv+"</td>"+
 									"</tr>";
 									lefttale+=tr2;
-						  	/* }else{
+						  	}else{
 						  		tr+="<tr>" + 
 							      "<td  title='"+domainList[i].domain+"'>"+domainList[i].subDomain+"</td>"+
 								  "<td >"+domainList[i].ip+"</td>"+
@@ -472,16 +390,15 @@ var initTable1 = function () {
 								  "<td style='min-width: 80px'>"+domainList[i].pv+"</td>"+
 									"</tr>";
 									lefttale+=tr2;
-						  	} */
+						  	}
 									
 						}
-						if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0){
-							jQuery("#tbody").empty();
-							jQuery("#tbody").append(open);
-							jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
-							jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttale);
-							jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
-						}
+						
+						jQuery("#dashboard_regionNotAd_tbody").empty();
+						jQuery("#dashboard_regionNotAd_tbody").append(open);
+						jQuery(".DTFC_LeftBodyWrapper #dashboard_regionNotAd_tbody").empty();
+						jQuery(".DTFC_LeftBodyWrapper #dashboard_regionNotAd_tbody").append(lefttale);
+						jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
 						
 						//DTFC_LeftBodyWrapper
 						//initTable1();
