@@ -218,7 +218,6 @@ th:last-child,td:last-child {
 	                		</td>
 	                	
 	                	
-	                	<c:if test="${domain.channelNum==0}"><td style="min-width: 120px;" title="${domain.domain}">${domain.subDomain}</td></c:if>
 						<td style="min-width: 80px">${domain.ip}</td>
 						<td style="min-width: 80px">${domain.pv}</td>
 						<td style="min-width: 80px">${domain.uv}</td>
