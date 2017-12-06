@@ -149,7 +149,10 @@ table.table-bordered.dataTable th, table.table-bordered.dataTable td {
 						<th scope="col" style="min-width: 120px;">域名</th>			
 						<th scope="col" style="min-width: 80px;">IP</th>			
 						<th scope="col" style="min-width: 80px;">PV</th>
-						<th scope="col" style="min-width: 80px;">登录用户数</th>			
+						<th scope="col" style="min-width: 80px">UV</th>
+						<th scope="col" style="min-width: 80px">老IP数</th>
+						<th scope="col" style="min-width: 80px">用户登录数</th>
+						<th scope="col" style="min-width: 80px;">老用户数</th>			
 						<th scope="col" style="min-width: 80px;">1-2次点击</th>			
 						<th scope="col" style="min-width: 80px;">3-5次点击</th>			
 						<th scope="col" style="min-width: 80px;">6-10次点击</th>			
@@ -177,6 +180,9 @@ table.table-bordered.dataTable th, table.table-bordered.dataTable td {
 						<td style="" title="${item.domain}"><a style="text-decoration:underline;color: #333;" href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/ada-channel-stat/channel_statList.jhtm?domainId=${item.id}&domain=${item.domain}&date=${search_GTE_date}')">${item.subdoamin}</a></td>
 						<td style="">${item.ip}</td>
 						<td style="">${item.pv}</td>
+						<td style="">${item.uv}</td>
+						<td style="">${item.oldip} (${item.oldi}%)</td>
+						<td style="">${item.loginip} (${item.log}%)</td>
 						<td style="">${item.olduserip} (${item.old}%)</td>
 						<td style="">${item.clickip1} (${item.c1}%)</td>
 						<td style="">${item.clickip2} (${item.c2}%)</td>

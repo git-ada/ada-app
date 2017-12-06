@@ -96,6 +96,7 @@ public class AdaDomainStatManagerController extends AbstractJQueryEntityControll
     		map.put("id", adaDomainStat.getId());
     		Integer ip = adaDomainStat.getIp()==null?0:adaDomainStat.getIp();
     		Integer pv = adaDomainStat.getPv()==null?0:adaDomainStat.getPv();
+    		Integer uv = adaDomainStat.getUv()==null?0:adaDomainStat.getUv();
     		Integer targetpageip = adaDomainStat.getTargetpageip()==null?0:adaDomainStat.getTargetpageip();
     		Integer clickip1 = adaDomainStat.getClickip1()==null?0:adaDomainStat.getClickip1();
     		Integer clickip2 = adaDomainStat.getClickip2()==null?0:adaDomainStat.getClickip2();
@@ -114,6 +115,8 @@ public class AdaDomainStatManagerController extends AbstractJQueryEntityControll
     		Integer moveip3 = adaDomainStat.getMoveip3()==null?0:adaDomainStat.getMoveip3();
     		Integer moveip4 = adaDomainStat.getMoveip4()==null?0:adaDomainStat.getMoveip4();
     		Integer olduserip = adaDomainStat.getOlduserip()==null?0:adaDomainStat.getOlduserip();
+    		Integer oldip = adaDomainStat.getOldip()==null?0:adaDomainStat.getOldip();
+    		Integer loginip = adaDomainStat.getLoginip()==null?0:adaDomainStat.getLoginip();
     		
     		map.put("date", adaDomainStat.getDate());
     		map.put("domain", adaDomainStat.getDomain().getDomain());
@@ -124,6 +127,9 @@ public class AdaDomainStatManagerController extends AbstractJQueryEntityControll
     		}
     		map.put("ip", ip);
     		map.put("pv", pv);
+    		map.put("uv", uv);
+    		map.put("oldip", oldip);
+    		map.put("loginip", loginip);
     		map.put("targetpageip",targetpageip);
     		map.put("clickip1", clickip1);
     		map.put("clickip2", clickip2);
@@ -163,6 +169,8 @@ public class AdaDomainStatManagerController extends AbstractJQueryEntityControll
 				 map.put("m4", numberFormat.format((float)moveip4/(float)ip*100));
 				 map.put("old", numberFormat.format((float)olduserip/(float)ip*100));
 				 map.put("tgp", numberFormat.format((float)targetpageip/(float)ip*100));
+				 map.put("oldi", numberFormat.format((float)oldip/(float)ip*100));
+				 map.put("log", numberFormat.format((float)loginip/(float)ip*100));
     		}else{
     			map.put("c1", 0);
 				 map.put("c2", 0);
@@ -182,6 +190,8 @@ public class AdaDomainStatManagerController extends AbstractJQueryEntityControll
 				 map.put("m4", 0);
 				 map.put("old", 0);
 				 map.put("tgp", 0);
+				 map.put("oldi", 0);
+				 map.put("log", 0);
     		}
     		
     		list.add(map);
