@@ -4,7 +4,12 @@ import java.util.List;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.math.BigDecimal;
+
+import org.springframework.data.jpa.repository.Query;
+
 import cn.com.jiand.mvc.framework.dao.jpa.EntityJpaDao;
+
+import com.ada.app.domain.AdaDomainAd15mStat;
 import com.ada.app.domain.AdaDomainAdStat;
 
 /**
@@ -17,6 +22,9 @@ public interface AdaDomainAdStatDao extends EntityJpaDao<AdaDomainAdStat, Intege
      *通过ID查询
      */
     public AdaDomainAdStat findById(Integer id);
+    
+    @Query(value="select * from ada_domain_ad_stat where siteId=? and domainId=? order by createTime desc limit 1",nativeQuery=true)
+    public AdaDomainAdStat findLast(Integer siteId,Integer domainId);
     /** 
      *通过站点ID查询
      */
