@@ -25,8 +25,8 @@ public class AdaDomainNotad15mStat extends AbstractEntity<Integer> {
     /** 渠道ID */
 	private Integer domainId;                    
     /** IP */
-	private Integer ip;                    
-    /** PV */
+	private Integer ip;    
+	/** PV */
 	private Integer pv;                    
     /** 1-2次点击 */
 	private Integer clickip1;                    
@@ -320,6 +320,88 @@ public class AdaDomainNotad15mStat extends AbstractEntity<Integer> {
 	public void setCreateTime(Timestamp createTime){
 		this.createTime = createTime;
 	}
+	
+	public AdaDomainNotad15mStat() {
+		super();
+	}
+
+	public AdaDomainNotad15mStat(Integer siteId, Integer domainId, Integer ip,
+			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
+			Integer clickip4, Integer targetpageip, Integer staytimeip1,
+			Integer staytimeip2, Integer staytimeip3, Integer staytimeip4,
+			Integer scrollip1, Integer scrollip2, Integer scrollip3,
+			Integer scrollip4, Integer moveip1, Integer moveip2,
+			Integer moveip3, Integer moveip4, Integer olduserip,
+			Integer loginip, Integer oldip, Integer uv, Date date) {
+		super();
+		this.siteId = siteId;
+		this.domainId = domainId;
+		this.ip = ip;
+		this.pv = pv;
+		this.clickip1 = clickip1;
+		this.clickip2 = clickip2;
+		this.clickip3 = clickip3;
+		this.clickip4 = clickip4;
+		this.targetpageip = targetpageip;
+		this.staytimeip1 = staytimeip1;
+		this.staytimeip2 = staytimeip2;
+		this.staytimeip3 = staytimeip3;
+		this.staytimeip4 = staytimeip4;
+		this.scrollip1 = scrollip1;
+		this.scrollip2 = scrollip2;
+		this.scrollip3 = scrollip3;
+		this.scrollip4 = scrollip4;
+		this.moveip1 = moveip1;
+		this.moveip2 = moveip2;
+		this.moveip3 = moveip3;
+		this.moveip4 = moveip4;
+		this.olduserip = olduserip;
+		this.loginip = loginip;
+		this.oldip = oldip;
+		this.uv = uv;
+		this.date = date;
+	}
+
+	public AdaDomainNotad15mStat(Integer siteId, Integer domainId, Integer ip,
+			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
+			Integer clickip4, Integer targetpageip, Integer staytimeip1,
+			Integer staytimeip2, Integer staytimeip3, Integer staytimeip4,
+			Integer scrollip1, Integer scrollip2, Integer scrollip3,
+			Integer scrollip4, Integer moveip1, Integer moveip2,
+			Integer moveip3, Integer moveip4, Integer olduserip,
+			Integer loginip, Integer oldip, Integer uv, Date date,
+			Timestamp startTime, Timestamp endTime) {
+		super();
+		this.siteId = siteId;
+		this.domainId = domainId;
+		this.ip = ip;
+		this.pv = pv;
+		this.clickip1 = clickip1;
+		this.clickip2 = clickip2;
+		this.clickip3 = clickip3;
+		this.clickip4 = clickip4;
+		this.targetpageip = targetpageip;
+		this.staytimeip1 = staytimeip1;
+		this.staytimeip2 = staytimeip2;
+		this.staytimeip3 = staytimeip3;
+		this.staytimeip4 = staytimeip4;
+		this.scrollip1 = scrollip1;
+		this.scrollip2 = scrollip2;
+		this.scrollip3 = scrollip3;
+		this.scrollip4 = scrollip4;
+		this.moveip1 = moveip1;
+		this.moveip2 = moveip2;
+		this.moveip3 = moveip3;
+		this.moveip4 = moveip4;
+		this.olduserip = olduserip;
+		this.loginip = loginip;
+		this.oldip = oldip;
+		this.uv = uv;
+		this.date = date;
+		this.startTime = startTime;
+		this.endTime = endTime;
+	}
+	
 	
 	
 }
