@@ -203,18 +203,8 @@ th:last-child,td:last-child {
 	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
 	                <tr>
 	                	<%-- <c:if test="${domain.channelNum>0}"><td style="min-width: 120px;" title="${domain.domain}"><a style="text-decoration:underline;color: #333;" href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}</a> </td></c:if> --%>
-	                		<td style="min-width: 120px;" title="${domain.domain}"><a style="text-decoration:underline;color: #333;"  href="javascript:void(0);" data-toggle="dropdown">${domain.subDomain}</a>
-	                			<ul class="dropdown-menu" role="menu">
-	                				<li>
-                                        <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domain.id}')">分时统计</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（广告入口）</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionNotAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（非广告入口）</a>
-                                    </li>
-                                </ul>
+	                		<td style="min-width: 120px;" title="${domain.domain}"><div style="text-decoration:underline;color: #333;"  data-target="#context-menu${domain.id}" data-toggle="dropdown" >${domain.subDomain}</div>
+	                			
 	                		</td>
 	                	
 	                	
@@ -243,10 +233,31 @@ th:last-child,td:last-child {
 						<td style="min-width: 80px">${domain.moveip4} (${domain.m4}%)</td>
 	                </tr>
 	                </c:forEach>
+	                
+	                <c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
+						<div id="context-menu${domain.id}" style="z-index: 999;position:relative;">
+							<ul class="dropdown-menu" role="menu" style="z-index: 99999">
+							<li>
+							                   <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domain.id}')">分时统计</a>
+							     </li>
+							     <li>
+							         <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（广告入口）</a>
+							     </li>
+							     <li>
+							         <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionNotAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（非广告入口）</a>
+							     </li>
+							 </ul>
+							 </div>
+						 </c:forEach>
 	            </tbody>
+	            
+	            
 	        </table>
+	        
+	        
 	</div>
 </div>
+
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
@@ -373,7 +384,7 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 
-	 t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+	// t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 	  
 	 function ajaxRefreshPage(){
 		 jQuery.ajax({
