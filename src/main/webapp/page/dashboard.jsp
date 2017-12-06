@@ -250,8 +250,8 @@ th:last-child,td:last-child {
 	                 <c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
 						<div id="context-menu${domain.id}" style="position: absolute;z-index: 999;">
 							<ul class="dropdown-menu" role="menu" style="z-index: 99999">
-							<li>
-							                   <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domain.id}')">分时统计</a>
+								<li>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domain.id}')">分时统计</a>
 							     </li>
 							     <li>
 							         <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（广告入口）</a>
@@ -260,8 +260,8 @@ th:last-child,td:last-child {
 							         <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionNotAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（非广告入口）</a>
 							     </li>
 							 </ul>
-							 </div>
-						 </c:forEach>
+						</div>
+					</c:forEach>
 	            </tbody>
 	            
 	            
@@ -397,7 +397,7 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 
-	// t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+	 t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 	  
 	 function ajaxRefreshPage(){
 		 jQuery.ajax({
@@ -414,13 +414,14 @@ var initTable1 = function () {
 						var list = json.ChannelStat_list;
 						var open = "";
 						var lefttale = "";
-						
+						var menu = "";
 						/** 域名数据列表 **/
 						var domainList = json.DomainStat_list;
 						var domain = "";
 						for(var i=0;i<domainList.length;i++){
 							var tr = "";
 						    var tr2 = "";
+						    var tr3 = "";
 						  		tr+="<tr>" + 
 							      "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' >"+domainList[i].subDomain+"</a></td>"+
 								  "<td >"+domainList[i].ip+"</td>"+
@@ -449,7 +450,7 @@ var initTable1 = function () {
 								  "</tr>";
 								  open+=tr;
 								  
-						  		tr2+="<tr>"+
+						  		/* tr2+="<tr>"+
 						          "<td  title='"+domainList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-toggle='dropdown'>"+domainList[i].subDomain+"</a>"+
 							         "<ul class='dropdown-menu' role='menu'>"+
 			                			"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+domainList[i].id+"\")'>分时统计</a></li>"+
@@ -458,8 +459,22 @@ var initTable1 = function () {
 						          "</ul></td>"+
 								  "<td style='min-width: 80px'>"+domainList[i].ip+"</td>"+
 								  "<td style='min-width: 80px'>"+domainList[i].pv+"</td>"+
-									"</tr>";
+									"</tr>"; */
+									tr2+="<tr>"+
+							          "<td  title='"+domainList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+domainList[i].id+"' data-toggle='dropdown'>"+domainList[i].subDomain+"</a>"+
+								         "</td>"+
+									  "<td style='min-width: 80px'>"+domainList[i].ip+"</td>"+
+									  "<td style='min-width: 80px'>"+domainList[i].pv+"</td>"+
+										"</tr>";
 									lefttale+=tr2;
+									
+									tr3+="<div id='context-menu"+domainList[i].id+"' style='position: absolute;z-index: 999;'>"+
+										"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
+											"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+domainList[i].id+"\")'>分时统计</a></li>"+
+		                                	 "<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_regionAd.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>地域统计（广告入口）</a></li>"+
+		                                 	"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_regionNotAd.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>地域统计（非广告入口）</a></li>"+
+								      	"</ul></div>";
+								      	menu+=tr3;
 						  	/* }else{
 						  		tr+="<tr>" + 
 							      "<td  title='"+domainList[i].domain+"'>"+domainList[i].subDomain+"</td>"+
@@ -502,7 +517,7 @@ var initTable1 = function () {
 							jQuery("#tbody").empty();
 							jQuery("#tbody").append(open);
 							jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
-							jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttale);
+							jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttale+menu);
 							jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
 						}
 						
