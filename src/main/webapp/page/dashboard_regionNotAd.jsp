@@ -91,7 +91,7 @@ th:last-child,td:last-child {
 	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;">
 		<div class="caption" style="padding-bottom: 0px;">
             <i class="icon-directions font-green hide"></i>
-            <span class="caption-subject bold font-dark  ">地域统计</span>
+            <span class="caption-subject bold font-dark  ">地域统计（非广告入口）</span>
             <span class="caption-helper" id="lasttime">${domain}</span>
         </div>
         <div class="inputs">
