@@ -954,14 +954,14 @@
 				graphs: [{
 					valueField: "pv",
 	                classNameField: "bulletClass",
-	                title: "IP",
+	                title: "PV",
 	                type: "line",
 	                valueAxis: "a1",
 	                lineColor: "#e26a6a",
 	                lineThickness: 2,
 	                legendValueText: "[[value]] ",
 	                labelPosition: "right",
-	                balloonText: "IP:[[value]]",
+	                balloonText: "PV:[[value]]",
 	                showBalloon: !0,
 	                animationPlayed: !0
 					 },{
@@ -970,7 +970,7 @@
 		                title: "IP",
 		                type: "line",
 		                valueAxis: "a1",
-		                lineColor: "#e26a6a",
+		                lineColor: "green",
 		                lineThickness: 2,
 		                legendValueText: "[[value]] ",
 		                labelPosition: "right",
