@@ -66,7 +66,7 @@
                   <span class="caption-subject font-dark bold uppercase">基本数据</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="tools" style="margin-left: 15px;">
+              <div class="tools" style="margin-right: 15px;">
                    <a href="javascript:;" class="collapse"> </a>
                    <a href="javascript:;" class="fullscreen"> </a>
                </div>
@@ -89,7 +89,7 @@
                   <span class="caption-subject font-dark bold uppercase">用户分析</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="tools" style="margin-left: 15px;">
+              <div class="tools" style="margin-right: 15px;">
                    <a href="javascript:;" class="collapse"> </a>
                    <a href="javascript:;" class="fullscreen"> </a>
                </div>
@@ -109,7 +109,7 @@
                   <span class="caption-subject font-dark bold uppercase">用户分析</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="tools" style="margin-left: 15px;">
+              <div class="tools" style="margin-right: 15px;">
                    <a href="javascript:;" class="collapse"> </a>
                    <a href="javascript:;" class="fullscreen"> </a>
                </div>
@@ -132,7 +132,7 @@
                   <span class="caption-subject font-dark bold uppercase">页面停留时长</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="tools" style="margin-left: 15px;">
+              <div class="tools" style="margin-right: 15px;">
                    <a href="javascript:;" class="collapse"> </a>
                    <a href="javascript:;" class="fullscreen"> </a>
                </div>
@@ -152,7 +152,7 @@
                   <span class="caption-subject font-dark bold uppercase">页面停留时长</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="tools" style="margin-left: 15px;">
+              <div class="tools" style="margin-right: 15px;">
                    <a href="javascript:;" class="collapse"> </a>
                    <a href="javascript:;" class="fullscreen"> </a>
                </div>
@@ -175,7 +175,7 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标点击</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="tools" style="margin-left: 15px;">
+              <div class="tools" style="margin-right: 15px;">
                    <a href="javascript:;" class="collapse"> </a>
                    <a href="javascript:;" class="fullscreen"> </a>
                </div>
@@ -195,7 +195,7 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标点击</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="tools" style="margin-left: 15px;">
+              <div class="tools" style="margin-right: 15px;">
                    <a href="javascript:;" class="collapse"> </a>
                    <a href="javascript:;" class="fullscreen"> </a>
                </div>
@@ -219,7 +219,7 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标滚动</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="tools" style="margin-left: 15px;">
+              <div class="tools" style="margin-right: 15px;">
                    <a href="javascript:;" class="collapse"> </a>
                    <a href="javascript:;" class="fullscreen"> </a>
                </div>
@@ -239,7 +239,7 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标滚动</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="tools" style="margin-left: 15px;">
+              <div class="tools" style="margin-right: 15px;">
                    <a href="javascript:;" class="collapse"> </a>
                    <a href="javascript:;" class="fullscreen"> </a>
                </div>
@@ -262,7 +262,7 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标移动</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="tools" style="margin-left: 15px;">
+              <div class="tools" style="margin-right: 15px;">
                    <a href="javascript:;" class="collapse"> </a>
                    <a href="javascript:;" class="fullscreen"> </a>
                </div>
@@ -282,7 +282,7 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标移动</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="tools" style="margin-left: 15px;">
+              <div class="tools" style="margin-right: 15px;">
                    <a href="javascript:;" class="collapse"> </a>
                    <a href="javascript:;" class="fullscreen"> </a>
                </div>
