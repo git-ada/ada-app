@@ -13,7 +13,9 @@ import redis.clients.jedis.Jedis;
 import com.ada.app.bean.DomainAreaStat;
 import com.ada.app.constant.RedisKeys;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
+import com.ada.app.dao.AdaDomainAdStatDao;
 import com.ada.app.dao.AdaDomainNotAd15mStatDao;
+import com.ada.app.dao.AdaDomainNotAdStatDao;
 import com.ada.app.domain.AdaChannelStat;
 import com.ada.app.domain.AdaDomainAd15mStat;
 import com.ada.app.domain.AdaDomainAdStat;
@@ -35,9 +37,9 @@ public class StatServiceImpl implements StatService{
 	@Autowired
 	private AdaDomainAd15mStatDao adaDomainAd15mStatDao;
 	@Autowired
-	private AdaDomainAd15mStatDao adaDomainAdStatDao;
+	private AdaDomainAdStatDao adaDomainAdStatDao;
 	@Autowired
-	private AdaDomainAd15mStatDao adaDomainNotAdStatDao;
+	private AdaDomainNotAdStatDao adaDomainNotAdStatDao;
 	
 	public AdaSiteStat statSite(Integer site, Date date) {
 		Jedis jedis = getJedis(date);
@@ -375,7 +377,6 @@ public class StatServiceImpl implements StatService{
 		//广告数据
 		AdaDomainAdStat statDomainAd = statDomainAd(siteId, domainId, date);
 		//非广告数据 = 总统计数据 - 广告数据
-		
 		domainIP = statDomain.getIp()-statDomainAd.getIp();
 		if(domainIP != 0){
 			site_domainPV = statDomain.getPv()- statDomainAd.getPv();
@@ -433,10 +434,10 @@ public class StatServiceImpl implements StatService{
 		//当前累计广告统计数据
 		AdaDomainAdStat currentAdStat = statDomainAd(siteId, domainId, date);
 		//历史广告统计数据
-		AdaDomainAd15mStat aDA15HS = adaDomainAdStatDao.findLast(siteId, domainId);
+		AdaDomainAdStat aDA15HS = adaDomainAdStatDao.findLast(siteId, domainId);
 //		AdaDomainAd15mStat aDA15HS = adaDomainAd15mHistryStat(siteId, domainId);
 		if(aDA15HS == null){
-			aDA15HS= new AdaDomainAd15mStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2,
+			aDA15HS= new AdaDomainAdStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2,
 					staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
 		}
 		domainIP = currentAdStat.getIp()-aDA15HS.getIp();
@@ -497,10 +498,9 @@ public class StatServiceImpl implements StatService{
 		//当前累计非广告统计数据
 		AdaDomainNotadStat currentNotAdStat = statDomainNotAd(siteId, domainId, date);
 		//历史非广告统计数据
-		AdaDomainAd15mStat aDNA15HS = adaDomainNotAdStatDao.findLast(siteId, domainId);
-//		AdaDomainNotad15mStat aDNA15HS = adaDomainNotAd15mStatDao.findLast(siteId, domainId);
+		AdaDomainNotadStat aDNA15HS = adaDomainNotAdStatDao.findLast(siteId, domainId);
 		if(aDNA15HS == null){
-			aDNA15HS= new AdaDomainAd15mStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2,
+			aDNA15HS= new AdaDomainNotadStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2,
 					staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
 		}
 		domainIP = currentNotAdStat.getIp()-aDNA15HS.getIp();
