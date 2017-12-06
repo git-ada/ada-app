@@ -241,10 +241,8 @@ public class StatServiceImpl implements StatService{
 			
 		}
 		returnResource(date,jedis);
-		return new AdaDomainStat(siteId, domainId, domainIP, site_domainPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date,staytimeip1,staytimeip2,staytimeip3,staytimeip4,
-				scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4,olduserip,oldip,loginip,domainUV);
-//		return new AdaDomainStat(siteId, domainId, 4, 1, 2, 2, 2, 5, 5, date,5,5,5,5,
-//				5,5,5,8,8,8,8,8,8,8,8,6);
+		return new AdaDomainStat(siteId, domainId, domainIP, site_domainPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date, staytimeip1, staytimeip2, staytimeip3, 
+		    		   staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, olduserip, oldip, loginip, domainUV);
 	}
 	
 	@Override
@@ -342,9 +340,8 @@ public class StatServiceImpl implements StatService{
 			
 		}
 		returnResource(date,jedis);
-		return new AdaDomainAdStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, 
-				clickip3, clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
-
+		return new AdaDomainAdStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, clickip3, 
+					   clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
 	}
 
 	@Override
@@ -402,8 +399,9 @@ public class StatServiceImpl implements StatService{
 			moveip3 = statDomain.getMoveip3()- statDomainAd.getMoveip3();
 			moveip4 = statDomain.getMoveip4()- statDomainAd.getMoveip4();
 		}
-		return new AdaDomainNotadStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, 
-				clickip3, clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
+		return new AdaDomainNotadStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, clickip1, clickip2, clickip3, clickip4,
+					   targetpageIP, staytimeip1, staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, 
+					   moveip1, moveip2, moveip3, moveip4, date);
 	}
 
 	@Override
@@ -437,8 +435,8 @@ public class StatServiceImpl implements StatService{
 		AdaDomainAdStat aDA15HS = adaDomainAdStatDao.findLast(siteId, domainId);
 //		AdaDomainAd15mStat aDA15HS = adaDomainAd15mHistryStat(siteId, domainId);
 		if(aDA15HS == null){
-			aDA15HS= new AdaDomainAdStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2,
-					staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
+			aDA15HS= new AdaDomainAdStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, clickip3, clickip4, 
+					 staytimeip1, staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
 		}
 		domainIP = currentAdStat.getIp()-aDA15HS.getIp();
 		if(domainIP != 0){
@@ -465,9 +463,9 @@ public class StatServiceImpl implements StatService{
 			moveip3 = currentAdStat.getMoveip3()- aDA15HS.getMoveip3();
 			moveip4 = currentAdStat.getMoveip4()- aDA15HS.getMoveip4();
 		}
-		return new AdaDomainAd15mStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP,
-				clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2, 
-				scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
+		return new AdaDomainAd15mStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, 
+						clickip3, clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4
+						, moveip1, moveip2, moveip3, moveip4, date);
 	}
 	
 	@Override
@@ -528,9 +526,9 @@ public class StatServiceImpl implements StatService{
 			moveip3 = currentNotAdStat.getMoveip3()- aDNA15HS.getMoveip3();
 			moveip4 = currentNotAdStat.getMoveip4()- aDNA15HS.getMoveip4();
 		}
-		return new AdaDomainNotad15mStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, 
-				clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2,
-				scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
+		return new AdaDomainNotad15mStat(siteId, domainId, domainIP, site_domainPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, staytimeip1, 
+		    		   staytimeip2, staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3,
+		    		   moveip4, olduserip, loginip, oldip, domainUV, date);
 	}
 	
 	protected Jedis getJedis(Date date){	
