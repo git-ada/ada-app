@@ -22,7 +22,7 @@ public interface AdaDomainNotAd15mStatDao extends EntityJpaDao<AdaDomainNotad15m
      */
     public AdaDomainNotad15mStat findById(Integer id);
     
-    @Query(value="select * from ada_domain_ad_15m_stat where siteId=? and domainId=? order by createTime desc limit 1",nativeQuery=true)
+    @Query(value="select * from ada_domain_notad_15m_stat where siteId=? and domainId=? order by createTime desc limit 1",nativeQuery=true)
     public AdaDomainNotad15mStat findLast(Integer siteId,Integer domainId);
     
     /** 
