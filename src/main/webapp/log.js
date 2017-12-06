@@ -22,7 +22,7 @@ function adaPageIn(){
 		adaPageInTime = new Date();
 		/** 获得站点ID **/
 		adaSiteId = adaGetSiteId();
-		if(!(/^\d+$/.test(adaGetcookie("ssss").split("=")[1]))){  
+		if(!(/^\d+$/.test(adaGetcookie("KaiEcGsT").split("=")[1]))){  
 			delCookie("KaiEcGsT");
 		}
 		/** 判断如果Cookie中未生成客户端ID,则生成新的客户端ID **/
@@ -48,8 +48,9 @@ function adaPageIn(){
 	} catch(e){
 	}
 }
+
 /** 清除cookie  **/
-function delCookie(name){
+function adaDelCookie(name){
 	var exp = new Date();
 	exp.setTime(exp.getTime() - 1);
 	var cval = adaGetcookie(name).split("=")[1];
