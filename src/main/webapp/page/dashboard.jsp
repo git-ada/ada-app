@@ -203,8 +203,21 @@ th:last-child,td:last-child {
 	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
 	                <tr>
 	                	<%-- <c:if test="${domain.channelNum>0}"><td style="min-width: 120px;" title="${domain.domain}"><a style="text-decoration:underline;color: #333;" href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}</a> </td></c:if> --%>
-	                		<td style="min-width: 120px;" title="${domain.domain}"><div style="text-decoration:underline;color: #333;"  data-target="#context-menu${domain.id}" data-toggle="dropdown" >${domain.subDomain}</div>
-	                			
+	                		<td style="min-width: 120px;" title="${domain.domain}">
+	                		<a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${domain.id}" data-toggle="dropdown" >${domain.subDomain}</a>
+	                			<%-- <div id="context-menu${domain.id}" style="z-index: 99999;position: absolute;float: right;" >
+		                			<ul class="dropdown-menu" role="menu" style="z-index: 99999;position: absolute;" >
+										<li>
+								          <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domain.id}')">分时统计</a>
+								     </li>
+								     <li>
+								         <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（广告入口）</a>
+								     </li>
+								     <li>
+								         <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionNotAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（非广告入口）</a>
+								     </li>
+								 </ul>
+								</div> --%>
 	                		</td>
 	                	
 	                	
@@ -234,8 +247,8 @@ th:last-child,td:last-child {
 	                </tr>
 	                </c:forEach>
 	                
-	                <c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
-						<div id="context-menu${domain.id}" style="z-index: 999;position:relative;">
+	                 <c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
+						<div id="context-menu${domain.id}" style="position: absolute;z-index: 999;">
 							<ul class="dropdown-menu" role="menu" style="z-index: 99999">
 							<li>
 							                   <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domain.id}')">分时统计</a>
