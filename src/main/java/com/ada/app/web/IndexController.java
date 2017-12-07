@@ -146,7 +146,7 @@ public class IndexController {
 	public String dashboard_domainTime(HttpServletRequest request,HttpServletResponse response, Model model,
 			String domainId){
 		if(domainId!=null && !"".equals(domainId)){
-			JSONObject json = domainTimechartList(Integer.valueOf(domainId));
+			JSONObject json = domainTimechartList(Integer.valueOf(domainId),12,15);
 			
 			model.addAttribute("json", json);
 		}
@@ -351,10 +351,10 @@ public class IndexController {
 	 * 获取域名广告入口和非广告入口图形数据
 	 * @return
 	 */
-	protected JSONObject domainTimechartList(Integer domainId){
+	protected JSONObject domainTimechartList(Integer domainId,int pageSize,int len){
 		
-		List<AdaDomainAd15mStat> adList = ad15mStatDao.findByDomainIdOrderByStartTime(domainId);
-		List<AdaDomainNotad15mStat> notadList = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId);
+		List<AdaDomainAd15mStat> adList = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,pageSize);
+		List<AdaDomainNotad15mStat> notadList = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,pageSize);
 		JSONObject json=new JSONObject();
 		JSONArray ad_chart_1=new JSONArray();//老用户数、老ip、登陆用户数、进入目标页
 		JSONArray notad_chart_1=new JSONArray();
@@ -536,6 +536,13 @@ public class IndexController {
 				}
 				notad_chart_6.add(json_notadChart_6);
 			}
+			/*if(ad_chart_1.size()<pageSize){
+				for(int i=0;i<pageSize;i++){
+					String date = ad_chart_1.getJSONObject(ad_chart_1.size()-1).getString("date");
+					JSONObject json_item=new JSONObject();
+					//json_item.put("date", dates);
+				}
+			}*/
 			
 			json.put("ad_chart_1", ad_chart_1);
 			json.put("notad_chart_1", notad_chart_1);
@@ -562,6 +569,7 @@ public class IndexController {
 		 /** 域名列表信息 **/
 		 List<Map> DomainStat_list = new ArrayList<Map>();
 		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
+		 log.info("获取域名列表长度：----->"+domains.size());
 		 Integer domainSumIP = 0;/** 渠道ip总数 **/
 		 Integer domainSumPV = 0;/** 渠道PV总数 **/
 		 

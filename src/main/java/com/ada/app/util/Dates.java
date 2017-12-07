@@ -625,7 +625,23 @@ public class Dates {
 		   }
 		return sb.toString();
 	}
-	
+	/**
+	 * 获取当前时间的前几分钟时间(HH:mm)
+	 * @param dateStr HH:mm 时：分
+	 * @param len 前几分钟
+	 * @return
+	 */
+	public static String getbeforeTime(String dateStr,int len){
+		Calendar can = Calendar.getInstance();
+		try {
+			can.setTime(new SimpleDateFormat("HH:mm").parse(dateStr));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		can.add(Calendar.MINUTE, -len);
+		return can.get(Calendar.HOUR_OF_DAY)+":"+ can.get(Calendar.MINUTE);
+	}
 
 	public static void main(String[] args) {
 		Date current = parse("2012-12-31");
