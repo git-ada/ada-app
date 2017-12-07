@@ -146,11 +146,11 @@ public class IndexController {
 	public String dashboard_domainTime(HttpServletRequest request,HttpServletResponse response, Model model,
 			String domainId){
 		if(domainId!=null && !"".equals(domainId)){
-			JSONObject json = domainTimechartList(Integer.valueOf(domainId),12,15);
+			JSONObject json = domainTimechartList(Integer.valueOf(domainId),24,15);
 			
 			model.addAttribute("json", json);
 		}
-		
+		model.addAttribute("domainId", domainId);
 		
 		return "dashboard_domainTime";
 	}
