@@ -874,7 +874,7 @@ public class IndexController {
 			map.put("regionName", regionName);
 			 
 			 Integer ip = regionAd.getIp();
-			 if(ip>0){
+			 if(ip>10){
 				 Integer clickip1=0;
 				 Integer clickip2=0;
 				 Integer clickip3=0;
