@@ -72,7 +72,7 @@ public class AdaDomain extends AbstractEntity<Integer> {
 		this.createTime = createTime;
 	}
 	
-	private List<AdaChannel> adaChannels;
+	/*private List<AdaChannel> adaChannels;
 	@OneToMany(cascade = CascadeType.REFRESH, targetEntity = AdaChannel.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "domainId", insertable = false, updatable = false)
 	@NotFound(action=NotFoundAction.IGNORE)
@@ -82,7 +82,7 @@ public class AdaDomain extends AbstractEntity<Integer> {
 
 	public void setAdaChannels(List<AdaChannel> adaChannels) {
 		this.adaChannels = adaChannels;
-	}
+	}*/
 
 	
 }
