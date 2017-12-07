@@ -138,7 +138,7 @@ public class ArchiveService {
 	public void archiveDomainAdAndNotAd() {
 		Timestamp ts = new Timestamp(System.currentTimeMillis());   
 		Date date = new Date();
-		calendar.add(Calendar.MINUTE, -15);
+		calendar.add(Calendar.MINUTE, -5);
 		String str = sdf.format(calendar.getTime());
 		try {
             ts = Timestamp.valueOf(str);   
