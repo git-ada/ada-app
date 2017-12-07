@@ -119,7 +119,11 @@ public class IndexController {
 		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
 		
 		/** 获取站点下域名统计信息 **/
+		Long startTime = System.currentTimeMillis();
 		Map sumMap = getDomainStat_list(today);
+		Long endTime = System.currentTimeMillis();
+		Long cost = endTime - startTime;
+		log.info("实时数据页面获取数据列表耗时：--->"+cost+"ms");
 		//List<Map> ChannelStat_list = (List<Map>) sumMap.get("ChannelStat_list");
 		List<Map> DomainStat_list = (List<Map>) sumMap.get("DomainStat_list");
 		 
