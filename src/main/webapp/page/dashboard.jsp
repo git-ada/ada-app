@@ -173,7 +173,7 @@ th:last-child,td:last-child {
 		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column" style="border: 0">
 	            <thead>
 	                <tr>
-						<th scope="col" style="min-width: 120px;">域名</th>
+						<th scope="col" style="min-width: 150px;">域名</th>
 						<th scope="col" style="min-width: 80px">IP</th>			
 						<th scope="col" style="min-width: 80px">PV</th>
 						<th scope="col" style="min-width: 80px">UV</th>
@@ -203,7 +203,7 @@ th:last-child,td:last-child {
 	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
 	                <tr>
 	                	<%-- <c:if test="${domain.channelNum>0}"><td style="min-width: 120px;" title="${domain.domain}"><a style="text-decoration:underline;color: #333;" href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}</a> </td></c:if> --%>
-	                		<td style="min-width: 120px;" title="${domain.domain}">
+	                		<td style="min-width: 150px;" title="${domain.domain}">
 	                		<a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${domain.id}" data-toggle="dropdown" >${domain.subDomain}</a>
 	                			<%-- <div id="context-menu${domain.id}" style="z-index: 99999;position: absolute;float: right;" >
 		                			<ul class="dropdown-menu" role="menu" style="z-index: 99999;position: absolute;" >

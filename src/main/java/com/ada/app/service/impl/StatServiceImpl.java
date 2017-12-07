@@ -151,6 +151,7 @@ public class StatServiceImpl implements StatService{
 		try {
 			//取出域名IPSet集合
 			int domainIP = jedis.scard(RedisKeys.DomainIP.getKey()+domainId+"").intValue();
+			log.info("Redis取值Key--->"+RedisKeys.DomainIP.getKey()+domainId+"取出的值：--->"+domainIP);
 			return domainIP;
 		} finally{
 			returnResource(date,jedis);
