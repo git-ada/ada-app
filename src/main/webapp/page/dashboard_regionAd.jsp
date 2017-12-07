@@ -101,7 +101,7 @@ th:last-child,td:last-child {
             </div> -->
             
             <div class="actions" style="float: left;">
-				<a class="btn btn-circle btn-icon-only btn-default pause" onclick="gotoHistoryPage(-1)" ><i class="icon-control-rewind" ></i></a>
+				<a class="btn btn-circle btn-icon-only btn-default pause" onclick="gotoPage('${pageContext.request.contextPath}/dashboard.jhtm')" ><i class="icon-control-rewind" ></i></a>
 				<!-- 
 				<a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-control-pause"></i></a>  icon-control-pause
 				 -->
