@@ -588,6 +588,8 @@ public class IndexController {
 			}
 		 });
 		 
+		 log.info("IP大于0的域名列表长度：---->"+domainIps.size());
+		 
 		 for(int i=0;i<domainIps.size()&&i<pageSize;i++){
 			Integer domainId = domainIps.get(i)[0];
 			Integer domainIp = domainIps.get(i)[1];
