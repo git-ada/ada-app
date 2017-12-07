@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -23,12 +25,13 @@ import com.ada.app.domain.AdaDomainNotad15mStat;
 import com.ada.app.domain.AdaDomainNotadStat;
 import com.ada.app.domain.AdaDomainStat;
 import com.ada.app.domain.AdaSiteStat;
+import com.ada.app.job.ArchiveJob;
 import com.ada.app.service.JedisPools;
 import com.ada.app.service.StatService;
 
 @Service
 public class StatServiceImpl implements StatService{
-	
+	private final static Log log = LogFactory.getLog(StatServiceImpl.class);
 	@Autowired
     private  JedisPools jedisPools;//自动切库,周一至周日每天一库
 	
@@ -652,8 +655,11 @@ public class StatServiceImpl implements StatService{
 	@Override
 	public DomainAreaStat statDomainRegionNotAd(String regionName,Integer domainId, Date date) {
 		
+		log.info("开始计算地域非广告入口数据");
+		
 		DomainAreaStat all = statDomainRegion(regionName,domainId,date);
 		DomainAreaStat ad = statDomainRegionAd(regionName,domainId,date);
+		log.info("all_IP-->"+all.getIp()+",ad_IP--->"+ad.getIp());
 		Integer IP = all.getIp()-ad.getIp();
 		Integer PV = all.getPv()-ad.getPv();
 		Integer UV = all.getUv()-ad.getUv();
