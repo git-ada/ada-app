@@ -219,6 +219,8 @@ public class ArchiveService {
 		AdaDomainStat newall = statService.statDomain(siteId, domainId, endTime);//全部新数据
 		AdaDomainAdStat newad = statService.statDomainAd(siteId, domainId, endTime);//广告新数据
 		AdaDomainNotadStat newnotad = reduct(newall, newad, AdaDomainNotadStat.class);//非广告入口新数据=全部-非广告的
+		newnotad.setSiteId(siteId);
+		newnotad.setDomainId(domainId);
 		
 		AdaDomainAdStat oldad = adaDomainAdStatDao.findLast(siteId, domainId);//广告入口老数据
 		AdaDomainNotadStat oldnotad = adaDomainNotAdStatDao.findLast(siteId, domainId);//非广告入口数据
@@ -240,11 +242,15 @@ public class ArchiveService {
 		newnotad.setDate(today);
 		newnotad.setCreateTime(now);
 		
+		ad15m.setSiteId(siteId);
+		ad15m.setDomainId(domainId);
 		ad15m.setStartTime(startTime);
 		ad15m.setEndTime(endTime);
 		ad15m.setDate(today);
 		ad15m.setCreateTime(now);
 		
+		notad15m.setSiteId(siteId);
+		notad15m.setDomainId(domainId);
 		notad15m.setStartTime(startTime);
 		notad15m.setEndTime(endTime);
 		notad15m.setDate(today);
