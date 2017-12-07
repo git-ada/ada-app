@@ -151,20 +151,8 @@ public class ArchiveService {
 			List<AdaDomain> domains = adaDomainDao.findBySiteId(site.getId());
 			for(AdaDomain domain:domains){
 				try {
-					/** 广告数据归档 **/
-					AdaDomainAdStat statDomainAd = statService.statDomainAd(site.getId(), domain.getId(), date);
-//					if(statDomainAd.getIp()>0){
-						statDomainAd.setCreateTime(Dates.now());
-						adaDomainAdStatDao.save(statDomainAd);
-						log.info("域名 :"+statDomainAd.getDomainId()+" 广告数据归档成功");
-//					}
-					/** 非广告数据归档 **/
-					AdaDomainNotadStat statDomainNotAd = statService.statDomainNotAd(site.getId(), domain.getId(), date);
-//					if(statDomainNotAd.getIp()>0){
-						statDomainNotAd.setCreateTime(Dates.now());
-						adaDomainNotadStatDao.save(statDomainNotAd);
-						log.info("域名 :"+statDomainAd.getDomainId()+" 非广告数据归档成功");
-//					}
+					
+					
 					/** 15m广告数据归档 **/
 					AdaDomainAd15mStat statDomainAd15m = statService.statDomainAd15m(site.getId(), domain.getId(), date);
 //					if(statDomainAd15m.getIp()>0){
@@ -183,6 +171,21 @@ public class ArchiveService {
 						adaDomainNotAd15mStatDao.save(statDomainNotAd15m);
 						log.info("域名 :"+statDomainNotAd15m.getDomainId()+" 15m非广告数据归档成功");
 //					}
+						
+					/** 广告数据归档 **/
+					AdaDomainAdStat statDomainAd = statService.statDomainAd(site.getId(), domain.getId(), date);
+//						if(statDomainAd.getIp()>0){
+						statDomainAd.setCreateTime(Dates.now());
+						adaDomainAdStatDao.save(statDomainAd);
+						log.info("域名 :"+statDomainAd.getDomainId()+" 广告数据归档成功");
+//						}
+					/** 非广告数据归档 **/
+					AdaDomainNotadStat statDomainNotAd = statService.statDomainNotAd(site.getId(), domain.getId(), date);
+//						if(statDomainNotAd.getIp()>0){
+						statDomainNotAd.setCreateTime(Dates.now());
+						adaDomainNotadStatDao.save(statDomainNotAd);
+						log.info("域名 :"+statDomainNotAd.getDomainId()+" 非广告数据归档成功");
+//						}
 				} catch (Exception e) {
 					log.error("域名 "+domain.getId()+":"+domain.getDomain()+" 归档失败,Msg->"+e.getMessage(),e);
 				}
