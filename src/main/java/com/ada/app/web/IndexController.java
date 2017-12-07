@@ -368,6 +368,30 @@ public class IndexController {
 		JSONArray notad_chart_5=new JSONArray();
 		JSONArray ad_chart_6=new JSONArray();// IP、PV、UV
 		JSONArray notad_chart_6=new JSONArray();
+		/*if(adList.size()<15){
+			for(int i=0;i<15-adList.size();i++){
+				String date = new SimpleDateFormat("HH:mm").format(adList.get(adList.size()-1).getEndTime());
+				JSONObject json_item_1=new JSONObject();
+				json_item_1.put("date", com.ada.app.util.Dates.getbeforeTime(date, len*(i+1)));
+				json_item_1.put("ip", 0);
+				json_item_1.put("pv", 0);
+				json_item_1.put("uv", 0);
+				
+				ad_chart_6.add(json_item_1);
+				notad_chart_6.add(json_item_1);
+				ad_chart_2.add(json_item);
+				notad_chart_2.add(json_item);
+				ad_chart_3.add(json_item);
+				notad_chart_3.add(json_item);
+				ad_chart_4.add(json_item);
+				notad_chart_4.add(json_item);
+				ad_chart_5.add(json_item);
+				notad_chart_5.add(json_item);
+				ad_chart_6.add(json_item);
+				notad_chart_6.add(json_item);
+			}
+		}*/
+		
 		
 		try {
 			for(int i=adList.size()-1;i>=0;i--){
@@ -536,13 +560,7 @@ public class IndexController {
 				}
 				notad_chart_6.add(json_notadChart_6);
 			}
-			/*if(ad_chart_1.size()<pageSize){
-				for(int i=0;i<pageSize;i++){
-					String date = ad_chart_1.getJSONObject(ad_chart_1.size()-1).getString("date");
-					JSONObject json_item=new JSONObject();
-					//json_item.put("date", dates);
-				}
-			}*/
+			
 			
 			json.put("ad_chart_1", ad_chart_1);
 			json.put("notad_chart_1", notad_chart_1);
@@ -569,7 +587,6 @@ public class IndexController {
 		 /** 域名列表信息 **/
 		 List<Map> DomainStat_list = new ArrayList<Map>();
 		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
-		 log.info("获取域名列表长度：----->"+domains.size());
 		 Integer domainSumIP = 0;/** 渠道ip总数 **/
 		 Integer domainSumPV = 0;/** 渠道PV总数 **/
 		 
@@ -577,7 +594,6 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 log.info("Redis取出的域名IP值：--->"+domainIp);
 			 if(domainIp!=null && domainIp>0){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
@@ -589,7 +605,6 @@ public class IndexController {
 			}
 		 });
 		 
-		 log.info("IP大于0的域名列表长度：---->"+domainIps.size());
 		 
 		 for(int i=0;i<domainIps.size()&&i<pageSize;i++){
 			Integer domainId = domainIps.get(i)[0];
@@ -733,7 +748,6 @@ public class IndexController {
 		 
 		 Map map = new HashMap();
 		
-		 log.info("返回域名数据列表长度：---->"+DomainStat_list.size());
 		 map.put("DomainStat_list", DomainStat_list);
 		 map.put("domainSumIP", domainSumIP);
 		 map.put("domainSumPV", domainSumPV);
