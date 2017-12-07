@@ -120,7 +120,7 @@ public class IndexController {
 		
 		/** 获取站点下域名统计信息 **/
 		Long startTime = System.currentTimeMillis();
-		Map sumMap = getDomainStat_list(today);
+		Map sumMap = getDomainStat_list(today,20);
 		Long endTime = System.currentTimeMillis();
 		Long cost = endTime - startTime;
 		log.info("实时数据页面获取数据列表耗时：--->"+cost+"ms");
@@ -241,7 +241,7 @@ public class IndexController {
 		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
 		
 		/** 获取站点下域名统计信息 **/
-		Map sumMap = getDomainStat_list(today);
+		Map sumMap = getDomainStat_list(today,300);
 		List<Map> DomainStat_list = (List<Map>) sumMap.get("DomainStat_list");
 		
 		 json.put("siteStat", siteStat);
@@ -556,7 +556,7 @@ public class IndexController {
 	}
 	
 
-	protected Map getDomainStat_list(Date date){
+	protected Map getDomainStat_list(Date date,int pageSize){
 		/** 从sessions中获取站点信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();
 		 /** 域名列表信息 **/
@@ -580,7 +580,7 @@ public class IndexController {
 			}
 		 });
 		 
-		 for(int i=0;i<domainIps.size()&&i<300;i++){
+		 for(int i=0;i<domainIps.size()&&i<pageSize;i++){
 			Integer domainId = domainIps.get(i)[0];
 			Integer domainIp = domainIps.get(i)[1];
 			//Integer channelNum = domainIps.get(i)[2];
