@@ -577,7 +577,7 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 log.info("Redis取出的域名IP值：--->"+domainIp);
+//			 log.info("Redis取出的域名IP值：--->"+domainIp);
 			 if(domainIp!=null && domainIp>0){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
@@ -589,7 +589,7 @@ public class IndexController {
 			}
 		 });
 		 
-		 log.info("IP大于0的域名列表长度：---->"+domainIps.size());
+//		 log.info("IP大于0的域名列表长度：---->"+domainIps.size());
 		 
 		 for(int i=0;i<domainIps.size()&&i<pageSize;i++){
 			Integer domainId = domainIps.get(i)[0];
