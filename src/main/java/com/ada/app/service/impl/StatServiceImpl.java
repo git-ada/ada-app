@@ -448,12 +448,12 @@ public class StatServiceImpl implements StatService{
 		AdaDomainAdStat currentAdStat = statDomainAd(siteId, domainId, date);
 		//历史广告统计数据
 		AdaDomainAdStat aDA15HS = adaDomainAdStatDao.findLast(siteId, domainId);
-//		AdaDomainAd15mStat aDA15HS = adaDomainAd15mHistryStat(siteId, domainId);
 		
 		if(aDA15HS == null){
-			aDA15HS= new AdaDomainAdStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, 
-					targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4, 
-					scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
+			aDA15HS=currentAdStat;
+//			aDA15HS= new AdaDomainAdStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, 
+//					targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4, 
+//					scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
 		}
 		domainIP = currentAdStat.getIp()-aDA15HS.getIp();
 		if(domainIP != 0){
@@ -515,8 +515,9 @@ public class StatServiceImpl implements StatService{
 		//历史非广告统计数据
 		AdaDomainNotadStat aDNA15HS = adaDomainNotAdStatDao.findLast(siteId, domainId);
 		if(aDNA15HS == null){
-			aDNA15HS= new AdaDomainNotadStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2,
-					staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
+			aDNA15HS=currentNotAdStat;
+//			aDNA15HS= new AdaDomainNotadStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2,
+//					staytimeip3, staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, date);
 		}
 		domainIP = currentNotAdStat.getIp()-aDNA15HS.getIp();
 		if(domainIP != 0){
