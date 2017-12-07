@@ -730,7 +730,7 @@ public class IndexController {
 		 
 		 Map map = new HashMap();
 		
-		 
+		 log.info("返回域名数据列表长度：---->"+DomainStat_list.size());
 		 map.put("DomainStat_list", DomainStat_list);
 		 map.put("domainSumIP", domainSumIP);
 		 map.put("domainSumPV", domainSumPV);
