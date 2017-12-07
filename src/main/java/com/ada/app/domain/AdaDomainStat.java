@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.ada.app.bean.BaseStat;
+
 import cn.com.jiand.mvc.framework.domain.AbstractEntity;
 
 /**
@@ -23,7 +25,7 @@ import cn.com.jiand.mvc.framework.domain.AbstractEntity;
  */
 @Entity
 @Table(name = "ada_domain_stat")
-public class AdaDomainStat extends AbstractEntity<Integer> {
+public class AdaDomainStat extends AbstractEntity<Integer> implements BaseStat{
     /** ID */
 	private Integer id;                    
     /** 站点ID */

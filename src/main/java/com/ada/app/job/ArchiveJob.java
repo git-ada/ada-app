@@ -34,7 +34,9 @@ public class ArchiveJob {
 	public void excute2(){
 		log.info("开始执行广告、非广告、广告15m、非广告15m归档作业");
 		Long startTime = System.currentTimeMillis();
-		archiveService.archiveDomainAdAndNotAd();
+//		archiveService.archiveDomainAdAndNotAd();
+		
+		archiveService.archive15m();
 		Long endTime = System.currentTimeMillis();
 		Long cost = endTime - startTime;
 		

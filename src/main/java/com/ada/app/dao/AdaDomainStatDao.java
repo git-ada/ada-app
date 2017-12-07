@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import org.springframework.data.jpa.repository.Query;
 
 import cn.com.jiand.mvc.framework.dao.jpa.EntityJpaDao;
+
+import com.ada.app.domain.AdaDomainAdStat;
 import com.ada.app.domain.AdaDomainStat;
 
 /**
@@ -15,6 +17,9 @@ import com.ada.app.domain.AdaDomainStat;
  * @author Wanghl.cn By Code Generator
  */
 public interface AdaDomainStatDao extends EntityJpaDao<AdaDomainStat, Integer> {
+	
+    @Query(value="select * from ada_domain_ad_stat where siteId=? and domainId=? order by createTime desc limit 1",nativeQuery=true)
+    public AdaDomainStat findByDate(Integer siteId,Integer domainId);
 
     /** 
      *通过ID查询

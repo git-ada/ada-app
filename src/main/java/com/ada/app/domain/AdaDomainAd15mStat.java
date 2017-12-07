@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.ada.app.bean.BaseStat;
+
 import cn.com.jiand.mvc.framework.domain.AbstractEntity;
 
 /**
@@ -17,7 +20,7 @@ import cn.com.jiand.mvc.framework.domain.AbstractEntity;
  */
 @Entity
 @Table(name = "ada_domain_ad_15m_stat")
-public class AdaDomainAd15mStat extends AbstractEntity<Integer> {
+public class AdaDomainAd15mStat extends AbstractEntity<Integer> implements BaseStat{
     /** ID */
 	private Integer id;                    
     /** 站点ID */

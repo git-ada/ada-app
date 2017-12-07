@@ -10,25 +10,21 @@ import java.util.Locale;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ada.app.bean.DomainStat;
-import com.ada.app.dao.AdaAdPageDao;
+import com.ada.app.bean.BaseStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaChannelStatDao;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
 import com.ada.app.dao.AdaDomainAdStatDao;
+import com.ada.app.dao.AdaDomainDao;
 import com.ada.app.dao.AdaDomainNotAd15mStatDao;
 import com.ada.app.dao.AdaDomainNotAdStatDao;
+import com.ada.app.dao.AdaDomainStatDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaSiteStatDao;
-import com.ada.app.dao.AdaDomainDao;
-import com.ada.app.dao.AdaDomainStatDao;
-import com.ada.app.domain.AdaAdPage;
 import com.ada.app.domain.AdaChannel;
 import com.ada.app.domain.AdaChannelStat;
 import com.ada.app.domain.AdaDomain;
@@ -78,6 +74,9 @@ public class ArchiveService {
 	
 	@Autowired
 	private AdaDomainAdStatDao adaDomainAdStatDao;
+	
+	@Autowired
+	private AdaDomainNotAdStatDao adaDomainNotAdStatDao;
 	
 	private Calendar calendar = Calendar.getInstance();
 	private SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
@@ -194,6 +193,134 @@ public class ArchiveService {
 		calendar.clear();
 	}
 
+	
+	/**
+	 * 归档广告与非广告数据,每15分钟执行一次  
+	 */
+	private Timestamp lastTime = null;
+	
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
+	public void archive15m() {
+		Timestamp startTime = lastTime;
+		Timestamp endTime = Dates.now();
+		lastTime =  endTime;
+		List<AdaSite> sites = adaSiteDao.findAll();
+		for(AdaSite site:sites){
+			List<AdaDomain> domains = adaDomainDao.findBySiteId(site.getId());
+			for(AdaDomain domain:domains){
+				archiveDomain15m(domain,startTime,endTime);
+			}
+		}
+	}
+	
+	public void archiveDomain15m(AdaDomain domain,Timestamp startTime,Timestamp endTime) {
+		Integer siteId = domain.getSiteId();
+		Integer domainId = domain.getId();
+		AdaDomainStat newall = statService.statDomain(siteId, domainId, endTime);//全部新数据
+		AdaDomainAdStat newad = statService.statDomainAd(siteId, domainId, endTime);//广告新数据
+		AdaDomainNotadStat newnotad = reduct(newall, newad, AdaDomainNotadStat.class);//非广告入口新数据=全部-非广告的
+		
+		AdaDomainAdStat oldad = adaDomainAdStatDao.findLast(siteId, domainId);//广告入口老数据
+		AdaDomainNotadStat oldnotad = adaDomainNotAdStatDao.findLast(siteId, domainId);//非广告入口数据
+		
+		AdaDomainAd15mStat ad15m = null;
+		AdaDomainNotad15mStat notad15m=  null;
+		if(oldad==null || (oldad!=null && newad.getIp() < oldad.getIp())){
+			ad15m = initStat(AdaDomainAd15mStat.class);
+			notad15m= initStat(AdaDomainNotad15mStat.class);
+		}else{
+			ad15m = reduct(newad, oldad, AdaDomainAd15mStat.class);//变化数据，=新广告数据-老广告数据
+			notad15m=reduct(newnotad, oldnotad, AdaDomainNotad15mStat.class);//变化数据，=新广告数据-老广告数据
+		}
+		Timestamp now = Dates.now();
+		Date today = Dates.todayStart();
+		
+		newad.setDate(today);
+		newad.setCreateTime(now);
+		newnotad.setDate(today);
+		newnotad.setCreateTime(now);
+		
+		ad15m.setStartTime(startTime);
+		ad15m.setEndTime(endTime);
+		ad15m.setDate(today);
+		ad15m.setCreateTime(now);
+		
+		notad15m.setStartTime(startTime);
+		notad15m.setEndTime(endTime);
+		notad15m.setDate(today);
+		notad15m.setCreateTime(now);
+		
+		adaDomainAdStatDao.save(newad);//保存广告数据
+		adaDomainNotadStatDao.save(newnotad);//保存非广告数据
+		
+		adaDomainAd15mStatDao.save(ad15m);//保存15分钟数据
+		adaDomainNotAd15mStatDao.save(notad15m);//保存15分钟数据
+	}
+	
+	protected <T> T reduct(BaseStat a,BaseStat b,Class<T> clazz){
+		 BaseStat result = null;
+			try {
+				result = (BaseStat) clazz.newInstance();
+			} catch (Exception e) {
+			}
+		 result.setIp             (a.getIp()            - b.getIp()          );  
+		 result.setPv             (a.getPv()            - b.getPv()          );
+		 result.setUv             (a.getUv()            - b.getUv()          );
+		 result.setOlduserip      (a.getOlduserip()     - b.getOlduserip()   );
+		 result.setOldip          (a.getOldip()         - b.getOldip()       );
+		 result.setLoginip        (a.getLoginip()       - b.getLoginip()     );
+		 result.setTargetpageip   (a.getTargetpageip()  - b.getTargetpageip());
+		 result.setClickip1       (a.getClickip1()      - b.getClickip1()    );
+		 result.setClickip2       (a.getClickip2()      - b.getClickip2()    );
+		 result.setClickip3       (a.getClickip3()      - b.getClickip3()    );
+		 result.setClickip4       (a.getClickip4()      - b.getClickip4()    );
+		 result.setStaytimeip1    (a.getStaytimeip1()   - b.getStaytimeip1() );
+		 result.setStaytimeip2    (a.getStaytimeip2()   - b.getStaytimeip2() );
+		 result.setStaytimeip3    (a.getStaytimeip3()   - b.getStaytimeip3() );
+		 result.setStaytimeip4    (a.getStaytimeip4()   - b.getStaytimeip4() );
+		 result.setScrollip1      (a.getScrollip1()     - b.getScrollip1()   );
+		 result.setScrollip2      (a.getScrollip2()     - b.getScrollip2()   );
+		 result.setScrollip3      (a.getScrollip3()     - b.getScrollip3()   );
+		 result.setScrollip4      (a.getScrollip4()     - b.getScrollip4()   );
+		 result.setMoveip1        (a.getMoveip1()       - b.getMoveip1()     );
+		 result.setMoveip2        (a.getMoveip2()       - b.getMoveip2()     );
+		 result.setMoveip3        (a.getMoveip3()       - b.getMoveip3()     );
+		 result.setMoveip4        (a.getMoveip4()       - b.getMoveip4()     );
+		 return (T) result;
+	}
+
+	protected <T> T initStat(Class<T> clazz){
+		BaseStat result = null;
+		try {
+			result = (BaseStat) clazz.newInstance();
+		} catch (Exception e) {
+		}
+		 result.setIp             (0);
+		 result.setPv             (0);
+		 result.setUv             (0);
+		 result.setOlduserip      (0);
+		 result.setOldip          (0);
+		 result.setLoginip        (0);
+		 result.setTargetpageip   (0);
+		 result.setClickip1       (0);
+		 result.setClickip2       (0);
+		 result.setClickip3       (0);
+		 result.setClickip4       (0);
+		 result.setStaytimeip1    (0);
+		 result.setStaytimeip2    (0);
+		 result.setStaytimeip3    (0);
+		 result.setStaytimeip4    (0);
+		 result.setScrollip1      (0);
+		 result.setScrollip2      (0);
+		 result.setScrollip3      (0);
+		 result.setScrollip4      (0);
+		 result.setMoveip1        (0);
+		 result.setMoveip2        (0);
+		 result.setMoveip3        (0);
+		 result.setMoveip4        (0);
+		return (T) result;
+		
+	}
 }
 
 

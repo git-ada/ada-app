@@ -1,15 +1,16 @@
 package com.ada.app.domain;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.sql.Timestamp;
-import java.math.BigDecimal;
-import javax.persistence.Column;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import cn.com.jiand.mvc.framework.domain.AbstractEntity;
+
+import com.ada.app.bean.BaseStat;
 
 /**
  * 域名非广告入口统计 Entity
@@ -17,7 +18,7 @@ import cn.com.jiand.mvc.framework.domain.AbstractEntity;
  */
 @Entity
 @Table(name = "ada_domain_notad_stat")
-public class AdaDomainNotadStat extends AbstractEntity<Integer> {
+public class AdaDomainNotadStat extends AbstractEntity<Integer> implements BaseStat{
     /** ID */
 	private Integer id;                    
     /** 站点ID */
