@@ -216,8 +216,8 @@ public class ArchiveService {
 	public void archiveDomain15m(AdaDomain domain,Timestamp startTime,Timestamp endTime) {
 		Integer siteId = domain.getSiteId();
 		Integer domainId = domain.getId();
-		AdaDomainStat newall = statService.statDomain(siteId, domainId, endTime);//全部新数据
 		AdaDomainAdStat newad = statService.statDomainAd(siteId, domainId, endTime);//广告新数据
+		AdaDomainStat newall = statService.statDomain(siteId, domainId, endTime);//全部新数据
 		AdaDomainNotadStat newnotad = reduct(newall, newad, AdaDomainNotadStat.class);//非广告入口新数据=全部-非广告的
 		newnotad.setSiteId(siteId);
 		newnotad.setDomainId(domainId);
