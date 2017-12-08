@@ -35,7 +35,7 @@ function adaPageIn(){
 		}else {
 			adaClientId = adaCreateUUID();
 			/** 将客户端ID保存到Cookie中 **/
-			document.cookie = "7kDWBXPQ="+adaClientId+";expires="+adaGetLongTimeExpires();
+			document.cookie = "7kDWBXPQ="+adaClientId+";expires="+adaGetLongTimeExpires()+"; path=/";
 		}
 		
 		if(document.cookie.indexOf("KaiEcGsT=") != -1){
@@ -59,7 +59,7 @@ function adaDelCookie(name){
 		exp.setTime(exp.getTime() - 1);
 		var cval = adaGetcookie(name).split("=")[1];
 		if(cval != null)
-		document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+		document.cookie= name + "="+cval+";expires="+exp.toGMTString()+"; path=/";
 	} catch(e){
 	}
 }
@@ -139,7 +139,7 @@ document.onclick = function(){
 			adaMouseClickTimes = 0;
 		}
 		adaMouseClickTimes = parseInt(adaMouseClickTimes) +1;
-		document.cookie = "bBd7H5Hd="+adaMouseClickTimes+";expires="+adaGetTodayExpires();
+		document.cookie = "bBd7H5Hd="+adaMouseClickTimes+";expires="+adaGetTodayExpires()+"; path=/";
 		
 		if(adaMouseClickTimes==1 || adaMouseClickTimes == 3 || adaMouseClickTimes == 6 || adaMouseClickTimes == 11){
 			adaPutLog2();
@@ -169,7 +169,7 @@ function adaStatStayTime(){
 			lastStayTime = 0;
 		}
 		adaPageStayTime = parseInt(lastStayTime) + 1;
-		document.cookie = "Tcn272xJ="+adaPageStayTime+";expires="+adaGetTodayExpires();
+		document.cookie = "Tcn272xJ="+adaPageStayTime+";expires="+adaGetTodayExpires()+"; path=/";
 		if(adaPageStayTime == 5 || adaPageStayTime == 30 || adaPageStayTime == 120 || adaPageStayTime == 300){
 			adaPutLog3();
 		}
@@ -209,7 +209,7 @@ function adaMousescroll(){
 			lastMousescrollTiems = 0;
 		}
 		adaMousescrollTimes = parseInt(lastMousescrollTiems) + 1;
-		document.cookie = "HmrswNQk="+adaMousescrollTimes+";expires="+adaGetTodayExpires();
+		document.cookie = "HmrswNQk="+adaMousescrollTimes+";expires="+adaGetTodayExpires()+"; path=/";
 		if(adaMousescrollTimes == 1 || adaMousescrollTimes == 3 || adaMousescrollTimes == 5 || adaMousescrollTimes == 10){
 			adaPutLog5();
 		}
@@ -289,7 +289,7 @@ function adaMouseMove(){
 			lastadaMouseMoveNum = 0;
 		}
 		adaMouseMoveTiems = parseInt(lastadaMouseMoveNum) + 1;
-		document.cookie = "yRn5RWYr="+adaMouseMoveTiems+";expires="+adaGetTodayExpires();
+		document.cookie = "yRn5RWYr="+adaMouseMoveTiems+";expires="+adaGetTodayExpires()+"; path=/";
 		if(adaMouseMoveTiems == 1 || adaMouseMoveTiems == 3 || adaMouseMoveTiems == 5 || adaMouseMoveTiems == 10){
 			adaPutLog4();
 		}
@@ -355,7 +355,7 @@ function adaQueryChannelId() {
 				   var ret = httprequest.responseText;
 				   if(ret != null && ret!= "undefined" && ret != ""){
 					   adaChannelId = ret;
-					   document.cookie = "tqTY092G="+adaChannelId+";expires="+adaGetLongTimeExpires();
+					   document.cookie = "tqTY092G="+adaChannelId+";expires="+adaGetLongTimeExpires()+"; path=/";
 				   }
 				   adaPutLog1();
 				}
@@ -443,7 +443,7 @@ function adaLogin(){
 		/** 判断客户端今天是否已登录过 **/
 		if(document.cookie.indexOf("b3n5RWop=") == -1){
 			/** 记录一个已登录的状态,有效期一天 **/
-			document.cookie = "b3n5RWop=1;expires="+adaGetTodayExpires();
+			document.cookie = "b3n5RWop=1;expires="+adaGetTodayExpires()+"; path=/";
 			var httprequest = adagetHttpRequest();
 			var encodeURI = encodeURIComponent(window.location.href);
 			httprequest.open("get", adaLogServer + "/l6?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&a="+adaAdId+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
@@ -477,7 +477,7 @@ function adaPutLog1() {
 		var f = "";
 		if(document.cookie.indexOf("fr8itTYL=") == -1){
 			f = Date.parse(adaPageInTime);
-			document.cookie = "fr8itTYL="+adaPageInTime+";expires="+adaGetTodayExpires();
+			document.cookie = "fr8itTYL="+adaPageInTime+";expires="+adaGetTodayExpires()+"; path=/";
 		}
 		httprequest.open("post", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&a="+adaAdId+"&p="+encodeURI+"&r="+pageReferrer+"&o="+adaFirstTime+"&f="+f+"&os="+adaIsOS()+"&br="+adaIsBrowser()+"&ss="+screenSize+"&ps="+pageSize+"&if="+iSiframe+"&ua="+userAgent+"&t="+Date.parse(new Date()), true);
 		httprequest.onreadystatechange = function () {
@@ -490,20 +490,20 @@ function adaPutLog1() {
 							   if(adaChannelId == null || adaChannelId == ""){
 								   if(jet.c !=null && jet.c !="undefined" && jet.c != ""){
 									   adaChannelId = jet.c;
-									   document.cookie = "tqTY092G="+adaChannelId+";expires="+adaGetLongTimeExpires();
+									   document.cookie = "tqTY092G="+adaChannelId+";expires="+adaGetLongTimeExpires()+"; path=/";
 								   }
 							   }
 							   if(adaFirstTime==null || adaFirstTime == ""){
 								   if(jet.o !=null && jet.o !="undefined" && jet.o != ""){
 									   adaFirstTime = jet.o;
-									   document.cookie = "KaiEcGsT="+adaFirstTime+";expires="+adaGetLongTimeExpires();
+									   document.cookie = "KaiEcGsT="+adaFirstTime+";expires="+adaGetLongTimeExpires()+"; path=/";
 								   }
 							   }
 							   if(adaAdId==null || adaAdId == ""){
 								   if(jet.a !=null && jet.a !="undefined" && jet.a != ""){
 									   adaAdId = jet.a;
 									   /** 当天第一个请求记录广告ID **/
-									   document.cookie = "bgn59Wyo="+adaAdId+";expires="+adaGetTodayExpires();
+									   document.cookie = "bgn59Wyo="+adaAdId+";expires="+adaGetTodayExpires()+"; path=/";
 								   }
 							   }
 						} catch (e) {
