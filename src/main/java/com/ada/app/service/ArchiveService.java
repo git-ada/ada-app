@@ -279,29 +279,30 @@ public class ArchiveService {
 				result = (BaseStat) clazz.newInstance();
 			} catch (Exception e) {
 			}
-		 result.setIp             (a.getIp()            - b.getIp()          );  
-		 result.setPv             (a.getPv()            - b.getPv()          );
-		 result.setUv             (a.getUv()            - b.getUv()          );
-		 result.setOlduserip      (a.getOlduserip()     - b.getOlduserip()   );
-		 result.setOldip          (a.getOldip()         - b.getOldip()       );
-		 result.setLoginip        (a.getLoginip()       - b.getLoginip()     );
-		 result.setTargetpageip   (a.getTargetpageip()  - b.getTargetpageip());
-		 result.setClickip1       (a.getClickip1()      - b.getClickip1()    );
-		 result.setClickip2       (a.getClickip2()      - b.getClickip2()    );
-		 result.setClickip3       (a.getClickip3()      - b.getClickip3()    );
-		 result.setClickip4       (a.getClickip4()      - b.getClickip4()    );
-		 result.setStaytimeip1    (a.getStaytimeip1()   - b.getStaytimeip1() );
-		 result.setStaytimeip2    (a.getStaytimeip2()   - b.getStaytimeip2() );
-		 result.setStaytimeip3    (a.getStaytimeip3()   - b.getStaytimeip3() );
-		 result.setStaytimeip4    (a.getStaytimeip4()   - b.getStaytimeip4() );
-		 result.setScrollip1      (a.getScrollip1()     - b.getScrollip1()   );
-		 result.setScrollip2      (a.getScrollip2()     - b.getScrollip2()   );
-		 result.setScrollip3      (a.getScrollip3()     - b.getScrollip3()   );
-		 result.setScrollip4      (a.getScrollip4()     - b.getScrollip4()   );
-		 result.setMoveip1        (a.getMoveip1()       - b.getMoveip1()     );
-		 result.setMoveip2        (a.getMoveip2()       - b.getMoveip2()     );
-		 result.setMoveip3        (a.getMoveip3()       - b.getMoveip3()     );
-		 result.setMoveip4        (a.getMoveip4()       - b.getMoveip4()     );
+		
+			 result.setIp             ((a.getIp()            < b.getIp()          )?0:(a.getIp()            - b.getIp()          ));  
+			 result.setPv             ((a.getPv()            < b.getPv()          )?0:(a.getPv()            - b.getPv()          ));
+			 result.setUv             ((a.getUv()            < b.getUv()          )?0:(a.getUv()            - b.getUv()          ));
+			 result.setOlduserip      ((a.getOlduserip()     < b.getOlduserip()   )?0:(a.getOlduserip()     - b.getOlduserip()   ));
+			 result.setOldip          ((a.getOldip()         < b.getOldip()       )?0:(a.getOldip()         - b.getOldip()       ));
+			 result.setLoginip        ((a.getLoginip()       < b.getLoginip()     )?0:(a.getLoginip()       - b.getLoginip()     ));
+			 result.setTargetpageip   ((a.getTargetpageip()  < b.getTargetpageip())?0:(a.getTargetpageip()  - b.getTargetpageip()));
+			 result.setClickip1       ((a.getClickip1()      < b.getClickip1()    )?0:(a.getClickip1()      - b.getClickip1()    ));
+			 result.setClickip2       ((a.getClickip2()      < b.getClickip2()    )?0:(a.getClickip2()      - b.getClickip2()    ));
+			 result.setClickip3       ((a.getClickip3()      < b.getClickip3()    )?0:(a.getClickip3()      - b.getClickip3()    ));
+			 result.setClickip4       ((a.getClickip4()      < b.getClickip4()    )?0:(a.getClickip4()      - b.getClickip4()    ));
+			 result.setStaytimeip1    ((a.getStaytimeip1()   < b.getStaytimeip1() )?0:(a.getStaytimeip1()   - b.getStaytimeip1() ));
+			 result.setStaytimeip2    ((a.getStaytimeip2()   < b.getStaytimeip2() )?0:(a.getStaytimeip2()   - b.getStaytimeip2() ));
+			 result.setStaytimeip3    ((a.getStaytimeip3()   < b.getStaytimeip3() )?0:(a.getStaytimeip3()   - b.getStaytimeip3() ));
+			 result.setStaytimeip4    ((a.getStaytimeip4()   < b.getStaytimeip4() )?0:(a.getStaytimeip4()   - b.getStaytimeip4() ));
+			 result.setScrollip1      ((a.getScrollip1()     < b.getScrollip1()   )?0:(a.getScrollip1()     - b.getScrollip1()   ));
+			 result.setScrollip2      ((a.getScrollip2()     < b.getScrollip2()   )?0:(a.getScrollip2()     - b.getScrollip2()   ));
+			 result.setScrollip3      ((a.getScrollip3()     < b.getScrollip3()   )?0:(a.getScrollip3()     - b.getScrollip3()   ));
+			 result.setScrollip4      ((a.getScrollip4()     < b.getScrollip4()   )?0:(a.getScrollip4()     - b.getScrollip4()   ));
+			 result.setMoveip1        ((a.getMoveip1()       < b.getMoveip1()     )?0:(a.getMoveip1()       - b.getMoveip1()     ));
+			 result.setMoveip2        ((a.getMoveip2()       < b.getMoveip2()     )?0:(a.getMoveip2()       - b.getMoveip2()     ));
+			 result.setMoveip3        ((a.getMoveip3()       < b.getMoveip3()     )?0:(a.getMoveip3()       - b.getMoveip3()     ));
+			 result.setMoveip4        ((a.getMoveip4()       < b.getMoveip4()     )?0:(a.getMoveip4()       - b.getMoveip4()     ));
 		 return (T) result;
 	}
 
