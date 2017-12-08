@@ -173,7 +173,7 @@ th:last-child,td:last-child {
 		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column" style="border: 0">
 	            <thead>
 	                <tr>
-						<th scope="col" style="min-width: 150px;">域名</th>
+						<th scope="col" style="min-width: 130px;">域名</th>
 						<th scope="col" style="min-width: 80px">IP</th>			
 						<th scope="col" style="min-width: 80px">PV</th>
 						<th scope="col" style="min-width: 80px">UV</th>
@@ -203,8 +203,8 @@ th:last-child,td:last-child {
 	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
 	                <tr>
 	                	<%-- <c:if test="${domain.channelNum>0}"><td style="min-width: 120px;" title="${domain.domain}"><a style="text-decoration:underline;color: #333;" href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}</a> </td></c:if> --%>
-	                		<td style="min-width: 150px;" title="${domain.domain}">
-	                		<a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${domain.id}" data-toggle="dropdown" >${domain.subDomain}</a>
+	                		<td style="min-width: 130px;" title="${domain.domain}">
+	                		<a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${domain.id}" data-toggle="dropdown" onclick="openMenu(this)">${domain.subDomain}</a>
 	                			<%-- <div id="context-menu${domain.id}" style="z-index: 99999;position: absolute;float: right;" >
 		                			<ul class="dropdown-menu" role="menu" style="z-index: 99999;position: absolute;" >
 										<li>
@@ -248,8 +248,8 @@ th:last-child,td:last-child {
 	                </c:forEach>
 	                
 	                 <c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
-						<div id="context-menu${domain.id}" style="position: absolute;z-index: 999;">
-							<ul class="dropdown-menu" role="menu" style="z-index: 99999">
+						<div id="context-menu${domain.id}" style="z-index: 999;position:absolute;">
+							<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
 								<li>
 							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domain.id}')">分时统计</a>
 							     </li>
@@ -274,6 +274,21 @@ th:last-child,td:last-child {
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
+
+function openMenu(a,event){
+	 var e = event || window.event;
+	var yy  = parseInt(e.screenY-120);
+	var  xx = parseInt(e.screenX);
+	var menuHeight = parseInt(jQuery(jQuery(a).attr("data-target")+" ul").css("height"));//菜单高度
+	var cHeight = parseInt(document.documentElement.clientHeight)-menuHeight;//页面可视高度
+	if(yy+menuHeight>=cHeight){
+		jQuery(jQuery(a).attr("data-target")).css({"top":yy-menuHeight,"left":xx});
+	}else{
+		jQuery(jQuery(a).attr("data-target")).css({"top":yy,"left":xx});
+	}
+	
+}
+
 var t;
 var oTable;
 var oTable2;
@@ -423,7 +438,7 @@ var initTable1 = function () {
 						    var tr2 = "";
 						    var tr3 = "";
 						  		tr+="<tr>" + 
-							      "<td  title='"+domainList[i].domain+"'><a href='javascript:void(0);' >"+domainList[i].subDomain+"</a></td>"+
+							      "<td style='min-width: 130px;'  title='"+domainList[i].domain+"'><a href='javascript:void(0);' >"+domainList[i].subDomain+"</a></td>"+
 								  "<td >"+domainList[i].ip+"</td>"+
 								  "<td >"+domainList[i].pv+"</td>"+
 								  "<td >"+domainList[i].uv+"</td>"+
@@ -461,7 +476,7 @@ var initTable1 = function () {
 								  "<td style='min-width: 80px'>"+domainList[i].pv+"</td>"+
 									"</tr>"; */
 									tr2+="<tr>"+
-							          "<td  title='"+domainList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+domainList[i].id+"' data-toggle='dropdown'>"+domainList[i].subDomain+"</a>"+
+							          "<td style='min-width: 130px;'  title='"+domainList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+domainList[i].id+"' data-toggle='dropdown' onclick='openMenu(this)'>"+domainList[i].subDomain+"</a>"+
 								         "</td>"+
 									  "<td style='min-width: 80px'>"+domainList[i].ip+"</td>"+
 									  "<td style='min-width: 80px'>"+domainList[i].pv+"</td>"+
