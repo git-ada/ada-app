@@ -120,7 +120,7 @@ public class IndexController {
 		
 		/** 获取站点下域名统计信息 **/
 		Long startTime = System.currentTimeMillis();
-		Map sumMap = getDomainStat_list(today,20);
+		Map sumMap = getDomainStat_list(today);
 		Long endTime = System.currentTimeMillis();
 		Long cost = endTime - startTime;
 		log.info("实时数据页面获取数据列表耗时：--->"+cost+"ms");
@@ -146,11 +146,11 @@ public class IndexController {
 	public String dashboard_domainTime(HttpServletRequest request,HttpServletResponse response, Model model,
 			String domainId){
 		if(domainId!=null && !"".equals(domainId)){
-			JSONObject json = domainTimechartList(Integer.valueOf(domainId),12,15);
+			JSONObject json = domainTimechartList(Integer.valueOf(domainId),24,15);
 			
 			model.addAttribute("json", json);
 		}
-		
+		model.addAttribute("domainId", domainId);
 		
 		return "dashboard_domainTime";
 	}
@@ -241,7 +241,7 @@ public class IndexController {
 		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
 		
 		/** 获取站点下域名统计信息 **/
-		Map sumMap = getDomainStat_list(today,300);
+		Map sumMap = getDomainStat_list(today);
 		List<Map> DomainStat_list = (List<Map>) sumMap.get("DomainStat_list");
 		
 		 json.put("siteStat", siteStat);
@@ -581,7 +581,7 @@ public class IndexController {
 	}
 	
 
-	protected Map getDomainStat_list(Date date,int pageSize){
+	protected Map getDomainStat_list(Date date){
 		/** 从sessions中获取站点信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();
 		 /** 域名列表信息 **/
@@ -594,7 +594,7 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
+			 if(domainIp!=null && domainIp>10){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -605,7 +605,7 @@ public class IndexController {
 			}
 		 });
 		 
-		 for(int i=0;i<domainIps.size()&&i<pageSize;i++){
+		 for(int i=0;i<domainIps.size();i++){
 			Integer domainId = domainIps.get(i)[0];
 			Integer domainIp = domainIps.get(i)[1];
 			//Integer channelNum = domainIps.get(i)[2];

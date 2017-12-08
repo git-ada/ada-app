@@ -21,8 +21,8 @@
 }
 </style>
 
-<!-- 
-<div class="page-bar">
+
+<!-- <div class="page-bar">
     <ul class="page-breadcrumb" style="width: 100%">
         <li>
             <i class="icon-home"></i>
@@ -33,8 +33,8 @@
             <span>实时数据</span>
         </li>
     </ul>
-</div>
- -->
+</div> -->
+ 
  <!-- 第六个图表 基本数据 -->
  <div class="row">
   <div class="col-lg-6 col-xs-12 col-sm-12">
@@ -298,6 +298,13 @@
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	
+window.setTimeout('refre()',300000); 
+
+function refre(){
+	
+	refreshPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domainId}');
+}
+	
 	 function graphicLoading(obj) {
 		var pageNo = 1;
 
@@ -392,7 +399,6 @@
 		                showBalloon: !0,
 		                animationPlayed: !0
 		            },{
-		                id: "g3",
 		                valueField: "loginip",
 		                classNameField: "bulletClass",
 		                title: "用户登录数(个)",
@@ -516,7 +522,6 @@
 		                showBalloon: !0,
 		                animationPlayed: !0
 		            },{
-		                id: "g3",
 		                valueField: "c3",
 		                classNameField: "bulletClass",
 		                title: "6-10次",
@@ -638,7 +643,6 @@
 		                showBalloon: !0,
 		                animationPlayed: !0
 		            },{
-		                id: "g3",
 		                valueField: "st3",
 		                classNameField: "bulletClass",
 		                title: "121-300秒",
@@ -760,7 +764,6 @@
 		                showBalloon: !0,
 		                animationPlayed: !0
 		            },{
-		                id: "g3",
 		                valueField: "s3",
 		                classNameField: "bulletClass",
 		                title: "6-10次",
@@ -952,27 +955,29 @@
 					axisAlpha: 0,
 				}],
 				graphs: [{
+					id: "g1",
 					valueField: "pv",
-	                classNameField: "bulletClass",
-	                title: "PV",
-	                type: "line",
-	                valueAxis: "a1",
-	                lineColor: "#e26a6a",
-	                lineThickness: 2,
-	                legendValueText: "[[value]] ",
-	                labelPosition: "right",
-	                balloonText: "PV:[[value]]",
-	                showBalloon: !0,
-	                animationPlayed: !0
+					title: "PV",
+					type: "column",
+					fillAlphas: .7,
+					valueAxis: "a1",
+					balloonText: "PV：[[value]] ",
+					legendValueText: "[[value]] ",
+					legendPeriodValueText: "总计: [[value.sum]] ",
+					lineColor: "#08a3cc",
+					alphaField: "alpha",
+					colorField: "color",
+					lineAlpha: 0,
 					 },{
 		                valueField: "ip",
 		                classNameField: "bulletClass",
 		                title: "IP",
 		                type: "line",
 		                valueAxis: "a1",
-		                lineColor: "green",
+		                lineColor: "red",
 		                lineThickness: 2,
 		                legendValueText: "[[value]] ",
+		                legendPeriodValueText: "总计: [[value.sum]] ",
 		                labelPosition: "right",
 		                balloonText: "IP:[[value]]",
 		                showBalloon: !0,
@@ -986,6 +991,7 @@
 		                lineColor: "blue",
 		                lineThickness: 2,
 		                legendValueText: "[[value]] ",
+		                legendPeriodValueText: "总计: [[value.sum]] ",
 		                labelPosition: "right",
 		                balloonText: "UV:[[value]]",
 		                showBalloon: !0,
