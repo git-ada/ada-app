@@ -293,6 +293,7 @@ var t;
 var oTable;
 var oTable2;
 var table;
+//渲染table
 var initTable1 = function () {
      table = $('#scrolltable');
      oTable = table.dataTable({

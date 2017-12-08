@@ -46,9 +46,10 @@
                   <span class="caption-subject font-dark bold uppercase">基本数据</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-               <div class="tools" style="margin-right: 15px;">
-                   <a href="javascript:;" class="collapse"> </a>
-                   <a href="javascript:;" class="fullscreen"> </a>
+               <div class="actions" style="margin-right: 15px;">
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
+                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
                </div>
           </div>
           <div class="portlet-body">
@@ -66,9 +67,10 @@
                   <span class="caption-subject font-dark bold uppercase">基本数据</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="tools" style="margin-right: 15px;">
-                   <a href="javascript:;" class="collapse"> </a>
-                   <a href="javascript:;" class="fullscreen"> </a>
+             <div class="actions" style="margin-right: 15px;">
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
+                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
                </div>
           </div>
           <div class="portlet-body">
@@ -89,9 +91,10 @@
                   <span class="caption-subject font-dark bold uppercase">用户分析</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="tools" style="margin-right: 15px;">
-                   <a href="javascript:;" class="collapse"> </a>
-                   <a href="javascript:;" class="fullscreen"> </a>
+              <div class="actions" style="margin-right: 15px;">
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
+                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
                </div>
           </div>
           <div class="portlet-body">
@@ -109,9 +112,10 @@
                   <span class="caption-subject font-dark bold uppercase">用户分析</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="tools" style="margin-right: 15px;">
-                   <a href="javascript:;" class="collapse"> </a>
-                   <a href="javascript:;" class="fullscreen"> </a>
+              <div class="actions" style="margin-right: 15px;">
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
+                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
                </div>
           </div>
           <div class="portlet-body">
@@ -132,9 +136,10 @@
                   <span class="caption-subject font-dark bold uppercase">页面停留时长</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="tools" style="margin-right: 15px;">
-                   <a href="javascript:;" class="collapse"> </a>
-                   <a href="javascript:;" class="fullscreen"> </a>
+              <div class="actions" style="margin-right: 15px;">
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
+                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
                </div>
           </div>
           <div class="portlet-body">
@@ -152,9 +157,10 @@
                   <span class="caption-subject font-dark bold uppercase">页面停留时长</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="tools" style="margin-right: 15px;">
-                   <a href="javascript:;" class="collapse"> </a>
-                   <a href="javascript:;" class="fullscreen"> </a>
+              <div class="actions" style="margin-right: 15px;">
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
+                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
                </div>
           </div>
           <div class="portlet-body">
@@ -175,9 +181,10 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标点击</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="tools" style="margin-right: 15px;">
-                   <a href="javascript:;" class="collapse"> </a>
-                   <a href="javascript:;" class="fullscreen"> </a>
+              <div class="actions" style="margin-right: 15px;">
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
+                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
                </div>
           </div>
           <div class="portlet-body">
@@ -195,9 +202,10 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标点击</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="tools" style="margin-right: 15px;">
-                   <a href="javascript:;" class="collapse"> </a>
-                   <a href="javascript:;" class="fullscreen"> </a>
+              <div class="actions" style="margin-right: 15px;">
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
+                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
                </div>
           </div>
           <div class="portlet-body">
@@ -219,9 +227,10 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标滚动</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="tools" style="margin-right: 15px;">
-                   <a href="javascript:;" class="collapse"> </a>
-                   <a href="javascript:;" class="fullscreen"> </a>
+              <div class="actions" style="margin-right: 15px;">
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
+                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
                </div>
           </div>
           <div class="portlet-body">
@@ -239,9 +248,10 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标滚动</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="tools" style="margin-right: 15px;">
-                   <a href="javascript:;" class="collapse"> </a>
-                   <a href="javascript:;" class="fullscreen"> </a>
+              <div class="actions" style="margin-right: 15px;">
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
+                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
                </div>
           </div>
           <div class="portlet-body">
@@ -262,9 +272,10 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标移动</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="tools" style="margin-right: 15px;">
-                   <a href="javascript:;" class="collapse"> </a>
-                   <a href="javascript:;" class="fullscreen"> </a>
+              <div class="actions" style="margin-right: 15px;">
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
+                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
                </div>
           </div>
           <div class="portlet-body">
@@ -282,9 +293,10 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标移动</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="tools" style="margin-right: 15px;">
-                   <a href="javascript:;" class="collapse"> </a>
-                   <a href="javascript:;" class="fullscreen"> </a>
+              <div class="actions" style="margin-right: 15px;">
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
+                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
                </div>
           </div>
           <div class="portlet-body">
@@ -298,7 +310,7 @@
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	
-window.setTimeout('refre()',300000); 
+//window.setTimeout('refre()',300000); 
 
 function refre(){
 	
@@ -308,32 +320,43 @@ function refre(){
 	 function graphicLoading(obj) {
 		var pageNo = 1;
 
-		if (obj == 1) { //表示下页数据
-			pageNo = $("#forward").attr("data-value");
-		} else if (obj == -1) { //表示上月数据
-			pageNo = $("#backoff").attr("data-value");
+		if (obj == 1) { //表示前一段时间的数据
+			pageNo = jQuery("a[a-type=lastPage]").attr("page-data");
+		} else if (obj == -1) { //表示后一段时间的数据
+			pageNo = jQuery("a[a-type=nextPage]").attr("page-data");
 		} else {
 			//表示被人客户端恶意修改参数
 			return;
 		}
 		if (null == pageNo || "" == pageNo) {
-			//toastr.success("已经没有数据了！");
+			toastr.success("已经没有数据了！");
 			return;
 		} else {
 			//ajax读取 上一月的数据
 			jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajaxLoadData.do?pageNo=" + pageNo,
+				url : "${pageContext.request.contextPath}/ajaxdashboard_domainTime.do?pageNo=" + pageNo+"&domainId="+${domainId},
 				success : function(data) {
 					var json = eval('(' + data + ')');
 					if (json.success) {
-						$("#forward").attr("data-value", json.nextMonth); //下一页
-						$("#backoff").attr("data-value", json.lastMonth); //上一页
-						t(json.order); //调用图形列表方法
+						
+						 jQuery("a[a-type=lastPage]").attr("page-data",json.lastPage);
+						 jQuery("a[a-type=nextPage]").attr("page-data",json.nextPage);
+						    
+						chart_1("ad_chart_1",json.ad_chart_1);
+					    chart_1("notad_chart_1",json.notad_chart_1);
+					    chart_2("ad_chart_2",json.ad_chart_2);
+					    chart_2("notad_chart_2",json.notad_chart_2);
+					    chart_3("ad_chart_3",json.ad_chart_3);
+					    chart_3("notad_chart_3",json.notad_chart_3);
+					    chart_4("ad_chart_4",json.ad_chart_4);
+					    chart_4("notad_chart_4",json.notad_chart_4);
+					    chart_5("ad_chart_5",json.ad_chart_5);
+					    chart_5("notad_chart_5",json.notad_chart_5);
+					    chart_6("ad_chart_6",json.ad_chart_6);
+					    chart_6("notad_chart_6",json.notad_chart_6);
+					   
 					} else {
-						/* $("#forward").attr("data-value", json.nextMonth); //下一页
-						$("#backoff").attr("data-value", json.lastMonth); //上一页
-						t(json.order) */
-						//toastr.success(json.message);
+						toastr.success(json.message);
 					}
 				}
 			});
@@ -1025,6 +1048,10 @@ function refre(){
 		    chart_5("notad_chart_5",chartdata.notad_chart_5);
 		    chart_6("ad_chart_6",chartdata.ad_chart_6);
 		    chart_6("notad_chart_6",chartdata.notad_chart_6);
+		    
+		    
+		    jQuery("a[a-type=lastPage]").attr("page-data",chartdata.lastPage);
+		    jQuery("a[a-type=nextPage]").attr("page-data",chartdata.nextPage);
 		});
 </script>
 

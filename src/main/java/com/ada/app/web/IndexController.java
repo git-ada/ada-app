@@ -146,7 +146,7 @@ public class IndexController {
 	public String dashboard_domainTime(HttpServletRequest request,HttpServletResponse response, Model model,
 			String domainId){
 		if(domainId!=null && !"".equals(domainId)){
-			JSONObject json = domainTimechartList(Integer.valueOf(domainId),24,15);
+			JSONObject json = domainTimechartList(Integer.valueOf(domainId),24,15,1);
 			
 			model.addAttribute("json", json);
 		}
@@ -228,6 +228,29 @@ public class IndexController {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 实时数据页面 域名分时统计信息异步分页查询
+	 * @param request
+	 * @param response
+	 * @param model
+	 */
+	@RequestMapping("ajaxdashboard_domainTime")
+	public void ajaxdashboard_domainTime(HttpServletRequest request,HttpServletResponse response ,Model model,
+			String pageNo,String domainId){
+		Integer pageno = Integer.valueOf(pageNo);
+		Integer domainid = Integer.valueOf(domainId);
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(this.domainTimechartList(domainid,24,15,pageno));
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/** ajax刷新域名列表信息 **/
 	@RequestMapping("ajaxRefreshPage")
 	public void ajaxRefreshPage(HttpServletRequest request,HttpServletResponse response ,Model model){
@@ -310,7 +333,7 @@ public class IndexController {
 		try {
 			if(pageNo== null || pageNo<1){
 				json.put("success", false);
-				json.put("message", "暂无统计数据！");
+				json.put("message", "已是最新统计数据！");
 				return json;
 			}
 			List<AdaSiteStat> list = this.adaSiteStatDao.findBySiteIdOrderByDate(siteId,(pageNo-1)*30);
@@ -347,15 +370,32 @@ public class IndexController {
 		return json;
 	}
 	
-	/***
-	 * 获取域名广告入口和非广告入口图形数据
+	/**
+	 * 获取域名图表数据
+	 * @param domainId 域名ID
+	 * @param pageSize  每一页的数据条数
+	 * @param len  统计的间隔时间
+	 * @param pageNo   第几页
 	 * @return
 	 */
-	protected JSONObject domainTimechartList(Integer domainId,int pageSize,int len){
+	protected JSONObject domainTimechartList(Integer domainId,int pageSize,int len,Integer pageNo){
 		
-		List<AdaDomainAd15mStat> adList = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,pageSize);
-		List<AdaDomainNotad15mStat> notadList = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,pageSize);
 		JSONObject json=new JSONObject();
+		if(pageNo== null || pageNo<1){
+			json.put("success", false);
+			json.put("message", "已是最新统计数据！");
+			return json;
+		}
+		
+		List<AdaDomainAd15mStat> adList = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+		List<AdaDomainNotad15mStat> notadList = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+		
+		if((adList==null || adList.size()<1)&&(notadList==null || notadList.size()<1)){
+			json.put("success", false);
+			json.put("message", "暂无统计数据！");
+			return json;
+		}
+	
 		JSONArray ad_chart_1=new JSONArray();//老用户数、老ip、登陆用户数、进入目标页
 		JSONArray notad_chart_1=new JSONArray();
 		JSONArray ad_chart_2=new JSONArray();//鼠标点击次数1-2、3-5、6-10、10+
@@ -560,7 +600,9 @@ public class IndexController {
 				}
 				notad_chart_6.add(json_notadChart_6);
 			}
-			
+			json.put("success", true);
+			json.put("nextPage", pageNo-1);
+			json.put("lastPage", pageNo+1);
 			
 			json.put("ad_chart_1", ad_chart_1);
 			json.put("notad_chart_1", notad_chart_1);
