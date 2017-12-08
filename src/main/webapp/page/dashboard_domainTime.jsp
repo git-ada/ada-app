@@ -42,14 +42,13 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <i class="icon-bar-chart font-green-haze"></i>
+                  <a href="javascript:gotoHistoryPage(-1);"> <i class="icon-action-undo"></i></a>
                   <span class="caption-subject font-dark bold uppercase">基本数据</span>
                   <span class="caption-helper">广告入口</span>
               </div>
                <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
-                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -63,14 +62,12 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <i class="icon-bar-chart font-green-haze"></i>
                   <span class="caption-subject font-dark bold uppercase">基本数据</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
              <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
-                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -87,14 +84,12 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <i class="icon-bar-chart font-green-haze"></i>
                   <span class="caption-subject font-dark bold uppercase">用户分析</span>
                   <span class="caption-helper">广告入口</span>
               </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
-                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -108,14 +103,12 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <i class="icon-bar-chart font-green-haze"></i>
                   <span class="caption-subject font-dark bold uppercase">用户分析</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
-                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -132,14 +125,12 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <i class="icon-bar-chart font-green-haze"></i>
                   <span class="caption-subject font-dark bold uppercase">页面停留时长</span>
                   <span class="caption-helper">广告入口</span>
               </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
-                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -153,14 +144,12 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <i class="icon-bar-chart font-green-haze"></i>
                   <span class="caption-subject font-dark bold uppercase">页面停留时长</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
-                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -177,14 +166,12 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <i class="icon-bar-chart font-green-haze"></i>
                   <span class="caption-subject font-dark bold uppercase">鼠标点击</span>
                   <span class="caption-helper">广告入口</span>
               </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
-                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -198,14 +185,12 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <i class="icon-bar-chart font-green-haze"></i>
                   <span class="caption-subject font-dark bold uppercase">鼠标点击</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
-                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -223,14 +208,12 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <i class="icon-bar-chart font-green-haze"></i>
                   <span class="caption-subject font-dark bold uppercase">鼠标滚动</span>
                   <span class="caption-helper">广告入口</span>
               </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
-                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -244,14 +227,12 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <i class="icon-bar-chart font-green-haze"></i>
                   <span class="caption-subject font-dark bold uppercase">鼠标滚动</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
-                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -268,14 +249,12 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <i class="icon-bar-chart font-green-haze"></i>
                   <span class="caption-subject font-dark bold uppercase">鼠标移动</span>
                   <span class="caption-helper">广告入口</span>
               </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
-                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -289,14 +268,12 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <i class="icon-bar-chart font-green-haze"></i>
                   <span class="caption-subject font-dark bold uppercase">鼠标移动</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-undo"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-action-redo"></i></a>
-                   <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default fullscreen"> </a>
+                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -311,6 +288,7 @@
 <script type="text/javascript">
 	
 //window.setTimeout('refre()',300000); 
+
 
 function refre(){
 	
@@ -328,10 +306,12 @@ function refre(){
 			//表示被人客户端恶意修改参数
 			return;
 		}
+		
 		if (null == pageNo || "" == pageNo) {
 			toastr.success("已经没有数据了！");
 			return;
 		} else {
+			if(pageNo==0)pageNo=1;
 			//ajax读取 上一月的数据
 			jQuery.ajax({
 				url : "${pageContext.request.contextPath}/ajaxdashboard_domainTime.do?pageNo=" + pageNo+"&domainId="+${domainId},
