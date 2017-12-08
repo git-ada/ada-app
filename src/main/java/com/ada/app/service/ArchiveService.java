@@ -199,7 +199,7 @@ public class ArchiveService {
 	 */
 	private Timestamp lastTime = null;
 	
-	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
+//	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void archive15m() {
 		Timestamp startTime = lastTime;
 		Timestamp endTime = Dates.now();
@@ -208,16 +208,26 @@ public class ArchiveService {
 		for(AdaSite site:sites){
 			List<AdaDomain> domains = adaDomainDao.findBySiteId(site.getId());
 			for(AdaDomain domain:domains){
-				archiveDomain15m(domain,startTime,endTime);
+				try {
+					archiveDomain15m(domain,startTime,endTime);
+				} catch (Exception e) {
+					log.error("归档失败->"+domain.getDomain()+":"+domain.getId());
+					continue;
+				}
+				
 			}
 		}
 	}
 	
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void archiveDomain15m(AdaDomain domain,Timestamp startTime,Timestamp endTime) {
 		Integer siteId = domain.getSiteId();
 		Integer domainId = domain.getId();
 		AdaDomainAdStat newad = statService.statDomainAd(siteId, domainId, endTime);//广告新数据
 		AdaDomainStat newall = statService.statDomain(siteId, domainId, endTime);//全部新数据
+		if(newall.getPv()<10){
+			return;
+		}
 		AdaDomainNotadStat newnotad = reduct(newall, newad, AdaDomainNotadStat.class);//非广告入口新数据=全部-非广告的
 		newnotad.setSiteId(siteId);
 		newnotad.setDomainId(domainId);
