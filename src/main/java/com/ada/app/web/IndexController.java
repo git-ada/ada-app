@@ -80,7 +80,7 @@ public class IndexController {
 	private AdaDomainAd15mStatDao ad15mStatDao;
 	@Autowired
 	private AdaDomainNotAd15mStatDao notAd15mStatDao;
-	private final static int Interval_time = 5;//域名分时统计的时间 间隔（单位：分钟）
+	private final static int Interval_time = 15;//域名分时统计的时间 间隔（单位：分钟）
 	private final static int domainTime_PageSize = 24;//域名分时统计 图表数据 每一页的数据条数
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request,HttpServletResponse response, Model model) {
