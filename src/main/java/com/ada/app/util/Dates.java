@@ -640,7 +640,17 @@ public class Dates {
 			e.printStackTrace();
 		}
 		can.add(Calendar.MINUTE, -len);
-		return can.get(Calendar.HOUR_OF_DAY)+":"+ can.get(Calendar.MINUTE);
+		int h = can.get(Calendar.HOUR_OF_DAY);
+		String strh = String.valueOf(h);
+		if(h>=0 && h<=9){
+			strh="0"+strh;
+		}
+		int m = can.get(Calendar.MINUTE);
+		String strm = String.valueOf(m);
+		if(m>=0 && m<=9){
+			strm="0"+strm;
+		}
+		return strh+":"+ strm;
 	}
 
 	public static void main(String[] args) {

@@ -80,7 +80,8 @@ public class IndexController {
 	private AdaDomainAd15mStatDao ad15mStatDao;
 	@Autowired
 	private AdaDomainNotAd15mStatDao notAd15mStatDao;
-	
+	private final static int Interval_time = 5;//域名分时统计的时间 间隔（单位：分钟）
+	private final static int domainTime_PageSize = 24;//域名分时统计 图表数据 每一页的数据条数
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request,HttpServletResponse response, Model model) {
 		
@@ -146,7 +147,7 @@ public class IndexController {
 	public String dashboard_domainTime(HttpServletRequest request,HttpServletResponse response, Model model,
 			String domainId){
 		if(domainId!=null && !"".equals(domainId)){
-			JSONObject json = domainTimechartList(Integer.valueOf(domainId),24,15,1);
+			JSONObject json = domainTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1);
 			
 			model.addAttribute("json", json);
 		}
@@ -243,7 +244,7 @@ public class IndexController {
 		try {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print(this.domainTimechartList(domainid,24,15,pageno));
+			out.print(this.domainTimechartList(domainid,domainTime_PageSize,Interval_time,pageno));
 			out.flush();
 			out.close();
 		} catch (Exception e) {
@@ -408,32 +409,116 @@ public class IndexController {
 		JSONArray notad_chart_5=new JSONArray();
 		JSONArray ad_chart_6=new JSONArray();// IP、PV、UV
 		JSONArray notad_chart_6=new JSONArray();
-		/*if(adList.size()<15){
-			for(int i=0;i<15-adList.size();i++){
-				String date = new SimpleDateFormat("HH:mm").format(adList.get(adList.size()-1).getEndTime());
-				JSONObject json_item_1=new JSONObject();
-				json_item_1.put("date", com.ada.app.util.Dates.getbeforeTime(date, len*(i+1)));
-				json_item_1.put("ip", 0);
-				json_item_1.put("pv", 0);
-				json_item_1.put("uv", 0);
-				
-				ad_chart_6.add(json_item_1);
-				notad_chart_6.add(json_item_1);
-				ad_chart_2.add(json_item);
-				notad_chart_2.add(json_item);
-				ad_chart_3.add(json_item);
-				notad_chart_3.add(json_item);
-				ad_chart_4.add(json_item);
-				notad_chart_4.add(json_item);
-				ad_chart_5.add(json_item);
-				notad_chart_5.add(json_item);
-				ad_chart_6.add(json_item);
-				notad_chart_6.add(json_item);
-			}
-		}*/
-		
 		
 		try {
+			if(adList.size()<pageSize){//广告入口
+				for(int i=0;i<pageSize-adList.size();i++){
+					String date = new SimpleDateFormat("HH:mm").format(adList.get(adList.size()-1).getEndTime());
+					String strdate = com.ada.app.util.Dates.getbeforeTime(date, len*(i+1));
+					JSONObject json_item_1=new JSONObject();
+					JSONObject json_item_2=new JSONObject();
+					JSONObject json_item_3=new JSONObject();
+					JSONObject json_item_4=new JSONObject();
+					JSONObject json_item_5=new JSONObject();
+					JSONObject json_item_6=new JSONObject();
+					
+					json_item_1.put("date", strdate);
+					json_item_1.put("olduser", 0);// 老用户数
+					json_item_1.put("oldip", 0); // 老IP数
+					json_item_1.put("loginip", 0);//登陆用户数
+					json_item_1.put("targetpageip", 0);//进入目标页
+					
+					json_item_2.put("date", strdate);
+					json_item_2.put("c1", 0);
+					json_item_2.put("c2", 0);
+					json_item_2.put("c3", 0);
+					json_item_2.put("c4", 0);
+					
+					json_item_3.put("date", strdate);
+					json_item_3.put("st1", 0);
+					json_item_3.put("st2", 0);
+					json_item_3.put("st3", 0);
+					json_item_3.put("st4", 0);
+					
+					json_item_4.put("date", strdate);
+					json_item_4.put("s1", 0);
+					json_item_4.put("s2", 0);
+					json_item_4.put("s3", 0);
+					json_item_4.put("s4", 0);
+					
+					json_item_5.put("date", strdate);
+					json_item_5.put("m1", 0);
+					json_item_5.put("m2", 0);
+					json_item_5.put("m3", 0);
+					json_item_5.put("m4", 0);
+					
+					json_item_6.put("date",strdate);
+					json_item_6.put("ip", 0);
+					json_item_6.put("pv", 0);
+					json_item_6.put("uv", 0);
+					
+					ad_chart_1.add(json_item_1);
+					ad_chart_2.add(json_item_2);
+					ad_chart_3.add(json_item_3);
+					ad_chart_4.add(json_item_4);
+					ad_chart_5.add(json_item_5);
+					ad_chart_6.add(json_item_6);
+				}
+			}
+			if(notadList.size()<pageSize){
+				for(int i=0;i<pageSize-notadList.size();i++){
+					String date = new SimpleDateFormat("HH:mm").format(notadList.get(notadList.size()-1).getEndTime());
+					String strdate = com.ada.app.util.Dates.getbeforeTime(date, len*(i+1));
+					JSONObject json_item_1=new JSONObject();
+					JSONObject json_item_2=new JSONObject();
+					JSONObject json_item_3=new JSONObject();
+					JSONObject json_item_4=new JSONObject();
+					JSONObject json_item_5=new JSONObject();
+					JSONObject json_item_6=new JSONObject();
+					
+					json_item_1.put("date", strdate);
+					json_item_1.put("olduser", 0);// 老用户数
+					json_item_1.put("oldip", 0); // 老IP数
+					json_item_1.put("loginip", 0);//登陆用户数
+					json_item_1.put("targetpageip", 0);//进入目标页
+					
+					json_item_2.put("date", strdate);
+					json_item_2.put("c1", 0);
+					json_item_2.put("c2", 0);
+					json_item_2.put("c3", 0);
+					json_item_2.put("c4", 0);
+					
+					json_item_3.put("date", strdate);
+					json_item_3.put("st1", 0);
+					json_item_3.put("st2", 0);
+					json_item_3.put("st3", 0);
+					json_item_3.put("st4", 0);
+					
+					json_item_4.put("date", strdate);
+					json_item_4.put("s1", 0);
+					json_item_4.put("s2", 0);
+					json_item_4.put("s3", 0);
+					json_item_4.put("s4", 0);
+					
+					json_item_5.put("date", strdate);
+					json_item_5.put("m1", 0);
+					json_item_5.put("m2", 0);
+					json_item_5.put("m3", 0);
+					json_item_5.put("m4", 0);
+					
+					json_item_6.put("date",strdate);
+					json_item_6.put("ip", 0);
+					json_item_6.put("pv", 0);
+					json_item_6.put("uv", 0);
+					
+					notad_chart_1.add(json_item_1);
+					notad_chart_2.add(json_item_2);
+					notad_chart_3.add(json_item_3);
+					notad_chart_4.add(json_item_4);
+					notad_chart_5.add(json_item_5);
+					notad_chart_6.add(json_item_6);
+				}
+			}
 			for(int i=adList.size()-1;i>=0;i--){
 				/** 广告入口数据  **/
 				AdaDomainAd15mStat item = adList.get(i);
