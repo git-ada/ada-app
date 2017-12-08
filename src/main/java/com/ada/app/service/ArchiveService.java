@@ -199,7 +199,7 @@ public class ArchiveService {
 	 */
 	private Timestamp lastTime = null;
 	
-//	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void archive15m() {
 		Timestamp startTime = lastTime;
 		Timestamp endTime = Dates.now();
@@ -219,7 +219,7 @@ public class ArchiveService {
 		}
 	}
 	
-	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
+//	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void archiveDomain15m(AdaDomain domain,Timestamp startTime,Timestamp endTime) {
 		Integer siteId = domain.getSiteId();
 		Integer domainId = domain.getId();
