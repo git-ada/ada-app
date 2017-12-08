@@ -594,7 +594,7 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
+			 if(domainIp!=null && domainIp>10){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
