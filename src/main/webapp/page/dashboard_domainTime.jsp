@@ -42,7 +42,7 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <a href="javascript:gotoHistoryPage(-1);"> <i class="icon-action-undo"></i></a>
+                  <a onclick="gotoPage('${pageContext.request.contextPath}/dashboard.jhtm')"> <i class="icon-action-undo"></i></a>
                   <span class="caption-subject font-dark bold uppercase">基本数据</span>
                   <span class="caption-helper">广告入口</span>
               </div>
