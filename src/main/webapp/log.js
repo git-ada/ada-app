@@ -63,6 +63,23 @@ function adaDelCookie(name){
 	} catch(e){
 	}
 }
+/** 判断cookie是否存在 **/
+function adaIsCookieExists(name){
+	try{
+		if(document.cookie.indexOf(name+"=") != -1){
+			return true;
+		}
+		return false;
+	} catch(e){
+	}
+}
+/** 设置cookie **/
+function adaSetCookie(name,value,expires){
+	try{
+		document.cookie = name + "="+ encodeURIComponent(value) + ";expires="+expires+"; path=/";
+	} catch(e){
+	}
+}
 
 function adaCreateUUID(){
 	try{
@@ -479,6 +496,9 @@ function adaPutLog1() {
 			f = Date.parse(adaPageInTime);
 			document.cookie = "fr8itTYL="+adaPageInTime+";expires="+adaGetTodayExpires()+"; path=/";
 		}
+		if(adaIsCookieExists("bgn59Wyo")){
+			adaAdId = adaGetcookie("bgn59Wyo").split("=")[1];
+		}
 		httprequest.open("post", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&a="+adaAdId+"&p="+encodeURI+"&r="+pageReferrer+"&o="+adaFirstTime+"&f="+f+"&os="+adaIsOS()+"&br="+adaIsBrowser()+"&ss="+screenSize+"&ps="+pageSize+"&if="+iSiframe+"&ua="+userAgent+"&t="+Date.parse(new Date()), true);
 		httprequest.onreadystatechange = function () {
 			if (httprequest.readyState == 4) {
@@ -521,6 +541,9 @@ function adaPutLog2() {
 	try{
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
+		if(adaIsCookieExists("bgn59Wyo")){
+			adaAdId = adaGetcookie("bgn59Wyo").split("=")[1];
+		}
 		httprequest.open("get", adaLogServer + "/l2?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&a="+adaAdId+"&n="+adaMouseClickTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
 		httprequest.send();
 	} catch(e){
@@ -531,6 +554,9 @@ function adaPutLog3() {
 	try{
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
+		if(adaIsCookieExists("bgn59Wyo")){
+			adaAdId = adaGetcookie("bgn59Wyo").split("=")[1];
+		}
 		httprequest.open("get", adaLogServer + "/l3?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&a="+adaAdId+"&n="+adaPageStayTime+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
 		httprequest.send();
 	} catch(e){
@@ -541,6 +567,9 @@ function adaPutLog4() {
 	try{
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
+		if(adaIsCookieExists("bgn59Wyo")){
+			adaAdId = adaGetcookie("bgn59Wyo").split("=")[1];
+		}
 		httprequest.open("get", adaLogServer + "/l4?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&a="+adaAdId+"&n="+adaMouseMoveTiems+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
 		httprequest.send();
 	} catch(e){
@@ -551,6 +580,9 @@ function adaPutLog5() {
 	try{
 		var httprequest = adagetHttpRequest();
 		var encodeURI = encodeURIComponent(window.location.href);
+		if(adaIsCookieExists("bgn59Wyo")){
+			adaAdId = adaGetcookie("bgn59Wyo").split("=")[1];
+		}
 		httprequest.open("get", adaLogServer + "/l5?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&a="+adaAdId+"&n="+adaMousescrollTimes+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
 		httprequest.send();
 	} catch(e){
