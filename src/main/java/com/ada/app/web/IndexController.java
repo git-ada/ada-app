@@ -113,7 +113,7 @@ public class IndexController {
 	 * @return
 	 */
 	@RequestMapping(value = "dashboard")
-	public String now(HttpServletRequest request,HttpServletResponse response, Model model) {
+	public String now(HttpServletRequest request,HttpServletResponse response, Model model,String dataType) {
 		
 		/** 从sessions中获取站点信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();//
@@ -121,25 +121,81 @@ public class IndexController {
 		/** 获取当前站点统计信息 **/
 		Date today = Dates.todayStart();
 		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
+		if(dataType!=null){
+			if("domain".equals(dataType)){
+				/** 获取站点下域名统计信息 **/
+				Map sumMap = getDomainStat_list(today);
+				List<Map> DomainStat_list = (List<Map>) sumMap.get("DomainStat_list");
+				 model.addAttribute("DomainStat_list", DomainStat_list);
+			}else if("domainAd".equals(dataType)){
+				Map Map = getDomainAdData(today);
+				List<Map> data_list = (List<Map>) Map.get("data_list");
+				model.addAttribute("DomainStat_list", data_list);
+			}else if("domainAd".equals(dataType)){
+				Map Map = getDomainNotAdData(today);
+				List<Map> data_list = (List<Map>) Map.get("data_list");
+				model.addAttribute("DomainStat_list", data_list);
+			}
+			
+		}
 		
-		/** 获取站点下域名统计信息 **/
-		Long startTime = System.currentTimeMillis();
-		Map sumMap = getDomainStat_list(today);
-		Long endTime = System.currentTimeMillis();
-		Long cost = endTime - startTime;
-		log.info("实时数据页面获取数据列表耗时：--->"+cost+"ms");
-		//List<Map> ChannelStat_list = (List<Map>) sumMap.get("ChannelStat_list");
-		List<Map> DomainStat_list = (List<Map>) sumMap.get("DomainStat_list");
-		 
-		 //model.addAttribute("pageResults", ChannelStat_list);
-		// model.addAttribute("channelSumIP", sumMap.get("channelSumIP"));/** 渠道ip总数 **/
-		 //model.addAttribute("channelSumPV", sumMap.get("channelSumPV"));/** 渠道PV总数 **/
-		 model.addAttribute("DomainStat_list", DomainStat_list);
-		 model.addAttribute("domainSumIP", sumMap.get("domainSumIP"));
-		 model.addAttribute("domainSumPV", sumMap.get("domainSumPV"));
+		
 		 model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		 model.addAttribute("siteStat", siteStat);
+		 model.addAttribute("dataType", dataType);
 		return "dashboard";
+	}
+	
+	/**
+	 * ajax刷新实时数据页面数据
+	 * @param dataType 页面数据类型（域名统计、域名广告入口统计、域名非广告入口统计、域名地域广告入口统计、域名地域非广告入口统计）
+	 */
+	@RequestMapping("ajaxRefreshPage")
+	public void ajaxRefreshPage(HttpServletRequest request,HttpServletResponse response ,Model model,
+			String dataType,String domainId){
+		
+		JSONObject json=new JSONObject();
+		
+		/** 获取当前站点统计信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();
+		Date today = Dates.todayStart();
+		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
+		if(dataType!=null){
+			if("domain".equals(dataType)){/** 获取域名统计信息 **/
+				Map Map = getDomainStat_list(today);
+				List<Map> data_list = (List<Map>) Map.get("DomainStat_list");
+				json.put("data_list", data_list);
+			}else if("domainAd".equals(dataType)){/** 获取域名广告入口统计信息 **/
+				Map Map = getDomainAdData(today);
+				List<Map> data_list = (List<Map>) Map.get("data_list");
+				json.put("data_list", data_list);
+			}else if("domainNotAd".equals(dataType)){/** 获取域名非广告入口统计信息 **/
+				Map Map = getDomainNotAdData(today);
+				List<Map> data_list = (List<Map>) Map.get("data_list");
+				json.put("data_list", data_list);
+			}else if("domainRegionAd".equals(dataType)){/** 获取域名地域广告入口统计信息 **/
+				Map Map = getDomainRegionAd_data(today,Integer.valueOf(domainId));
+				List<Map> data_list = (List<Map>) Map.get("data_list");
+				json.put("data_list", data_list);
+			}else if("domainRegionNotAd".equals(dataType)){/** 获取域名地域非广告入口统计信息 **/
+				Map Map = getDomainRegionNotAd_data(today,Integer.valueOf(domainId));
+				List<Map> data_list = (List<Map>) Map.get("data_list");
+				json.put("data_list", data_list);
+			}
+		}
+		json.put("siteStat", siteStat);
+		json.put("dataType", dataType);
+		json.put("domainId", domainId);
+		json.put("lasttime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		 try {
+				response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.print(json);
+				out.flush();
+				out.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
 	
 	/**
@@ -282,37 +338,7 @@ public class IndexController {
 		}
 	}
 	
-	/** ajax刷新域名列表信息 **/
-	@RequestMapping("ajaxRefreshPage")
-	public void ajaxRefreshPage(HttpServletRequest request,HttpServletResponse response ,Model model){
-		
-		JSONObject json=new JSONObject();
-		/** 从sessions中获取站点信息 **/
-		AdaSite adaSite = Sessions.getCurrentSite();//
-		
-		/** 获取当前站点统计信息 **/
-		Date today = Dates.todayStart();
-		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
-		
-		/** 获取站点下域名统计信息 **/
-		Map sumMap = getDomainStat_list(today);
-		List<Map> DomainStat_list = (List<Map>) sumMap.get("DomainStat_list");
-		
-		 json.put("siteStat", siteStat);
-		 json.put("domainSumIP", sumMap.get("domainSumIP"));
-		 json.put("domainSumPV", sumMap.get("domainSumPV"));
-		 json.put("DomainStat_list", DomainStat_list);
-		 json.put("lasttime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-		 try {
-				response.setContentType("text/html;charset=utf-8");
-				PrintWriter out = response.getWriter();
-				out.print(json);
-				out.flush();
-				out.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	}
+	
 	
 	/***ajax刷新渠道列表信息 */
 	@RequestMapping(value = "ajax_channelList")
@@ -1177,7 +1203,7 @@ public class IndexController {
 				}
 	        });
 		Map map = new HashMap();
-		map.put("regionAd_list", regionAd_list);
+		map.put("data_list", regionAd_list);
 		return map;
 	}
 	
@@ -1312,7 +1338,7 @@ public class IndexController {
 				}
 	        });
 		Map map = new HashMap();
-		map.put("regionNotAd_list", regionNotAd_list);
+		map.put("data_list", regionNotAd_list);
 		return map;
 	}
 	
@@ -1482,7 +1508,7 @@ public class IndexController {
 		 
 		 Map map = new HashMap();
 		
-		 map.put("DomainStat_list", DomainStat_list);
+		 map.put("data_list", DomainStat_list);
 		 map.put("domainSumIP", domainSumIP);
 		 map.put("domainSumPV", domainSumPV);
 		 
@@ -1653,7 +1679,7 @@ public class IndexController {
 		 
 		 Map map = new HashMap();
 		
-		 map.put("DomainStat_list", DomainStat_list);
+		 map.put("data_list", DomainStat_list);
 		 map.put("domainSumIP", domainSumIP);
 		 map.put("domainSumPV", domainSumPV);
 		 

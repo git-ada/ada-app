@@ -147,25 +147,16 @@ th:last-child,td:last-child {
 <div class="portlet light portlet-fit bordered">
 	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;">
 		<div class="caption" style="padding-bottom: 0px;">
-            <i class="icon-directions font-green hide"></i>
+            <a onclick="changeDataType('domain')"><i class="icon-action-undo"></i></a>
             <span class="caption-subject bold font-dark uppercase "> 今日实时统计</span>
             <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
         </div>
         <div class="inputs">
-            <!-- <div class="input-icon right" style="float: left;margin-right: 10px;">
-                   <i class="icon-magnifier"></i>
-            	<input type="text" class="form-control form-control-solid input-circle" placeholder="搜索...">
-            </div> -->
-            
             <div class="actions" style="float: left;">
 				<a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
-				<!-- 
-				<a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-control-pause"></i></a>  icon-control-pause
-				 -->
 				<a class="btn btn-circle btn-icon-only btn-default fullscreen"  id="fullscreenOractual"><i class="icon-size-fullscreen"></i></a>
 			</div>
         </div>
-		
 	</div>
 	
 	<!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
@@ -173,7 +164,9 @@ th:last-child,td:last-child {
 		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column" style="border: 0">
 	            <thead>
 	                <tr>
-						<th scope="col" style="min-width: 130px;">域名</th>
+	                	<c:if test="${dataType=='domain'}"><th scope="col" style="min-width: 130px;" id="firstTh">域名</th></c:if>
+						<c:if test="${dataType=='domainAd'}"><th scope="col" style="min-width: 130px;" id="firstTh">域名（广告入口）</th></c:if>
+						<c:if test="${dataType=='domainNotAd'}"><th scope="col" style="min-width: 130px;" id="firstTh">域名（非广告入口）</th></c:if>
 						<th scope="col" style="min-width: 80px">IP</th>			
 						<th scope="col" style="min-width: 80px">PV</th>
 						<th scope="col" style="min-width: 80px">UV</th>
@@ -202,25 +195,9 @@ th:last-child,td:last-child {
 	            <tbody id="tbody">
 	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
 	                <tr>
-	                	<%-- <c:if test="${domain.channelNum>0}"><td style="min-width: 120px;" title="${domain.domain}"><a style="text-decoration:underline;color: #333;" href="javascript:void(0);" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_channelList.jhtm?domainId=${domain.id}&domain=${domain.domain}')">${domain.subDomain}</a> </td></c:if> --%>
-	                		<td style="min-width: 130px;" title="${domain.domain}">
-	                		<a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${domain.id}" data-toggle="dropdown" onclick="openMenu(this)">${domain.subDomain}</a>
-	                			<%-- <div id="context-menu${domain.id}" style="z-index: 99999;position: absolute;float: right;" >
-		                			<ul class="dropdown-menu" role="menu" style="z-index: 99999;position: absolute;" >
-										<li>
-								          <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domain.id}')">分时统计</a>
-								     </li>
-								     <li>
-								         <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（广告入口）</a>
-								     </li>
-								     <li>
-								         <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionNotAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（非广告入口）</a>
-								     </li>
-								 </ul>
-								</div> --%>
-	                		</td>
-	                	
-	                	
+                		<td style="min-width: 130px;" title="${domain.domain}">
+                			<a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${domain.id}" data-toggle="dropdown" onclick="openMenu(this)">${domain.subDomain}</a>
+                		</td>
 						<td style="min-width: 80px">${domain.ip}</td>
 						<td style="min-width: 80px">${domain.pv}</td>
 						<td style="min-width: 80px">${domain.uv}</td>
@@ -254,16 +231,16 @@ th:last-child,td:last-child {
 							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domain.id}')">分时统计</a>
 							     </li>
 							     <li>
-							         <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainAd.jhtm')">域名统计（广告入口）</a>
+							         <a href="javascript:;" onclick="changeDataType('domainAd')">域名统计（广告入口）</a>
 							     </li>
 							     <li>
-							         <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainNotAd.jhtm')">域名统计（非广告入口）</a>
+							         <a href="javascript:;" onclick="changeDataType('domainNotAd')">域名统计（非广告入口）</a>
 							     </li>
 							     <li>
-							         <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（广告入口）</a>
+							         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${domain.id})">地域统计（广告入口）</a>
 							     </li>
 							     <li>
-							         <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_regionNotAd.jhtm?domainId=${domain.id}&domain=${domain.domain}')">地域统计（非广告入口）</a>
+							         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${domain.id})">地域统计（非广告入口）</a>
 							     </li>
 							 </ul>
 						</div>
@@ -278,7 +255,8 @@ th:last-child,td:last-child {
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-
+var dataType = '${dataType}';//页面数据类型
+var domainId = "";//域名ID
 function openMenu(a,event){
 	 var e = event || window.event;
 	var yy  = parseInt(e.screenY-120);
@@ -379,7 +357,12 @@ var initTable1 = function () {
 	    	 }
 	     });  
 	});
-	
+	/**改变页面数据类型**/
+	function changeDataType(type,domainId){
+		dataType = type;
+		ajaxRefreshPage(type,domainId);
+		
+	}
 	 function graphicLoading(obj) {
 		var pageNo = 1;
 
@@ -417,11 +400,11 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 
-	 t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
 	  
-	 function ajaxRefreshPage(){
+	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do",
+				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do?dataType="+type+"&domainId="+domainId,
 				success : function(data) {
 					if (data!=null) {
 						var json = eval('(' + data + ')');
@@ -429,73 +412,89 @@ var initTable1 = function () {
 						$("#pv").html(json.siteStat.pv);
 						$("#cip").html(json.channelSumIP);
 						$("#cpv").html(json.channelSumPV);
-						
-						/** 渠道数据列表 **/
-						var list = json.ChannelStat_list;
-						var open = "";
-						var lefttale = "";
+						domainId = json.domainId;//域名ID
+						var table = "";
+						var lefttable = "";
 						var menu = "";
-						/** 域名数据列表 **/
-						var domainList = json.DomainStat_list;
-						var domain = "";
-						for(var i=0;i<domainList.length;i++){
+						var firstTh = "域名";
+						/** 数据列表 **/
+						var dataList = json.data_list;
+						if(dataType=="domain"){
+							firstTh = "域名";
+						}else if(dataType=="domainAd"){
+							firstTh = "域名（广告入口）";
+						}else if(dataType=="domainNotAd"){
+							firstTh = "域名（非广告入口）";
+						}else if(dataType=="domainRegionAd"){
+							firstTh = "地域（广告入口）";
+						}else if(dataType=="domainRegionNotAd"){
+							firstTh = "地域（非广告入口）";
+						}
+						for(var i=0;i<dataList.length;i++){
+							var firstTd = "";
 							var tr = "";
 						    var tr2 = "";
 						    var tr3 = "";
-						  		tr+="<tr>" + 
-							      "<td style='min-width: 130px;'  title='"+domainList[i].domain+"'><a href='javascript:void(0);' >"+domainList[i].subDomain+"</a></td>"+
-								  "<td >"+domainList[i].ip+"</td>"+
-								  "<td >"+domainList[i].pv+"</td>"+
-								  "<td >"+domainList[i].uv+"</td>"+
-								  "<td >"+domainList[i].oldip+" ("+domainList[i].oldi+"%)</td>"+
-								  "<td >"+domainList[i].loginip+" ("+domainList[i].log+"%)</td>"+
-								  "<td >"+domainList[i].olduserip+" ("+domainList[i].old+"%)</td>"+
-								  "<td >"+domainList[i].clickip1+" ("+domainList[i].c1+"%)</td>"+
-								  "<td >"+domainList[i].clickip2+" ("+domainList[i].c2+"%)</td>"+
-								  "<td >"+domainList[i].clickip3+" ("+domainList[i].c3+"%)</td>"+
-								  "<td >"+domainList[i].clickip4+" ("+domainList[i].c4+"%)</td>"+
-								  "<td >"+domainList[i].targetpageip+" ("+domainList[i].tgp+"%)</td>"+
-								  "<td >"+domainList[i].staytimeip1+" ("+domainList[i].s1+"%)</td>"+
-								  "<td >"+domainList[i].staytimeip2+" ("+domainList[i].s2+"%)</td>"+
-								  "<td >"+domainList[i].staytimeip3+" ("+domainList[i].s3+"%)</td>"+
-								  "<td >"+domainList[i].staytimeip4+" ("+domainList[i].s4+"%)</td>"+
-								  "<td >"+domainList[i].scrollip1+" ("+domainList[i].sc1+"%)</td>"+
-								  "<td >"+domainList[i].scrollip2+" ("+domainList[i].sc2+"%)</td>"+
-								  "<td >"+domainList[i].scrollip3+" ("+domainList[i].sc3+"%)</td>"+
-								  "<td >"+domainList[i].scrollip4+" ("+domainList[i].sc4+"%)</td>"+
-								  "<td >"+domainList[i].moveip1+" ("+domainList[i].m1+"%)</td>"+
-								  "<td >"+domainList[i].moveip2+" ("+domainList[i].m2+"%)</td>"+
-								  "<td >"+domainList[i].moveip3+" ("+domainList[i].m3+"%)</td>"+
-								  "<td >"+domainList[i].moveip4+" ("+domainList[i].m4+"%)</td>"+
-								  "</tr>";
-								  open+=tr;
+						    if(dataType=="domain"){
+						    	firstTd="<td style='min-width: 130px;'  title='"+dataList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+dataList[i].id+"' data-toggle='dropdown' onclick='openMenu(this)'>"+dataList[i].subDomain+"</a></td>";
+						    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
+								"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
+									"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+dataList[i].id+"\")'>分时统计</a></li>"+
+									 "<li><a href='javascript:;' onclick='changeDataType(\"domainAd\")'>域名统计（广告入口）</a></li>"+
+							     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainNotAd\")'>域名统计（非广告入口）</a></li>"+
+                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+dataList[i].id+"\")'>地域统计（广告入口）</a></li>"+
+                                 	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+dataList[i].id+"\")'>地域统计（非广告入口）</a></li>"+
+						      	"</ul></div>";
+						      	menu+=tr3;
+						    }else if(dataType=="domainAd"){
+						    	firstTd = "<td style='min-width: 130px;'  title='"+dataList[i].domain+"'>"+dataList[i].subDomain+"</td>";
+						    }else if(dataType=="domainNotAd"){
+						    	firstTd = "<td style='min-width: 130px;'  title='"+dataList[i].domain+"'>"+dataList[i].subDomain+"</td>";
+						    }else if(dataType=="domainRegionAd"){
+						    	firstTd = "<td style='min-width: 130px;'  >"+dataList[i].regionName+"</td>";
+						    }else if(dataType=="domainRegionNotAd"){
+						    	firstTd = "<td style='min-width: 130px;'  >"+dataList[i].regionName+"</td>";
+						    }
+					  		tr+="<tr>" + firstTd+
+							  "<td >"+dataList[i].ip+"</td>"+
+							  "<td >"+dataList[i].pv+"</td>"+
+							  "<td >"+dataList[i].uv+"</td>"+
+							  "<td >"+dataList[i].oldip+" ("+dataList[i].oldi+"%)</td>"+
+							  "<td >"+dataList[i].loginip+" ("+dataList[i].log+"%)</td>"+
+							  "<td >"+dataList[i].olduserip+" ("+dataList[i].old+"%)</td>"+
+							  "<td >"+dataList[i].clickip1+" ("+dataList[i].c1+"%)</td>"+
+							  "<td >"+dataList[i].clickip2+" ("+dataList[i].c2+"%)</td>"+
+							  "<td >"+dataList[i].clickip3+" ("+dataList[i].c3+"%)</td>"+
+							  "<td >"+dataList[i].clickip4+" ("+dataList[i].c4+"%)</td>"+
+							  "<td >"+dataList[i].targetpageip+" ("+dataList[i].tgp+"%)</td>"+
+							  "<td >"+dataList[i].staytimeip1+" ("+dataList[i].s1+"%)</td>"+
+							  "<td >"+dataList[i].staytimeip2+" ("+dataList[i].s2+"%)</td>"+
+							  "<td >"+dataList[i].staytimeip3+" ("+dataList[i].s3+"%)</td>"+
+							  "<td >"+dataList[i].staytimeip4+" ("+dataList[i].s4+"%)</td>"+
+							  "<td >"+dataList[i].scrollip1+" ("+dataList[i].sc1+"%)</td>"+
+							  "<td >"+dataList[i].scrollip2+" ("+dataList[i].sc2+"%)</td>"+
+							  "<td >"+dataList[i].scrollip3+" ("+dataList[i].sc3+"%)</td>"+
+							  "<td >"+dataList[i].scrollip4+" ("+dataList[i].sc4+"%)</td>"+
+							  "<td >"+dataList[i].moveip1+" ("+dataList[i].m1+"%)</td>"+
+							  "<td >"+dataList[i].moveip2+" ("+dataList[i].m2+"%)</td>"+
+							  "<td >"+dataList[i].moveip3+" ("+dataList[i].m3+"%)</td>"+
+							  "<td >"+dataList[i].moveip4+" ("+dataList[i].m4+"%)</td>"+
+							  "</tr>";
+							  table+=tr;
 						  
-									tr2+="<tr>"+
-							          "<td style='min-width: 130px;'  title='"+domainList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+domainList[i].id+"' data-toggle='dropdown' onclick='openMenu(this)'>"+domainList[i].subDomain+"</a>"+
-								         "</td>"+
-									  "<td style='min-width: 80px'>"+domainList[i].ip+"</td>"+
-									  "<td style='min-width: 80px'>"+domainList[i].pv+"</td>"+
-										"</tr>";
-									lefttale+=tr2;
-									
-									tr3+="<div id='context-menu"+domainList[i].id+"' style='position: absolute;z-index: 999;'>"+
-										"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
-											"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+domainList[i].id+"\")'>分时统计</a></li>"+
-											 "<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainAd.jhtm\")'>域名统计（广告入口）</a></li>"+
-									     	 "<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainNotAd.jhtm\")'>域名统计（非广告入口）</a></li>"+
-		                                	 "<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_regionAd.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>地域统计（广告入口）</a></li>"+
-		                                 	"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_regionNotAd.jhtm?domainId="+domainList[i].id+"&domain="+domainList[i].domain+"\")'>地域统计（非广告入口）</a></li>"+
-								      	"</ul></div>";
-								      	menu+=tr3;
-						  	
+							tr2+="<tr>"+firstTd+
+							  "<td style='min-width: 80px'>"+dataList[i].ip+"</td>"+
+							  "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+
+								"</tr>";
+							lefttable+=tr2;
 									
 						}
-						if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0){
-							
+						if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType){
+							jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
 							jQuery("#tbody").empty();
-							jQuery("#tbody").append(open);
+							jQuery("#tbody").append(table);
 							jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
-							jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttale+menu);
+							jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable+menu);
 							jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
 							
 						}
@@ -504,14 +503,14 @@ var initTable1 = function () {
 					clearTimeout(t);
 					if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0){
 						ajaxTime=2000;
-						t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+						t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
 					}
 					
 				},
 				error: function (data) {
 					clearTimeout(t);
 					ajaxTime=ajaxTime*2;
-					t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
+					t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
 				}
 			});
 	 }
