@@ -1329,7 +1329,7 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>10){
+			 if(domainIp!=null && domainIp>0){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1503,7 +1503,7 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainNotAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>10){
+			 if(domainIp!=null && domainIp>0){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
