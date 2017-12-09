@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.com.jiand.mvc.framework.utils.Dates;
 
+import com.ada.app.bean.BaseStat;
 import com.ada.app.bean.DomainAreaStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
@@ -36,7 +37,9 @@ import com.ada.app.domain.AdaChannel;
 import com.ada.app.domain.AdaChannelStat;
 import com.ada.app.domain.AdaDomain;
 import com.ada.app.domain.AdaDomainAd15mStat;
+import com.ada.app.domain.AdaDomainAdStat;
 import com.ada.app.domain.AdaDomainNotad15mStat;
+import com.ada.app.domain.AdaDomainNotadStat;
 import com.ada.app.domain.AdaDomainStat;
 import com.ada.app.domain.AdaSite;
 import com.ada.app.domain.AdaSiteStat;
@@ -189,6 +192,33 @@ public class IndexController {
 		}
 		model.addAttribute("domain", domain);
 		return "dashboard_regionNotAd";
+	}
+	
+	/**
+	 * 实时数据页面  域名广告入口分析
+	 * @param domainId
+	 * @param domain
+	 * @return
+	 */
+	@RequestMapping(value = "dashboard_domainAd")
+	public String dashboard_domainAd(HttpServletRequest request,HttpServletResponse response, Model model){
+		Date today = Dates.todayStart();
+		Map map = getDomainAdData(today);
+		List<Map> domainAd_list = (List<Map>) map.get("DomainStat_list");
+		
+		model.addAttribute("domainAd_list", domainAd_list);
+		
+		return "dashboard_domainAd";
+	}
+	@RequestMapping(value = "dashboard_domainNotAd")
+	public String dashboard_domainNotAd(HttpServletRequest request,HttpServletResponse response, Model model){
+		
+		Date today = Dates.todayStart();
+		Map map = getDomainNotAdData(today);
+		List<Map> domainAd_list = (List<Map>) map.get("DomainStat_list");
+		
+		model.addAttribute("domainAd_list", domainAd_list);
+		return "dashboard_domainNotAd";
 	}
 	
 	/**
@@ -1284,5 +1314,383 @@ public class IndexController {
 		Map map = new HashMap();
 		map.put("regionNotAd_list", regionNotAd_list);
 		return map;
+	}
+	
+	protected Map getDomainAdData(Date date){
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();
+		 /** 域名列表信息 **/
+		 List<Map> DomainStat_list = new ArrayList<Map>();
+		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
+		 Integer domainSumIP = 0;/** 渠道ip总数 **/
+		 Integer domainSumPV = 0;/** 渠道PV总数 **/
+		 
+		 List<Integer[]> domainIps = new ArrayList();
+		 
+		 for(AdaDomain domain : domains){
+			 Integer domainIp = statService.statDomainAdIP(domain.getId(), date);
+			 if(domainIp!=null && domainIp>10){
+				 domainIps.add(new Integer[]{domain.getId(),domainIp});
+			 }
+		 }
+		 
+		 Collections.sort(domainIps,new Comparator<Integer[]>(){
+			public int compare(Integer[] arg0, Integer[] arg1) {
+				return arg1[1].compareTo(arg0[0]);
+			}
+		 });
+		 
+		 for(int i=0;i<domainIps.size();i++){
+			Integer domainId = domainIps.get(i)[0];
+			Integer domainIp = domainIps.get(i)[1];
+			//Integer channelNum = domainIps.get(i)[2];
+//			if(domainIp<10 && i>19){
+//				 break;
+//			 }
+			
+			AdaDomainAdStat domainStat = this.statService.statDomainAd(adaSite.getId(), domainId, date);
+			Map map = new HashMap();
+			map.put("id", domainId);
+			//map.put("channelNum", channelNum);
+			String domainstr = adaDomainDao.findById(domainId).getDomain();
+			 map.put("domain",domainstr);
+			 if(domainstr.length()>18){
+				 map.put("subDomain", adaDomainDao.findById(domainId).getDomain().substring(0, 18));
+			 }else{
+				 map.put("subDomain", domainstr);
+			 }
+			 map.put("ip", domainStat.getIp());
+			 map.put("pv", domainStat.getPv());
+			 map.put("uv", domainStat.getUv());
+			 Integer clickip1=0;
+			 Integer clickip2=0;
+			 Integer clickip3=0;
+			 Integer clickip4=0;
+			 Integer staytimeip1=0;
+			 Integer staytimeip2=0;
+			 Integer staytimeip3=0;
+			 Integer staytimeip4=0;
+			 Integer scrollip1 = 0;
+			 Integer scrollip2 = 0;
+			 Integer scrollip3 = 0;
+			 Integer scrollip4 = 0;
+			 Integer moveip1 = 0;
+			 Integer moveip2 = 0;
+			 Integer moveip3 = 0;
+			 Integer moveip4 = 0;
+			 Integer olduserip = 0;
+			 Integer oldip = 0;
+			 Integer loginip = 0;
+			 Integer targetpageip =0;
+			 if(domainStat.getClickip1()>0)clickip1 = domainStat.getClickip1();
+			 if(domainStat.getClickip2()>0)clickip2 = domainStat.getClickip2();
+			 if(domainStat.getClickip3()>0)clickip3 = domainStat.getClickip3();
+			 if(domainStat.getClickip4()>0)clickip4 = domainStat.getClickip4();
+			 if(domainStat.getStaytimeip1()>0)staytimeip1 = domainStat.getStaytimeip1();
+			 if(domainStat.getStaytimeip2()>0)staytimeip2 = domainStat.getStaytimeip2();
+			 if(domainStat.getStaytimeip3()>0)staytimeip3 = domainStat.getStaytimeip3();
+			 if(domainStat.getStaytimeip4()>0)staytimeip4 = domainStat.getStaytimeip4();
+			 if(domainStat.getScrollip1()>0)scrollip1 = domainStat.getScrollip1();
+			 if(domainStat.getScrollip2()>0)scrollip2 = domainStat.getScrollip2();
+			 if(domainStat.getScrollip3()>0)scrollip3 = domainStat.getScrollip3();
+			 if(domainStat.getScrollip4()>0)scrollip4 = domainStat.getScrollip4();
+			 if(domainStat.getMoveip1()>0)moveip1 = domainStat.getMoveip1();
+			 if(domainStat.getMoveip2()>0)moveip2 = domainStat.getMoveip2();
+			 if(domainStat.getMoveip3()>0)moveip3 = domainStat.getMoveip3();
+			 if(domainStat.getMoveip4()>0)moveip4 = domainStat.getMoveip4();
+			 if(domainStat.getOlduserip()>0)olduserip = domainStat.getOlduserip();
+			 if(domainStat.getOldip()>0)oldip = domainStat.getOldip();
+			 if(domainStat.getLoginip()>0)loginip = domainStat.getLoginip();
+			 if(domainStat.getTargetpageip()>0)targetpageip = domainStat.getTargetpageip();
+			 map.put("clickip1", clickip1);
+			 map.put("clickip2", clickip2);
+			 map.put("clickip3", clickip3);
+			 map.put("clickip4", clickip4);
+			 map.put("staytimeip1", staytimeip1);
+			 map.put("staytimeip2", staytimeip2);
+			 map.put("staytimeip3", staytimeip3);
+			 map.put("staytimeip4", staytimeip4);
+			 map.put("scrollip1", scrollip1);
+			 map.put("scrollip2", scrollip2);
+			 map.put("scrollip3", scrollip3);
+			 map.put("scrollip4", scrollip4);
+			 map.put("moveip1", moveip1);
+			 map.put("moveip2", moveip2);
+			 map.put("moveip3", moveip3);
+			 map.put("moveip4", moveip4);
+			 map.put("olduserip", olduserip);
+			 map.put("targetpageip", targetpageip);
+			 map.put("oldip", oldip);
+			 map.put("loginip", loginip);
+			 NumberFormat numberFormat = NumberFormat.getInstance();     
+			 numberFormat.setMaximumFractionDigits(2);
+			 if(domainStat.getIp()!=null && domainStat.getIp()>0){
+				 map.put("c1", numberFormat.format((float)clickip1/(float)domainStat.getIp()*100));
+				 map.put("c2", numberFormat.format((float)clickip2/(float)domainStat.getIp()*100));
+				 map.put("c3", numberFormat.format((float)clickip3/(float)domainStat.getIp()*100));
+				 map.put("c4", numberFormat.format((float)clickip4/(float)domainStat.getIp()*100));
+				 map.put("s1", numberFormat.format((float)staytimeip1/(float)domainStat.getIp()*100));
+				 map.put("s2", numberFormat.format((float)staytimeip2/(float)domainStat.getIp()*100));
+				 map.put("s3", numberFormat.format((float)staytimeip3/(float)domainStat.getIp()*100));
+				 map.put("s4", numberFormat.format((float)staytimeip4/(float)domainStat.getIp()*100));
+				 map.put("sc1", numberFormat.format((float)scrollip1/(float)domainStat.getIp()*100));
+				 map.put("sc2", numberFormat.format((float)scrollip2/(float)domainStat.getIp()*100));
+				 map.put("sc3", numberFormat.format((float)scrollip3/(float)domainStat.getIp()*100));
+				 map.put("sc4", numberFormat.format((float)scrollip4/(float)domainStat.getIp()*100));
+				 map.put("m1", numberFormat.format((float)moveip1/(float)domainStat.getIp()*100));
+				 map.put("m2", numberFormat.format((float)moveip2/(float)domainStat.getIp()*100));
+				 map.put("m3", numberFormat.format((float)moveip3/(float)domainStat.getIp()*100));
+				 map.put("m4", numberFormat.format((float)moveip4/(float)domainStat.getIp()*100));
+				 map.put("old", numberFormat.format((float)olduserip/(float)domainStat.getIp()*100));
+				 map.put("tgp", numberFormat.format((float)targetpageip/(float)domainStat.getIp()*100));
+				 map.put("oldi", numberFormat.format((float)oldip/(float)domainStat.getIp()*100));
+				 map.put("log", numberFormat.format((float)loginip/(float)domainStat.getIp()*100));
+			 }else{
+				 map.put("c1", 0);
+				 map.put("c2", 0);
+				 map.put("c3", 0);
+				 map.put("c4", 0);
+				 map.put("s1", 0);
+				 map.put("s2", 0);
+				 map.put("s3", 0);
+				 map.put("s4", 0);
+				 map.put("sc1", 0);
+				 map.put("sc2", 0);
+				 map.put("sc3", 0);
+				 map.put("sc4", 0);
+				 map.put("m1", 0);
+				 map.put("m2", 0);
+				 map.put("m3", 0);
+				 map.put("m4", 0);
+				 map.put("old", 0);
+				 map.put("tgp", 0);
+				 map.put("oldi", 0);
+				 map.put("log", 0);
+			 }
+			 domainSumIP+=domainStat.getIp();
+			 domainSumPV+=domainStat.getPv();
+			 DomainStat_list.add(map);
+		}
+		 /** 根据ip数排序 **/
+		 Collections.sort(DomainStat_list,new Comparator<Map>(){
+				public int compare(Map map1, Map map2) {
+					Integer integer = (Integer) map1.get("ip");
+					Integer integer2 = (Integer) map2.get("ip");
+					return integer2.compareTo(integer);
+				}
+	        });
+		 
+		 Map map = new HashMap();
+		
+		 map.put("DomainStat_list", DomainStat_list);
+		 map.put("domainSumIP", domainSumIP);
+		 map.put("domainSumPV", domainSumPV);
+		 
+		 return map;
+	}
+	
+	protected Map getDomainNotAdData(Date date){
+
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();
+		 /** 域名列表信息 **/
+		 List<Map> DomainStat_list = new ArrayList<Map>();
+		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
+		 Integer domainSumIP = 0;/** 渠道ip总数 **/
+		 Integer domainSumPV = 0;/** 渠道PV总数 **/
+		 
+		 List<Integer[]> domainIps = new ArrayList();
+		 
+		 for(AdaDomain domain : domains){
+			 Integer domainIp = statService.statDomainNotAdIP(domain.getId(), date);
+			 if(domainIp!=null && domainIp>10){
+				 domainIps.add(new Integer[]{domain.getId(),domainIp});
+			 }
+		 }
+		 
+		 Collections.sort(domainIps,new Comparator<Integer[]>(){
+			public int compare(Integer[] arg0, Integer[] arg1) {
+				return arg1[1].compareTo(arg0[0]);
+			}
+		 });
+		 
+		 for(int i=0;i<domainIps.size();i++){
+			Integer domainId = domainIps.get(i)[0];
+			Integer domainIp = domainIps.get(i)[1];
+			AdaDomainAdStat newad = statService.statDomainAd(adaSite.getId(), domainId, date);//广告新数据
+			AdaDomainStat newall = statService.statDomain(adaSite.getId(), domainId, date);//全部新数据
+			AdaDomainNotadStat domainStat = reduct(newall, newad, AdaDomainNotadStat.class);//非广告入口新数据=全部-非广告的
+			Map map = new HashMap();
+			map.put("id", domainId);
+			//map.put("channelNum", channelNum);
+			String domainstr = adaDomainDao.findById(domainId).getDomain();
+			 map.put("domain",domainstr);
+			 if(domainstr.length()>18){
+				 map.put("subDomain", adaDomainDao.findById(domainId).getDomain().substring(0, 18));
+			 }else{
+				 map.put("subDomain", domainstr);
+			 }
+			 map.put("ip", domainStat.getIp());
+			 map.put("pv", domainStat.getPv());
+			 map.put("uv", domainStat.getUv());
+			 Integer clickip1=0;
+			 Integer clickip2=0;
+			 Integer clickip3=0;
+			 Integer clickip4=0;
+			 Integer staytimeip1=0;
+			 Integer staytimeip2=0;
+			 Integer staytimeip3=0;
+			 Integer staytimeip4=0;
+			 Integer scrollip1 = 0;
+			 Integer scrollip2 = 0;
+			 Integer scrollip3 = 0;
+			 Integer scrollip4 = 0;
+			 Integer moveip1 = 0;
+			 Integer moveip2 = 0;
+			 Integer moveip3 = 0;
+			 Integer moveip4 = 0;
+			 Integer olduserip = 0;
+			 Integer oldip = 0;
+			 Integer loginip = 0;
+			 Integer targetpageip =0;
+			 if(domainStat.getClickip1()>0)clickip1 = domainStat.getClickip1();
+			 if(domainStat.getClickip2()>0)clickip2 = domainStat.getClickip2();
+			 if(domainStat.getClickip3()>0)clickip3 = domainStat.getClickip3();
+			 if(domainStat.getClickip4()>0)clickip4 = domainStat.getClickip4();
+			 if(domainStat.getStaytimeip1()>0)staytimeip1 = domainStat.getStaytimeip1();
+			 if(domainStat.getStaytimeip2()>0)staytimeip2 = domainStat.getStaytimeip2();
+			 if(domainStat.getStaytimeip3()>0)staytimeip3 = domainStat.getStaytimeip3();
+			 if(domainStat.getStaytimeip4()>0)staytimeip4 = domainStat.getStaytimeip4();
+			 if(domainStat.getScrollip1()>0)scrollip1 = domainStat.getScrollip1();
+			 if(domainStat.getScrollip2()>0)scrollip2 = domainStat.getScrollip2();
+			 if(domainStat.getScrollip3()>0)scrollip3 = domainStat.getScrollip3();
+			 if(domainStat.getScrollip4()>0)scrollip4 = domainStat.getScrollip4();
+			 if(domainStat.getMoveip1()>0)moveip1 = domainStat.getMoveip1();
+			 if(domainStat.getMoveip2()>0)moveip2 = domainStat.getMoveip2();
+			 if(domainStat.getMoveip3()>0)moveip3 = domainStat.getMoveip3();
+			 if(domainStat.getMoveip4()>0)moveip4 = domainStat.getMoveip4();
+			 if(domainStat.getOlduserip()>0)olduserip = domainStat.getOlduserip();
+			 if(domainStat.getOldip()>0)oldip = domainStat.getOldip();
+			 if(domainStat.getLoginip()>0)loginip = domainStat.getLoginip();
+			 if(domainStat.getTargetpageip()>0)targetpageip = domainStat.getTargetpageip();
+			 map.put("clickip1", clickip1);
+			 map.put("clickip2", clickip2);
+			 map.put("clickip3", clickip3);
+			 map.put("clickip4", clickip4);
+			 map.put("staytimeip1", staytimeip1);
+			 map.put("staytimeip2", staytimeip2);
+			 map.put("staytimeip3", staytimeip3);
+			 map.put("staytimeip4", staytimeip4);
+			 map.put("scrollip1", scrollip1);
+			 map.put("scrollip2", scrollip2);
+			 map.put("scrollip3", scrollip3);
+			 map.put("scrollip4", scrollip4);
+			 map.put("moveip1", moveip1);
+			 map.put("moveip2", moveip2);
+			 map.put("moveip3", moveip3);
+			 map.put("moveip4", moveip4);
+			 map.put("olduserip", olduserip);
+			 map.put("targetpageip", targetpageip);
+			 map.put("oldip", oldip);
+			 map.put("loginip", loginip);
+			 NumberFormat numberFormat = NumberFormat.getInstance();     
+			 numberFormat.setMaximumFractionDigits(2);
+			 if(domainStat.getIp()!=null && domainStat.getIp()>0){
+				 map.put("c1", numberFormat.format((float)clickip1/(float)domainStat.getIp()*100));
+				 map.put("c2", numberFormat.format((float)clickip2/(float)domainStat.getIp()*100));
+				 map.put("c3", numberFormat.format((float)clickip3/(float)domainStat.getIp()*100));
+				 map.put("c4", numberFormat.format((float)clickip4/(float)domainStat.getIp()*100));
+				 map.put("s1", numberFormat.format((float)staytimeip1/(float)domainStat.getIp()*100));
+				 map.put("s2", numberFormat.format((float)staytimeip2/(float)domainStat.getIp()*100));
+				 map.put("s3", numberFormat.format((float)staytimeip3/(float)domainStat.getIp()*100));
+				 map.put("s4", numberFormat.format((float)staytimeip4/(float)domainStat.getIp()*100));
+				 map.put("sc1", numberFormat.format((float)scrollip1/(float)domainStat.getIp()*100));
+				 map.put("sc2", numberFormat.format((float)scrollip2/(float)domainStat.getIp()*100));
+				 map.put("sc3", numberFormat.format((float)scrollip3/(float)domainStat.getIp()*100));
+				 map.put("sc4", numberFormat.format((float)scrollip4/(float)domainStat.getIp()*100));
+				 map.put("m1", numberFormat.format((float)moveip1/(float)domainStat.getIp()*100));
+				 map.put("m2", numberFormat.format((float)moveip2/(float)domainStat.getIp()*100));
+				 map.put("m3", numberFormat.format((float)moveip3/(float)domainStat.getIp()*100));
+				 map.put("m4", numberFormat.format((float)moveip4/(float)domainStat.getIp()*100));
+				 map.put("old", numberFormat.format((float)olduserip/(float)domainStat.getIp()*100));
+				 map.put("tgp", numberFormat.format((float)targetpageip/(float)domainStat.getIp()*100));
+				 map.put("oldi", numberFormat.format((float)oldip/(float)domainStat.getIp()*100));
+				 map.put("log", numberFormat.format((float)loginip/(float)domainStat.getIp()*100));
+			 }else{
+				 map.put("c1", 0);
+				 map.put("c2", 0);
+				 map.put("c3", 0);
+				 map.put("c4", 0);
+				 map.put("s1", 0);
+				 map.put("s2", 0);
+				 map.put("s3", 0);
+				 map.put("s4", 0);
+				 map.put("sc1", 0);
+				 map.put("sc2", 0);
+				 map.put("sc3", 0);
+				 map.put("sc4", 0);
+				 map.put("m1", 0);
+				 map.put("m2", 0);
+				 map.put("m3", 0);
+				 map.put("m4", 0);
+				 map.put("old", 0);
+				 map.put("tgp", 0);
+				 map.put("oldi", 0);
+				 map.put("log", 0);
+			 }
+			 domainSumIP+=domainStat.getIp();
+			 domainSumPV+=domainStat.getPv();
+			 DomainStat_list.add(map);
+		}
+		 /** 根据ip数排序 **/
+		 Collections.sort(DomainStat_list,new Comparator<Map>(){
+				public int compare(Map map1, Map map2) {
+					Integer integer = (Integer) map1.get("ip");
+					Integer integer2 = (Integer) map2.get("ip");
+					return integer2.compareTo(integer);
+				}
+	        });
+		 
+		 Map map = new HashMap();
+		
+		 map.put("DomainStat_list", DomainStat_list);
+		 map.put("domainSumIP", domainSumIP);
+		 map.put("domainSumPV", domainSumPV);
+		 
+		 return map;
+	
+	}
+	
+	protected <T> T reduct(BaseStat a,BaseStat b,Class<T> clazz){
+		 BaseStat result = null;
+			try {
+				result = (BaseStat) clazz.newInstance();
+			} catch (Exception e) {
+			}
+		
+			 result.setIp             ((a.getIp()            < b.getIp()          )?0:(a.getIp()            - b.getIp()          ));  
+			 result.setPv             ((a.getPv()            < b.getPv()          )?0:(a.getPv()            - b.getPv()          ));
+			 result.setUv             ((a.getUv()            < b.getUv()          )?0:(a.getUv()            - b.getUv()          ));
+			 result.setOlduserip      ((a.getOlduserip()     < b.getOlduserip()   )?0:(a.getOlduserip()     - b.getOlduserip()   ));
+			 result.setOldip          ((a.getOldip()         < b.getOldip()       )?0:(a.getOldip()         - b.getOldip()       ));
+			 result.setLoginip        ((a.getLoginip()       < b.getLoginip()     )?0:(a.getLoginip()       - b.getLoginip()     ));
+			 result.setTargetpageip   ((a.getTargetpageip()  < b.getTargetpageip())?0:(a.getTargetpageip()  - b.getTargetpageip()));
+			 result.setClickip1       ((a.getClickip1()      < b.getClickip1()    )?0:(a.getClickip1()      - b.getClickip1()    ));
+			 result.setClickip2       ((a.getClickip2()      < b.getClickip2()    )?0:(a.getClickip2()      - b.getClickip2()    ));
+			 result.setClickip3       ((a.getClickip3()      < b.getClickip3()    )?0:(a.getClickip3()      - b.getClickip3()    ));
+			 result.setClickip4       ((a.getClickip4()      < b.getClickip4()    )?0:(a.getClickip4()      - b.getClickip4()    ));
+			 result.setStaytimeip1    ((a.getStaytimeip1()   < b.getStaytimeip1() )?0:(a.getStaytimeip1()   - b.getStaytimeip1() ));
+			 result.setStaytimeip2    ((a.getStaytimeip2()   < b.getStaytimeip2() )?0:(a.getStaytimeip2()   - b.getStaytimeip2() ));
+			 result.setStaytimeip3    ((a.getStaytimeip3()   < b.getStaytimeip3() )?0:(a.getStaytimeip3()   - b.getStaytimeip3() ));
+			 result.setStaytimeip4    ((a.getStaytimeip4()   < b.getStaytimeip4() )?0:(a.getStaytimeip4()   - b.getStaytimeip4() ));
+			 result.setScrollip1      ((a.getScrollip1()     < b.getScrollip1()   )?0:(a.getScrollip1()     - b.getScrollip1()   ));
+			 result.setScrollip2      ((a.getScrollip2()     < b.getScrollip2()   )?0:(a.getScrollip2()     - b.getScrollip2()   ));
+			 result.setScrollip3      ((a.getScrollip3()     < b.getScrollip3()   )?0:(a.getScrollip3()     - b.getScrollip3()   ));
+			 result.setScrollip4      ((a.getScrollip4()     < b.getScrollip4()   )?0:(a.getScrollip4()     - b.getScrollip4()   ));
+			 result.setMoveip1        ((a.getMoveip1()       < b.getMoveip1()     )?0:(a.getMoveip1()       - b.getMoveip1()     ));
+			 result.setMoveip2        ((a.getMoveip2()       < b.getMoveip2()     )?0:(a.getMoveip2()       - b.getMoveip2()     ));
+			 result.setMoveip3        ((a.getMoveip3()       < b.getMoveip3()     )?0:(a.getMoveip3()       - b.getMoveip3()     ));
+			 result.setMoveip4        ((a.getMoveip4()       < b.getMoveip4()     )?0:(a.getMoveip4()       - b.getMoveip4()     ));
+		 return (T) result;
 	}
 }

@@ -76,6 +76,21 @@ public interface StatService {
 	 */
 	public Integer statDomainIP(Integer domainId,Date date);
 	/**
+	 * 统计域名广告入口Ip数
+	 * @param domainId
+	 * @param date
+	 * @return
+	 */
+	public Integer statDomainAdIP(Integer domainId,Date date);
+	
+	/**
+	 * 统计域名非广告入口IP数
+	 * @param domainId
+	 * @param date
+	 * @return
+	 */
+	public Integer statDomainNotAdIP(Integer domainId,Date date);
+	/**
 	 * 统计 域名 地域
 	 * @param regionName
 	 * @param domainId
