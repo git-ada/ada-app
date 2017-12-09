@@ -829,6 +829,30 @@ public class StatServiceImpl implements StatService{
 		}
 	}
 
+	@Override
+	public Integer statDomainAdIP(Integer domainId, Date date) {
+		Jedis jedis = getJedis(date);
+		try {
+			//取出域名IPSet集合
+			int domainIP = jedis.scard(RedisKeys.DomainAdIP.getKey()+domainId+"").intValue();
+			return domainIP;
+		} finally{
+			returnResource(date,jedis);
+		}
+	}
+
+	@Override
+	public Integer statDomainNotAdIP(Integer domainId, Date date) {
+		Jedis jedis = getJedis(date);
+		try {
+			//取出域名IPSet集合
+			int domainIP =jedis.scard(RedisKeys.DomainIP.getKey()+domainId+"").intValue()-jedis.scard(RedisKeys.DomainAdIP.getKey()+domainId+"").intValue();
+			return domainIP;
+		} finally{
+			returnResource(date,jedis);
+		}
+	}
+
 	/**
 	 * 统计域名广告15分钟历史数据
 	 * @param siteId

@@ -91,13 +91,17 @@ th:last-child,td:last-child {
 	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;">
 		<div class="caption" style="padding-bottom: 0px;">
             <i class="icon-directions font-green hide"></i>
-            <span class="caption-subject bold font-dark  ">地域统计（非广告入口）</span>
-            <span class="caption-helper" id="lasttime">${domain}</span>
+            <span class="caption-subject bold font-dark  ">域名统计（非广告入口） </span>
+            <span class="caption-helper" id="lasttime"></span>
         </div>
         <div class="inputs">
+            <!-- <div class="input-icon right" style="float: left;margin-right: 10px;">
+                   <i class="icon-magnifier"></i>
+            	<input type="text" class="form-control form-control-solid input-circle" placeholder="搜索...">
+            </div> -->
+            
             <div class="actions" style="float: left;">
-            	<a class="btn btn-circle btn-icon-only btn-default pause" onclick="gotoPage('${pageContext.request.contextPath}/dashboard.jhtm')" ><i class="icon-action-undo"></i></a>
-				<!-- <a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a> -->
+				<a class="btn btn-circle btn-icon-only btn-default pause" onclick="gotoPage('${pageContext.request.contextPath}/dashboard.jhtm')" ><i class="icon-action-undo"></i></a>
 				<!-- 
 				<a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-control-pause"></i></a>  icon-control-pause
 				 -->
@@ -109,10 +113,10 @@ th:last-child,td:last-child {
 	
 	<!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
 	<div class="portlet-body" style="margin: 0px;padding: 0;">
-		<table id="dashboard_regionNotAd" class="table table-striped table-bordered table-hover order-column" style="border: 0">
+		<table id="dashboard_regionAd" class="table table-striped table-bordered table-hover order-column" style="border: 0">
 	            <thead>
 	                <tr>
-						<th scope="col" style="min-width: 120px;">地域</th>
+						<th scope="col" style="min-width: 120px;">域名</th>
 						<th scope="col" style="min-width: 80px">IP</th>			
 						<th scope="col" style="min-width: 80px">PV</th>
 						<th scope="col" style="min-width: 80px">UV</th>
@@ -138,10 +142,10 @@ th:last-child,td:last-child {
 						<th scope="col" style="min-width: 80px">10+次移动</th>
 				     </tr>
 	            </thead>
-	            <tbody id="dashboard_regionNotAd_tbody">
-	                	<c:forEach var="item" items="${regionNotAd_list}" varStatus="number">
+	            <tbody id="dashboard_regionAd_tbody">
+	                	<c:forEach var="item" items="${domainAd_list}" varStatus="number">
 	                <tr>
-	                	<td style="min-width: 120px">${item.regionName}</td>
+	                	<td style="min-width: 120px" title="${item.domain}">${item.subDomain}</td>
 						<td style="min-width: 80px">${item.ip}</td>
 						<td style="min-width: 80px">${item.pv}</td>
 						<td style="min-width: 80px">${item.uv}</td>
@@ -179,7 +183,7 @@ var oTable;
 var oTable2;
 var table;
 var initTable1 = function () {
-     table = $('#dashboard_regionNotAd');
+     table = $('#dashboard_regionAd');
      oTable = table.dataTable({
         "language": {
             "aria": {
@@ -299,7 +303,7 @@ var initTable1 = function () {
 	 
 	// t = window.setTimeout('ajaxRefreshPage()',ajaxTime); 
 	  
-	 function ajaxRefreshPage_NotAd(){
+	 function ajaxRefreshPage_Ad(){
 		 jQuery.ajax({
 				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do",
 				success : function(data) {
@@ -395,10 +399,10 @@ var initTable1 = function () {
 									
 						}
 						
-						jQuery("#dashboard_regionNotAd_tbody").empty();
-						jQuery("#dashboard_regionNotAd_tbody").append(open);
-						jQuery(".DTFC_LeftBodyWrapper #dashboard_regionNotAd_tbody").empty();
-						jQuery(".DTFC_LeftBodyWrapper #dashboard_regionNotAd_tbody").append(lefttale);
+						jQuery("#dashboard_regionAd_tbody").empty();
+						jQuery("#dashboard_regionAd_tbody").append(open);
+						jQuery(".DTFC_LeftBodyWrapper #dashboard_regionAd_tbody").empty();
+						jQuery(".DTFC_LeftBodyWrapper #dashboard_regionAd_tbody").append(lefttale);
 						jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
 						
 						//DTFC_LeftBodyWrapper
