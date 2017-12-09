@@ -116,7 +116,7 @@ th:last-child,td:last-child {
 		<table id="dashboard_regionAd" class="table table-striped table-bordered table-hover order-column" style="border: 0">
 	            <thead>
 	                <tr>
-						<th scope="col" style="min-width: 120px;">地域</th>
+						<th scope="col" style="min-width: 120px;">域名</th>
 						<th scope="col" style="min-width: 80px">IP</th>			
 						<th scope="col" style="min-width: 80px">PV</th>
 						<th scope="col" style="min-width: 80px">UV</th>
