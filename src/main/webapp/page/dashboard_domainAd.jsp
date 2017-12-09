@@ -145,7 +145,7 @@ th:last-child,td:last-child {
 	            <tbody id="dashboard_regionAd_tbody">
 	                	<c:forEach var="item" items="${domainAd_list}" varStatus="number">
 	                <tr>
-	                	<td style="min-width: 120px" title="${domain.domain}">${domain.subDomain}</td>
+	                	<td style="min-width: 120px" title="${item.domain}">${item.subDomain}</td>
 						<td style="min-width: 80px">${item.ip}</td>
 						<td style="min-width: 80px">${item.pv}</td>
 						<td style="min-width: 80px">${item.uv}</td>
