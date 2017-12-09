@@ -131,7 +131,7 @@ public class IndexController {
 				Map Map = getDomainAdData(today);
 				List<Map> data_list = (List<Map>) Map.get("data_list");
 				model.addAttribute("DomainStat_list", data_list);
-			}else if("domainAd".equals(dataType)){
+			}else if("domainNotAd".equals(dataType)){
 				Map Map = getDomainNotAdData(today);
 				List<Map> data_list = (List<Map>) Map.get("data_list");
 				model.addAttribute("DomainStat_list", data_list);
