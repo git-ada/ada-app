@@ -196,7 +196,9 @@ th:last-child,td:last-child {
 	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
 	                <tr>
                 		<td style="min-width: 130px;" title="${domain.domain}">
-                			<a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${domain.id}" data-toggle="dropdown" onclick="openMenu(this)">${domain.subDomain}</a>
+                			<c:if test="${dataType=='domain'}"><a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${domain.id}" data-toggle="dropdown" onclick="openMenu(this)">${domain.subDomain}</a></c:if>
+                			<c:if test="${dataType=='domainAd'}">${domain.subDomain}</c:if>
+                			<c:if test="${dataType=='domainNotAd'}">${domain.subDomain}</c:if>
                 		</td>
 						<td style="min-width: 80px">${domain.ip}</td>
 						<td style="min-width: 80px">${domain.pv}</td>
