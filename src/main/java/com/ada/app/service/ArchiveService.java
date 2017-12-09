@@ -237,13 +237,14 @@ public class ArchiveService {
 		
 		AdaDomainAd15mStat ad15m = null;
 		AdaDomainNotad15mStat notad15m=  null;
+		AdaDomainAd15mStat zreo = null;
 		if(oldad==null || (oldad!=null && newad.getIp() < oldad.getIp())){
-			ad15m = initStat(AdaDomainAd15mStat.class);
-			notad15m= initStat(AdaDomainNotad15mStat.class);
-		}else{
-			ad15m = reduct(newad, oldad, AdaDomainAd15mStat.class);//变化数据，=新广告数据-老广告数据
-			notad15m=reduct(newnotad, oldnotad, AdaDomainNotad15mStat.class);//变化数据，=新广告数据-老广告数据
+			zreo = initStat(AdaDomainAd15mStat.class);
 		}
+		
+		ad15m = reduct(newad, zreo, AdaDomainAd15mStat.class);//变化数据，=新广告数据-老广告数据
+		notad15m=reduct(newnotad, zreo, AdaDomainNotad15mStat.class);//变化数据，=新广告数据-老广告数据
+		
 		Timestamp now = Dates.now();
 		Date today = Dates.todayStart();
 		
