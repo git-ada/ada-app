@@ -170,8 +170,8 @@ th:last-child,td:last-child {
 						<th scope="col" style="min-width: 80px">IP</th>			
 						<th scope="col" style="min-width: 80px">PV</th>
 						<th scope="col" style="min-width: 80px">UV</th>
+						<th scope="col" style="min-width: 80px">登录用户数</th>
 						<th scope="col" style="min-width: 80px">老IP数</th>
-						<th scope="col" style="min-width: 80px">用户登录数</th>
 						<th scope="col" style="min-width: 80px">老用户数</th>	
 						<th scope="col" style="min-width: 80px">1-2次点击</th>			
 						<th scope="col" style="min-width: 80px">3-5次点击</th>			
@@ -201,8 +201,8 @@ th:last-child,td:last-child {
 						<td style="min-width: 80px">${domain.ip}</td>
 						<td style="min-width: 80px">${domain.pv}</td>
 						<td style="min-width: 80px">${domain.uv}</td>
-						<td style="min-width: 80px">${domain.oldip} (${domain.oldi}%)</td>
 						<td style="min-width: 80px">${domain.loginip} (${domain.log}%)</td>
+						<td style="min-width: 80px">${domain.oldip} (${domain.oldi}%)</td>
 						<td style="min-width: 80px">${domain.olduserip} (${domain.old}%)</td>
 						<td style="min-width: 80px">${domain.clickip1} (${domain.c1}%)</td>
 						<td style="min-width: 80px">${domain.clickip2} (${domain.c2}%)</td>
@@ -236,12 +236,12 @@ th:last-child,td:last-child {
 							     <li>
 							         <a href="javascript:;" onclick="changeDataType('domainNotAd')">域名统计（非广告入口）</a>
 							     </li>
-							     <li>
+							     <%-- <li>
 							         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${domain.id})">地域统计（广告入口）</a>
 							     </li>
 							     <li>
 							         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${domain.id})">地域统计（非广告入口）</a>
-							     </li>
+							     </li> --%>
 							 </ul>
 						</div>
 					</c:forEach>
@@ -442,8 +442,8 @@ var initTable1 = function () {
 									"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+dataList[i].id+"\")'>分时统计</a></li>"+
 									 "<li><a href='javascript:;' onclick='changeDataType(\"domainAd\")'>域名统计（广告入口）</a></li>"+
 							     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainNotAd\")'>域名统计（非广告入口）</a></li>"+
-                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+dataList[i].id+"\")'>地域统计（广告入口）</a></li>"+
-                                 	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+dataList[i].id+"\")'>地域统计（非广告入口）</a></li>"+
+                                	 /* "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+dataList[i].id+"\")'>地域统计（广告入口）</a></li>"+
+                                 	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+dataList[i].id+"\")'>地域统计（非广告入口）</a></li>"+ */
 						      	"</ul></div>";
 						      	menu+=tr3;
 						    }else if(dataType=="domainAd"){
@@ -459,8 +459,8 @@ var initTable1 = function () {
 							  "<td >"+dataList[i].ip+"</td>"+
 							  "<td >"+dataList[i].pv+"</td>"+
 							  "<td >"+dataList[i].uv+"</td>"+
-							  "<td >"+dataList[i].oldip+" ("+dataList[i].oldi+"%)</td>"+
 							  "<td >"+dataList[i].loginip+" ("+dataList[i].log+"%)</td>"+
+							  "<td >"+dataList[i].oldip+" ("+dataList[i].oldi+"%)</td>"+
 							  "<td >"+dataList[i].olduserip+" ("+dataList[i].old+"%)</td>"+
 							  "<td >"+dataList[i].clickip1+" ("+dataList[i].c1+"%)</td>"+
 							  "<td >"+dataList[i].clickip2+" ("+dataList[i].c2+"%)</td>"+
