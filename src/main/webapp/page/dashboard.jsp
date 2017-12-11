@@ -306,6 +306,7 @@ function Percentage(num, total) {
 }
 
 var t;
+var isRefresh = true;
 var oTable;
 var oTable2;
 var table;
@@ -358,10 +359,12 @@ var initTable1 = function () {
 	    		 jQuery("#pauseOrplay i").removeClass("icon-control-pause");
 	    		 jQuery("#pauseOrplay i").addClass("icon-control-play");
 	    		 clearTimeout(t);
+	    		 isRefresh = false;
 	    	 }else if(jQuery("#pauseOrplay i").attr("class")=="icon-control-play"){
 	    		 jQuery("#pauseOrplay i").removeClass("icon-control-play");
 	    		 jQuery("#pauseOrplay i").addClass("icon-control-pause");
 				 ajaxRefreshPage();
+				 isRefresh = true;
 	    	 }
 	     });
 	    
@@ -473,80 +476,83 @@ var initTable1 = function () {
 							SUMPV = "地域非广告入口访问量";
 							firstTh = "地域（非广告入口）<a onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
 						}
-						for(var i=0;i<dataList.length;i++){
-							var firstTd = "";
-							var tr = "";
-						    var tr2 = "";
-						    var tr3 = "";
-						    if(dataType=="domain"){
-						    	firstTd="<td style='min-width: 150px;'  title='"+dataList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+dataList[i].id+"' data-toggle='dropdown' onclick='openMenu(this)'>"+dataList[i].subDomain+"</a></td>";
-						    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
-								"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
-									"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+dataList[i].id+"\")'>分时统计</a></li>"+
-									 /* "<li><a href='javascript:;' onclick='changeDataType(\"domainAd\")'>域名统计（广告入口）</a></li>"+
-							     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainNotAd\")'>域名统计（非广告入口）</a></li>"+ */
-                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+dataList[i].id+"\")'>地域统计（广告入口）</a></li>"+
-                                 	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+dataList[i].id+"\")'>地域统计（非广告入口）</a></li>"+ 
-						      	"</ul></div>";
-						      	menu+=tr3;
-						    }else if(dataType=="domainAd"){
-						    	firstTd = "<td style='min-width: 130px;'  title='"+dataList[i].domain+"'>"+dataList[i].subDomain+"</td>";
-						    }else if(dataType=="domainNotAd"){
-						    	firstTd = "<td style='min-width: 130px;'  title='"+dataList[i].domain+"'>"+dataList[i].subDomain+"</td>";
-						    }else if(dataType=="domainRegionAd"){
-						    	firstTd = "<td style='min-width: 150px;'  >"+dataList[i].regionName+"</td>";
-						    }else if(dataType=="domainRegionNotAd"){
-						    	firstTd = "<td style='min-width: 150px;'  >"+dataList[i].regionName+"</td>";
-						    }
-						    var sumST = dataList[i].staytimeip1+dataList[i].staytimeip2+dataList[i].staytimeip3+dataList[i].staytimeip4;
-						    var sumC = dataList[i].clickip1+dataList[i].clickip2+dataList[i].clickip3+dataList[i].clickip4;
-						    var sumS = dataList[i].scrollip1+dataList[i].scrollip2+dataList[i].scrollip3+dataList[i].scrollip4;
-						    var sumM = dataList[i].moveip1+dataList[i].moveip2+dataList[i].moveip3+dataList[i].moveip4;
-						    var IP = dataList[i].ip;
-					  		tr+="<tr>" + firstTd+
-							  "<td >"+IP+"</td>"+
-							  "<td >"+dataList[i].pv+"</td>"+
-							  "<td >"+dataList[i].uv+"</td>"+
-							  "<td >"+dataList[i].loginip+" ("+dataList[i].log+"%)</td>"+
-							  "<td >"+dataList[i].oldip+" ("+dataList[i].oldi+"%)</td>"+
-							  "<td >"+dataList[i].olduserip+" ("+dataList[i].old+"%)</td>"+
-							  "<td >"+dataList[i].targetpageip+" ("+dataList[i].tgp+"%)</td>"+
+						if(dataList!=null && dataList.length>0){
+							for(var i=0;i<dataList.length;i++){
+								var firstTd = "";
+								var tr = "";
+							    var tr2 = "";
+							    var tr3 = "";
+							    if(dataType=="domain"){
+							    	firstTd="<td style='min-width: 150px;'  title='"+dataList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+dataList[i].id+"' data-toggle='dropdown' onclick='openMenu(this)'>"+dataList[i].subDomain+"</a></td>";
+							    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
+									"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
+										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+dataList[i].id+"\")'>分时统计</a></li>"+
+										 /* "<li><a href='javascript:;' onclick='changeDataType(\"domainAd\")'>域名统计（广告入口）</a></li>"+
+								     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainNotAd\")'>域名统计（非广告入口）</a></li>"+ */
+	                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+dataList[i].id+"\")'>地域统计（广告入口）</a></li>"+
+	                                 	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+dataList[i].id+"\")'>地域统计（非广告入口）</a></li>"+ 
+							      	"</ul></div>";
+							      	menu+=tr3;
+							    }else if(dataType=="domainAd"){
+							    	firstTd = "<td style='min-width: 130px;'  title='"+dataList[i].domain+"'>"+dataList[i].subDomain+"</td>";
+							    }else if(dataType=="domainNotAd"){
+							    	firstTd = "<td style='min-width: 130px;'  title='"+dataList[i].domain+"'>"+dataList[i].subDomain+"</td>";
+							    }else if(dataType=="domainRegionAd"){
+							    	firstTd = "<td style='min-width: 150px;'  >"+dataList[i].regionName+"</td>";
+							    }else if(dataType=="domainRegionNotAd"){
+							    	firstTd = "<td style='min-width: 150px;'  >"+dataList[i].regionName+"</td>";
+							    }
+							    var sumST = dataList[i].staytimeip1+dataList[i].staytimeip2+dataList[i].staytimeip3+dataList[i].staytimeip4;
+							    var sumC = dataList[i].clickip1+dataList[i].clickip2+dataList[i].clickip3+dataList[i].clickip4;
+							    var sumS = dataList[i].scrollip1+dataList[i].scrollip2+dataList[i].scrollip3+dataList[i].scrollip4;
+							    var sumM = dataList[i].moveip1+dataList[i].moveip2+dataList[i].moveip3+dataList[i].moveip4;
+							    var IP = dataList[i].ip;
+						  		tr+="<tr>" + firstTd+
+								  "<td >"+IP+"</td>"+
+								  "<td >"+dataList[i].pv+"</td>"+
+								  "<td >"+dataList[i].uv+"</td>"+
+								  "<td >"+dataList[i].loginip+" ("+dataList[i].log+"%)</td>"+
+								  "<td >"+dataList[i].oldip+" ("+dataList[i].oldi+"%)</td>"+
+								  "<td >"+dataList[i].olduserip+" ("+dataList[i].old+"%)</td>"+
+								  "<td >"+dataList[i].targetpageip+" ("+dataList[i].tgp+"%)</td>"+
+								  
+								  "<td >"+sumST+" ("+Percentage(sumST,IP)+")</td>"+
+								  "<td >"+sumC+" ("+Percentage(sumC,IP)+")</td>"+
+								  "<td >"+sumS+" ("+Percentage(sumS,IP)+")</td>"+
+								  "<td >"+sumM+" ("+Percentage(sumM,IP)+")</td>"+
+								  
+								  "<td >"+dataList[i].staytimeip1+" ("+dataList[i].s1+"%)</td>"+
+								  "<td >"+dataList[i].staytimeip2+" ("+dataList[i].s2+"%)</td>"+
+								  "<td >"+dataList[i].staytimeip3+" ("+dataList[i].s3+"%)</td>"+
+								  "<td >"+dataList[i].staytimeip4+" ("+dataList[i].s4+"%)</td>"+
+								  
+								  "<td >"+dataList[i].clickip1+" ("+dataList[i].c1+"%)</td>"+
+								  "<td >"+dataList[i].clickip2+" ("+dataList[i].c2+"%)</td>"+
+								  "<td >"+dataList[i].clickip3+" ("+dataList[i].c3+"%)</td>"+
+								  "<td >"+dataList[i].clickip4+" ("+dataList[i].c4+"%)</td>"+
+								  
+								  
+								  "<td >"+dataList[i].scrollip1+" ("+dataList[i].sc1+"%)</td>"+
+								  "<td >"+dataList[i].scrollip2+" ("+dataList[i].sc2+"%)</td>"+
+								  "<td >"+dataList[i].scrollip3+" ("+dataList[i].sc3+"%)</td>"+
+								  "<td >"+dataList[i].scrollip4+" ("+dataList[i].sc4+"%)</td>"+
+								  "<td >"+dataList[i].moveip1+" ("+dataList[i].m1+"%)</td>"+
+								  "<td >"+dataList[i].moveip2+" ("+dataList[i].m2+"%)</td>"+
+								  "<td >"+dataList[i].moveip3+" ("+dataList[i].m3+"%)</td>"+
+								  "<td >"+dataList[i].moveip4+" ("+dataList[i].m4+"%)</td>"+
+								  "</tr>";
+								  table+=tr;
 							  
-							  "<td >"+sumST+" ("+Percentage(sumST,IP)+")</td>"+
-							  "<td >"+sumC+" ("+Percentage(sumC,IP)+")</td>"+
-							  "<td >"+sumS+" ("+Percentage(sumS,IP)+")</td>"+
-							  "<td >"+sumM+" ("+Percentage(sumM,IP)+")</td>"+
-							  
-							  "<td >"+dataList[i].staytimeip1+" ("+dataList[i].s1+"%)</td>"+
-							  "<td >"+dataList[i].staytimeip2+" ("+dataList[i].s2+"%)</td>"+
-							  "<td >"+dataList[i].staytimeip3+" ("+dataList[i].s3+"%)</td>"+
-							  "<td >"+dataList[i].staytimeip4+" ("+dataList[i].s4+"%)</td>"+
-							  
-							  "<td >"+dataList[i].clickip1+" ("+dataList[i].c1+"%)</td>"+
-							  "<td >"+dataList[i].clickip2+" ("+dataList[i].c2+"%)</td>"+
-							  "<td >"+dataList[i].clickip3+" ("+dataList[i].c3+"%)</td>"+
-							  "<td >"+dataList[i].clickip4+" ("+dataList[i].c4+"%)</td>"+
-							  
-							  
-							  "<td >"+dataList[i].scrollip1+" ("+dataList[i].sc1+"%)</td>"+
-							  "<td >"+dataList[i].scrollip2+" ("+dataList[i].sc2+"%)</td>"+
-							  "<td >"+dataList[i].scrollip3+" ("+dataList[i].sc3+"%)</td>"+
-							  "<td >"+dataList[i].scrollip4+" ("+dataList[i].sc4+"%)</td>"+
-							  "<td >"+dataList[i].moveip1+" ("+dataList[i].m1+"%)</td>"+
-							  "<td >"+dataList[i].moveip2+" ("+dataList[i].m2+"%)</td>"+
-							  "<td >"+dataList[i].moveip3+" ("+dataList[i].m3+"%)</td>"+
-							  "<td >"+dataList[i].moveip4+" ("+dataList[i].m4+"%)</td>"+
-							  "</tr>";
-							  table+=tr;
-						  
-							tr2+="<tr>"+firstTd+
-							  "<td style='min-width: 80px'>"+IP+"</td>"+
-							  "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+
-								"</tr>";
-							lefttable+=tr2;
-									
+								tr2+="<tr>"+firstTd+
+								  "<td style='min-width: 80px'>"+IP+"</td>"+
+								  "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+
+									"</tr>";
+								lefttable+=tr2;
+										
+							}
 						}
-						if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType){
+						
+						if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh){
 							jQuery("#SUMIP").html(SUMIP);
 							jQuery("#SUMPV").html(SUMPV);
 							jQuery("#ip").html(json.sumip);
@@ -562,7 +568,7 @@ var initTable1 = function () {
 					
 					}
 					clearTimeout(t);
-					if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0){
+					if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && isRefresh){
 						ajaxTime=2000;
 						t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
 					}

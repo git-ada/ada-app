@@ -793,7 +793,7 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>10){
+			 if(domainIp!=null && domainIp>50){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1099,7 +1099,7 @@ public class IndexController {
 			map.put("regionName", regionName);
 			 
 			 Integer ip = regionAd.getIp();
-			 if(ip>10){
+			 if(ip>50){
 				 Integer clickip1=0;
 				 Integer clickip2=0;
 				 Integer clickip3=0;
@@ -1241,7 +1241,7 @@ public class IndexController {
 			map.put("regionName", regionName);
 			 
 			 Integer ip = regionNotAd.getIp();
-			 if(ip>0){
+			 if(ip>50){
 				 Integer clickip1=0;
 				 Integer clickip2=0;
 				 Integer clickip3=0;
@@ -1384,7 +1384,7 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>10){
+			 if(domainIp!=null && domainIp>50){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1558,7 +1558,7 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainNotAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>10){
+			 if(domainIp!=null && domainIp>50){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
