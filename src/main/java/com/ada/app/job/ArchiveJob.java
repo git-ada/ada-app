@@ -29,7 +29,7 @@ public class ArchiveJob {
 	/**
 	 * 归档广告与非广告统计数据,每15分钟执行一次  
 	 */
-	@Scheduled(cron="0 */5 * * * ?")   //每15分钟执行一次  
+	@Scheduled(cron="0 */15 * * * ?")   //每15分钟执行一次  
 	public void excute2(){
 		log.info("开始执行广告、非广告、广告15m、非广告15m归档作业");
 		Long startTime = System.currentTimeMillis();
