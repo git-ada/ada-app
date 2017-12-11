@@ -211,7 +211,7 @@ public class ArchiveService {
 				try {
 					archiveDomain15m(domain,startTime,endTime);
 				} catch (Exception e) {
-					log.error("归档失败->"+domain.getDomain()+":"+domain.getId());
+					log.error("归档失败->"+domain.getDomain()+":"+domain.getId(),e);
 					continue;
 				}
 				
