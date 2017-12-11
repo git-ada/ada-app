@@ -267,9 +267,14 @@ public class ArchiveService {
 		notad15m.setDate(today);
 		notad15m.setCreateTime(now);
 		
-		adaDomainAdStatDao.delete(oldad);
+		if(oldad!=null){
+			adaDomainAdStatDao.delete(oldad);
+		}
+		if(oldnotad!=null){
+			adaDomainNotadStatDao.delete(oldnotad);
+		}
+		
 		adaDomainAdStatDao.save(newad);//保存广告数据
-		adaDomainNotadStatDao.delete(oldnotad);
 		adaDomainNotadStatDao.save(newnotad);//保存非广告数据
 		
 		adaDomainAd15mStatDao.save(ad15m);//保存15分钟数据
