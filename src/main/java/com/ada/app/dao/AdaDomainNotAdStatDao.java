@@ -25,6 +25,10 @@ public interface AdaDomainNotAdStatDao extends EntityJpaDao<AdaDomainNotadStat, 
     
     @Query(value="select * from ada_domain_notad_stat where siteId=? and domainId=? order by createTime desc limit 1",nativeQuery=true)
     public AdaDomainNotadStat findLast(Integer siteId,Integer domainId);
+    
+    
+    @Query(value="select * from ada_domain_notad_stat where siteId=? and domainId=? and date=? order by createTime desc limit 1",nativeQuery=true)
+    public AdaDomainNotadStat findLastInDate(Integer siteId,Integer domainId,Timestamp date);
     /** 
      *通过站点ID查询
      */
