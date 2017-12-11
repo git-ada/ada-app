@@ -247,7 +247,7 @@ public class ArchiveService {
 		
 		AdaDomainAd15mStat ad15m = null;
 		AdaDomainNotad15mStat notad15m=  null;
-		if(oldad==null || (oldad!=null && newad.getIp() < oldad.getIp())){
+		if(oldad==null){
 			oldad = initStat(AdaDomainAdStat.class);
 			oldnotad = initStat(AdaDomainNotadStat.class);
 		}
