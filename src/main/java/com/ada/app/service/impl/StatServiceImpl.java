@@ -670,11 +670,9 @@ public class StatServiceImpl implements StatService{
 	@Override
 	public DomainAreaStat statDomainRegionNotAd(String regionName,Integer domainId, Date date) {
 		
-		log.info("开始计算地域非广告入口数据");
 		
 		DomainAreaStat all = statDomainRegion(regionName,domainId,date);
 		DomainAreaStat ad = statDomainRegionAd(regionName,domainId,date);
-		log.info("all_IP-->"+all.getIp()+",ad_IP--->"+ad.getIp());
 		Integer IP = all.getIp()-ad.getIp();
 		Integer PV = all.getPv()-ad.getPv();
 		Integer UV = all.getUv()-ad.getUv();

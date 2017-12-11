@@ -94,9 +94,11 @@ th:last-child,td:last-child {
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${siteStat.ip}" id="ip">${siteStat.ip}</span>(个)
+					<span data-counter="counterup" data-value="${sumip}" id="ip">${sumip}</span>(个)
 				</div>
-				<div class="desc">今日全站独立IP数</div>
+				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMIP">今日全站独立IP数</div></c:if>
+				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMIP">今日广告入口独立IP数</div></c:if>
+				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMIP">今日非广告入口独立IP数</div></c:if>
 			</div>
 		</div>
 	</div>
@@ -108,9 +110,11 @@ th:last-child,td:last-child {
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${siteStat.pv}" id="pv">${siteStat.pv}</span>(页)
+					<span data-counter="counterup" data-value="${sumpv}" id="pv">${sumpv}</span>(页)
 				</div>
-				<div class="desc">今日全站访问量</div>
+				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMPV">今日全站访问量</div></c:if>
+				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMPV">今日广告入口访问量</div></c:if>
+				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMPV">今日非广告入口访问量</div></c:if>
 			</div>
 		</div>
 	</div>
@@ -147,7 +151,6 @@ th:last-child,td:last-child {
 <div class="portlet light portlet-fit bordered">
 	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;">
 		<div class="caption" style="padding-bottom: 0px;">
-            <a onclick="changeDataType('domain')"><i class="icon-action-undo"></i></a>
             <span class="caption-subject bold font-dark uppercase "> 今日实时统计</span>
             <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
         </div>
@@ -164,28 +167,38 @@ th:last-child,td:last-child {
 		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column" style="border: 0">
 	            <thead>
 	                <tr>
-	                	<c:if test="${dataType=='domain'}"><th scope="col" style="min-width: 130px;" id="firstTh">域名</th></c:if>
-						<c:if test="${dataType=='domainAd'}"><th scope="col" style="min-width: 130px;" id="firstTh">域名（广告入口）</th></c:if>
-						<c:if test="${dataType=='domainNotAd'}"><th scope="col" style="min-width: 130px;" id="firstTh">域名（非广告入口）</th></c:if>
+	                	<c:if test="${dataType=='domain'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名</th></c:if>
+						<c:if test="${dataType=='domainAd'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名（广告入口）</th></c:if>
+						<c:if test="${dataType=='domainNotAd'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名（非广告入口）</th></c:if>
 						<th scope="col" style="min-width: 80px">IP</th>			
 						<th scope="col" style="min-width: 80px">PV</th>
 						<th scope="col" style="min-width: 80px">UV</th>
 						<th scope="col" style="min-width: 80px">登录用户数</th>
 						<th scope="col" style="min-width: 80px">老IP数</th>
 						<th scope="col" style="min-width: 80px">老用户数</th>	
-						<th scope="col" style="min-width: 80px">1-2次点击</th>			
-						<th scope="col" style="min-width: 80px">3-5次点击</th>			
-						<th scope="col" style="min-width: 80px">6-10次点击</th>			
-						<th scope="col" style="min-width: 80px">10+次点击</th>			
 						<th scope="col" style="min-width: 80px">进入目标页</th>
+						
+						<th scope="col" style="min-width: 80px">停留时长</th>
+						<th scope="col" style="min-width: 80px">鼠标点击</th>
+						<th scope="col" style="min-width: 80px">鼠标滚动</th>
+						<th scope="col" style="min-width: 80px">鼠标移动</th>
+						
 						<th scope="col" style="min-width: 80px">5-30秒停留</th>
 						<th scope="col" style="min-width: 80px">31-120秒</th>
 						<th scope="col" style="min-width: 80px">121-300秒</th>
 						<th scope="col" style="min-width: 80px">300+秒停留</th>
+						
+						<th scope="col" style="min-width: 80px">1-2次点击</th>			
+						<th scope="col" style="min-width: 80px">3-5次点击</th>			
+						<th scope="col" style="min-width: 80px">6-10次点击</th>			
+						<th scope="col" style="min-width: 80px">10+次点击</th>			
+						
+						
 						<th scope="col" style="min-width: 80px">1-2次滚动</th>
 						<th scope="col" style="min-width: 80px">3-5次滚动</th>
 						<th scope="col" style="min-width: 80px">6-10次滚动</th>
 						<th scope="col" style="min-width: 80px">10+次滚动</th>
+						
 						<th scope="col" style="min-width: 80px">1-2次移动</th>
 						<th scope="col" style="min-width: 80px">3-5次移动</th>
 						<th scope="col" style="min-width: 80px">6-10次移动</th>
@@ -195,7 +208,7 @@ th:last-child,td:last-child {
 	            <tbody id="tbody">
 	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
 	                <tr>
-                		<td style="min-width: 130px;" title="${domain.domain}">
+                		<td style="min-width: 150px;" title="${domain.domain}">
                 			<c:if test="${dataType=='domain'}"><a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${domain.id}" data-toggle="dropdown" onclick="openMenu(this)">${domain.subDomain}</a></c:if>
                 			<c:if test="${dataType=='domainAd'}">${domain.subDomain}</c:if>
                 			<c:if test="${dataType=='domainNotAd'}">${domain.subDomain}</c:if>
@@ -206,15 +219,29 @@ th:last-child,td:last-child {
 						<td style="min-width: 80px">${domain.loginip} (${domain.log}%)</td>
 						<td style="min-width: 80px">${domain.oldip} (${domain.oldi}%)</td>
 						<td style="min-width: 80px">${domain.olduserip} (${domain.old}%)</td>
-						<td style="min-width: 80px">${domain.clickip1} (${domain.c1}%)</td>
-						<td style="min-width: 80px">${domain.clickip2} (${domain.c2}%)</td>
-						<td style="min-width: 80px">${domain.clickip3} (${domain.c3}%)</td>
-						<td style="min-width: 80px">${domain.clickip4} (${domain.c4}%)</td>
-						<td style="min-width: 80px">${domain.targetpageip} (${domain.tgp}%)</td>
+						<td style="min-width: 80px">${domain.targetpageip} (${domain.tgp}%)</td> 
+						
+						<c:set var="sumST" scope="session" value="${domain.staytimeip1+domain.staytimeip2+domain.staytimeip3+domain.staytimeip4}"/>
+						<c:set var="sumC" scope="session" value="${domain.clickip1+domain.clickip2+domain.clickip3+domain.clickip4}"/>
+						<c:set var="sumS" scope="session" value="${domain.scrollip1+domain.scrollip2+domain.scrollip3+domain.scrollip4}"/>
+						<c:set var="sumM" scope="session" value="${domain.moveip1+domain.moveip2+domain.moveip3+domain.moveip4}"/>
+						
+						<td style="min-width: 80px">${sumST} (<fmt:formatNumber type="number" value="${sumST / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${sumC} (<fmt:formatNumber type="number" value="${sumC / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${sumS} (<fmt:formatNumber type="number" value="${sumS / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${sumM} (<fmt:formatNumber type="number" value="${sumM / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						
 						<td style="min-width: 80px">${domain.staytimeip1} (${domain.s1}%)</td>
 						<td style="min-width: 80px">${domain.staytimeip2} (${domain.s2}%)</td>
 						<td style="min-width: 80px">${domain.staytimeip3} (${domain.s3}%)</td>
 						<td style="min-width: 80px">${domain.staytimeip4} (${domain.s4}%)</td>
+						
+						<td style="min-width: 80px">${domain.clickip1} (${domain.c1}%)</td>
+						<td style="min-width: 80px">${domain.clickip2} (${domain.c2}%)</td>
+						<td style="min-width: 80px">${domain.clickip3} (${domain.c3}%)</td>
+						<td style="min-width: 80px">${domain.clickip4} (${domain.c4}%)</td>
+						
+						
 						<td style="min-width: 80px">${domain.scrollip1} (${domain.sc1}%)</td>
 						<td style="min-width: 80px">${domain.scrollip2} (${domain.sc2}%)</td>
 						<td style="min-width: 80px">${domain.scrollip3} (${domain.sc3}%)</td>
@@ -271,6 +298,11 @@ function openMenu(a,event){
 		jQuery(jQuery(a).attr("data-target")).css({"top":yy,"left":xx});
 	}
 	
+}
+//百分比
+function Percentage(num, total) { 
+    return (Math.round(num / total * 10000) / 100.00 + "%");// 小数点后两位百分比
+   
 }
 
 var t;
@@ -410,27 +442,36 @@ var initTable1 = function () {
 				success : function(data) {
 					if (data!=null) {
 						var json = eval('(' + data + ')');
-						$("#ip").html(json.siteStat.ip);
-						$("#pv").html(json.siteStat.pv);
-						$("#cip").html(json.channelSumIP);
-						$("#cpv").html(json.channelSumPV);
+						
 						domainId = json.domainId;//域名ID
 						var table = "";
 						var lefttable = "";
 						var menu = "";
 						var firstTh = "域名";
+						var SUMIP = "";
+						var SUMPV = "";
 						/** 数据列表 **/
 						var dataList = json.data_list;
 						if(dataType=="domain"){
 							firstTh = "域名";
+							SUMIP = "今日全站独立IP数";
+							SUMPV = "今日全站访问量";
 						}else if(dataType=="domainAd"){
+							SUMIP = "今日广告入口独立IP数";
+							SUMPV = "今日广告入口访问量";
 							firstTh = "域名（广告入口）";
 						}else if(dataType=="domainNotAd"){
+							SUMIP = "今日非广告入口独立IP数";
+							SUMPV = "今日非广告入口访问量";
 							firstTh = "域名（非广告入口）";
 						}else if(dataType=="domainRegionAd"){
-							firstTh = "地域（广告入口）";
+							SUMIP = "地域广告入口独立IP数";
+							SUMPV = "地域广告入口访问量";
+							firstTh = "地域（广告入口）<a onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
 						}else if(dataType=="domainRegionNotAd"){
-							firstTh = "地域（非广告入口）";
+							SUMIP = "地域非广告入口独立IP数";
+							SUMPV = "地域非广告入口访问量";
+							firstTh = "地域（非广告入口）<a onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
 						}
 						for(var i=0;i<dataList.length;i++){
 							var firstTd = "";
@@ -438,7 +479,7 @@ var initTable1 = function () {
 						    var tr2 = "";
 						    var tr3 = "";
 						    if(dataType=="domain"){
-						    	firstTd="<td style='min-width: 130px;'  title='"+dataList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+dataList[i].id+"' data-toggle='dropdown' onclick='openMenu(this)'>"+dataList[i].subDomain+"</a></td>";
+						    	firstTd="<td style='min-width: 150px;'  title='"+dataList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+dataList[i].id+"' data-toggle='dropdown' onclick='openMenu(this)'>"+dataList[i].subDomain+"</a></td>";
 						    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
 								"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
 									"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+dataList[i].id+"\")'>分时统计</a></li>"+
@@ -453,26 +494,40 @@ var initTable1 = function () {
 						    }else if(dataType=="domainNotAd"){
 						    	firstTd = "<td style='min-width: 130px;'  title='"+dataList[i].domain+"'>"+dataList[i].subDomain+"</td>";
 						    }else if(dataType=="domainRegionAd"){
-						    	firstTd = "<td style='min-width: 130px;'  >"+dataList[i].regionName+"</td>";
+						    	firstTd = "<td style='min-width: 150px;'  >"+dataList[i].regionName+"</td>";
 						    }else if(dataType=="domainRegionNotAd"){
-						    	firstTd = "<td style='min-width: 130px;'  >"+dataList[i].regionName+"</td>";
+						    	firstTd = "<td style='min-width: 150px;'  >"+dataList[i].regionName+"</td>";
 						    }
+						    var sumST = dataList[i].staytimeip1+dataList[i].staytimeip2+dataList[i].staytimeip3+dataList[i].staytimeip4;
+						    var sumC = dataList[i].clickip1+dataList[i].clickip2+dataList[i].clickip3+dataList[i].clickip4;
+						    var sumS = dataList[i].scrollip1+dataList[i].scrollip2+dataList[i].scrollip3+dataList[i].scrollip4;
+						    var sumM = dataList[i].moveip1+dataList[i].moveip2+dataList[i].moveip3+dataList[i].moveip4;
+						    var IP = dataList[i].ip;
 					  		tr+="<tr>" + firstTd+
-							  "<td >"+dataList[i].ip+"</td>"+
+							  "<td >"+IP+"</td>"+
 							  "<td >"+dataList[i].pv+"</td>"+
 							  "<td >"+dataList[i].uv+"</td>"+
 							  "<td >"+dataList[i].loginip+" ("+dataList[i].log+"%)</td>"+
 							  "<td >"+dataList[i].oldip+" ("+dataList[i].oldi+"%)</td>"+
 							  "<td >"+dataList[i].olduserip+" ("+dataList[i].old+"%)</td>"+
-							  "<td >"+dataList[i].clickip1+" ("+dataList[i].c1+"%)</td>"+
-							  "<td >"+dataList[i].clickip2+" ("+dataList[i].c2+"%)</td>"+
-							  "<td >"+dataList[i].clickip3+" ("+dataList[i].c3+"%)</td>"+
-							  "<td >"+dataList[i].clickip4+" ("+dataList[i].c4+"%)</td>"+
 							  "<td >"+dataList[i].targetpageip+" ("+dataList[i].tgp+"%)</td>"+
+							  
+							  "<td >"+sumST+" ("+Percentage(sumST,IP)+")</td>"+
+							  "<td >"+sumC+" ("+Percentage(sumC,IP)+")</td>"+
+							  "<td >"+sumS+" ("+Percentage(sumS,IP)+")</td>"+
+							  "<td >"+sumM+" ("+Percentage(sumM,IP)+")</td>"+
+							  
 							  "<td >"+dataList[i].staytimeip1+" ("+dataList[i].s1+"%)</td>"+
 							  "<td >"+dataList[i].staytimeip2+" ("+dataList[i].s2+"%)</td>"+
 							  "<td >"+dataList[i].staytimeip3+" ("+dataList[i].s3+"%)</td>"+
 							  "<td >"+dataList[i].staytimeip4+" ("+dataList[i].s4+"%)</td>"+
+							  
+							  "<td >"+dataList[i].clickip1+" ("+dataList[i].c1+"%)</td>"+
+							  "<td >"+dataList[i].clickip2+" ("+dataList[i].c2+"%)</td>"+
+							  "<td >"+dataList[i].clickip3+" ("+dataList[i].c3+"%)</td>"+
+							  "<td >"+dataList[i].clickip4+" ("+dataList[i].c4+"%)</td>"+
+							  
+							  
 							  "<td >"+dataList[i].scrollip1+" ("+dataList[i].sc1+"%)</td>"+
 							  "<td >"+dataList[i].scrollip2+" ("+dataList[i].sc2+"%)</td>"+
 							  "<td >"+dataList[i].scrollip3+" ("+dataList[i].sc3+"%)</td>"+
@@ -485,13 +540,17 @@ var initTable1 = function () {
 							  table+=tr;
 						  
 							tr2+="<tr>"+firstTd+
-							  "<td style='min-width: 80px'>"+dataList[i].ip+"</td>"+
+							  "<td style='min-width: 80px'>"+IP+"</td>"+
 							  "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+
 								"</tr>";
 							lefttable+=tr2;
 									
 						}
 						if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType){
+							jQuery("#SUMIP").html(SUMIP);
+							jQuery("#SUMPV").html(SUMPV);
+							jQuery("#ip").html(json.sumip);
+							jQuery("#pv").html(json.sumpv);
 							jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
 							jQuery("#tbody").empty();
 							jQuery("#tbody").append(table);
