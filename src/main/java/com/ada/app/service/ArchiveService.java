@@ -240,20 +240,17 @@ public class ArchiveService {
 		
 		if(oldad!=null){
 			adaDomainAdStatDao.delete(oldad);
+		}else{
+			oldad = initStat(AdaDomainAdStat.class);
 		}
 		if(oldnotad!=null){
 			adaDomainNotadStatDao.delete(oldnotad);
-		}
-		
-		AdaDomainAd15mStat ad15m = null;
-		AdaDomainNotad15mStat notad15m=  null;
-		if(oldad==null){
-			oldad = initStat(AdaDomainAdStat.class);
+		}else{
 			oldnotad = initStat(AdaDomainNotadStat.class);
 		}
 		
-		ad15m = reduct(newad, oldad, AdaDomainAd15mStat.class);//变化数据，=新广告数据-老广告数据
-		notad15m=reduct(newnotad, oldnotad, AdaDomainNotad15mStat.class);//变化数据，=新广告数据-老广告数据
+		AdaDomainAd15mStat ad15m = reduct(newad, oldad, AdaDomainAd15mStat.class);//变化数据，=新广告数据-老广告数据
+		AdaDomainNotad15mStat notad15m= reduct(newnotad, oldnotad, AdaDomainNotad15mStat.class);//变化数据，=新广告数据-老广告数据
 		
 		newad.setDate(today);
 		newad.setCreateTime(now);
