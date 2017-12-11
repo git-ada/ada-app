@@ -239,7 +239,7 @@
 		<profile>
 			<id>hkjob</id>
 			<properties>
-				<profiles.activation>hktest</profiles.activation>
+				<profiles.activation>hkjob</profiles.activation>
 			</properties>
 		</profile>
 	</profiles>
