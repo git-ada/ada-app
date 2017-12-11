@@ -98,16 +98,17 @@
 	<logger name="java.sql">
 		<level value="DEBUG" />
 	</logger>
-	<logger name="com.service.test">
+	-->
+	<logger name="com.ada.app">
 		<level value="DEBUG" />
 	</logger>
-	-->
+	
 	<logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper">
 		<level value="ERROR" />
 	</logger>
 	
 	<root>
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<!-- appender-ref ref="STDOUT" /-->
 		<appender-ref ref="ROLLINGFILE" />
 		<appender-ref ref="DEBUG" />
