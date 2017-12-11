@@ -236,5 +236,11 @@
 				<profiles.activation>hktest</profiles.activation>
 			</properties>
 		</profile>
+		<profile>
+			<id>hkjob</id>
+			<properties>
+				<profiles.activation>hktest</profiles.activation>
+			</properties>
+		</profile>
 	</profiles>
 </project>
