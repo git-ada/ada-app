@@ -1,6 +1,5 @@
 /** 日志服务器地址 **/
-//var adaLogServer = "http://45.125.219.106:8001";
-var adaLogServer = "http://127.0.0.1:8082";
+var adaLogServer = "http://45.125.219.106:8001";
 var adaPageInTime = 0;
 var adaSiteId;
 var adaClientId;
