@@ -238,15 +238,22 @@ public class ArchiveService {
 		AdaDomainAdStat oldad = adaDomainAdStatDao.findLastInDate(siteId, domainId,today);//广告入口老数据
 		AdaDomainNotadStat oldnotad = adaDomainNotAdStatDao.findLastInDate(siteId, domainId,today);//非广告入口数据
 		
-		AdaDomainAd15mStat ad15m = null;
-		AdaDomainNotad15mStat notad15m=  null;
-		AdaDomainAd15mStat zreo = null;
-		if(oldad==null || (oldad!=null && newad.getIp() < oldad.getIp())){
-			zreo = initStat(AdaDomainAd15mStat.class);
+		if(oldad!=null){
+			adaDomainAdStatDao.delete(oldad);
+		}
+		if(oldnotad!=null){
+			adaDomainNotadStatDao.delete(oldnotad);
 		}
 		
-		ad15m = reduct(newad, zreo, AdaDomainAd15mStat.class);//变化数据，=新广告数据-老广告数据
-		notad15m=reduct(newnotad, zreo, AdaDomainNotad15mStat.class);//变化数据，=新广告数据-老广告数据
+		AdaDomainAd15mStat ad15m = null;
+		AdaDomainNotad15mStat notad15m=  null;
+		if(oldad==null || (oldad!=null && newad.getIp() < oldad.getIp())){
+			oldad = initStat(AdaDomainAdStat.class);
+			oldnotad = initStat(AdaDomainNotadStat.class);
+		}
+		
+		ad15m = reduct(newad, oldad, AdaDomainAd15mStat.class);//变化数据，=新广告数据-老广告数据
+		notad15m=reduct(newnotad, oldnotad, AdaDomainNotad15mStat.class);//变化数据，=新广告数据-老广告数据
 		
 		newad.setDate(today);
 		newad.setCreateTime(now);
@@ -267,12 +274,7 @@ public class ArchiveService {
 		notad15m.setDate(today);
 		notad15m.setCreateTime(now);
 		
-		if(oldad!=null){
-			adaDomainAdStatDao.delete(oldad);
-		}
-		if(oldnotad!=null){
-			adaDomainNotadStatDao.delete(oldnotad);
-		}
+		
 		
 		adaDomainAdStatDao.save(newad);//保存广告数据
 		adaDomainNotadStatDao.save(newnotad);//保存非广告数据
