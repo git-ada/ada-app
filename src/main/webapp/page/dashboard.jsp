@@ -178,10 +178,10 @@ th:last-child,td:last-child {
 						<th scope="col" style="min-width: 80px">老用户数</th>	
 						<th scope="col" style="min-width: 80px">进入目标页</th>
 						
-						<th scope="col" style="min-width: 80px">停留时长</th>
-						<th scope="col" style="min-width: 80px">鼠标点击</th>
-						<th scope="col" style="min-width: 80px">鼠标滚动</th>
-						<th scope="col" style="min-width: 80px">鼠标移动</th>
+						<th scope="col" style="min-width: 80px">停留</th>
+						<th scope="col" style="min-width: 80px">点击</th>
+						<th scope="col" style="min-width: 80px">滚动</th>
+						<th scope="col" style="min-width: 80px">移动</th>
 						
 						<th scope="col" style="min-width: 80px">5-30秒停留</th>
 						<th scope="col" style="min-width: 80px">31-120秒</th>
