@@ -70,6 +70,9 @@ th:last-child,td:last-child {
 .dataTables_scroll {
     margin-bottom: 0px !important;
 }
+.displaynone{
+	display: none;
+}
 </style>
 
 <!-- 
@@ -178,31 +181,29 @@ th:last-child,td:last-child {
 						<th scope="col" style="min-width: 80px">老用户数</th>	
 						<th scope="col" style="min-width: 80px">进入目标页</th>
 						
-						<th scope="col" style="min-width: 80px">停留</th>
-						<th scope="col" style="min-width: 80px">点击</th>
-						<th scope="col" style="min-width: 80px">滚动</th>
-						<th scope="col" style="min-width: 80px">移动</th>
+						<th scope="col" style="min-width: 80px">停留 <a onclick="changeDisplay(this,'st')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="st">5-30秒</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="st">31-120秒</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="st">121-300秒</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="st">300+秒</th>
 						
-						<th scope="col" style="min-width: 80px">5-30秒停留</th>
-						<th scope="col" style="min-width: 80px">31-120秒</th>
-						<th scope="col" style="min-width: 80px">121-300秒</th>
-						<th scope="col" style="min-width: 80px">300+秒停留</th>
+						<th scope="col" style="min-width: 80px">点击<a onclick="changeDisplay(this,'c')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="c">1-2次</th>			
+						<th scope="col" style="min-width: 80px" class="displaynone" event="c">3-5次</th>			
+						<th scope="col" style="min-width: 80px" class="displaynone" event="c">6-10次</th>			
+						<th scope="col" style="min-width: 80px" class="displaynone" event="c">10+次</th>
 						
-						<th scope="col" style="min-width: 80px">1-2次点击</th>			
-						<th scope="col" style="min-width: 80px">3-5次点击</th>			
-						<th scope="col" style="min-width: 80px">6-10次点击</th>			
-						<th scope="col" style="min-width: 80px">10+次点击</th>			
+						<th scope="col" style="min-width: 80px">滚动<a onclick="changeDisplay(this,'s')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="s">1-2次</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="s">3-5次</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="s">6-10次</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="s">10+次</th>
 						
-						
-						<th scope="col" style="min-width: 80px">1-2次滚动</th>
-						<th scope="col" style="min-width: 80px">3-5次滚动</th>
-						<th scope="col" style="min-width: 80px">6-10次滚动</th>
-						<th scope="col" style="min-width: 80px">10+次滚动</th>
-						
-						<th scope="col" style="min-width: 80px">1-2次移动</th>
-						<th scope="col" style="min-width: 80px">3-5次移动</th>
-						<th scope="col" style="min-width: 80px">6-10次移动</th>
-						<th scope="col" style="min-width: 80px">10+次移动</th>
+						<th scope="col" style="min-width: 80px">移动<a onclick="changeDisplay(this,'m')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="m">1-2次</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="m">3-5次</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="m">6-10次</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="m">10+次</th>
 				     </tr>
 	            </thead>
 	            <tbody id="tbody">
@@ -227,28 +228,28 @@ th:last-child,td:last-child {
 						<c:set var="sumM" scope="session" value="${domain.moveip1+domain.moveip2+domain.moveip3+domain.moveip4}"/>
 						
 						<td style="min-width: 80px">${sumST} (<fmt:formatNumber type="number" value="${sumST / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="st">${domain.staytimeip1} (<fmt:formatNumber type="number" value="${domain.staytimeip1 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="st">${domain.staytimeip2} (<fmt:formatNumber type="number" value="${domain.staytimeip2 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="st">${domain.staytimeip3} (<fmt:formatNumber type="number" value="${domain.staytimeip3 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="st">${domain.staytimeip4} (<fmt:formatNumber type="number" value="${domain.staytimeip4 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						
 						<td style="min-width: 80px">${sumC} (<fmt:formatNumber type="number" value="${sumC / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="c">${domain.clickip1} (<fmt:formatNumber type="number" value="${domain.clickip1 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="c">${domain.clickip2} (<fmt:formatNumber type="number" value="${domain.clickip2 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="c">${domain.clickip3} (<fmt:formatNumber type="number" value="${domain.clickip3 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="c">${domain.clickip4} (<fmt:formatNumber type="number" value="${domain.clickip4 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						
 						<td style="min-width: 80px">${sumS} (<fmt:formatNumber type="number" value="${sumS / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="s">${domain.scrollip1} (<fmt:formatNumber type="number" value="${domain.scrollip1 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="s">${domain.scrollip2} (<fmt:formatNumber type="number" value="${domain.scrollip2 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="s">${domain.scrollip3} (<fmt:formatNumber type="number" value="${domain.scrollip3 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="s">${domain.scrollip4} (<fmt:formatNumber type="number" value="${domain.scrollip4 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						
 						<td style="min-width: 80px">${sumM} (<fmt:formatNumber type="number" value="${sumM / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						
-						<td style="min-width: 80px">${domain.staytimeip1} (<fmt:formatNumber type="number" value="${domain.staytimeip1 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.staytimeip2} (<fmt:formatNumber type="number" value="${domain.staytimeip2 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.staytimeip3} (<fmt:formatNumber type="number" value="${domain.staytimeip3 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.staytimeip4} (<fmt:formatNumber type="number" value="${domain.staytimeip4 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						
-						<td style="min-width: 80px">${domain.clickip1} (<fmt:formatNumber type="number" value="${domain.clickip1 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.clickip2} (<fmt:formatNumber type="number" value="${domain.clickip2 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.clickip3} (<fmt:formatNumber type="number" value="${domain.clickip3 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.clickip4} (<fmt:formatNumber type="number" value="${domain.clickip4 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						
-						<td style="min-width: 80px">${domain.scrollip1} (<fmt:formatNumber type="number" value="${domain.scrollip1 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.scrollip2} (<fmt:formatNumber type="number" value="${domain.scrollip2 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.scrollip3} (<fmt:formatNumber type="number" value="${domain.scrollip3 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.scrollip4} (<fmt:formatNumber type="number" value="${domain.scrollip4 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.moveip1} (<fmt:formatNumber type="number" value="${domain.moveip1 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.moveip2} (<fmt:formatNumber type="number" value="${domain.moveip2 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.moveip3} (<fmt:formatNumber type="number" value="${domain.moveip3 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${domain.moveip4} (<fmt:formatNumber type="number" value="${domain.moveip4 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="m">${domain.moveip1} (<fmt:formatNumber type="number" value="${domain.moveip1 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="m">${domain.moveip2} (<fmt:formatNumber type="number" value="${domain.moveip2 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="m">${domain.moveip3} (<fmt:formatNumber type="number" value="${domain.moveip3 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="m">${domain.moveip4} (<fmt:formatNumber type="number" value="${domain.moveip4 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 	                </tr>
 	                </c:forEach>
 	                
@@ -302,6 +303,21 @@ function openMenu(a,event){
 function Percentage(num, total) { 
     return (Math.round(num / total * 10000) / 100.00 + "%");// 小数点后两位百分比
    
+}
+
+/** 修改td样式 **/
+function changeDisplay(a,data){
+	 var i = jQuery(a).find("i");
+	  if(jQuery(i).attr("class")=="icon-magnifier-add"){
+		  jQuery(i).removeClass("icon-magnifier-add");
+		  jQuery(i).addClass("icon-magnifier-remove");
+	  }else if(jQuery(i).attr("class")=="icon-magnifier-remove"){
+		  jQuery(i).removeClass("icon-magnifier-remove");
+		  jQuery(i).addClass("icon-magnifier-add");
+		 
+	  }
+	 jQuery("[event="+data+"]").toggleClass("displaynone");
+	 
 }
 
 var t;
@@ -435,8 +451,8 @@ var initTable1 = function () {
 	} 
 	 
 	 var ajaxTime = 2000;
-	 
-	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
+	 //第一次异步刷新
+	 //t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
 	  
 	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
@@ -501,6 +517,11 @@ var initTable1 = function () {
 							    }else if(dataType=="domainRegionNotAd"){
 							    	firstTd = "<td style='min-width: 150px;'  >"+dataList[i].regionName+"</td>";
 							    }
+							    var stDisplay = jQuery("[event=st]").first().attr("class");
+							    var cDisplay = jQuery("[event=c]").first().attr("class");
+							    var sDisplay = jQuery("[event=s]").first().attr("class");
+							    var mtDisplay = jQuery("[event=m]").first().attr("class");
+							    
 							    var sumST = dataList[i].staytimeip1+dataList[i].staytimeip2+dataList[i].staytimeip3+dataList[i].staytimeip4;
 							    var sumC = dataList[i].clickip1+dataList[i].clickip2+dataList[i].clickip3+dataList[i].clickip4;
 							    var sumS = dataList[i].scrollip1+dataList[i].scrollip2+dataList[i].scrollip3+dataList[i].scrollip4;
@@ -516,29 +537,28 @@ var initTable1 = function () {
 								  "<td >"+dataList[i].targetpageip+" ("+Percentage(dataList[i].targetpageip,IP)+")</td>"+
 								  
 								  "<td >"+sumST+" ("+Percentage(sumST,IP)+")</td>"+
+								  "<td class='"+stDisplay+"' event='st'>"+dataList[i].staytimeip1+" ("+Percentage(dataList[i].staytimeip1,IP)+")</td>"+
+								  "<td class='"+stDisplay+"' event='st'>"+dataList[i].staytimeip2+" ("+Percentage(dataList[i].staytimeip2,IP)+")</td>"+
+								  "<td class='"+stDisplay+"' event='st'>"+dataList[i].staytimeip3+" ("+Percentage(dataList[i].staytimeip3,IP)+")</td>"+
+								  "<td class='"+stDisplay+"' event='st'>"+dataList[i].staytimeip4+" ("+Percentage(dataList[i].staytimeip4,IP)+")</td>"+
+								  
 								  "<td >"+sumC+" ("+Percentage(sumC,IP)+")</td>"+
+								  "<td class='"+cDisplay+"' event='c'>"+dataList[i].clickip1+" ("+Percentage(dataList[i].clickip1,IP)+")</td>"+
+								  "<td class='"+cDisplay+"' event='c'>"+dataList[i].clickip2+" ("+Percentage(dataList[i].clickip2,IP)+")</td>"+
+								  "<td class='"+cDisplay+"' event='c'>"+dataList[i].clickip3+" ("+Percentage(dataList[i].clickip3,IP)+")</td>"+
+								  "<td class='"+cDisplay+"' event='c'>"+dataList[i].clickip4+" ("+Percentage(dataList[i].clickip4,IP)+")</td>"+
+								  
 								  "<td >"+sumS+" ("+Percentage(sumS,IP)+")</td>"+
+								  "<td class='"+sDisplay+"' event='s'>"+dataList[i].scrollip1+" ("+Percentage(dataList[i].scrollip1,IP)+")</td>"+
+								  "<td class='"+sDisplay+"' event='s'>"+dataList[i].scrollip2+" ("+Percentage(dataList[i].scrollip2,IP)+")</td>"+
+								  "<td class='"+sDisplay+"' event='s'>"+dataList[i].scrollip3+" ("+Percentage(dataList[i].scrollip3,IP)+")</td>"+
+								  "<td class='"+sDisplay+"' event='s'>"+dataList[i].scrollip4+" ("+Percentage(dataList[i].scrollip4,IP)+")</td>"+
+								  
 								  "<td >"+sumM+" ("+Percentage(sumM,IP)+")</td>"+
-								  
-								  "<td >"+dataList[i].staytimeip1+" ("+Percentage(dataList[i].staytimeip1,IP)+")</td>"+
-								  "<td >"+dataList[i].staytimeip2+" ("+Percentage(dataList[i].staytimeip2,IP)+")</td>"+
-								  "<td >"+dataList[i].staytimeip3+" ("+Percentage(dataList[i].staytimeip3,IP)+")</td>"+
-								  "<td >"+dataList[i].staytimeip4+" ("+Percentage(dataList[i].staytimeip4,IP)+")</td>"+
-								  
-								  "<td >"+dataList[i].clickip1+" ("+Percentage(dataList[i].clickip1,IP)+")</td>"+
-								  "<td >"+dataList[i].clickip2+" ("+Percentage(dataList[i].clickip2,IP)+")</td>"+
-								  "<td >"+dataList[i].clickip3+" ("+Percentage(dataList[i].clickip3,IP)+")</td>"+
-								  "<td >"+dataList[i].clickip4+" ("+Percentage(dataList[i].clickip4,IP)+")</td>"+
-								  
-								  "<td >"+dataList[i].scrollip1+" ("+Percentage(dataList[i].scrollip1,IP)+")</td>"+
-								  "<td >"+dataList[i].scrollip2+" ("+Percentage(dataList[i].scrollip2,IP)+")</td>"+
-								  "<td >"+dataList[i].scrollip3+" ("+Percentage(dataList[i].scrollip3,IP)+")</td>"+
-								  "<td >"+dataList[i].scrollip4+" ("+Percentage(dataList[i].scrollip4,IP)+")</td>"+
-								  
-								  "<td >"+dataList[i].moveip1+" ("+Percentage(dataList[i].moveip1,IP)+")</td>"+
-								  "<td >"+dataList[i].moveip2+" ("+Percentage(dataList[i].moveip2,IP)+")</td>"+
-								  "<td >"+dataList[i].moveip3+" ("+Percentage(dataList[i].moveip3,IP)+")</td>"+
-								  "<td >"+dataList[i].moveip4+" ("+Percentage(dataList[i].moveip4,IP)+")</td>"+
+								  "<td class='"+mtDisplay+"' event='m'>"+dataList[i].moveip1+" ("+Percentage(dataList[i].moveip1,IP)+")</td>"+
+								  "<td class='"+mtDisplay+"' event='m'>"+dataList[i].moveip2+" ("+Percentage(dataList[i].moveip2,IP)+")</td>"+
+								  "<td class='"+mtDisplay+"' event='m'>"+dataList[i].moveip3+" ("+Percentage(dataList[i].moveip3,IP)+")</td>"+
+								  "<td class='"+mtDisplay+"' event='m'>"+dataList[i].moveip4+" ("+Percentage(dataList[i].moveip4,IP)+")</td>"+
 								  "</tr>";
 								  table+=tr;
 							  
