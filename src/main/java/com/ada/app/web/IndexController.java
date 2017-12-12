@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import cn.com.jiand.mvc.framework.utils.Dates;
 
 import com.ada.app.bean.BaseStat;
+import com.ada.app.bean.BaseStatBean;
 import com.ada.app.bean.DomainAreaStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
@@ -779,7 +781,7 @@ public class IndexController {
 		return json;
 	}
 	
-
+	/** 域名统计信息 **/
 	protected Map getDomainStat_list(Date date){
 		/** 从sessions中获取站点信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();
@@ -807,13 +809,9 @@ public class IndexController {
 		 for(int i=0;i<domainIps.size();i++){
 			Integer domainId = domainIps.get(i)[0];
 			Integer domainIp = domainIps.get(i)[1];
-			//Integer channelNum = domainIps.get(i)[2];
-//			if(domainIp<10 && i>19){
-//				 break;
-//			 }
 			
 			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
-			Map map = new HashMap();
+			Map map = getMap(domainStat);
 			map.put("id", domainId);
 			//map.put("channelNum", channelNum);
 			String domainstr = adaDomainDao.findById(domainStat.getDomainId()).getDomain();
@@ -823,114 +821,7 @@ public class IndexController {
 			 }else{
 				 map.put("subDomain", domainstr);
 			 }
-			 map.put("ip", domainStat.getIp());
-			 map.put("pv", domainStat.getPv());
-			 map.put("uv", domainStat.getUv());
-			 Integer clickip1=0;
-			 Integer clickip2=0;
-			 Integer clickip3=0;
-			 Integer clickip4=0;
-			 Integer staytimeip1=0;
-			 Integer staytimeip2=0;
-			 Integer staytimeip3=0;
-			 Integer staytimeip4=0;
-			 Integer scrollip1 = 0;
-			 Integer scrollip2 = 0;
-			 Integer scrollip3 = 0;
-			 Integer scrollip4 = 0;
-			 Integer moveip1 = 0;
-			 Integer moveip2 = 0;
-			 Integer moveip3 = 0;
-			 Integer moveip4 = 0;
-			 Integer olduserip = 0;
-			 Integer oldip = 0;
-			 Integer loginip = 0;
-			 Integer targetpageip =0;
-			 if(domainStat.getClickip1()>0)clickip1 = domainStat.getClickip1();
-			 if(domainStat.getClickip2()>0)clickip2 = domainStat.getClickip2();
-			 if(domainStat.getClickip3()>0)clickip3 = domainStat.getClickip3();
-			 if(domainStat.getClickip4()>0)clickip4 = domainStat.getClickip4();
-			 if(domainStat.getStaytimeip1()>0)staytimeip1 = domainStat.getStaytimeip1();
-			 if(domainStat.getStaytimeip2()>0)staytimeip2 = domainStat.getStaytimeip2();
-			 if(domainStat.getStaytimeip3()>0)staytimeip3 = domainStat.getStaytimeip3();
-			 if(domainStat.getStaytimeip4()>0)staytimeip4 = domainStat.getStaytimeip4();
-			 if(domainStat.getScrollip1()>0)scrollip1 = domainStat.getScrollip1();
-			 if(domainStat.getScrollip2()>0)scrollip2 = domainStat.getScrollip2();
-			 if(domainStat.getScrollip3()>0)scrollip3 = domainStat.getScrollip3();
-			 if(domainStat.getScrollip4()>0)scrollip4 = domainStat.getScrollip4();
-			 if(domainStat.getMoveip1()>0)moveip1 = domainStat.getMoveip1();
-			 if(domainStat.getMoveip2()>0)moveip2 = domainStat.getMoveip2();
-			 if(domainStat.getMoveip3()>0)moveip3 = domainStat.getMoveip3();
-			 if(domainStat.getMoveip4()>0)moveip4 = domainStat.getMoveip4();
-			 if(domainStat.getOlduserip()>0)olduserip = domainStat.getOlduserip();
-			 if(domainStat.getOldip()>0)oldip = domainStat.getOldip();
-			 if(domainStat.getLoginip()>0)loginip = domainStat.getLoginip();
-			 if(domainStat.getTargetpageip()>0)targetpageip = domainStat.getTargetpageip();
-			 map.put("clickip1", clickip1);
-			 map.put("clickip2", clickip2);
-			 map.put("clickip3", clickip3);
-			 map.put("clickip4", clickip4);
-			 map.put("staytimeip1", staytimeip1);
-			 map.put("staytimeip2", staytimeip2);
-			 map.put("staytimeip3", staytimeip3);
-			 map.put("staytimeip4", staytimeip4);
-			 map.put("scrollip1", scrollip1);
-			 map.put("scrollip2", scrollip2);
-			 map.put("scrollip3", scrollip3);
-			 map.put("scrollip4", scrollip4);
-			 map.put("moveip1", moveip1);
-			 map.put("moveip2", moveip2);
-			 map.put("moveip3", moveip3);
-			 map.put("moveip4", moveip4);
-			 map.put("olduserip", olduserip);
-			 map.put("targetpageip", targetpageip);
-			 map.put("oldip", oldip);
-			 map.put("loginip", loginip);
-			 NumberFormat numberFormat = NumberFormat.getInstance();     
-			 numberFormat.setMaximumFractionDigits(2);
-			 if(domainStat.getIp()!=null && domainStat.getIp()>0){
-				 map.put("c1", numberFormat.format((float)clickip1/(float)domainStat.getIp()*100));
-				 map.put("c2", numberFormat.format((float)clickip2/(float)domainStat.getIp()*100));
-				 map.put("c3", numberFormat.format((float)clickip3/(float)domainStat.getIp()*100));
-				 map.put("c4", numberFormat.format((float)clickip4/(float)domainStat.getIp()*100));
-				 map.put("s1", numberFormat.format((float)staytimeip1/(float)domainStat.getIp()*100));
-				 map.put("s2", numberFormat.format((float)staytimeip2/(float)domainStat.getIp()*100));
-				 map.put("s3", numberFormat.format((float)staytimeip3/(float)domainStat.getIp()*100));
-				 map.put("s4", numberFormat.format((float)staytimeip4/(float)domainStat.getIp()*100));
-				 map.put("sc1", numberFormat.format((float)scrollip1/(float)domainStat.getIp()*100));
-				 map.put("sc2", numberFormat.format((float)scrollip2/(float)domainStat.getIp()*100));
-				 map.put("sc3", numberFormat.format((float)scrollip3/(float)domainStat.getIp()*100));
-				 map.put("sc4", numberFormat.format((float)scrollip4/(float)domainStat.getIp()*100));
-				 map.put("m1", numberFormat.format((float)moveip1/(float)domainStat.getIp()*100));
-				 map.put("m2", numberFormat.format((float)moveip2/(float)domainStat.getIp()*100));
-				 map.put("m3", numberFormat.format((float)moveip3/(float)domainStat.getIp()*100));
-				 map.put("m4", numberFormat.format((float)moveip4/(float)domainStat.getIp()*100));
-				 map.put("old", numberFormat.format((float)olduserip/(float)domainStat.getIp()*100));
-				 map.put("tgp", numberFormat.format((float)targetpageip/(float)domainStat.getIp()*100));
-				 map.put("oldi", numberFormat.format((float)oldip/(float)domainStat.getIp()*100));
-				 map.put("log", numberFormat.format((float)loginip/(float)domainStat.getIp()*100));
-			 }else{
-				 map.put("c1", 0);
-				 map.put("c2", 0);
-				 map.put("c3", 0);
-				 map.put("c4", 0);
-				 map.put("s1", 0);
-				 map.put("s2", 0);
-				 map.put("s3", 0);
-				 map.put("s4", 0);
-				 map.put("sc1", 0);
-				 map.put("sc2", 0);
-				 map.put("sc3", 0);
-				 map.put("sc4", 0);
-				 map.put("m1", 0);
-				 map.put("m2", 0);
-				 map.put("m3", 0);
-				 map.put("m4", 0);
-				 map.put("old", 0);
-				 map.put("tgp", 0);
-				 map.put("oldi", 0);
-				 map.put("log", 0);
-			 }
+			 
 			 domainSumIP+=domainStat.getIp();
 			 domainSumPV+=domainStat.getPv();
 			 DomainStat_list.add(map);
@@ -963,105 +854,9 @@ public class IndexController {
 		 Integer channelSumPV = 0;/** 渠道PV总数 **/
 		 for (AdaChannel adaChannel : channels) {
 			 AdaChannelStat channelStat =  statService.statChannel(adaSite.getId(), adaChannel.getId(), date);
-			 Map map = new HashMap();
+			 Map map = getMap(channelStat);
 			 map.put("channelStr",adaChannelDao.findById(channelStat.getChannelId()).getChannelStr());
-			 map.put("ip", channelStat.getIp());
-			 map.put("pv", channelStat.getPv());
-			 Integer clickip1=0;
-			 Integer clickip2=0;
-			 Integer clickip3=0;
-			 Integer clickip4=0;
-			 Integer staytimeip1=0;
-			 Integer staytimeip2=0;
-			 Integer staytimeip3=0;
-			 Integer staytimeip4=0;
-			 Integer scrollip1 = 0;
-			 Integer scrollip2 = 0;
-			 Integer scrollip3 = 0;
-			 Integer scrollip4 = 0;
-			 Integer moveip1 = 0;
-			 Integer moveip2 = 0;
-			 Integer moveip3 = 0;
-			 Integer moveip4 = 0;
-			 Integer olduserip = 0;
 			 
-			 if(channelStat.getClickip1()>0)clickip1 = channelStat.getClickip1();
-			 if(channelStat.getClickip2()>0)clickip2 = channelStat.getClickip2();
-			 if(channelStat.getClickip3()>0)clickip3 = channelStat.getClickip3();
-			 if(channelStat.getClickip4()>0)clickip4 = channelStat.getClickip4();
-			 if(channelStat.getStaytimeip1()>0)staytimeip1 = channelStat.getStaytimeip1();
-			 if(channelStat.getStaytimeip2()>0)staytimeip2 = channelStat.getStaytimeip2();
-			 if(channelStat.getStaytimeip3()>0)staytimeip3 = channelStat.getStaytimeip3();
-			 if(channelStat.getStaytimeip4()>0)staytimeip4 = channelStat.getStaytimeip4();
-			 if(channelStat.getScrollip1()>0)scrollip1 = channelStat.getScrollip1();
-			 if(channelStat.getScrollip2()>0)scrollip2 = channelStat.getScrollip2();
-			 if(channelStat.getScrollip3()>0)scrollip3 = channelStat.getScrollip3();
-			 if(channelStat.getScrollip4()>0)scrollip4 = channelStat.getScrollip4();
-			 if(channelStat.getMoveip1()>0)moveip1 = channelStat.getMoveip1();
-			 if(channelStat.getMoveip2()>0)moveip2 = channelStat.getMoveip2();
-			 if(channelStat.getMoveip3()>0)moveip3 = channelStat.getMoveip3();
-			 if(channelStat.getMoveip4()>0)moveip4 = channelStat.getMoveip4();
-			 if(channelStat.getOlduserip()>0)olduserip = channelStat.getOlduserip();
-			 
-			 map.put("clickip1", clickip1);
-			 map.put("clickip2", clickip2);
-			 map.put("clickip3", clickip3);
-			 map.put("clickip4", clickip4);
-			 map.put("staytimeip1", staytimeip1);
-			 map.put("staytimeip2", staytimeip2);
-			 map.put("staytimeip3", staytimeip3);
-			 map.put("staytimeip4", staytimeip4);
-			 map.put("scrollip1", scrollip1);
-			 map.put("scrollip2", scrollip2);
-			 map.put("scrollip3", scrollip3);
-			 map.put("scrollip4", scrollip4);
-			 map.put("moveip1", moveip1);
-			 map.put("moveip2", moveip2);
-			 map.put("moveip3", moveip3);
-			 map.put("moveip4", moveip4);
-			 map.put("olduserip", olduserip);
-			 map.put("targetpageip", channelStat.getTargetpageip());
-			 NumberFormat numberFormat = NumberFormat.getInstance();     
-			 numberFormat.setMaximumFractionDigits(2);
-			 if(channelStat.getIp()!=null && channelStat.getIp()>0){
-				 map.put("c1", numberFormat.format((float)clickip1/(float)channelStat.getIp()*100));
-				 map.put("c2", numberFormat.format((float)clickip2/(float)channelStat.getIp()*100));
-				 map.put("c3", numberFormat.format((float)clickip3/(float)channelStat.getIp()*100));
-				 map.put("c4", numberFormat.format((float)clickip4/(float)channelStat.getIp()*100));
-				 map.put("s1", numberFormat.format((float)staytimeip1/(float)channelStat.getIp()*100));
-				 map.put("s2", numberFormat.format((float)staytimeip2/(float)channelStat.getIp()*100));
-				 map.put("s3", numberFormat.format((float)staytimeip3/(float)channelStat.getIp()*100));
-				 map.put("s4", numberFormat.format((float)staytimeip4/(float)channelStat.getIp()*100));
-				 map.put("sc1", numberFormat.format((float)scrollip1/(float)channelStat.getIp()*100));
-				 map.put("sc2", numberFormat.format((float)scrollip2/(float)channelStat.getIp()*100));
-				 map.put("sc3", numberFormat.format((float)scrollip3/(float)channelStat.getIp()*100));
-				 map.put("sc4", numberFormat.format((float)scrollip4/(float)channelStat.getIp()*100));
-				 map.put("m1", numberFormat.format((float)moveip1/(float)channelStat.getIp()*100));
-				 map.put("m2", numberFormat.format((float)moveip2/(float)channelStat.getIp()*100));
-				 map.put("m3", numberFormat.format((float)moveip3/(float)channelStat.getIp()*100));
-				 map.put("m4", numberFormat.format((float)moveip4/(float)channelStat.getIp()*100));
-				 map.put("old", numberFormat.format((float)olduserip/(float)channelStat.getIp()*100));
-				 map.put("tgp", numberFormat.format((float)channelStat.getTargetpageip()/(float)channelStat.getIp()*100));
-			 }else{
-				 map.put("c1", 0);
-				 map.put("c2", 0);
-				 map.put("c3", 0);
-				 map.put("c4", 0);
-				 map.put("s1", 0);
-				 map.put("s2", 0);
-				 map.put("s3", 0);
-				 map.put("s4", 0);
-				 map.put("sc1", 0);
-				 map.put("sc2", 0);
-				 map.put("sc3", 0);
-				 map.put("sc4", 0);
-				 map.put("m1", 0);
-				 map.put("m2", 0);
-				 map.put("m3", 0);
-				 map.put("m4", 0);
-				 map.put("old", 0);
-				 map.put("tgp", 0);
-			 }
 			 channelSumIP+=channelStat.getIp();
 			 channelSumPV+=channelStat.getPv();
 			 ChannelStat_list.add(map);
@@ -1095,119 +890,12 @@ public class IndexController {
 		 Integer SumPV = 0;/** PV总数 **/
 		for (String regionName : regionAddata) {
 			DomainAreaStat regionAd = statService.statDomainRegionAd(regionName, domainId, date);
-			Map map = new HashMap();
+			Map map = getMap(regionAd);
 			map.put("regionName", regionName);
 			 
 			 Integer ip = regionAd.getIp();
 			 if(ip>50){
-				 Integer clickip1=0;
-				 Integer clickip2=0;
-				 Integer clickip3=0;
-				 Integer clickip4=0;
-				 Integer staytimeip1=0;
-				 Integer staytimeip2=0;
-				 Integer staytimeip3=0;
-				 Integer staytimeip4=0;
-				 Integer scrollip1 = 0;
-				 Integer scrollip2 = 0;
-				 Integer scrollip3 = 0;
-				 Integer scrollip4 = 0;
-				 Integer moveip1 = 0;
-				 Integer moveip2 = 0;
-				 Integer moveip3 = 0;
-				 Integer moveip4 = 0;
-				 Integer olduserip = 0;
-				 Integer oldip = 0;
-				 Integer loginip = 0;
-				 Integer targetpageip =0;
-				 if(regionAd.getClickip1()>0)clickip1 = regionAd.getClickip1();
-				 if(regionAd.getClickip2()>0)clickip2 = regionAd.getClickip2();
-				 if(regionAd.getClickip3()>0)clickip3 = regionAd.getClickip3();
-				 if(regionAd.getClickip4()>0)clickip4 = regionAd.getClickip4();
-				 if(regionAd.getStaytimeip1()>0)staytimeip1 = regionAd.getStaytimeip1();
-				 if(regionAd.getStaytimeip2()>0)staytimeip2 = regionAd.getStaytimeip2();
-				 if(regionAd.getStaytimeip3()>0)staytimeip3 = regionAd.getStaytimeip3();
-				 if(regionAd.getStaytimeip4()>0)staytimeip4 = regionAd.getStaytimeip4();
-				 if(regionAd.getScrollip1()>0)scrollip1 = regionAd.getScrollip1();
-				 if(regionAd.getScrollip2()>0)scrollip2 = regionAd.getScrollip2();
-				 if(regionAd.getScrollip3()>0)scrollip3 = regionAd.getScrollip3();
-				 if(regionAd.getScrollip4()>0)scrollip4 = regionAd.getScrollip4();
-				 if(regionAd.getMoveip1()>0)moveip1 = regionAd.getMoveip1();
-				 if(regionAd.getMoveip2()>0)moveip2 = regionAd.getMoveip2();
-				 if(regionAd.getMoveip3()>0)moveip3 = regionAd.getMoveip3();
-				 if(regionAd.getMoveip4()>0)moveip4 = regionAd.getMoveip4();
-				 if(regionAd.getOlduserip()>0)olduserip = regionAd.getOlduserip();
-				 if(regionAd.getOldip()>0)oldip = regionAd.getOldip();
-				 if(regionAd.getLoginip()>0)loginip = regionAd.getLoginip();
-				 if(regionAd.getTargetpageip()>0)targetpageip = regionAd.getTargetpageip();
-				 map.put("pv", regionAd.getPv());
-				 map.put("uv", regionAd.getUv());
-				 map.put("ip", ip);
-				 map.put("clickip1", clickip1);
-				 map.put("clickip2", clickip2);
-				 map.put("clickip3", clickip3);
-				 map.put("clickip4", clickip4);
-				 map.put("staytimeip1", staytimeip1);
-				 map.put("staytimeip2", staytimeip2);
-				 map.put("staytimeip3", staytimeip3);
-				 map.put("staytimeip4", staytimeip4);
-				 map.put("scrollip1", scrollip1);
-				 map.put("scrollip2", scrollip2);
-				 map.put("scrollip3", scrollip3);
-				 map.put("scrollip4", scrollip4);
-				 map.put("moveip1", moveip1);
-				 map.put("moveip2", moveip2);
-				 map.put("moveip3", moveip3);
-				 map.put("moveip4", moveip4);
-				 map.put("olduserip", olduserip);
-				 map.put("targetpageip", targetpageip);
-				 map.put("oldip", oldip);
-				 map.put("loginip", loginip);
-				 NumberFormat numberFormat = NumberFormat.getInstance();     
-				 numberFormat.setMaximumFractionDigits(2);
-				 if(ip!=null && ip>0){
-					 map.put("c1", numberFormat.format((float)clickip1/(float)ip*100));
-					 map.put("c2", numberFormat.format((float)clickip2/(float)ip*100));
-					 map.put("c3", numberFormat.format((float)clickip3/(float)ip*100));
-					 map.put("c4", numberFormat.format((float)clickip4/(float)ip*100));
-					 map.put("s1", numberFormat.format((float)staytimeip1/(float)ip*100));
-					 map.put("s2", numberFormat.format((float)staytimeip2/(float)ip*100));
-					 map.put("s3", numberFormat.format((float)staytimeip3/(float)ip*100));
-					 map.put("s4", numberFormat.format((float)staytimeip4/(float)ip*100));
-					 map.put("sc1", numberFormat.format((float)scrollip1/(float)ip*100));
-					 map.put("sc2", numberFormat.format((float)scrollip2/(float)ip*100));
-					 map.put("sc3", numberFormat.format((float)scrollip3/(float)ip*100));
-					 map.put("sc4", numberFormat.format((float)scrollip4/(float)ip*100));
-					 map.put("m1", numberFormat.format((float)moveip1/(float)ip*100));
-					 map.put("m2", numberFormat.format((float)moveip2/(float)ip*100));
-					 map.put("m3", numberFormat.format((float)moveip3/(float)ip*100));
-					 map.put("m4", numberFormat.format((float)moveip4/(float)ip*100));
-					 map.put("old", numberFormat.format((float)olduserip/(float)ip*100));
-					 map.put("tgp", numberFormat.format((float)targetpageip/(float)ip*100));
-					 map.put("oldi", numberFormat.format((float)oldip/(float)ip*100));
-					 map.put("log", numberFormat.format((float)loginip/(float)ip*100));
-				 }else{
-					 map.put("c1", 0);
-					 map.put("c2", 0);
-					 map.put("c3", 0);
-					 map.put("c4", 0);
-					 map.put("s1", 0);
-					 map.put("s2", 0);
-					 map.put("s3", 0);
-					 map.put("s4", 0);
-					 map.put("sc1", 0);
-					 map.put("sc2", 0);
-					 map.put("sc3", 0);
-					 map.put("sc4", 0);
-					 map.put("m1", 0);
-					 map.put("m2", 0);
-					 map.put("m3", 0);
-					 map.put("m4", 0);
-					 map.put("old", 0);
-					 map.put("tgp", 0);
-					 map.put("oldi", 0);
-					 map.put("log", 0);
-				 }
+				 
 				 SumIP += ip;
 				 SumPV += regionAd.getPv();
 				 regionAd_list.add(map);
@@ -1237,119 +925,11 @@ public class IndexController {
 		 Integer SumPV = 0;/** PV总数 **/
 		for (String regionName : regionAddata) {
 			DomainAreaStat regionNotAd = statService.statDomainRegionNotAd(regionName, domainId, date);
-			Map map = new HashMap();
+			Map map = getMap(regionNotAd);
 			map.put("regionName", regionName);
 			 
 			 Integer ip = regionNotAd.getIp();
 			 if(ip>50){
-				 Integer clickip1=0;
-				 Integer clickip2=0;
-				 Integer clickip3=0;
-				 Integer clickip4=0;
-				 Integer staytimeip1=0;
-				 Integer staytimeip2=0;
-				 Integer staytimeip3=0;
-				 Integer staytimeip4=0;
-				 Integer scrollip1 = 0;
-				 Integer scrollip2 = 0;
-				 Integer scrollip3 = 0;
-				 Integer scrollip4 = 0;
-				 Integer moveip1 = 0;
-				 Integer moveip2 = 0;
-				 Integer moveip3 = 0;
-				 Integer moveip4 = 0;
-				 Integer olduserip = 0;
-				 Integer oldip = 0;
-				 Integer loginip = 0;
-				 Integer targetpageip =0;
-				 if(regionNotAd.getClickip1()>0)clickip1 = regionNotAd.getClickip1();
-				 if(regionNotAd.getClickip2()>0)clickip2 = regionNotAd.getClickip2();
-				 if(regionNotAd.getClickip3()>0)clickip3 = regionNotAd.getClickip3();
-				 if(regionNotAd.getClickip4()>0)clickip4 = regionNotAd.getClickip4();
-				 if(regionNotAd.getStaytimeip1()>0)staytimeip1 = regionNotAd.getStaytimeip1();
-				 if(regionNotAd.getStaytimeip2()>0)staytimeip2 = regionNotAd.getStaytimeip2();
-				 if(regionNotAd.getStaytimeip3()>0)staytimeip3 = regionNotAd.getStaytimeip3();
-				 if(regionNotAd.getStaytimeip4()>0)staytimeip4 = regionNotAd.getStaytimeip4();
-				 if(regionNotAd.getScrollip1()>0)scrollip1 = regionNotAd.getScrollip1();
-				 if(regionNotAd.getScrollip2()>0)scrollip2 = regionNotAd.getScrollip2();
-				 if(regionNotAd.getScrollip3()>0)scrollip3 = regionNotAd.getScrollip3();
-				 if(regionNotAd.getScrollip4()>0)scrollip4 = regionNotAd.getScrollip4();
-				 if(regionNotAd.getMoveip1()>0)moveip1 = regionNotAd.getMoveip1();
-				 if(regionNotAd.getMoveip2()>0)moveip2 = regionNotAd.getMoveip2();
-				 if(regionNotAd.getMoveip3()>0)moveip3 = regionNotAd.getMoveip3();
-				 if(regionNotAd.getMoveip4()>0)moveip4 = regionNotAd.getMoveip4();
-				 if(regionNotAd.getOlduserip()>0)olduserip = regionNotAd.getOlduserip();
-				 if(regionNotAd.getOldip()>0)oldip = regionNotAd.getOldip();
-				 if(regionNotAd.getLoginip()>0)loginip = regionNotAd.getLoginip();
-				 if(regionNotAd.getTargetpageip()>0)targetpageip = regionNotAd.getTargetpageip();
-				 map.put("pv", regionNotAd.getPv());
-				 map.put("uv", regionNotAd.getUv());
-				 map.put("ip", ip);
-				 map.put("clickip1", clickip1);
-				 map.put("clickip2", clickip2);
-				 map.put("clickip3", clickip3);
-				 map.put("clickip4", clickip4);
-				 map.put("staytimeip1", staytimeip1);
-				 map.put("staytimeip2", staytimeip2);
-				 map.put("staytimeip3", staytimeip3);
-				 map.put("staytimeip4", staytimeip4);
-				 map.put("scrollip1", scrollip1);
-				 map.put("scrollip2", scrollip2);
-				 map.put("scrollip3", scrollip3);
-				 map.put("scrollip4", scrollip4);
-				 map.put("moveip1", moveip1);
-				 map.put("moveip2", moveip2);
-				 map.put("moveip3", moveip3);
-				 map.put("moveip4", moveip4);
-				 map.put("olduserip", olduserip);
-				 map.put("targetpageip", targetpageip);
-				 map.put("oldip", oldip);
-				 map.put("loginip", loginip);
-				 NumberFormat numberFormat = NumberFormat.getInstance();     
-				 numberFormat.setMaximumFractionDigits(2);
-				 if(ip!=null && ip>0){
-					 map.put("c1", numberFormat.format((float)clickip1/(float)ip*100));
-					 map.put("c2", numberFormat.format((float)clickip2/(float)ip*100));
-					 map.put("c3", numberFormat.format((float)clickip3/(float)ip*100));
-					 map.put("c4", numberFormat.format((float)clickip4/(float)ip*100));
-					 map.put("s1", numberFormat.format((float)staytimeip1/(float)ip*100));
-					 map.put("s2", numberFormat.format((float)staytimeip2/(float)ip*100));
-					 map.put("s3", numberFormat.format((float)staytimeip3/(float)ip*100));
-					 map.put("s4", numberFormat.format((float)staytimeip4/(float)ip*100));
-					 map.put("sc1", numberFormat.format((float)scrollip1/(float)ip*100));
-					 map.put("sc2", numberFormat.format((float)scrollip2/(float)ip*100));
-					 map.put("sc3", numberFormat.format((float)scrollip3/(float)ip*100));
-					 map.put("sc4", numberFormat.format((float)scrollip4/(float)ip*100));
-					 map.put("m1", numberFormat.format((float)moveip1/(float)ip*100));
-					 map.put("m2", numberFormat.format((float)moveip2/(float)ip*100));
-					 map.put("m3", numberFormat.format((float)moveip3/(float)ip*100));
-					 map.put("m4", numberFormat.format((float)moveip4/(float)ip*100));
-					 map.put("old", numberFormat.format((float)olduserip/(float)ip*100));
-					 map.put("tgp", numberFormat.format((float)targetpageip/(float)ip*100));
-					 map.put("oldi", numberFormat.format((float)oldip/(float)ip*100));
-					 map.put("log", numberFormat.format((float)loginip/(float)ip*100));
-				 }else{
-					 map.put("c1", 0);
-					 map.put("c2", 0);
-					 map.put("c3", 0);
-					 map.put("c4", 0);
-					 map.put("s1", 0);
-					 map.put("s2", 0);
-					 map.put("s3", 0);
-					 map.put("s4", 0);
-					 map.put("sc1", 0);
-					 map.put("sc2", 0);
-					 map.put("sc3", 0);
-					 map.put("sc4", 0);
-					 map.put("m1", 0);
-					 map.put("m2", 0);
-					 map.put("m3", 0);
-					 map.put("m4", 0);
-					 map.put("old", 0);
-					 map.put("tgp", 0);
-					 map.put("oldi", 0);
-					 map.put("log", 0);
-				 }
 				 SumIP+=regionNotAd.getIp();
 				 SumPV+=regionNotAd.getPv();
 				 regionNotAd_list.add(map);
@@ -1389,22 +969,12 @@ public class IndexController {
 			 }
 		 }
 		 
-		 Collections.sort(domainIps,new Comparator<Integer[]>(){
-			public int compare(Integer[] arg0, Integer[] arg1) {
-				return arg1[1].compareTo(arg0[0]);
-			}
-		 });
-		 
 		 for(int i=0;i<domainIps.size();i++){
 			Integer domainId = domainIps.get(i)[0];
 			Integer domainIp = domainIps.get(i)[1];
-			//Integer channelNum = domainIps.get(i)[2];
-//			if(domainIp<10 && i>19){
-//				 break;
-//			 }
 			
 			AdaDomainAdStat domainStat = this.statService.statDomainAd(adaSite.getId(), domainId, date);
-			Map map = new HashMap();
+			Map map = getMap(domainStat);
 			map.put("id", domainId);
 			//map.put("channelNum", channelNum);
 			String domainstr = adaDomainDao.findById(domainId).getDomain();
@@ -1414,114 +984,7 @@ public class IndexController {
 			 }else{
 				 map.put("subDomain", domainstr);
 			 }
-			 map.put("ip", domainStat.getIp());
-			 map.put("pv", domainStat.getPv());
-			 map.put("uv", domainStat.getUv());
-			 Integer clickip1=0;
-			 Integer clickip2=0;
-			 Integer clickip3=0;
-			 Integer clickip4=0;
-			 Integer staytimeip1=0;
-			 Integer staytimeip2=0;
-			 Integer staytimeip3=0;
-			 Integer staytimeip4=0;
-			 Integer scrollip1 = 0;
-			 Integer scrollip2 = 0;
-			 Integer scrollip3 = 0;
-			 Integer scrollip4 = 0;
-			 Integer moveip1 = 0;
-			 Integer moveip2 = 0;
-			 Integer moveip3 = 0;
-			 Integer moveip4 = 0;
-			 Integer olduserip = 0;
-			 Integer oldip = 0;
-			 Integer loginip = 0;
-			 Integer targetpageip =0;
-			 if(domainStat.getClickip1()>0)clickip1 = domainStat.getClickip1();
-			 if(domainStat.getClickip2()>0)clickip2 = domainStat.getClickip2();
-			 if(domainStat.getClickip3()>0)clickip3 = domainStat.getClickip3();
-			 if(domainStat.getClickip4()>0)clickip4 = domainStat.getClickip4();
-			 if(domainStat.getStaytimeip1()>0)staytimeip1 = domainStat.getStaytimeip1();
-			 if(domainStat.getStaytimeip2()>0)staytimeip2 = domainStat.getStaytimeip2();
-			 if(domainStat.getStaytimeip3()>0)staytimeip3 = domainStat.getStaytimeip3();
-			 if(domainStat.getStaytimeip4()>0)staytimeip4 = domainStat.getStaytimeip4();
-			 if(domainStat.getScrollip1()>0)scrollip1 = domainStat.getScrollip1();
-			 if(domainStat.getScrollip2()>0)scrollip2 = domainStat.getScrollip2();
-			 if(domainStat.getScrollip3()>0)scrollip3 = domainStat.getScrollip3();
-			 if(domainStat.getScrollip4()>0)scrollip4 = domainStat.getScrollip4();
-			 if(domainStat.getMoveip1()>0)moveip1 = domainStat.getMoveip1();
-			 if(domainStat.getMoveip2()>0)moveip2 = domainStat.getMoveip2();
-			 if(domainStat.getMoveip3()>0)moveip3 = domainStat.getMoveip3();
-			 if(domainStat.getMoveip4()>0)moveip4 = domainStat.getMoveip4();
-			 if(domainStat.getOlduserip()>0)olduserip = domainStat.getOlduserip();
-			 if(domainStat.getOldip()>0)oldip = domainStat.getOldip();
-			 if(domainStat.getLoginip()>0)loginip = domainStat.getLoginip();
-			 if(domainStat.getTargetpageip()>0)targetpageip = domainStat.getTargetpageip();
-			 map.put("clickip1", clickip1);
-			 map.put("clickip2", clickip2);
-			 map.put("clickip3", clickip3);
-			 map.put("clickip4", clickip4);
-			 map.put("staytimeip1", staytimeip1);
-			 map.put("staytimeip2", staytimeip2);
-			 map.put("staytimeip3", staytimeip3);
-			 map.put("staytimeip4", staytimeip4);
-			 map.put("scrollip1", scrollip1);
-			 map.put("scrollip2", scrollip2);
-			 map.put("scrollip3", scrollip3);
-			 map.put("scrollip4", scrollip4);
-			 map.put("moveip1", moveip1);
-			 map.put("moveip2", moveip2);
-			 map.put("moveip3", moveip3);
-			 map.put("moveip4", moveip4);
-			 map.put("olduserip", olduserip);
-			 map.put("targetpageip", targetpageip);
-			 map.put("oldip", oldip);
-			 map.put("loginip", loginip);
-			 NumberFormat numberFormat = NumberFormat.getInstance();     
-			 numberFormat.setMaximumFractionDigits(2);
-			 if(domainStat.getIp()!=null && domainStat.getIp()>0){
-				 map.put("c1", numberFormat.format((float)clickip1/(float)domainStat.getIp()*100));
-				 map.put("c2", numberFormat.format((float)clickip2/(float)domainStat.getIp()*100));
-				 map.put("c3", numberFormat.format((float)clickip3/(float)domainStat.getIp()*100));
-				 map.put("c4", numberFormat.format((float)clickip4/(float)domainStat.getIp()*100));
-				 map.put("s1", numberFormat.format((float)staytimeip1/(float)domainStat.getIp()*100));
-				 map.put("s2", numberFormat.format((float)staytimeip2/(float)domainStat.getIp()*100));
-				 map.put("s3", numberFormat.format((float)staytimeip3/(float)domainStat.getIp()*100));
-				 map.put("s4", numberFormat.format((float)staytimeip4/(float)domainStat.getIp()*100));
-				 map.put("sc1", numberFormat.format((float)scrollip1/(float)domainStat.getIp()*100));
-				 map.put("sc2", numberFormat.format((float)scrollip2/(float)domainStat.getIp()*100));
-				 map.put("sc3", numberFormat.format((float)scrollip3/(float)domainStat.getIp()*100));
-				 map.put("sc4", numberFormat.format((float)scrollip4/(float)domainStat.getIp()*100));
-				 map.put("m1", numberFormat.format((float)moveip1/(float)domainStat.getIp()*100));
-				 map.put("m2", numberFormat.format((float)moveip2/(float)domainStat.getIp()*100));
-				 map.put("m3", numberFormat.format((float)moveip3/(float)domainStat.getIp()*100));
-				 map.put("m4", numberFormat.format((float)moveip4/(float)domainStat.getIp()*100));
-				 map.put("old", numberFormat.format((float)olduserip/(float)domainStat.getIp()*100));
-				 map.put("tgp", numberFormat.format((float)targetpageip/(float)domainStat.getIp()*100));
-				 map.put("oldi", numberFormat.format((float)oldip/(float)domainStat.getIp()*100));
-				 map.put("log", numberFormat.format((float)loginip/(float)domainStat.getIp()*100));
-			 }else{
-				 map.put("c1", 0);
-				 map.put("c2", 0);
-				 map.put("c3", 0);
-				 map.put("c4", 0);
-				 map.put("s1", 0);
-				 map.put("s2", 0);
-				 map.put("s3", 0);
-				 map.put("s4", 0);
-				 map.put("sc1", 0);
-				 map.put("sc2", 0);
-				 map.put("sc3", 0);
-				 map.put("sc4", 0);
-				 map.put("m1", 0);
-				 map.put("m2", 0);
-				 map.put("m3", 0);
-				 map.put("m4", 0);
-				 map.put("old", 0);
-				 map.put("tgp", 0);
-				 map.put("oldi", 0);
-				 map.put("log", 0);
-			 }
+			
 			 SumIP+=domainStat.getIp();
 			 SumPV+=domainStat.getPv();
 			 DomainStat_list.add(map);
@@ -1563,11 +1026,6 @@ public class IndexController {
 			 }
 		 }
 		 
-		 Collections.sort(domainIps,new Comparator<Integer[]>(){
-			public int compare(Integer[] arg0, Integer[] arg1) {
-				return arg1[1].compareTo(arg0[0]);
-			}
-		 });
 		 
 		 for(int i=0;i<domainIps.size();i++){
 			Integer domainId = domainIps.get(i)[0];
@@ -1575,9 +1033,8 @@ public class IndexController {
 			AdaDomainAdStat newad = statService.statDomainAd(adaSite.getId(), domainId, date);//广告新数据
 			AdaDomainStat newall = statService.statDomain(adaSite.getId(), domainId, date);//全部新数据
 			AdaDomainNotadStat domainStat = reduct(newall, newad, AdaDomainNotadStat.class);//非广告入口新数据=全部-非广告的
-			Map map = new HashMap();
+			Map map = getMap(domainStat);
 			map.put("id", domainId);
-			//map.put("channelNum", channelNum);
 			String domainstr = adaDomainDao.findById(domainId).getDomain();
 			 map.put("domain",domainstr);
 			 if(domainstr.length()>18){
@@ -1585,114 +1042,7 @@ public class IndexController {
 			 }else{
 				 map.put("subDomain", domainstr);
 			 }
-			 map.put("ip", domainStat.getIp());
-			 map.put("pv", domainStat.getPv());
-			 map.put("uv", domainStat.getUv());
-			 Integer clickip1=0;
-			 Integer clickip2=0;
-			 Integer clickip3=0;
-			 Integer clickip4=0;
-			 Integer staytimeip1=0;
-			 Integer staytimeip2=0;
-			 Integer staytimeip3=0;
-			 Integer staytimeip4=0;
-			 Integer scrollip1 = 0;
-			 Integer scrollip2 = 0;
-			 Integer scrollip3 = 0;
-			 Integer scrollip4 = 0;
-			 Integer moveip1 = 0;
-			 Integer moveip2 = 0;
-			 Integer moveip3 = 0;
-			 Integer moveip4 = 0;
-			 Integer olduserip = 0;
-			 Integer oldip = 0;
-			 Integer loginip = 0;
-			 Integer targetpageip =0;
-			 if(domainStat.getClickip1()>0)clickip1 = domainStat.getClickip1();
-			 if(domainStat.getClickip2()>0)clickip2 = domainStat.getClickip2();
-			 if(domainStat.getClickip3()>0)clickip3 = domainStat.getClickip3();
-			 if(domainStat.getClickip4()>0)clickip4 = domainStat.getClickip4();
-			 if(domainStat.getStaytimeip1()>0)staytimeip1 = domainStat.getStaytimeip1();
-			 if(domainStat.getStaytimeip2()>0)staytimeip2 = domainStat.getStaytimeip2();
-			 if(domainStat.getStaytimeip3()>0)staytimeip3 = domainStat.getStaytimeip3();
-			 if(domainStat.getStaytimeip4()>0)staytimeip4 = domainStat.getStaytimeip4();
-			 if(domainStat.getScrollip1()>0)scrollip1 = domainStat.getScrollip1();
-			 if(domainStat.getScrollip2()>0)scrollip2 = domainStat.getScrollip2();
-			 if(domainStat.getScrollip3()>0)scrollip3 = domainStat.getScrollip3();
-			 if(domainStat.getScrollip4()>0)scrollip4 = domainStat.getScrollip4();
-			 if(domainStat.getMoveip1()>0)moveip1 = domainStat.getMoveip1();
-			 if(domainStat.getMoveip2()>0)moveip2 = domainStat.getMoveip2();
-			 if(domainStat.getMoveip3()>0)moveip3 = domainStat.getMoveip3();
-			 if(domainStat.getMoveip4()>0)moveip4 = domainStat.getMoveip4();
-			 if(domainStat.getOlduserip()>0)olduserip = domainStat.getOlduserip();
-			 if(domainStat.getOldip()>0)oldip = domainStat.getOldip();
-			 if(domainStat.getLoginip()>0)loginip = domainStat.getLoginip();
-			 if(domainStat.getTargetpageip()>0)targetpageip = domainStat.getTargetpageip();
-			 map.put("clickip1", clickip1);
-			 map.put("clickip2", clickip2);
-			 map.put("clickip3", clickip3);
-			 map.put("clickip4", clickip4);
-			 map.put("staytimeip1", staytimeip1);
-			 map.put("staytimeip2", staytimeip2);
-			 map.put("staytimeip3", staytimeip3);
-			 map.put("staytimeip4", staytimeip4);
-			 map.put("scrollip1", scrollip1);
-			 map.put("scrollip2", scrollip2);
-			 map.put("scrollip3", scrollip3);
-			 map.put("scrollip4", scrollip4);
-			 map.put("moveip1", moveip1);
-			 map.put("moveip2", moveip2);
-			 map.put("moveip3", moveip3);
-			 map.put("moveip4", moveip4);
-			 map.put("olduserip", olduserip);
-			 map.put("targetpageip", targetpageip);
-			 map.put("oldip", oldip);
-			 map.put("loginip", loginip);
-			 NumberFormat numberFormat = NumberFormat.getInstance();     
-			 numberFormat.setMaximumFractionDigits(2);
-			 if(domainStat.getIp()!=null && domainStat.getIp()>0){
-				 map.put("c1", numberFormat.format((float)clickip1/(float)domainStat.getIp()*100));
-				 map.put("c2", numberFormat.format((float)clickip2/(float)domainStat.getIp()*100));
-				 map.put("c3", numberFormat.format((float)clickip3/(float)domainStat.getIp()*100));
-				 map.put("c4", numberFormat.format((float)clickip4/(float)domainStat.getIp()*100));
-				 map.put("s1", numberFormat.format((float)staytimeip1/(float)domainStat.getIp()*100));
-				 map.put("s2", numberFormat.format((float)staytimeip2/(float)domainStat.getIp()*100));
-				 map.put("s3", numberFormat.format((float)staytimeip3/(float)domainStat.getIp()*100));
-				 map.put("s4", numberFormat.format((float)staytimeip4/(float)domainStat.getIp()*100));
-				 map.put("sc1", numberFormat.format((float)scrollip1/(float)domainStat.getIp()*100));
-				 map.put("sc2", numberFormat.format((float)scrollip2/(float)domainStat.getIp()*100));
-				 map.put("sc3", numberFormat.format((float)scrollip3/(float)domainStat.getIp()*100));
-				 map.put("sc4", numberFormat.format((float)scrollip4/(float)domainStat.getIp()*100));
-				 map.put("m1", numberFormat.format((float)moveip1/(float)domainStat.getIp()*100));
-				 map.put("m2", numberFormat.format((float)moveip2/(float)domainStat.getIp()*100));
-				 map.put("m3", numberFormat.format((float)moveip3/(float)domainStat.getIp()*100));
-				 map.put("m4", numberFormat.format((float)moveip4/(float)domainStat.getIp()*100));
-				 map.put("old", numberFormat.format((float)olduserip/(float)domainStat.getIp()*100));
-				 map.put("tgp", numberFormat.format((float)targetpageip/(float)domainStat.getIp()*100));
-				 map.put("oldi", numberFormat.format((float)oldip/(float)domainStat.getIp()*100));
-				 map.put("log", numberFormat.format((float)loginip/(float)domainStat.getIp()*100));
-			 }else{
-				 map.put("c1", 0);
-				 map.put("c2", 0);
-				 map.put("c3", 0);
-				 map.put("c4", 0);
-				 map.put("s1", 0);
-				 map.put("s2", 0);
-				 map.put("s3", 0);
-				 map.put("s4", 0);
-				 map.put("sc1", 0);
-				 map.put("sc2", 0);
-				 map.put("sc3", 0);
-				 map.put("sc4", 0);
-				 map.put("m1", 0);
-				 map.put("m2", 0);
-				 map.put("m3", 0);
-				 map.put("m4", 0);
-				 map.put("old", 0);
-				 map.put("tgp", 0);
-				 map.put("oldi", 0);
-				 map.put("log", 0);
-			 }
+			
 			 SumIP+=domainStat.getIp();
 			 SumPV+=domainStat.getPv();
 			 DomainStat_list.add(map);
@@ -1714,6 +1064,135 @@ public class IndexController {
 		 
 		 return map;
 	
+	}
+	/**
+	 * 获取通用数据
+	 * @param obj
+	 * @return
+	 */
+	protected Map getMap(Object obj) {
+		Map map = new HashMap();
+		BaseStatBean statBean = new BaseStatBean();
+		BeanUtils.copyProperties(obj, statBean);//复制相同名字的属性的值
+		Integer ip = 0;
+		Integer pv = 0;
+		Integer uv = 0;
+		Integer olduserip = 0;
+		Integer oldip = 0;
+		Integer loginip = 0;
+		Integer targetpageip =0;
+		Integer staytimeip1=0;
+		Integer staytimeip2=0;
+		Integer staytimeip3=0;
+		Integer staytimeip4=0;
+		Integer clickip1=0;
+		Integer clickip2=0;
+		Integer clickip3=0;
+		Integer clickip4=0;
+		Integer scrollip1 = 0;
+		Integer scrollip2 = 0;
+		Integer scrollip3 = 0;
+		Integer scrollip4 = 0;
+		Integer moveip1 = 0;
+		Integer moveip2 = 0;
+		Integer moveip3 = 0;
+		Integer moveip4 = 0;
+		if(statBean!=null){
+			 
+			 if(statBean.getIp()!=null && statBean.getIp()>0)ip = statBean.getIp();
+			 if(statBean.getPv()!=null && statBean.getPv()>0)pv = statBean.getPv();
+			 if(statBean.getUv()!=null && statBean.getUv()>0)uv = statBean.getUv();
+			 if(statBean.getOlduserip()!=null && statBean.getOlduserip()>0)olduserip = statBean.getOlduserip();
+			 if(statBean.getOldip()!=null && statBean.getOldip()>0)oldip = statBean.getOldip();
+			 if(statBean.getLoginip()!=null && statBean.getLoginip()>0)loginip = statBean.getLoginip();
+			 if(statBean.getTargetpageip()!=null && statBean.getTargetpageip()>0)targetpageip = statBean.getTargetpageip();
+			 if(statBean.getStaytimeip1()!=null && statBean.getStaytimeip1()>0)staytimeip1 = statBean.getStaytimeip1();
+			 if(statBean.getStaytimeip2()!=null && statBean.getStaytimeip2()>0)staytimeip2 = statBean.getStaytimeip2();
+			 if(statBean.getStaytimeip3()!=null && statBean.getStaytimeip3()>0)staytimeip3 = statBean.getStaytimeip3();
+			 if(statBean.getStaytimeip4()!=null && statBean.getStaytimeip4()>0)staytimeip4 = statBean.getStaytimeip4();
+			 if(statBean.getClickip1()!=null && statBean.getClickip1()>0)clickip1 = statBean.getClickip1();
+			 if(statBean.getClickip2()!=null && statBean.getClickip2()>0)clickip2 = statBean.getClickip2();
+			 if(statBean.getClickip3()!=null && statBean.getClickip3()>0)clickip3 = statBean.getClickip3();
+			 if(statBean.getClickip4()!=null && statBean.getClickip4()>0)clickip4 = statBean.getClickip4();
+			 if(statBean.getScrollip1()!=null && statBean.getScrollip1()>0)scrollip1 = statBean.getScrollip1();
+			 if(statBean.getScrollip2()!=null && statBean.getScrollip2()>0)scrollip2 = statBean.getScrollip2();
+			 if(statBean.getScrollip3()!=null && statBean.getScrollip3()>0)scrollip3 = statBean.getScrollip3();
+			 if(statBean.getScrollip4()!=null && statBean.getScrollip4()>0)scrollip4 = statBean.getScrollip4();
+			 if(statBean.getMoveip1()!=null && statBean.getMoveip1()>0)moveip1 = statBean.getMoveip1();
+			 if(statBean.getMoveip2()!=null && statBean.getMoveip2()>0)moveip2 = statBean.getMoveip2();
+			 if(statBean.getMoveip3()!=null && statBean.getMoveip3()>0)moveip3 = statBean.getMoveip3();
+			 if(statBean.getMoveip4()!=null && statBean.getMoveip4()>0)moveip4 = statBean.getMoveip4();
+		}
+		if(ip>0){
+			 NumberFormat numberFormat = NumberFormat.getInstance();     
+			 numberFormat.setMaximumFractionDigits(2);
+			 map.put("c1", numberFormat.format((float)clickip1/(float)ip*100));
+			 map.put("c2", numberFormat.format((float)clickip2/(float)ip*100));
+			 map.put("c3", numberFormat.format((float)clickip3/(float)ip*100));
+			 map.put("c4", numberFormat.format((float)clickip4/(float)ip*100));
+			 map.put("s1", numberFormat.format((float)staytimeip1/(float)ip*100));
+			 map.put("s2", numberFormat.format((float)staytimeip2/(float)ip*100));
+			 map.put("s3", numberFormat.format((float)staytimeip3/(float)ip*100));
+			 map.put("s4", numberFormat.format((float)staytimeip4/(float)ip*100));
+			 map.put("sc1", numberFormat.format((float)scrollip1/(float)ip*100));
+			 map.put("sc2", numberFormat.format((float)scrollip2/(float)ip*100));
+			 map.put("sc3", numberFormat.format((float)scrollip3/(float)ip*100));
+			 map.put("sc4", numberFormat.format((float)scrollip4/(float)ip*100));
+			 map.put("m1", numberFormat.format((float)moveip1/(float)ip*100));
+			 map.put("m2", numberFormat.format((float)moveip2/(float)ip*100));
+			 map.put("m3", numberFormat.format((float)moveip3/(float)ip*100));
+			 map.put("m4", numberFormat.format((float)moveip4/(float)ip*100));
+			 map.put("old", numberFormat.format((float)olduserip/(float)ip*100));
+			 map.put("tgp", numberFormat.format((float)targetpageip/(float)ip*100));
+			 map.put("oldi", numberFormat.format((float)oldip/(float)ip*100));
+			 map.put("log", numberFormat.format((float)loginip/(float)ip*100));
+		 }else{
+			 map.put("c1", 0);
+			 map.put("c2", 0);
+			 map.put("c3", 0);
+			 map.put("c4", 0);
+			 map.put("s1", 0);
+			 map.put("s2", 0);
+			 map.put("s3", 0);
+			 map.put("s4", 0);
+			 map.put("sc1", 0);
+			 map.put("sc2", 0);
+			 map.put("sc3", 0);
+			 map.put("sc4", 0);
+			 map.put("m1", 0);
+			 map.put("m2", 0);
+			 map.put("m3", 0);
+			 map.put("m4", 0);
+			 map.put("old", 0);
+			 map.put("tgp", 0);
+			 map.put("oldi", 0);
+			 map.put("log", 0);
+		 }
+		 map.put("ip", ip);
+		 map.put("pv", pv);
+		 map.put("uv", uv);
+		 map.put("olduserip", olduserip);
+		 map.put("targetpageip", targetpageip);
+		 map.put("oldip", oldip);
+		 map.put("loginip", loginip);
+		 map.put("staytimeip1", staytimeip1);
+		 map.put("staytimeip2", staytimeip2);
+		 map.put("staytimeip3", staytimeip3);
+		 map.put("staytimeip4", staytimeip4);
+		 map.put("clickip1", clickip1);
+		 map.put("clickip2", clickip2);
+		 map.put("clickip3", clickip3);
+		 map.put("clickip4", clickip4);
+		 map.put("scrollip1", scrollip1);
+		 map.put("scrollip2", scrollip2);
+		 map.put("scrollip3", scrollip3);
+		 map.put("scrollip4", scrollip4);
+		 map.put("moveip1", moveip1);
+		 map.put("moveip2", moveip2);
+		 map.put("moveip3", moveip3);
+		 map.put("moveip4", moveip4);
+		
+		return map;
 	}
 	
 	protected <T> T reduct(BaseStat a,BaseStat b,Class<T> clazz){
