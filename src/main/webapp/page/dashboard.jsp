@@ -231,25 +231,24 @@ th:last-child,td:last-child {
 						<td style="min-width: 80px">${sumS} (<fmt:formatNumber type="number" value="${sumS / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 						<td style="min-width: 80px">${sumM} (<fmt:formatNumber type="number" value="${sumM / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 						
-						<td style="min-width: 80px">${domain.staytimeip1} (${domain.s1}%)</td>
-						<td style="min-width: 80px">${domain.staytimeip2} (${domain.s2}%)</td>
-						<td style="min-width: 80px">${domain.staytimeip3} (${domain.s3}%)</td>
-						<td style="min-width: 80px">${domain.staytimeip4} (${domain.s4}%)</td>
+						<td style="min-width: 80px">${domain.staytimeip1} (<fmt:formatNumber type="number" value="${domain.staytimeip1 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.staytimeip2} (<fmt:formatNumber type="number" value="${domain.staytimeip2 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.staytimeip3} (<fmt:formatNumber type="number" value="${domain.staytimeip3 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.staytimeip4} (<fmt:formatNumber type="number" value="${domain.staytimeip4 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 						
-						<td style="min-width: 80px">${domain.clickip1} (${domain.c1}%)</td>
-						<td style="min-width: 80px">${domain.clickip2} (${domain.c2}%)</td>
-						<td style="min-width: 80px">${domain.clickip3} (${domain.c3}%)</td>
-						<td style="min-width: 80px">${domain.clickip4} (${domain.c4}%)</td>
+						<td style="min-width: 80px">${domain.clickip1} (<fmt:formatNumber type="number" value="${domain.clickip1 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.clickip2} (<fmt:formatNumber type="number" value="${domain.clickip2 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.clickip3} (<fmt:formatNumber type="number" value="${domain.clickip3 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.clickip4} (<fmt:formatNumber type="number" value="${domain.clickip4 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 						
-						
-						<td style="min-width: 80px">${domain.scrollip1} (${domain.sc1}%)</td>
-						<td style="min-width: 80px">${domain.scrollip2} (${domain.sc2}%)</td>
-						<td style="min-width: 80px">${domain.scrollip3} (${domain.sc3}%)</td>
-						<td style="min-width: 80px">${domain.scrollip4} (${domain.sc4}%)</td>
-						<td style="min-width: 80px">${domain.moveip1} (${domain.m1}%)</td>
-						<td style="min-width: 80px">${domain.moveip2} (${domain.m2}%)</td>
-						<td style="min-width: 80px">${domain.moveip3} (${domain.m3}%)</td>
-						<td style="min-width: 80px">${domain.moveip4} (${domain.m4}%)</td>
+						<td style="min-width: 80px">${domain.scrollip1} (<fmt:formatNumber type="number" value="${domain.scrollip1 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.scrollip2} (<fmt:formatNumber type="number" value="${domain.scrollip2 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.scrollip3} (<fmt:formatNumber type="number" value="${domain.scrollip3 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.scrollip4} (<fmt:formatNumber type="number" value="${domain.scrollip4 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.moveip1} (<fmt:formatNumber type="number" value="${domain.moveip1 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.moveip2} (<fmt:formatNumber type="number" value="${domain.moveip2 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.moveip3} (<fmt:formatNumber type="number" value="${domain.moveip3 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.moveip4} (<fmt:formatNumber type="number" value="${domain.moveip4 / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 	                </tr>
 	                </c:forEach>
 	                
@@ -511,35 +510,35 @@ var initTable1 = function () {
 								  "<td >"+IP+"</td>"+
 								  "<td >"+dataList[i].pv+"</td>"+
 								  "<td >"+dataList[i].uv+"</td>"+
-								  "<td >"+dataList[i].loginip+" ("+dataList[i].log+"%)</td>"+
-								  "<td >"+dataList[i].oldip+" ("+dataList[i].oldi+"%)</td>"+
-								  "<td >"+dataList[i].olduserip+" ("+dataList[i].old+"%)</td>"+
-								  "<td >"+dataList[i].targetpageip+" ("+dataList[i].tgp+"%)</td>"+
+								  "<td >"+dataList[i].loginip+" ("+Percentage(dataList[i].loginip,IP)+")</td>"+
+								  "<td >"+dataList[i].oldip+" ("+Percentage(dataList[i].oldip,IP)+")</td>"+
+								  "<td >"+dataList[i].olduserip+" ("+Percentage(dataList[i].olduserip,IP)+")</td>"+
+								  "<td >"+dataList[i].targetpageip+" ("+Percentage(dataList[i].targetpageip,IP)+")</td>"+
 								  
 								  "<td >"+sumST+" ("+Percentage(sumST,IP)+")</td>"+
 								  "<td >"+sumC+" ("+Percentage(sumC,IP)+")</td>"+
 								  "<td >"+sumS+" ("+Percentage(sumS,IP)+")</td>"+
 								  "<td >"+sumM+" ("+Percentage(sumM,IP)+")</td>"+
 								  
-								  "<td >"+dataList[i].staytimeip1+" ("+dataList[i].s1+"%)</td>"+
-								  "<td >"+dataList[i].staytimeip2+" ("+dataList[i].s2+"%)</td>"+
-								  "<td >"+dataList[i].staytimeip3+" ("+dataList[i].s3+"%)</td>"+
-								  "<td >"+dataList[i].staytimeip4+" ("+dataList[i].s4+"%)</td>"+
+								  "<td >"+dataList[i].staytimeip1+" ("+Percentage(dataList[i].staytimeip1,IP)+")</td>"+
+								  "<td >"+dataList[i].staytimeip2+" ("+Percentage(dataList[i].staytimeip2,IP)+")</td>"+
+								  "<td >"+dataList[i].staytimeip3+" ("+Percentage(dataList[i].staytimeip3,IP)+")</td>"+
+								  "<td >"+dataList[i].staytimeip4+" ("+Percentage(dataList[i].staytimeip4,IP)+")</td>"+
 								  
-								  "<td >"+dataList[i].clickip1+" ("+dataList[i].c1+"%)</td>"+
-								  "<td >"+dataList[i].clickip2+" ("+dataList[i].c2+"%)</td>"+
-								  "<td >"+dataList[i].clickip3+" ("+dataList[i].c3+"%)</td>"+
-								  "<td >"+dataList[i].clickip4+" ("+dataList[i].c4+"%)</td>"+
+								  "<td >"+dataList[i].clickip1+" ("+Percentage(dataList[i].clickip1,IP)+")</td>"+
+								  "<td >"+dataList[i].clickip2+" ("+Percentage(dataList[i].clickip2,IP)+")</td>"+
+								  "<td >"+dataList[i].clickip3+" ("+Percentage(dataList[i].clickip3,IP)+")</td>"+
+								  "<td >"+dataList[i].clickip4+" ("+Percentage(dataList[i].clickip4,IP)+")</td>"+
 								  
+								  "<td >"+dataList[i].scrollip1+" ("+Percentage(dataList[i].scrollip1,IP)+")</td>"+
+								  "<td >"+dataList[i].scrollip2+" ("+Percentage(dataList[i].scrollip2,IP)+")</td>"+
+								  "<td >"+dataList[i].scrollip3+" ("+Percentage(dataList[i].scrollip3,IP)+")</td>"+
+								  "<td >"+dataList[i].scrollip4+" ("+Percentage(dataList[i].scrollip4,IP)+")</td>"+
 								  
-								  "<td >"+dataList[i].scrollip1+" ("+dataList[i].sc1+"%)</td>"+
-								  "<td >"+dataList[i].scrollip2+" ("+dataList[i].sc2+"%)</td>"+
-								  "<td >"+dataList[i].scrollip3+" ("+dataList[i].sc3+"%)</td>"+
-								  "<td >"+dataList[i].scrollip4+" ("+dataList[i].sc4+"%)</td>"+
-								  "<td >"+dataList[i].moveip1+" ("+dataList[i].m1+"%)</td>"+
-								  "<td >"+dataList[i].moveip2+" ("+dataList[i].m2+"%)</td>"+
-								  "<td >"+dataList[i].moveip3+" ("+dataList[i].m3+"%)</td>"+
-								  "<td >"+dataList[i].moveip4+" ("+dataList[i].m4+"%)</td>"+
+								  "<td >"+dataList[i].moveip1+" ("+Percentage(dataList[i].moveip1,IP)+")</td>"+
+								  "<td >"+dataList[i].moveip2+" ("+Percentage(dataList[i].moveip2,IP)+")</td>"+
+								  "<td >"+dataList[i].moveip3+" ("+Percentage(dataList[i].moveip3,IP)+")</td>"+
+								  "<td >"+dataList[i].moveip4+" ("+Percentage(dataList[i].moveip4,IP)+")</td>"+
 								  "</tr>";
 								  table+=tr;
 							  

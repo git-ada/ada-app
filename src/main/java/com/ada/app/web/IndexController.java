@@ -1123,51 +1123,7 @@ public class IndexController {
 			 if(statBean.getMoveip3()!=null && statBean.getMoveip3()>0)moveip3 = statBean.getMoveip3();
 			 if(statBean.getMoveip4()!=null && statBean.getMoveip4()>0)moveip4 = statBean.getMoveip4();
 		}
-		if(ip>0){
-			 NumberFormat numberFormat = NumberFormat.getInstance();     
-			 numberFormat.setMaximumFractionDigits(2);
-			 map.put("c1", numberFormat.format((float)clickip1/(float)ip*100));
-			 map.put("c2", numberFormat.format((float)clickip2/(float)ip*100));
-			 map.put("c3", numberFormat.format((float)clickip3/(float)ip*100));
-			 map.put("c4", numberFormat.format((float)clickip4/(float)ip*100));
-			 map.put("s1", numberFormat.format((float)staytimeip1/(float)ip*100));
-			 map.put("s2", numberFormat.format((float)staytimeip2/(float)ip*100));
-			 map.put("s3", numberFormat.format((float)staytimeip3/(float)ip*100));
-			 map.put("s4", numberFormat.format((float)staytimeip4/(float)ip*100));
-			 map.put("sc1", numberFormat.format((float)scrollip1/(float)ip*100));
-			 map.put("sc2", numberFormat.format((float)scrollip2/(float)ip*100));
-			 map.put("sc3", numberFormat.format((float)scrollip3/(float)ip*100));
-			 map.put("sc4", numberFormat.format((float)scrollip4/(float)ip*100));
-			 map.put("m1", numberFormat.format((float)moveip1/(float)ip*100));
-			 map.put("m2", numberFormat.format((float)moveip2/(float)ip*100));
-			 map.put("m3", numberFormat.format((float)moveip3/(float)ip*100));
-			 map.put("m4", numberFormat.format((float)moveip4/(float)ip*100));
-			 map.put("old", numberFormat.format((float)olduserip/(float)ip*100));
-			 map.put("tgp", numberFormat.format((float)targetpageip/(float)ip*100));
-			 map.put("oldi", numberFormat.format((float)oldip/(float)ip*100));
-			 map.put("log", numberFormat.format((float)loginip/(float)ip*100));
-		 }else{
-			 map.put("c1", 0);
-			 map.put("c2", 0);
-			 map.put("c3", 0);
-			 map.put("c4", 0);
-			 map.put("s1", 0);
-			 map.put("s2", 0);
-			 map.put("s3", 0);
-			 map.put("s4", 0);
-			 map.put("sc1", 0);
-			 map.put("sc2", 0);
-			 map.put("sc3", 0);
-			 map.put("sc4", 0);
-			 map.put("m1", 0);
-			 map.put("m2", 0);
-			 map.put("m3", 0);
-			 map.put("m4", 0);
-			 map.put("old", 0);
-			 map.put("tgp", 0);
-			 map.put("oldi", 0);
-			 map.put("log", 0);
-		 }
+		
 		 map.put("ip", ip);
 		 map.put("pv", pv);
 		 map.put("uv", uv);
