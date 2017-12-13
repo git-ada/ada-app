@@ -616,6 +616,7 @@ var initTable1 = function () {
 					App.stopPageLoading();//关闭 加载动画
 				},
 				error: function (data) {
+					App.stopPageLoading();//关闭 加载动画
 					clearTimeout(t);
 					ajaxTime=ajaxTime*2;
 					t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
