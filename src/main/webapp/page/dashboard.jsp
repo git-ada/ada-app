@@ -313,14 +313,23 @@ function changeDisplay(a,data){
 	  if(jQuery(i).attr("class")=="icon-magnifier-add"){
 		  jQuery(i).removeClass("icon-magnifier-add");
 		  jQuery(i).addClass("icon-magnifier-remove");
+		
+		  jQuery("[event="+data+"]").toggleClass("displaynone");
+		  jQuery(".dataTables_scrollHeadInner").css("width","4000px");
+		  
+		  var left =  jQuery(".dataTables_scrollBody").scrollLeft();
+		  jQuery(".dataTables_scrollBody").scrollLeft(left+500);
 	  }else if(jQuery(i).attr("class")=="icon-magnifier-remove"){
 		  jQuery(i).removeClass("icon-magnifier-remove");
 		  jQuery(i).addClass("icon-magnifier-add");
-		 
+		  
+		  jQuery("[event="+data+"]").toggleClass("displaynone");
+			 
 	  }
-	 jQuery("[event="+data+"]").toggleClass("displaynone");
+	 
 	 
 }
+ 
 
 var t;
 var isRefresh = true;
@@ -346,7 +355,7 @@ var initTable1 = function () {
         },
         buttons: [
         ],
-        scrollY:        document.documentElement.clientHeight-275,
+        scrollY:        document.documentElement.clientHeight-290,
         deferRender:    true,
         "ordering": false,
         scroller:       true,
@@ -355,7 +364,7 @@ var initTable1 = function () {
         stateSave:      true,
         "searching": false,
         fixedColumns:   {
-            leftColumns: 3
+            leftColumns: 2
         },
         "order": [
             [0, 'asc']
@@ -413,6 +422,9 @@ var initTable1 = function () {
 	});
 	/**改变页面数据类型**/
 	function changeDataType(type,domainId){
+		App.startPageLoading({
+			animate: !0
+		});
 		dataType = type;
 		ajaxRefreshPage(type,domainId);
 		
@@ -460,6 +472,7 @@ var initTable1 = function () {
 		 jQuery.ajax({
 				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do?dataType="+type+"&domainId="+domainId,
 				success : function(data) {
+					App.stopPageLoading();
 					if (data!=null) {
 						var json = eval('(' + data + ')');
 						
@@ -566,7 +579,7 @@ var initTable1 = function () {
 							  
 								tr2+="<tr>"+firstTd+
 								  "<td style='min-width: 80px'>"+IP+"</td>"+
-								  "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+
+								  /* "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+ */
 									"</tr>";
 								lefttable+=tr2;
 										
