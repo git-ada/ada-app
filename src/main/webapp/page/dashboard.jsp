@@ -73,6 +73,15 @@ th:last-child,td:last-child {
 .displaynone{
 	display: none;
 }
+.page-spinner-bar {
+    left: 50%;
+    margin-left: -55px;
+    position: fixed;
+    text-align: center;
+    top: 40%;
+    width: 100px;
+    z-index: 10060 !important;
+}
 
 </style>
 
@@ -422,9 +431,7 @@ var initTable1 = function () {
 	});
 	/**改变页面数据类型**/
 	function changeDataType(type,domainId){
-		App.startPageLoading({
-			animate: !0
-		});
+		App.startPageLoading({animate: !0});//开启 加载 动画
 		dataType = type;
 		ajaxRefreshPage(type,domainId);
 		
@@ -472,7 +479,7 @@ var initTable1 = function () {
 		 jQuery.ajax({
 				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do?dataType="+type+"&domainId="+domainId,
 				success : function(data) {
-					App.stopPageLoading();
+					
 					if (data!=null) {
 						var json = eval('(' + data + ')');
 						
@@ -606,7 +613,7 @@ var initTable1 = function () {
 						ajaxTime=2000;
 						t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
 					}
-					
+					App.stopPageLoading();//关闭 加载动画
 				},
 				error: function (data) {
 					clearTimeout(t);
