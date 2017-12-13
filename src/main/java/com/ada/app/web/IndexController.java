@@ -233,67 +233,6 @@ public class IndexController {
 		return "dashboard_domainTime";
 	}
 	
-	/**
-	 * 实时数据页面  域名地域广告入口分析
-	 * @return
-	 */
-	@RequestMapping(value = "dashboard_regionAd")
-	public String dashboard_regionAd(HttpServletRequest request,HttpServletResponse response, Model model,
-			String domainId,String domain){
-		if(domainId!=null && !"".equals(domainId)){
-			Date today = Dates.todayStart();
-			Map map = getDomainRegionAd_data(today,Integer.valueOf(domainId));
-			List<Map> regionAd_list = (List<Map>) map.get("regionAd_list");
-			model.addAttribute("regionAd_list", regionAd_list);
-		}
-		
-		
-		model.addAttribute("domain", domain);
-		return "dashboard_regionAd";
-	}
-	/**
-	 * 实时数据页面  域名地域非广告入口分析
-	 * @return
-	 */
-	@RequestMapping(value = "dashboard_regionNotAd")
-	public String dashboard_regionNotAd(HttpServletRequest request,HttpServletResponse response, Model model,
-			String domainId,String domain){
-		if(domainId!=null && !"".equals(domainId)){
-			Date today = Dates.todayStart();
-			Map map = getDomainRegionNotAd_data(today, Integer.valueOf(domainId));
-			List<Map> regionNotAd_list= (List<Map>) map.get("regionNotAd_list");
-			model.addAttribute("regionNotAd_list", regionNotAd_list);
-		}
-		model.addAttribute("domain", domain);
-		return "dashboard_regionNotAd";
-	}
-	
-	/**
-	 * 实时数据页面  域名广告入口分析
-	 * @param domainId
-	 * @param domain
-	 * @return
-	 */
-	@RequestMapping(value = "dashboard_domainAd")
-	public String dashboard_domainAd(HttpServletRequest request,HttpServletResponse response, Model model){
-		Date today = Dates.todayStart();
-		Map map = getDomainAdData(today);
-		List<Map> domainAd_list = (List<Map>) map.get("DomainStat_list");
-		
-		model.addAttribute("domainAd_list", domainAd_list);
-		
-		return "dashboard_domainAd";
-	}
-	@RequestMapping(value = "dashboard_domainNotAd")
-	public String dashboard_domainNotAd(HttpServletRequest request,HttpServletResponse response, Model model){
-		
-		Date today = Dates.todayStart();
-		Map map = getDomainNotAdData(today);
-		List<Map> domainAd_list = (List<Map>) map.get("DomainStat_list");
-		
-		model.addAttribute("domainAd_list", domainAd_list);
-		return "dashboard_domainNotAd";
-	}
 	
 	/**
 	 * 实时数据页面 渠道列表
