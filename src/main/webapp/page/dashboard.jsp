@@ -73,6 +73,7 @@ th:last-child,td:last-child {
 .displaynone{
 	display: none;
 }
+
 </style>
 
 <!-- 
@@ -181,25 +182,25 @@ th:last-child,td:last-child {
 						<th scope="col" style="min-width: 80px">老用户数</th>	
 						<th scope="col" style="min-width: 80px">进入目标页</th>
 						
-						<th scope="col" style="min-width: 80px">停留 <a onclick="changeDisplay(this,'st')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 80px">停留 <a style="color: #333;" onclick="changeDisplay(this,'st')" title=""> <i class="icon-magnifier-add"></i> </a></th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="st">5-30秒</th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="st">31-120秒</th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="st">121-300秒</th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="st">300+秒</th>
 						
-						<th scope="col" style="min-width: 80px">点击<a onclick="changeDisplay(this,'c')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 80px">点击<a style="color: #333;" onclick="changeDisplay(this,'c')" title=""> <i class="icon-magnifier-add"></i> </a></th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="c">1-2次</th>			
 						<th scope="col" style="min-width: 80px" class="displaynone" event="c">3-5次</th>			
 						<th scope="col" style="min-width: 80px" class="displaynone" event="c">6-10次</th>			
 						<th scope="col" style="min-width: 80px" class="displaynone" event="c">10+次</th>
 						
-						<th scope="col" style="min-width: 80px">滚动<a onclick="changeDisplay(this,'s')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 80px">滚动<a style="color: #333;" onclick="changeDisplay(this,'s')" title=""> <i class="icon-magnifier-add"></i> </a></th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="s">1-2次</th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="s">3-5次</th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="s">6-10次</th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="s">10+次</th>
 						
-						<th scope="col" style="min-width: 80px">移动<a onclick="changeDisplay(this,'m')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 80px">移动<a style="color: #333;" onclick="changeDisplay(this,'m')" title=""> <i class="icon-magnifier-add"></i> </a></th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="m">1-2次</th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="m">3-5次</th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="m">6-10次</th>
@@ -217,10 +218,11 @@ th:last-child,td:last-child {
 						<td style="min-width: 80px">${domain.ip}</td>
 						<td style="min-width: 80px">${domain.pv}</td>
 						<td style="min-width: 80px">${domain.uv}</td>
-						<td style="min-width: 80px">${domain.loginip} (${domain.log}%)</td>
-						<td style="min-width: 80px">${domain.oldip} (${domain.oldi}%)</td>
-						<td style="min-width: 80px">${domain.olduserip} (${domain.old}%)</td>
-						<td style="min-width: 80px">${domain.targetpageip} (${domain.tgp}%)</td> 
+						<!-- ${domain.loginip} (${domain.log}%) eef1f5-->
+						<td style="min-width: 80px">${domain.loginip} (<fmt:formatNumber type="number" value="${domain.loginip / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.oldip} (<fmt:formatNumber type="number" value="${domain.oldip / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.olduserip} (<fmt:formatNumber type="number" value="${domain.olduserip / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${domain.targetpageip} (<fmt:formatNumber type="number" value="${domain.targetpageip / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td> 
 						
 						<c:set var="sumST" scope="session" value="${domain.staytimeip1+domain.staytimeip2+domain.staytimeip3+domain.staytimeip4}"/>
 						<c:set var="sumC" scope="session" value="${domain.clickip1+domain.clickip2+domain.clickip3+domain.clickip4}"/>
@@ -452,7 +454,7 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 //第一次异步刷新
-	 //t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
+	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
 	  
 	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
@@ -485,11 +487,11 @@ var initTable1 = function () {
 						}else if(dataType=="domainRegionAd"){
 							SUMIP = "地域广告入口独立IP数";
 							SUMPV = "地域广告入口访问量";
-							firstTh = "地域（广告入口）<a onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
+							firstTh = "地域（广告入口）<a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
 						}else if(dataType=="domainRegionNotAd"){
 							SUMIP = "地域非广告入口独立IP数";
 							SUMPV = "地域非广告入口访问量";
-							firstTh = "地域（非广告入口）<a onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
+							firstTh = "地域（非广告入口）<a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
 						}
 						if(dataList!=null && dataList.length>0){
 							for(var i=0;i<dataList.length;i++){
