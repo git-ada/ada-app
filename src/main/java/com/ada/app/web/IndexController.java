@@ -1199,6 +1199,22 @@ public class IndexController {
 		   if(statBean.getMoveip2()!=null && statBean.getMoveip2()>0)moveip2 = statBean.getMoveip2();
 		   if(statBean.getMoveip3()!=null && statBean.getMoveip3()>0)moveip3 = statBean.getMoveip3();
 		   if(statBean.getMoveip4()!=null && statBean.getMoveip4()>0)moveip4 = statBean.getMoveip4();
+		   
+		   staytimeip1 = staytimeip1-staytimeip2>0?staytimeip1-staytimeip2:0;
+		   staytimeip2 = staytimeip2-staytimeip3>0?staytimeip2-staytimeip3:0;
+		   staytimeip3 = staytimeip3-staytimeip4>0?staytimeip3-staytimeip4:0;
+		   
+		   clickip1 = clickip1-clickip2>0?clickip1-clickip2:0;
+		   clickip2 = clickip2-clickip3>0?clickip2-clickip3:0;
+		   clickip3 = clickip3-clickip4>0?clickip3-clickip4:0;
+		   
+		   scrollip1 = scrollip1-scrollip2>0?scrollip1-scrollip2:0;
+		   scrollip2 = scrollip2-scrollip3>0?scrollip2-scrollip3:0;
+		   scrollip3 = scrollip3-scrollip4>0?scrollip3-scrollip4:0;
+		   
+		   moveip1 = moveip1-moveip2>0?moveip1-moveip2:0;
+		   moveip2 = moveip2-moveip3>0?moveip2-moveip3:0;
+		   moveip3 = moveip3-moveip4>0?moveip3-moveip4:0;
 		}
 		
 		 list.add(ip);
