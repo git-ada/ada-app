@@ -788,8 +788,8 @@ public class IndexController {
 		 /** 域名列表信息 **/
 		 List<Map> DomainStat_list = new ArrayList<Map>();
 		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
-		 Integer domainSumIP = 0;/** 渠道ip总数 **/
-		 Integer domainSumPV = 0;/** 渠道PV总数 **/
+		 Integer domainSumIP = 0;/** ip总数 **/
+		 Integer domainSumPV = 0;/** PV总数 **/
 		 
 		 List<Integer[]> domainIps = new ArrayList();
 		 
@@ -800,40 +800,32 @@ public class IndexController {
 			 }
 		 }
 		 
+		 /** 根据ip数排序 **/
 		 Collections.sort(domainIps,new Comparator<Integer[]>(){
-			public int compare(Integer[] arg0, Integer[] arg1) {
-				return arg1[1].compareTo(arg0[0]);
-			}
-		 });
+				public int compare(Integer[] int1, Integer[] int2) {
+					Integer integer = (Integer) int1[1];
+					Integer integer2 = (Integer) int2[1];
+					return integer2.compareTo(integer);
+				}
+	     });
 		 
 		 for(int i=0;i<domainIps.size();i++){
 			Integer domainId = domainIps.get(i)[0];
-			Integer domainIp = domainIps.get(i)[1];
-			
 			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
 			Map map = getMap(domainStat);
 			map.put("id", domainId);
-			//map.put("channelNum", channelNum);
 			String domainstr = adaDomainDao.findById(domainStat.getDomainId()).getDomain();
-			 map.put("domain",domainstr);
-			 if(domainstr.length()>18){
+			map.put("domain",domainstr);
+			if(domainstr.length()>18){
 				 map.put("subDomain", adaDomainDao.findById(domainStat.getDomainId()).getDomain().substring(0, 18));
-			 }else{
+			}else{
 				 map.put("subDomain", domainstr);
-			 }
+			}
 			 
-			 domainSumIP+=domainStat.getIp();
-			 domainSumPV+=domainStat.getPv();
-			 DomainStat_list.add(map);
+			domainSumIP+=domainStat.getIp();
+			domainSumPV+=domainStat.getPv();
+			DomainStat_list.add(map);
 		}
-		 /** 根据ip数排序 **/
-		 Collections.sort(DomainStat_list,new Comparator<Map>(){
-				public int compare(Map map1, Map map2) {
-					Integer integer = (Integer) map1.get("ip");
-					Integer integer2 = (Integer) map2.get("ip");
-					return integer2.compareTo(integer);
-				}
-	        });
 		 
 		 Map map = new HashMap();
 		
@@ -886,31 +878,39 @@ public class IndexController {
 	protected Map getDomainRegionAd_data(Date date,Integer domainId){
 		List<Map> regionAd_list = new ArrayList<Map>();
 		Set<String> regionAddata = statService.getCityList(domainId, date);
+		
+		
+		List<String[]> IPs = new ArrayList();//先取出IP数 
+		for(String cityName:regionAddata){
+			Integer IP = statService.statRegionAdIP(domainId, cityName, date);
+			 if(IP!=null && IP>50){
+				 IPs.add(new String[]{cityName,String.valueOf(IP)});
+			 }
+		}
+		
+		/** 根据ip数排序 **/
+		 Collections.sort(IPs,new Comparator<String[]>(){
+				public int compare(String[] int1, String[] int2) {
+					Integer integer = Integer.valueOf(int1[1]) ;
+					Integer integer2 = Integer.valueOf(int2[1]);
+					return integer2.compareTo(integer);
+				}
+	     });
+		
 		Integer SumIP = 0;/** ip总数 **/
-		 Integer SumPV = 0;/** PV总数 **/
-		for (String regionName : regionAddata) {
+		Integer SumPV = 0;/** PV总数 **/
+		for (int i=0;i<IPs.size();i++) {
+			String regionName = IPs.get(i)[0];
 			DomainAreaStat regionAd = statService.statDomainRegionAd(regionName, domainId, date);
 			Map map = getMap(regionAd);
 			map.put("regionName", regionName);
-			 
-			 Integer ip = regionAd.getIp();
-			 if(ip>50){
-				 
-				 SumIP += ip;
-				 SumPV += regionAd.getPv();
-				 regionAd_list.add(map);
-				 
-			 }
+		    Integer ip = regionAd.getIp();
+		    SumIP += ip;
+		    SumPV += regionAd.getPv();
+		    regionAd_list.add(map);
 			 
 		}
-		/** 根据ip数排序 **/
-		 Collections.sort(regionAd_list,new Comparator<Map>(){
-				public int compare(Map map1, Map map2) {
-					Integer integer = (Integer) map1.get("ip");
-					Integer integer2 = (Integer) map2.get("ip");
-					return integer2.compareTo(integer);
-				}
-	        });
+	
 		Map map = new HashMap();
 		map.put("data_list", regionAd_list);
 		map.put("sumip", SumIP);
@@ -922,28 +922,33 @@ public class IndexController {
 		List<Map> regionNotAd_list = new ArrayList<Map>();
 		Set<String> regionAddata = statService.getCityList(domainId, date);
 		Integer SumIP = 0;/** ip总数 **/
-		 Integer SumPV = 0;/** PV总数 **/
-		for (String regionName : regionAddata) {
+		Integer SumPV = 0;/** PV总数 **/
+		List<String[]> IPs = new ArrayList();//先取出IP数 
+		for(String cityName:regionAddata){
+			Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
+			 if(IP!=null && IP>50){
+				 IPs.add(new String[]{cityName,String.valueOf(IP)});
+			 }
+		}
+		/** 根据ip数排序 **/
+		 Collections.sort(IPs,new Comparator<String[]>(){
+				public int compare(String[] int1, String[] int2) {
+					Integer integer = Integer.valueOf(int1[1]) ;
+					Integer integer2 = Integer.valueOf(int2[1]);
+					return integer2.compareTo(integer);
+				}
+	     });
+		for (int i=0;i<IPs.size();i++) {
+			String regionName = IPs.get(i)[0];
 			DomainAreaStat regionNotAd = statService.statDomainRegionNotAd(regionName, domainId, date);
 			Map map = getMap(regionNotAd);
 			map.put("regionName", regionName);
-			 
-			 Integer ip = regionNotAd.getIp();
-			 if(ip>50){
-				 SumIP+=regionNotAd.getIp();
-				 SumPV+=regionNotAd.getPv();
-				 regionNotAd_list.add(map);
-			 }
-			 
+			Integer ip = regionNotAd.getIp();
+		    SumIP+=regionNotAd.getIp();
+		    SumPV+=regionNotAd.getPv();
+		    regionNotAd_list.add(map);
 		}
-		/** 根据ip数排序 **/
-		 Collections.sort(regionNotAd_list,new Comparator<Map>(){
-				public int compare(Map map1, Map map2) {
-					Integer integer = (Integer) map1.get("ip");
-					Integer integer2 = (Integer) map2.get("ip");
-					return integer2.compareTo(integer);
-				}
-	        });
+		
 		Map map = new HashMap();
 		map.put("data_list", regionNotAd_list);
 		map.put("sumip", SumIP);
@@ -968,7 +973,14 @@ public class IndexController {
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
-		 
+		 /** 根据ip数排序 **/
+		 Collections.sort(domainIps,new Comparator<Integer[]>(){
+				public int compare(Integer[] int1, Integer[] int2) {
+					Integer integer = (Integer) int1[1];
+					Integer integer2 = (Integer) int2[1];
+					return integer2.compareTo(integer);
+				}
+	     });
 		 for(int i=0;i<domainIps.size();i++){
 			Integer domainId = domainIps.get(i)[0];
 			Integer domainIp = domainIps.get(i)[1];
@@ -978,28 +990,19 @@ public class IndexController {
 			map.put("id", domainId);
 			//map.put("channelNum", channelNum);
 			String domainstr = adaDomainDao.findById(domainId).getDomain();
-			 map.put("domain",domainstr);
-			 if(domainstr.length()>18){
+			map.put("domain",domainstr);
+			if(domainstr.length()>18){
 				 map.put("subDomain", adaDomainDao.findById(domainId).getDomain().substring(0, 18));
-			 }else{
+			}else{
 				 map.put("subDomain", domainstr);
-			 }
+			}
 			
-			 SumIP+=domainStat.getIp();
-			 SumPV+=domainStat.getPv();
-			 DomainStat_list.add(map);
+			SumIP+=domainStat.getIp();
+			SumPV+=domainStat.getPv();
+			DomainStat_list.add(map);
 		}
-		 /** 根据ip数排序 **/
-		 Collections.sort(DomainStat_list,new Comparator<Map>(){
-				public int compare(Map map1, Map map2) {
-					Integer integer = (Integer) map1.get("ip");
-					Integer integer2 = (Integer) map2.get("ip");
-					return integer2.compareTo(integer);
-				}
-	        });
 		 
 		 Map map = new HashMap();
-		
 		 map.put("data_list", DomainStat_list);
 		 map.put("sumip", SumIP);
 		 map.put("sumpv", SumPV);
@@ -1025,7 +1028,14 @@ public class IndexController {
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
-		 
+		 /** 根据ip数排序 **/
+		 Collections.sort(domainIps,new Comparator<Integer[]>(){
+				public int compare(Integer[] int1, Integer[] int2) {
+					Integer integer = (Integer) int1[1];
+					Integer integer2 = (Integer) int2[1];
+					return integer2.compareTo(integer);
+				}
+	     });
 		 
 		 for(int i=0;i<domainIps.size();i++){
 			Integer domainId = domainIps.get(i)[0];
@@ -1047,15 +1057,7 @@ public class IndexController {
 			 SumPV+=domainStat.getPv();
 			 DomainStat_list.add(map);
 		}
-		 /** 根据ip数排序 **/
-		 Collections.sort(DomainStat_list,new Comparator<Map>(){
-				public int compare(Map map1, Map map2) {
-					Integer integer = (Integer) map1.get("ip");
-					Integer integer2 = (Integer) map2.get("ip");
-					return integer2.compareTo(integer);
-				}
-	        });
-		 
+		
 		 Map map = new HashMap();
 		
 		 map.put("data_list", DomainStat_list);
@@ -1127,10 +1129,10 @@ public class IndexController {
 		 map.put("ip", ip);
 		 map.put("pv", pv);
 		 map.put("uv", uv);
+		 map.put("loginip", loginip);
+		 map.put("oldip", oldip);
 		 map.put("olduserip", olduserip);
 		 map.put("targetpageip", targetpageip);
-		 map.put("oldip", oldip);
-		 map.put("loginip", loginip);
 		 map.put("staytimeip1", staytimeip1);
 		 map.put("staytimeip2", staytimeip2);
 		 map.put("staytimeip3", staytimeip3);

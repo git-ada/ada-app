@@ -91,6 +91,27 @@ public interface StatService {
 	 */
 	public Integer statDomainNotAdIP(Integer domainId,Date date);
 	/**
+	 * 统计地域IP数
+	 * @param cityName
+	 * @param date
+	 * @return
+	 */
+	public Integer statRegionIP(Integer domainId,String cityName,Date date);
+	/**
+	 * 统计地域广告入口IP数
+	 * @param cityName
+	 * @param date
+	 * @return
+	 */
+	public Integer statRegionAdIP(Integer domainId,String cityName,Date date);
+	/**
+	 * 统计地域非广告入口IP数
+	 * @param cityName
+	 * @param date
+	 * @return
+	 */
+	public Integer statRegionNotAdIP(Integer domainId,String cityName,Date date);
+	/**
 	 * 统计 域名 地域
 	 * @param regionName
 	 * @param domainId
