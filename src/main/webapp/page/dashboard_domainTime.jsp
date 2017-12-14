@@ -362,6 +362,7 @@
     	var d4 = [];
     	//Y轴4区间数据
     	var d5 = [];
+    	var d6 = [];
     	$.each(data, function (index, item) {
     		//将数据推到坐标轴展示
             d1.push(item.date);
@@ -369,6 +370,7 @@
             d3.push(item.st2);
             d4.push(item.st3);
             d5.push(item.st4);
+            d6.push(item.ip);
         });
     	var myChart = echarts.init(document.getElementById(divid));
     	myChart.setOption({
@@ -387,7 +389,7 @@
 	   	          }
 	   	      },
 	   	      //color:['#48C0D8','#00E3E3','#00FFFF','#80FFFF'], //图例颜色 #48C0D8 #17C7E3
-	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8'], //图例颜色 #48C0D8 #17C7E3 #ef3f3f
+	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#17C7E3'], //图例颜色 #48C0D8 #17C7E3 #ef3f3f
 	   	      legend: {
 	   	    	  x : '5.5%',//图例x方向移动距离
 	   	    	  y : '85%', //图例y方向移动距离
@@ -415,6 +417,10 @@
 	                  name:'5分钟以上',
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
+	              },{
+	                  name:'ip',
+	                  icon : 'line',
+	                  textStyle:{}
 	              }]
 	   	      },
 	   	      grid: {
@@ -469,6 +475,12 @@
 	   	              type:'bar',
 	   	         	  stack: '页面停留时长',
 	   	              data:d5
+	   	          },
+	   	          {
+	   	              name:'ip',
+	   	              type:'line',
+	   	         	  stack: 'ip',
+	   	              data:d6
 	   	          }
 	   	      ]
 	   	});
@@ -486,6 +498,7 @@
     	var d4 = [];
     	//Y轴4区间数据
     	var d5 = [];
+    	var d6 = [];
     	$.each(data, function (index, item) {
     		//将数据推到坐标轴展示
             d1.push(item.date);
@@ -493,6 +506,7 @@
             d3.push(item.c2);
             d4.push(item.c3);
             d5.push(item.c4);
+            d6.push(item.ip);
         });
     	var myChart = echarts.init(document.getElementById(divid));
     	myChart.setOption({
@@ -510,7 +524,7 @@
 	   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 	   	          }
 	   	      },//#F04848
-	   	      color:['#48C0D8','#6ccce0','#96dbe9','#F04848'], //图例颜色
+	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#17C7E3'], //图例颜色
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%',
@@ -534,6 +548,10 @@
 	                  name:'10+次',
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
+	              },{
+	                  name:'ip',
+	                  icon : 'line',
+	                  textStyle:{  }
 	              }]
 	   	      },
 	   	      grid: {
@@ -588,6 +606,12 @@
 	   	              type:'bar',
 	   	         	  stack: '鼠标点击',
 	   	              data:d5
+	   	          },
+	   	          {
+	   	              name:'ip',
+	   	              type:'line',
+	   	         	  stack: 'ip',
+	   	              data:d6
 	   	          }
 	   	      ]
 	   	});
@@ -605,6 +629,7 @@
     	var d4 = [];
     	//Y轴4区间数据
     	var d5 = [];
+    	var d6 = [];
     	$.each(data, function (index, item) {
     		//将数据推到坐标轴展示
             d1.push(item.date);
@@ -612,6 +637,7 @@
             d3.push(item.s2);
             d4.push(item.s3);
             d5.push(item.s4);
+            d6.push(item.ip);
         });
     	var myChart = echarts.init(document.getElementById(divid));
     	myChart.setOption({
@@ -629,7 +655,7 @@
 	   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow' 
 	   	          }
 	   	      },
-	   	      color:['#48C0D8','#6ccce0','#96dbe9','#c0e9f2'], //图例颜色
+	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#17C7E3'], //图例颜色
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%',
@@ -653,6 +679,10 @@
 	                  name:'10+次',
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
+	              },{
+	                  name:'ip',
+	                  icon : 'line',
+	                  textStyle:{ }
 	              }]
 	   	      },
 	   	      grid: {
@@ -707,6 +737,12 @@
 	   	              type:'bar',
 	   	         	  stack: '鼠标滚动',
 	   	              data:d5
+	   	          },
+	   	          {
+	   	              name:'ip',
+	   	              type:'line',
+	   	         	  stack: 'ip',
+	   	              data:d6
 	   	          }
 	   	      ]
 	   	});
@@ -724,6 +760,7 @@
     	var d4 = [];
     	//Y轴4区间数据
     	var d5 = [];
+    	var d6 = [];
     	$.each(data, function (index, item) {
     		//将数据推到坐标轴展示
             d1.push(item.date);
@@ -731,6 +768,7 @@
             d3.push(item.m2);
             d4.push(item.m3);
             d5.push(item.m4);
+            d6.push(item.ip);
         });
     	var myChart = echarts.init(document.getElementById(divid));
     	myChart.setOption({
@@ -748,7 +786,7 @@
 	   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow' 
 	   	          }
 	   	      },
-	   	      color:['#48C0D8','#6ccce0','#96dbe9','#c0e9f2'], //图例颜色
+	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#17C7E3'], //图例颜色
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%',
@@ -772,6 +810,10 @@
 	                  name:'10+次',
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
+	              },{
+	                  name:'ip',
+	                  icon : 'line',
+	                  textStyle:{ }
 	              }]
 	   	      },
 	   	      grid: {
@@ -826,6 +868,12 @@
 	   	              type:'bar',
 	   	         	  stack: '鼠标移动',
 	   	              data:d5
+	   	          },
+	   	          {
+	   	              name:'ip',
+	   	              type:'line',
+	   	         	  stack: 'ip',
+	   	              data:d6
 	   	          }
 	   	      ]
 	   	  });

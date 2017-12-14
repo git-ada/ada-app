@@ -556,6 +556,7 @@ public class IndexController {
 				json_adChart_2.put("c2", item.getClickip2());
 				json_adChart_2.put("c3", item.getClickip3());
 				json_adChart_2.put("c4", item.getClickip4());
+				json_adChart_2.put("ip", item.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_2.put("color", "#EF3F3F");
 					json_adChart_2.put("lcolor", "red");
@@ -569,6 +570,7 @@ public class IndexController {
 				json_adChart_3.put("st2", item.getStaytimeip2());
 				json_adChart_3.put("st3", item.getStaytimeip3());
 				json_adChart_3.put("st4", item.getStaytimeip4());
+				json_adChart_3.put("ip", item.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_3.put("color", "#EF3F3F");
 					json_adChart_3.put("lcolor", "red");
@@ -582,6 +584,7 @@ public class IndexController {
 				json_adChart_4.put("s2", item.getScrollip2());
 				json_adChart_4.put("s3", item.getScrollip3());
 				json_adChart_4.put("s4", item.getScrollip4());
+				json_adChart_4.put("ip", item.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_4.put("color", "#EF3F3F");
 					json_adChart_4.put("lcolor", "red");
@@ -595,6 +598,7 @@ public class IndexController {
 				json_adChart_5.put("m2", item.getMoveip2());
 				json_adChart_5.put("m3", item.getMoveip3());
 				json_adChart_5.put("m4", item.getMoveip4());
+				json_adChart_5.put("ip", item.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_5.put("color", "#EF3F3F");
 					json_adChart_5.put("lcolor", "red");
@@ -640,6 +644,7 @@ public class IndexController {
 				json_notadChart_2.put("c2", notad.getClickip2());
 				json_notadChart_2.put("c3", notad.getClickip3());
 				json_notadChart_2.put("c4", notad.getClickip4());
+				json_notadChart_2.put("ip", notad.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_notadChart_2.put("color", "#EF3F3F");
 					json_notadChart_2.put("lcolor", "red");
@@ -653,6 +658,7 @@ public class IndexController {
 				json_notadChart_3.put("st2", notad.getStaytimeip2());
 				json_notadChart_3.put("st3", notad.getStaytimeip3());
 				json_notadChart_3.put("st4", notad.getStaytimeip4());
+				json_notadChart_3.put("ip", notad.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_notadChart_3.put("color", "#EF3F3F");
 					json_notadChart_3.put("lcolor", "red");
@@ -666,6 +672,7 @@ public class IndexController {
 				json_notadChart_4.put("s2", notad.getScrollip2());
 				json_notadChart_4.put("s3", notad.getScrollip3());
 				json_notadChart_4.put("s4", notad.getScrollip4());
+				json_notadChart_4.put("ip", notad.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_notadChart_4.put("color", "#EF3F3F");
 					json_notadChart_4.put("lcolor", "red");
@@ -679,6 +686,7 @@ public class IndexController {
 				json_notadChart_5.put("m2", notad.getMoveip2());
 				json_notadChart_5.put("m3", notad.getMoveip3());
 				json_notadChart_5.put("m4", notad.getMoveip4());
+				json_notadChart_5.put("ip", notad.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_notadChart_5.put("color", "#EF3F3F");
 					json_notadChart_5.put("lcolor", "red");
@@ -734,7 +742,7 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>50){
+			 if(domainIp!=null && domainIp>0){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
