@@ -228,6 +228,10 @@ public class ArchiveService {
 		if(newall.getPv()<10){
 			return;
 		}
+		
+		update(newad);
+		update(newall);
+		
 		AdaDomainNotadStat newnotad = reduct(newall, newad, AdaDomainNotadStat.class);//非广告入口新数据=全部-非广告的
 		newnotad.setSiteId(siteId);
 		newnotad.setDomainId(domainId);
@@ -309,8 +313,22 @@ public class ArchiveService {
 			 result.setMoveip1        ((a.getMoveip1()       < b.getMoveip1()     )?0:(a.getMoveip1()       - b.getMoveip1()     ));
 			 result.setMoveip2        ((a.getMoveip2()       < b.getMoveip2()     )?0:(a.getMoveip2()       - b.getMoveip2()     ));
 			 result.setMoveip3        ((a.getMoveip3()       < b.getMoveip3()     )?0:(a.getMoveip3()       - b.getMoveip3()     ));
-			 result.setMoveip4        ((a.getMoveip4()       < b.getMoveip4()     )?0:(a.getMoveip4()       - b.getMoveip4()     ));
+			 result.setMoveip4        ((a.getMoveip4()       < b.getMoveip4()     )?0:(a.getMoveip4()       - b.getMoveip4()     )); 
 		 return (T) result;
+	}
+	
+	protected void update(BaseStat result){
+		Integer c1=result.getClickip1()-result.getClickip2(); Integer c2=result.getClickip2()-result.getClickip3(); Integer c3=result.getClickip3()-result.getClickip4();
+		result.setClickip1(c1);result.setClickip2(c2);result.setClickip3(c3);
+		
+		Integer st1=result.getStaytimeip1()-result.getStaytimeip2(); Integer st2=result.getStaytimeip2()-result.getStaytimeip3(); Integer st3=result.getStaytimeip3()-result.getStaytimeip4();
+		result.setStaytimeip1(st1);result.setStaytimeip2(st2);result.setStaytimeip3(st3);
+		
+		Integer sc1=result.getScrollip1()-result.getScrollip2(); Integer sc2=result.getScrollip2()-result.getScrollip3(); Integer sc3=result.getScrollip3()-result.getScrollip4();
+		result.setScrollip1(sc1);result.setScrollip2(sc2);result.setScrollip3(sc3);
+		
+		Integer mo1=result.getMoveip1()-result.getMoveip2(); Integer mo2=result.getMoveip2()-result.getMoveip3(); Integer mo3=result.getMoveip3()-result.getMoveip4();
+		result.setMoveip1(mo1);result.setMoveip2(mo2);result.setMoveip3(mo3);
 	}
 
 	protected <T> T initStat(Class<T> clazz){

@@ -70,6 +70,19 @@ th:last-child,td:last-child {
 .dataTables_scroll {
     margin-bottom: 0px !important;
 }
+.displaynone{
+	display: none;
+}
+.page-spinner-bar {
+    left: 50%;
+    margin-left: -55px;
+    position: fixed;
+    text-align: center;
+    top: 40%;
+    width: 100px;
+    z-index: 10060 !important;
+}
+
 </style>
 
 <!-- 
@@ -178,86 +191,84 @@ th:last-child,td:last-child {
 						<th scope="col" style="min-width: 80px">老用户数</th>	
 						<th scope="col" style="min-width: 80px">进入目标页</th>
 						
-						<th scope="col" style="min-width: 80px">停留时长</th>
-						<th scope="col" style="min-width: 80px">鼠标点击</th>
-						<th scope="col" style="min-width: 80px">鼠标滚动</th>
-						<th scope="col" style="min-width: 80px">鼠标移动</th>
+						<th scope="col" style="min-width: 80px">停留 <a style="color: #333;" onclick="changeDisplay(this,'st')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="st">5-30秒</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="st">31-120秒</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="st">121-300秒</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="st">300+秒</th>
 						
-						<th scope="col" style="min-width: 80px">5-30秒停留</th>
-						<th scope="col" style="min-width: 80px">31-120秒</th>
-						<th scope="col" style="min-width: 80px">121-300秒</th>
-						<th scope="col" style="min-width: 80px">300+秒停留</th>
+						<th scope="col" style="min-width: 80px">点击<a style="color: #333;" onclick="changeDisplay(this,'c')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="c">1-2次</th>			
+						<th scope="col" style="min-width: 80px" class="displaynone" event="c">3-5次</th>			
+						<th scope="col" style="min-width: 80px" class="displaynone" event="c">6-10次</th>			
+						<th scope="col" style="min-width: 80px" class="displaynone" event="c">10+次</th>
 						
-						<th scope="col" style="min-width: 80px">1-2次点击</th>			
-						<th scope="col" style="min-width: 80px">3-5次点击</th>			
-						<th scope="col" style="min-width: 80px">6-10次点击</th>			
-						<th scope="col" style="min-width: 80px">10+次点击</th>			
+						<th scope="col" style="min-width: 80px">滚动<a style="color: #333;" onclick="changeDisplay(this,'s')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="s">1-2次</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="s">3-5次</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="s">6-10次</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="s">10+次</th>
 						
-						
-						<th scope="col" style="min-width: 80px">1-2次滚动</th>
-						<th scope="col" style="min-width: 80px">3-5次滚动</th>
-						<th scope="col" style="min-width: 80px">6-10次滚动</th>
-						<th scope="col" style="min-width: 80px">10+次滚动</th>
-						
-						<th scope="col" style="min-width: 80px">1-2次移动</th>
-						<th scope="col" style="min-width: 80px">3-5次移动</th>
-						<th scope="col" style="min-width: 80px">6-10次移动</th>
-						<th scope="col" style="min-width: 80px">10+次移动</th>
+						<th scope="col" style="min-width: 80px">移动<a style="color: #333;" onclick="changeDisplay(this,'m')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="m">1-2次</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="m">3-5次</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="m">6-10次</th>
+						<th scope="col" style="min-width: 80px" class="displaynone" event="m">10+次</th>
 				     </tr>
 	            </thead>
 	            <tbody id="tbody">
-	                	<c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
+	                	<c:forEach var="item" items="${DomainStat_list}" varStatus="number">
 	                <tr>
-                		<td style="min-width: 150px;" title="${domain.domain}">
-                			<c:if test="${dataType=='domain'}"><a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${domain.id}" data-toggle="dropdown" onclick="openMenu(this)">${domain.subDomain}</a></c:if>
-                			<c:if test="${dataType=='domainAd'}">${domain.subDomain}</c:if>
-                			<c:if test="${dataType=='domainNotAd'}">${domain.subDomain}</c:if>
+                		<td style="min-width: 150px;" title="${item[24]}">
+                			<c:if test="${dataType=='domain'}"><a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${item[23]}" data-toggle="dropdown" onclick="openMenu(this)">${item[25]}</a></c:if>
+                			<c:if test="${dataType=='domainAd'}">${item[25]}</c:if>
+                			<c:if test="${dataType=='domainNotAd'}">${item[25]}</c:if>
                 		</td>
-						<td style="min-width: 80px">${domain.ip}</td>
-						<td style="min-width: 80px">${domain.pv}</td>
-						<td style="min-width: 80px">${domain.uv}</td>
-						<td style="min-width: 80px">${domain.loginip} (${domain.log}%)</td>
-						<td style="min-width: 80px">${domain.oldip} (${domain.oldi}%)</td>
-						<td style="min-width: 80px">${domain.olduserip} (${domain.old}%)</td>
-						<td style="min-width: 80px">${domain.targetpageip} (${domain.tgp}%)</td> 
+						<td style="min-width: 80px">${item[0]}</td>
+						<td style="min-width: 80px">${item[1]}</td>
+						<td style="min-width: 80px">${item[2]}</td>
+						<!-- ${domain.loginip} (${domain.log}%) eef1f5-->
+						<td style="min-width: 80px">${item[3]} (<fmt:formatNumber type="number" value="${item[3] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${item[4]} (<fmt:formatNumber type="number" value="${item[4] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${item[5]} (<fmt:formatNumber type="number" value="${item[5] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${item[6]} (<fmt:formatNumber type="number" value="${item[6] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td> 
 						
-						<c:set var="sumST" scope="session" value="${domain.staytimeip1+domain.staytimeip2+domain.staytimeip3+domain.staytimeip4}"/>
-						<c:set var="sumC" scope="session" value="${domain.clickip1+domain.clickip2+domain.clickip3+domain.clickip4}"/>
-						<c:set var="sumS" scope="session" value="${domain.scrollip1+domain.scrollip2+domain.scrollip3+domain.scrollip4}"/>
-						<c:set var="sumM" scope="session" value="${domain.moveip1+domain.moveip2+domain.moveip3+domain.moveip4}"/>
+						<c:set var="sumST" scope="session" value="${item[7]+item[8]+item[9]+item[10]}"/>
+						<c:set var="sumC" scope="session" value="${item[11]+item[12]+item[13]+item[14]}"/>
+						<c:set var="sumS" scope="session" value="${item[15]+item[16]+item[17]+item[18]}"/>
+						<c:set var="sumM" scope="session" value="${item[19]+item[20]+item[21]+item[22]}"/>
 						
-						<td style="min-width: 80px">${sumST} (<fmt:formatNumber type="number" value="${sumST / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${sumC} (<fmt:formatNumber type="number" value="${sumC / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${sumS} (<fmt:formatNumber type="number" value="${sumS / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${sumM} (<fmt:formatNumber type="number" value="${sumM / domain.ip}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${sumST} (<fmt:formatNumber type="number" value="${sumST / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="st">${item[7]} (<fmt:formatNumber type="number" value="${item[7] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="st">${item[8]} (<fmt:formatNumber type="number" value="${item[8] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="st">${item[9]} (<fmt:formatNumber type="number" value="${item[9] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="st">${item[10]} (<fmt:formatNumber type="number" value="${item[10] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 						
-						<td style="min-width: 80px">${domain.staytimeip1} (${domain.s1}%)</td>
-						<td style="min-width: 80px">${domain.staytimeip2} (${domain.s2}%)</td>
-						<td style="min-width: 80px">${domain.staytimeip3} (${domain.s3}%)</td>
-						<td style="min-width: 80px">${domain.staytimeip4} (${domain.s4}%)</td>
+						<td style="min-width: 80px">${sumC} (<fmt:formatNumber type="number" value="${sumC / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="c">${item[11]} (<fmt:formatNumber type="number" value="${item[11] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="c">${item[12]} (<fmt:formatNumber type="number" value="${item[12] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="c">${item[13]} (<fmt:formatNumber type="number" value="${item[13] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="c">${item[14]} (<fmt:formatNumber type="number" value="${item[14] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 						
-						<td style="min-width: 80px">${domain.clickip1} (${domain.c1}%)</td>
-						<td style="min-width: 80px">${domain.clickip2} (${domain.c2}%)</td>
-						<td style="min-width: 80px">${domain.clickip3} (${domain.c3}%)</td>
-						<td style="min-width: 80px">${domain.clickip4} (${domain.c4}%)</td>
+						<td style="min-width: 80px">${sumS} (<fmt:formatNumber type="number" value="${sumS / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="s">${item[15]} (<fmt:formatNumber type="number" value="${item[15] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="s">${item[16]} (<fmt:formatNumber type="number" value="${item[16] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="s">${item[17]} (<fmt:formatNumber type="number" value="${item[17] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="s">${item[18]} (<fmt:formatNumber type="number" value="${item[18] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 						
-						
-						<td style="min-width: 80px">${domain.scrollip1} (${domain.sc1}%)</td>
-						<td style="min-width: 80px">${domain.scrollip2} (${domain.sc2}%)</td>
-						<td style="min-width: 80px">${domain.scrollip3} (${domain.sc3}%)</td>
-						<td style="min-width: 80px">${domain.scrollip4} (${domain.sc4}%)</td>
-						<td style="min-width: 80px">${domain.moveip1} (${domain.m1}%)</td>
-						<td style="min-width: 80px">${domain.moveip2} (${domain.m2}%)</td>
-						<td style="min-width: 80px">${domain.moveip3} (${domain.m3}%)</td>
-						<td style="min-width: 80px">${domain.moveip4} (${domain.m4}%)</td>
+						<td style="min-width: 80px">${sumM} (<fmt:formatNumber type="number" value="${sumM / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="m">${item[19]} (<fmt:formatNumber type="number" value="${item[19] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="m">${item[20]} (<fmt:formatNumber type="number" value="${item[20] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="m">${item[21]} (<fmt:formatNumber type="number" value="${item[21] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="m">${item[22]} (<fmt:formatNumber type="number" value="${item[22] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 	                </tr>
 	                </c:forEach>
 	                
-	                 <c:forEach var="domain" items="${DomainStat_list}" varStatus="number">
-						<div id="context-menu${domain.id}" style="z-index: 999;position:absolute;">
+	                 <c:forEach var="item" items="${DomainStat_list}" varStatus="number">
+						<div id="context-menu${item[23]}" style="z-index: 999;position:absolute;">
 							<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
 								<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domain.id}')">分时统计</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}')">分时统计</a>
 							     </li>
 							<!--      <li>
 							         <a href="javascript:;" onclick="changeDataType('domainAd')">域名统计（广告入口）</a>
@@ -266,10 +277,10 @@ th:last-child,td:last-child {
 							         <a href="javascript:;" onclick="changeDataType('domainNotAd')">域名统计（非广告入口）</a>
 							     </li> -->
 							    <li>
-							         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${domain.id})">地域统计（广告入口）</a>
+							         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${item[23]})">地域统计（广告入口）</a>
 							     </li>
 							     <li>
-							         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${domain.id})">地域统计（非广告入口）</a>
+							         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${item[23]})">地域统计（非广告入口）</a>
 							     </li>
 							 </ul>
 						</div>
@@ -305,7 +316,32 @@ function Percentage(num, total) {
    
 }
 
+/** 修改td样式 **/
+function changeDisplay(a,data){
+	 var i = jQuery(a).find("i");
+	  if(jQuery(i).attr("class")=="icon-magnifier-add"){
+		  jQuery(i).removeClass("icon-magnifier-add");
+		  jQuery(i).addClass("icon-magnifier-remove");
+		
+		  jQuery("[event="+data+"]").toggleClass("displaynone");
+		  jQuery(".dataTables_scrollHeadInner").css("width","4000px");
+		  
+		  var left =  jQuery(".dataTables_scrollBody").scrollLeft();
+		  jQuery(".dataTables_scrollBody").scrollLeft(left+500);
+	  }else if(jQuery(i).attr("class")=="icon-magnifier-remove"){
+		  jQuery(i).removeClass("icon-magnifier-remove");
+		  jQuery(i).addClass("icon-magnifier-add");
+		  
+		  jQuery("[event="+data+"]").toggleClass("displaynone");
+			 
+	  }
+	 
+	 
+}
+ 
+
 var t;
+var isRefresh = true;
 var oTable;
 var oTable2;
 var table;
@@ -328,7 +364,7 @@ var initTable1 = function () {
         },
         buttons: [
         ],
-        scrollY:        document.documentElement.clientHeight-275,
+        scrollY:        document.documentElement.clientHeight-290,
         deferRender:    true,
         "ordering": false,
         scroller:       true,
@@ -337,7 +373,7 @@ var initTable1 = function () {
         stateSave:      true,
         "searching": false,
         fixedColumns:   {
-            leftColumns: 3
+            leftColumns: 2
         },
         "order": [
             [0, 'asc']
@@ -358,10 +394,12 @@ var initTable1 = function () {
 	    		 jQuery("#pauseOrplay i").removeClass("icon-control-pause");
 	    		 jQuery("#pauseOrplay i").addClass("icon-control-play");
 	    		 clearTimeout(t);
+	    		 isRefresh = false;
 	    	 }else if(jQuery("#pauseOrplay i").attr("class")=="icon-control-play"){
 	    		 jQuery("#pauseOrplay i").removeClass("icon-control-play");
 	    		 jQuery("#pauseOrplay i").addClass("icon-control-pause");
 				 ajaxRefreshPage();
+				 isRefresh = true;
 	    	 }
 	     });
 	    
@@ -393,6 +431,7 @@ var initTable1 = function () {
 	});
 	/**改变页面数据类型**/
 	function changeDataType(type,domainId){
+		App.startPageLoading({animate: !0});//开启 加载 动画
 		dataType = type;
 		ajaxRefreshPage(type,domainId);
 		
@@ -433,13 +472,14 @@ var initTable1 = function () {
 	} 
 	 
 	 var ajaxTime = 2000;
-	 
+	 //第一次异步刷新
 	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
 	  
 	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
 				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do?dataType="+type+"&domainId="+domainId,
 				success : function(data) {
+					
 					if (data!=null) {
 						var json = eval('(' + data + ')');
 						
@@ -467,86 +507,94 @@ var initTable1 = function () {
 						}else if(dataType=="domainRegionAd"){
 							SUMIP = "地域广告入口独立IP数";
 							SUMPV = "地域广告入口访问量";
-							firstTh = "地域（广告入口）<a onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
+							firstTh = "地域（广告入口）<a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
 						}else if(dataType=="domainRegionNotAd"){
 							SUMIP = "地域非广告入口独立IP数";
 							SUMPV = "地域非广告入口访问量";
-							firstTh = "地域（非广告入口）<a onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
+							firstTh = "地域（非广告入口）<a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
 						}
-						for(var i=0;i<dataList.length;i++){
-							var firstTd = "";
-							var tr = "";
-						    var tr2 = "";
-						    var tr3 = "";
-						    if(dataType=="domain"){
-						    	firstTd="<td style='min-width: 150px;'  title='"+dataList[i].domain+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+dataList[i].id+"' data-toggle='dropdown' onclick='openMenu(this)'>"+dataList[i].subDomain+"</a></td>";
-						    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
-								"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
-									"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+dataList[i].id+"\")'>分时统计</a></li>"+
-									 /* "<li><a href='javascript:;' onclick='changeDataType(\"domainAd\")'>域名统计（广告入口）</a></li>"+
-							     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainNotAd\")'>域名统计（非广告入口）</a></li>"+ */
-                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+dataList[i].id+"\")'>地域统计（广告入口）</a></li>"+
-                                 	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+dataList[i].id+"\")'>地域统计（非广告入口）</a></li>"+ 
-						      	"</ul></div>";
-						      	menu+=tr3;
-						    }else if(dataType=="domainAd"){
-						    	firstTd = "<td style='min-width: 130px;'  title='"+dataList[i].domain+"'>"+dataList[i].subDomain+"</td>";
-						    }else if(dataType=="domainNotAd"){
-						    	firstTd = "<td style='min-width: 130px;'  title='"+dataList[i].domain+"'>"+dataList[i].subDomain+"</td>";
-						    }else if(dataType=="domainRegionAd"){
-						    	firstTd = "<td style='min-width: 150px;'  >"+dataList[i].regionName+"</td>";
-						    }else if(dataType=="domainRegionNotAd"){
-						    	firstTd = "<td style='min-width: 150px;'  >"+dataList[i].regionName+"</td>";
-						    }
-						    var sumST = dataList[i].staytimeip1+dataList[i].staytimeip2+dataList[i].staytimeip3+dataList[i].staytimeip4;
-						    var sumC = dataList[i].clickip1+dataList[i].clickip2+dataList[i].clickip3+dataList[i].clickip4;
-						    var sumS = dataList[i].scrollip1+dataList[i].scrollip2+dataList[i].scrollip3+dataList[i].scrollip4;
-						    var sumM = dataList[i].moveip1+dataList[i].moveip2+dataList[i].moveip3+dataList[i].moveip4;
-						    var IP = dataList[i].ip;
-					  		tr+="<tr>" + firstTd+
-							  "<td >"+IP+"</td>"+
-							  "<td >"+dataList[i].pv+"</td>"+
-							  "<td >"+dataList[i].uv+"</td>"+
-							  "<td >"+dataList[i].loginip+" ("+dataList[i].log+"%)</td>"+
-							  "<td >"+dataList[i].oldip+" ("+dataList[i].oldi+"%)</td>"+
-							  "<td >"+dataList[i].olduserip+" ("+dataList[i].old+"%)</td>"+
-							  "<td >"+dataList[i].targetpageip+" ("+dataList[i].tgp+"%)</td>"+
+						if(dataList!=null && dataList.length>0){
+							for(var i=0;i<dataList.length;i++){
+								var item = dataList[i];
+								var firstTd = "";
+								var tr = "";
+							    var tr2 = "";
+							    var tr3 = "";
+							    if(dataType=="domain"){
+							    	firstTd="<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+							    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
+									"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
+										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+item[23]+"\")'>分时统计</a></li>"+
+										 /* "<li><a href='javascript:;' onclick='changeDataType(\"domainAd\")'>域名统计（广告入口）</a></li>"+
+								     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainNotAd\")'>域名统计（非广告入口）</a></li>"+ */
+	                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+item[23]+"\")'>地域统计（广告入口）</a></li>"+
+	                                 	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+item[23]+"\")'>地域统计（非广告入口）</a></li>"+ 
+							      	"</ul></div>";
+							      	menu+=tr3;
+							    }else if(dataType=="domainAd"){
+							    	firstTd = "<td style='min-width: 130px;'  title='"+item[24]+"'>"+item[25]+"</td>";
+							    }else if(dataType=="domainNotAd"){
+							    	firstTd = "<td style='min-width: 130px;'  title='"+item[24]+"'>"+item[25]+"</td>";
+							    }else if(dataType=="domainRegionAd"){
+							    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
+							    }else if(dataType=="domainRegionNotAd"){
+							    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
+							    }
+							    var stDisplay = jQuery("[event=st]").first().attr("class");
+							    var cDisplay = jQuery("[event=c]").first().attr("class");
+							    var sDisplay = jQuery("[event=s]").first().attr("class");
+							    var mtDisplay = jQuery("[event=m]").first().attr("class");
+							    
+							    var sumST = item[7]+item[8]+item[9]+item[10];
+							    var sumC = item[11]+item[12]+item[13]+item[14];
+							    var sumS = item[15]+item[16]+item[17]+item[18];
+							    var sumM = item[19]+item[20]+item[21]+item[22];
+							    var IP = item[0];
+						  		tr+="<tr>" + firstTd+
+								  "<td >"+IP+"</td>"+
+								  "<td >"+item[1]+"</td>"+
+								  "<td >"+item[2]+"</td>"+
+								  "<td >"+item[3]+" ("+Percentage(item[3],IP)+")</td>"+
+								  "<td >"+item[4]+" ("+Percentage(item[4],IP)+")</td>"+
+								  "<td >"+item[5]+" ("+Percentage(item[5],IP)+")</td>"+
+								  "<td >"+item[6]+" ("+Percentage(item[6],IP)+")</td>"+
+								  
+								  "<td >"+sumST+" ("+Percentage(sumST,IP)+")</td>"+
+								  "<td class='"+stDisplay+"' event='st'>"+item[7]+" ("+Percentage(item[7],IP)+")</td>"+
+								  "<td class='"+stDisplay+"' event='st'>"+item[8]+" ("+Percentage(item[8],IP)+")</td>"+
+								  "<td class='"+stDisplay+"' event='st'>"+item[9]+" ("+Percentage(item[9],IP)+")</td>"+
+								  "<td class='"+stDisplay+"' event='st'>"+item[10]+" ("+Percentage(item[10],IP)+")</td>"+
+								  
+								  "<td >"+sumC+" ("+Percentage(sumC,IP)+")</td>"+
+								  "<td class='"+cDisplay+"' event='c'>"+item[11]+" ("+Percentage(item[11],IP)+")</td>"+
+								  "<td class='"+cDisplay+"' event='c'>"+item[12]+" ("+Percentage(item[12],IP)+")</td>"+
+								  "<td class='"+cDisplay+"' event='c'>"+item[13]+" ("+Percentage(item[13],IP)+")</td>"+
+								  "<td class='"+cDisplay+"' event='c'>"+item[14]+" ("+Percentage(item[14],IP)+")</td>"+
+								  
+								  "<td >"+sumS+" ("+Percentage(sumS,IP)+")</td>"+
+								  "<td class='"+sDisplay+"' event='s'>"+item[15]+" ("+Percentage(item[15],IP)+")</td>"+
+								  "<td class='"+sDisplay+"' event='s'>"+item[16]+" ("+Percentage(item[16],IP)+")</td>"+
+								  "<td class='"+sDisplay+"' event='s'>"+item[17]+" ("+Percentage(item[17],IP)+")</td>"+
+								  "<td class='"+sDisplay+"' event='s'>"+item[18]+" ("+Percentage(item[18],IP)+")</td>"+
+								  
+								  "<td >"+sumM+" ("+Percentage(sumM,IP)+")</td>"+
+								  "<td class='"+mtDisplay+"' event='m'>"+item[19]+" ("+Percentage(item[19],IP)+")</td>"+
+								  "<td class='"+mtDisplay+"' event='m'>"+item[20]+" ("+Percentage(item[20],IP)+")</td>"+
+								  "<td class='"+mtDisplay+"' event='m'>"+item[21]+" ("+Percentage(item[21],IP)+")</td>"+
+								  "<td class='"+mtDisplay+"' event='m'>"+item[22]+" ("+Percentage(item[22],IP)+")</td>"+
+								  "</tr>";
+								  table+=tr;
 							  
-							  "<td >"+sumST+" ("+Percentage(sumST,IP)+")</td>"+
-							  "<td >"+sumC+" ("+Percentage(sumC,IP)+")</td>"+
-							  "<td >"+sumS+" ("+Percentage(sumS,IP)+")</td>"+
-							  "<td >"+sumM+" ("+Percentage(sumM,IP)+")</td>"+
-							  
-							  "<td >"+dataList[i].staytimeip1+" ("+dataList[i].s1+"%)</td>"+
-							  "<td >"+dataList[i].staytimeip2+" ("+dataList[i].s2+"%)</td>"+
-							  "<td >"+dataList[i].staytimeip3+" ("+dataList[i].s3+"%)</td>"+
-							  "<td >"+dataList[i].staytimeip4+" ("+dataList[i].s4+"%)</td>"+
-							  
-							  "<td >"+dataList[i].clickip1+" ("+dataList[i].c1+"%)</td>"+
-							  "<td >"+dataList[i].clickip2+" ("+dataList[i].c2+"%)</td>"+
-							  "<td >"+dataList[i].clickip3+" ("+dataList[i].c3+"%)</td>"+
-							  "<td >"+dataList[i].clickip4+" ("+dataList[i].c4+"%)</td>"+
-							  
-							  
-							  "<td >"+dataList[i].scrollip1+" ("+dataList[i].sc1+"%)</td>"+
-							  "<td >"+dataList[i].scrollip2+" ("+dataList[i].sc2+"%)</td>"+
-							  "<td >"+dataList[i].scrollip3+" ("+dataList[i].sc3+"%)</td>"+
-							  "<td >"+dataList[i].scrollip4+" ("+dataList[i].sc4+"%)</td>"+
-							  "<td >"+dataList[i].moveip1+" ("+dataList[i].m1+"%)</td>"+
-							  "<td >"+dataList[i].moveip2+" ("+dataList[i].m2+"%)</td>"+
-							  "<td >"+dataList[i].moveip3+" ("+dataList[i].m3+"%)</td>"+
-							  "<td >"+dataList[i].moveip4+" ("+dataList[i].m4+"%)</td>"+
-							  "</tr>";
-							  table+=tr;
-						  
-							tr2+="<tr>"+firstTd+
-							  "<td style='min-width: 80px'>"+IP+"</td>"+
-							  "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+
-								"</tr>";
-							lefttable+=tr2;
-									
+								tr2+="<tr>"+firstTd+
+								  "<td style='min-width: 80px'>"+IP+"</td>"+
+								  /* "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+ */
+									"</tr>";
+								lefttable+=tr2;
+										
+							}
 						}
-						if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType){
+						
+						if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh){
 							jQuery("#SUMIP").html(SUMIP);
 							jQuery("#SUMPV").html(SUMPV);
 							jQuery("#ip").html(json.sumip);
@@ -562,13 +610,14 @@ var initTable1 = function () {
 					
 					}
 					clearTimeout(t);
-					if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0){
+					if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && isRefresh){
 						ajaxTime=2000;
 						t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
 					}
-					
+					App.stopPageLoading();//关闭 加载动画
 				},
 				error: function (data) {
+					App.stopPageLoading();//关闭 加载动画
 					clearTimeout(t);
 					ajaxTime=ajaxTime*2;
 					t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 

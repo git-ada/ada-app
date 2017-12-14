@@ -851,6 +851,43 @@ public class StatServiceImpl implements StatService{
 		}
 	}
 
+
+	@Override
+	public Integer statRegionIP(Integer domainId, String cityName, Date date) {
+		Jedis jedis = getJedis(date);
+		try {
+			//取出IPSet集合
+			int IP =jedis.scard(RedisKeys.DomainCityIP.getKey()+domainId+"_"+cityName+"").intValue();
+			return IP;
+		} finally{
+			returnResource(date,jedis);
+		}
+	}
+
+	@Override
+	public Integer statRegionAdIP(Integer domainId, String cityName, Date date) {
+		Jedis jedis = getJedis(date);
+		try {
+			//取出IPSet集合
+			int IP =jedis.scard(RedisKeys.DomainAdCityIP.getKey()+domainId+"_"+cityName+"").intValue();
+			return IP;
+		} finally{
+			returnResource(date,jedis);
+		}
+	}
+
+	@Override
+	public Integer statRegionNotAdIP(Integer domainId, String cityName,Date date) {
+		// TODO Auto-generated method stub
+		int IP = 0;
+		Integer all = statRegionIP(domainId,cityName,date);
+		Integer Ad  = statRegionAdIP(domainId,cityName,date);
+		if(all!=null && Ad!=null && all-Ad>0){
+			IP = all-Ad;
+		}
+		return IP;
+	}
+
 	/**
 	 * 统计域名广告15分钟历史数据
 	 * @param siteId
