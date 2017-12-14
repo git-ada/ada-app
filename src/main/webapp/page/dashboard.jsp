@@ -82,7 +82,13 @@ th:last-child,td:last-child {
     width: 100px;
     z-index: 10060 !important;
 }
-
+thead th {
+    border-bottom: 1px solid #111;
+    padding: 10px 10px!important;
+}
+.portlet-title {
+    padding: 15px 10px 10px !important;
+}
 </style>
 
 <!-- 
