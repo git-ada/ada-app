@@ -270,18 +270,21 @@ th:last-child,td:last-child {
 								<li>
 							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}')">分时统计</a>
 							     </li>
-							<!--      <li>
+						      	<!-- <li>
 							         <a href="javascript:;" onclick="changeDataType('domainAd')">域名统计（广告入口）</a>
 							     </li>
 							     <li>
 							         <a href="javascript:;" onclick="changeDataType('domainNotAd')">域名统计（非广告入口）</a>
-							     </li> -->
-							    <li>
+							     </li>  -->
+							     <li>
+							         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
+							     </li>
+							    <%-- <li>
 							         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${item[23]})">地域统计（广告入口）</a>
 							     </li>
 							     <li>
 							         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${item[23]})">地域统计（非广告入口）</a>
-							     </li>
+							     </li>  --%>
 							 </ul>
 						</div>
 					</c:forEach>

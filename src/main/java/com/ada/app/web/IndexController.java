@@ -188,6 +188,8 @@ public class IndexController {
 				json.put("data_list", data_list);
 				json.put("sumip", map.get("sumip"));
 				json.put("sumpv", map.get("sumpv"));
+			}else if("".equals(dataType)){/**获取域名地域统计信息**/
+				
 			}else if("domainRegionAd".equals(dataType)){/** 获取域名地域广告入口统计信息 **/
 				Map map = getDomainRegionAd_data(today,Integer.valueOf(domainId));
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
