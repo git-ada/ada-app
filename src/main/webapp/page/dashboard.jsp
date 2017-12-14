@@ -86,7 +86,7 @@ thead th {
     padding-left: 10px!important;
 }
 .portlet-title {
-    padding: 15px 10px 10px !important;
+    padding-left:  10px !important;
 }
 </style>
 
