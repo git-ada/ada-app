@@ -87,7 +87,11 @@ public class StatServiceImpl implements StatService{
 			//取出渠道进入目标页IP集合
 			int targetpageIP  = jedis.scard(RedisKeys.ChannelTIP.getKey()+channelId+"").intValue();
 			//取出渠道多个点击区间次数
-			String ChannelC1IP = jedis.get(RedisKeys.ChannelC1IP.getKey()+channelId+"");
+			clickip1 = jedis.scard(RedisKeys.ChannelC1IP.getKey()+channelId+"").intValue();
+			clickip2 = jedis.scard(RedisKeys.ChannelC2IP.getKey()+channelId+"").intValue();
+			clickip3 = jedis.scard(RedisKeys.ChannelC3IP.getKey()+channelId+"").intValue();
+			clickip4 = jedis.scard(RedisKeys.ChannelC4IP.getKey()+channelId+"").intValue();
+			/*String ChannelC1IP = jedis.get(RedisKeys.ChannelC1IP.getKey()+channelId+"");
 			if(ChannelC1IP != null) clickip1 = Integer.valueOf(ChannelC1IP);
 			
 			String ChannelC2IP = jedis.get(RedisKeys.ChannelC2IP.getKey()+channelId+"");
@@ -97,9 +101,13 @@ public class StatServiceImpl implements StatService{
 			if(ChannelC3IP != null) clickip3 = Integer.valueOf(ChannelC3IP);
 			
 			String ChannelC4IP = jedis.get(RedisKeys.ChannelC4IP.getKey()+channelId+"");
-			if(ChannelC4IP != null) clickip4 = Integer.valueOf(ChannelC4IP);
+			if(ChannelC4IP != null) clickip4 = Integer.valueOf(ChannelC4IP);*/
 			//取出渠道多个停留区间
-			String Staytimeip1 = jedis.get(RedisKeys.ChannelStayTime1IP.getKey()+channelId+"");
+			staytimeip1 = jedis.scard(RedisKeys.ChannelStayTime1IP.getKey()+channelId+"").intValue();
+			staytimeip2 = jedis.scard(RedisKeys.ChannelStayTime2IP.getKey()+channelId+"").intValue();
+			staytimeip3 = jedis.scard(RedisKeys.ChannelStayTime3IP.getKey()+channelId+"").intValue();
+			staytimeip4 = jedis.scard(RedisKeys.ChannelStayTime4IP.getKey()+channelId+"").intValue();
+			/*String Staytimeip1 = jedis.get(RedisKeys.ChannelStayTime1IP.getKey()+channelId+"");
 			if(Staytimeip1 !=null) staytimeip1 = Integer.valueOf(Staytimeip1);
 			
 			String Staytimeip2 = jedis.get(RedisKeys.ChannelStayTime2IP.getKey()+channelId+"");
@@ -109,9 +117,13 @@ public class StatServiceImpl implements StatService{
 			if(Staytimeip3 !=null) staytimeip3 = Integer.valueOf(Staytimeip3);
 			
 			String Staytimeip4 = jedis.get(RedisKeys.ChannelStayTime4IP.getKey()+channelId+"");
-			if(Staytimeip4 !=null) staytimeip4 = Integer.valueOf(Staytimeip4);
+			if(Staytimeip4 !=null) staytimeip4 = Integer.valueOf(Staytimeip4);*/
 			//取出渠道多个滚动区间
-			String Scrollip1 = jedis.get(RedisKeys.ChannelScroll1IP.getKey()+channelId+"");
+			scrollip1 = jedis.scard(RedisKeys.ChannelScroll1IP.getKey()+channelId+"").intValue();
+			scrollip2 = jedis.scard(RedisKeys.ChannelScroll2IP.getKey()+channelId+"").intValue();
+			scrollip3 = jedis.scard(RedisKeys.ChannelScroll3IP.getKey()+channelId+"").intValue();
+			scrollip4 = jedis.scard(RedisKeys.ChannelScroll4IP.getKey()+channelId+"").intValue();
+			/*String Scrollip1 = jedis.get(RedisKeys.ChannelScroll1IP.getKey()+channelId+"");
 			if(Scrollip1 != null) scrollip1 = Integer.valueOf(Scrollip1);
 			
 			String Scrollip2 = jedis.get(RedisKeys.ChannelScroll2IP.getKey()+channelId+"");
@@ -121,9 +133,13 @@ public class StatServiceImpl implements StatService{
 			if(Scrollip3 != null) scrollip3 = Integer.valueOf(Scrollip3);
 			
 			String Scrollip4 = jedis.get(RedisKeys.ChannelScroll4IP.getKey()+channelId+"");
-			if(Scrollip4 != null) scrollip4 = Integer.valueOf(Scrollip4);
+			if(Scrollip4 != null) scrollip4 = Integer.valueOf(Scrollip4);*/
 			//取出渠道多个移动区间
-			String Moveip1 = jedis.get(RedisKeys.ChannelMouseMove1IP.getKey()+channelId+"");
+			moveip1 = jedis.scard(RedisKeys.ChannelMouseMove1IP.getKey()+channelId+"").intValue();
+			moveip2 = jedis.scard(RedisKeys.ChannelMouseMove2IP.getKey()+channelId+"").intValue();
+			moveip3 = jedis.scard(RedisKeys.ChannelMouseMove3IP.getKey()+channelId+"").intValue();
+			moveip4 = jedis.scard(RedisKeys.ChannelMouseMove4IP.getKey()+channelId+"").intValue();
+			/*String Moveip1 = jedis.get(RedisKeys.ChannelMouseMove1IP.getKey()+channelId+"");
 			if(Moveip1 != null) moveip1 = Integer.valueOf(Moveip1);
 			
 			String Moveip2 = jedis.get(RedisKeys.ChannelMouseMove2IP.getKey()+channelId+"");
@@ -133,7 +149,7 @@ public class StatServiceImpl implements StatService{
 			if(Moveip3 != null) moveip3 = Integer.valueOf(Moveip3);
 			
 			String Moveip4 = jedis.get(RedisKeys.ChannelMouseMove4IP.getKey()+channelId+"");
-			if(Moveip4 != null) moveip4 = Integer.valueOf(Moveip4);
+			if(Moveip4 != null) moveip4 = Integer.valueOf(Moveip4);*/
 			//老用户数
 			int olduserip = jedis.scard(RedisKeys.ChannelOldUserIP.getKey()+channelId+"").intValue();
 			
@@ -201,7 +217,11 @@ public class StatServiceImpl implements StatService{
 				//取出域名进入目标页IP集合
 				targetpageIP  = jedis.scard(RedisKeys.DomainTIP.getKey()+domainId+"").intValue();
 				//取出域名多个点击区间次数
-				String domainC1IP = jedis.get(RedisKeys.DomainC1IP.getKey()+domainId+"");
+				clickip1 = jedis.scard(RedisKeys.DomainC1IP.getKey()+domainId+"").intValue();
+				clickip2 = jedis.scard(RedisKeys.DomainC2IP.getKey()+domainId+"").intValue();
+				clickip3 = jedis.scard(RedisKeys.DomainC3IP.getKey()+domainId+"").intValue();
+				clickip4 = jedis.scard(RedisKeys.DomainC4IP.getKey()+domainId+"").intValue();
+				/*String domainC1IP = jedis.get(RedisKeys.DomainC1IP.getKey()+domainId+"");
 				if(domainC1IP != null) clickip1 = Integer.valueOf(domainC1IP);
 				
 				String domainC2IP = jedis.get(RedisKeys.DomainC2IP.getKey()+domainId+"");
@@ -211,10 +231,14 @@ public class StatServiceImpl implements StatService{
 				if(domainC3IP != null) clickip3 = Integer.valueOf(domainC3IP);
 				
 				String domainC4IP = jedis.get(RedisKeys.DomainC4IP.getKey()+domainId+"");
-				if(domainC4IP != null) clickip4 = Integer.valueOf(domainC4IP);
+				if(domainC4IP != null) clickip4 = Integer.valueOf(domainC4IP);*/
 				
 				//取出渠道多个停留区间
-				String Staytimeip1 = jedis.get(RedisKeys.DomainStayTime1IP.getKey()+domainId+"");
+				staytimeip1 = jedis.scard(RedisKeys.DomainStayTime1IP.getKey()+domainId+"").intValue();
+				staytimeip2 = jedis.scard(RedisKeys.DomainStayTime2IP.getKey()+domainId+"").intValue();
+				staytimeip3 = jedis.scard(RedisKeys.DomainStayTime3IP.getKey()+domainId+"").intValue();
+				staytimeip4 = jedis.scard(RedisKeys.DomainStayTime4IP.getKey()+domainId+"").intValue();
+				/*String Staytimeip1 = jedis.get(RedisKeys.DomainStayTime1IP.getKey()+domainId+"");
 				if(Staytimeip1 !=null) staytimeip1 = Integer.valueOf(Staytimeip1);
 				
 				String Staytimeip2 = jedis.get(RedisKeys.DomainStayTime2IP.getKey()+domainId+"");
@@ -224,9 +248,14 @@ public class StatServiceImpl implements StatService{
 				if(Staytimeip3 !=null) staytimeip3 = Integer.valueOf(Staytimeip3);
 				
 				String Staytimeip4 = jedis.get(RedisKeys.DomainStayTime4IP.getKey()+domainId+"");
-				if(Staytimeip4 !=null) staytimeip4 = Integer.valueOf(Staytimeip4);
+				if(Staytimeip4 !=null) staytimeip4 = Integer.valueOf(Staytimeip4);*/
 				//取出渠道多个滚动区间
-				String Scrollip1 = jedis.get(RedisKeys.DomainScroll1IP.getKey()+domainId+"");
+				scrollip1 = jedis.scard(RedisKeys.DomainScroll1IP.getKey()+domainId+"").intValue();
+				scrollip2 = jedis.scard(RedisKeys.DomainScroll2IP.getKey()+domainId+"").intValue();
+				scrollip3 = jedis.scard(RedisKeys.DomainScroll3IP.getKey()+domainId+"").intValue();
+				scrollip4 = jedis.scard(RedisKeys.DomainScroll4IP.getKey()+domainId+"").intValue();
+				
+				/*String Scrollip1 = jedis.get(RedisKeys.DomainScroll1IP.getKey()+domainId+"");
 				if(Scrollip1 != null) scrollip1 = Integer.valueOf(Scrollip1);
 				
 				String Scrollip2 = jedis.get(RedisKeys.DomainScroll2IP.getKey()+domainId+"");
@@ -236,9 +265,13 @@ public class StatServiceImpl implements StatService{
 				if(Scrollip3 != null) scrollip3 = Integer.valueOf(Scrollip3);
 				
 				String Scrollip4 = jedis.get(RedisKeys.DomainScroll4IP.getKey()+domainId+"");
-				if(Scrollip4 != null) scrollip4 = Integer.valueOf(Scrollip4);
+				if(Scrollip4 != null) scrollip4 = Integer.valueOf(Scrollip4);*/
 				//取出渠道多个移动区间
-				String Moveip1 = jedis.get(RedisKeys.DomainMouseMove1IP.getKey()+domainId+"");
+				moveip1 = jedis.scard(RedisKeys.DomainMouseMove1IP.getKey()+domainId+"").intValue();
+				moveip2 = jedis.scard(RedisKeys.DomainMouseMove2IP.getKey()+domainId+"").intValue();
+				moveip3 = jedis.scard(RedisKeys.DomainMouseMove3IP.getKey()+domainId+"").intValue();
+				moveip4 = jedis.scard(RedisKeys.DomainMouseMove4IP.getKey()+domainId+"").intValue();
+				/*String Moveip1 = jedis.get(RedisKeys.DomainMouseMove1IP.getKey()+domainId+"");
 				if(Moveip1 != null) moveip1 = Integer.valueOf(Moveip1);
 				
 				String Moveip2 = jedis.get(RedisKeys.DomainMouseMove2IP.getKey()+domainId+"");
@@ -248,7 +281,7 @@ public class StatServiceImpl implements StatService{
 				if(Moveip3 != null) moveip3 = Integer.valueOf(Moveip3);
 				
 				String Moveip4 = jedis.get(RedisKeys.DomainMouseMove4IP.getKey()+domainId+"");
-				if(Moveip4 != null) moveip4 = Integer.valueOf(Moveip4);
+				if(Moveip4 != null) moveip4 = Integer.valueOf(Moveip4);*/
 			}
 			return new AdaDomainStat(siteId, domainId, domainIP, site_domainPV, clickip1, clickip2, clickip3, clickip4, targetpageIP, date, staytimeip1, staytimeip2, staytimeip3, 
 		    		   staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, olduserip, oldip, loginip, domainUV);
@@ -302,7 +335,11 @@ public class StatServiceImpl implements StatService{
 				//取出域名进入目标页IP集合
 				targetpageIP  = jedis.scard(RedisKeys.DomainAdTIP.getKey()+domainId+"").intValue();
 				//取出域名多个点击区间次数
-				String domainC1IP = jedis.get(RedisKeys.DomainAdC1IP.getKey()+domainId+"");
+				clickip1 = jedis.scard(RedisKeys.DomainAdC1IP.getKey()+domainId+"").intValue();
+				clickip2 = jedis.scard(RedisKeys.DomainAdC2IP.getKey()+domainId+"").intValue();
+				clickip3 = jedis.scard(RedisKeys.DomainAdC3IP.getKey()+domainId+"").intValue();
+				clickip4 = jedis.scard(RedisKeys.DomainAdC4IP.getKey()+domainId+"").intValue();
+				/*String domainC1IP = jedis.get(RedisKeys.DomainAdC1IP.getKey()+domainId+"");
 				if(domainC1IP != null) clickip1 = Integer.valueOf(domainC1IP);
 				
 				String domainC2IP = jedis.get(RedisKeys.DomainAdC2IP.getKey()+domainId+"");
@@ -312,10 +349,15 @@ public class StatServiceImpl implements StatService{
 				if(domainC3IP != null) clickip3 = Integer.valueOf(domainC3IP);
 				
 				String domainC4IP = jedis.get(RedisKeys.DomainAdC4IP.getKey()+domainId+"");
-				if(domainC4IP != null) clickip4 = Integer.valueOf(domainC4IP);
+				if(domainC4IP != null) clickip4 = Integer.valueOf(domainC4IP);*/
 				
 				//取出渠道多个停留区间
-				String Staytimeip1 = jedis.get(RedisKeys.DomainAdStayTime1IP.getKey()+domainId+"");
+				staytimeip1 = jedis.scard(RedisKeys.DomainAdStayTime1IP.getKey()+domainId+"").intValue();
+				staytimeip2 = jedis.scard(RedisKeys.DomainAdStayTime2IP.getKey()+domainId+"").intValue();
+				staytimeip3 = jedis.scard(RedisKeys.DomainAdStayTime3IP.getKey()+domainId+"").intValue();
+				staytimeip4 = jedis.scard(RedisKeys.DomainAdStayTime4IP.getKey()+domainId+"").intValue();
+				
+				/*String Staytimeip1 = jedis.get(RedisKeys.DomainAdStayTime1IP.getKey()+domainId+"");
 				if(Staytimeip1 !=null) staytimeip1 = Integer.valueOf(Staytimeip1);
 				
 				String Staytimeip2 = jedis.get(RedisKeys.DomainAdStayTime2IP.getKey()+domainId+"");
@@ -325,9 +367,13 @@ public class StatServiceImpl implements StatService{
 				if(Staytimeip3 !=null) staytimeip3 = Integer.valueOf(Staytimeip3);
 				
 				String Staytimeip4 = jedis.get(RedisKeys.DomainAdStayTime4IP.getKey()+domainId+"");
-				if(Staytimeip4 !=null) staytimeip4 = Integer.valueOf(Staytimeip4);
+				if(Staytimeip4 !=null) staytimeip4 = Integer.valueOf(Staytimeip4);*/
 				//取出渠道多个滚动区间
-				String Scrollip1 = jedis.get(RedisKeys.DomainAdScroll1IP.getKey()+domainId+"");
+				scrollip1 = jedis.scard(RedisKeys.DomainAdScroll1IP.getKey()+domainId+"").intValue();
+				scrollip2 = jedis.scard(RedisKeys.DomainAdScroll2IP.getKey()+domainId+"").intValue();
+				scrollip3 = jedis.scard(RedisKeys.DomainAdScroll3IP.getKey()+domainId+"").intValue();
+				scrollip4 = jedis.scard(RedisKeys.DomainAdScroll4IP.getKey()+domainId+"").intValue();
+				/*String Scrollip1 = jedis.get(RedisKeys.DomainAdScroll1IP.getKey()+domainId+"");
 				if(Scrollip1 != null) scrollip1 = Integer.valueOf(Scrollip1);
 				
 				String Scrollip2 = jedis.get(RedisKeys.DomainAdScroll2IP.getKey()+domainId+"");
@@ -337,9 +383,13 @@ public class StatServiceImpl implements StatService{
 				if(Scrollip3 != null) scrollip3 = Integer.valueOf(Scrollip3);
 				
 				String Scrollip4 = jedis.get(RedisKeys.DomainAdScroll4IP.getKey()+domainId+"");
-				if(Scrollip4 != null) scrollip4 = Integer.valueOf(Scrollip4);
+				if(Scrollip4 != null) scrollip4 = Integer.valueOf(Scrollip4);*/
 				//取出渠道多个移动区间
-				String Moveip1 = jedis.get(RedisKeys.DomainAdMouseMove1IP.getKey()+domainId+"");
+				moveip1 = jedis.scard(RedisKeys.DomainAdMouseMove1IP.getKey()+domainId+"").intValue();
+				moveip2 = jedis.scard(RedisKeys.DomainAdMouseMove2IP.getKey()+domainId+"").intValue();
+				moveip3 = jedis.scard(RedisKeys.DomainAdMouseMove3IP.getKey()+domainId+"").intValue();
+				moveip4 = jedis.scard(RedisKeys.DomainAdMouseMove4IP.getKey()+domainId+"").intValue();
+				/*String Moveip1 = jedis.get(RedisKeys.DomainAdMouseMove1IP.getKey()+domainId+"");
 				if(Moveip1 != null) moveip1 = Integer.valueOf(Moveip1);
 				
 				String Moveip2 = jedis.get(RedisKeys.DomainAdMouseMove2IP.getKey()+domainId+"");
@@ -349,7 +399,7 @@ public class StatServiceImpl implements StatService{
 				if(Moveip3 != null) moveip3 = Integer.valueOf(Moveip3);
 				
 				String Moveip4 = jedis.get(RedisKeys.DomainAdMouseMove4IP.getKey()+domainId+"");
-				if(Moveip4 != null) moveip4 = Integer.valueOf(Moveip4);
+				if(Moveip4 != null) moveip4 = Integer.valueOf(Moveip4);*/
 			}
 			return new AdaDomainAdStat(siteId, domainId, domainIP, site_domainPV, domainUV, olduserip, loginip, oldip, 
 					targetpageIP, clickip1, clickip2, clickip3, clickip4, staytimeip1, staytimeip2, staytimeip3, staytimeip4,
@@ -611,8 +661,12 @@ public class StatServiceImpl implements StatService{
 				 
 				 Integer jtargetpageIP = jedis.scard(RedisKeys.DomainAdCityTIP.getKey()+domainId+"_"+regionName+"").intValue();
 				 if(jtargetpageIP!=null)targetpageIP = jtargetpageIP;
-				 
-				 String jstaytimeip1 = jedis.get(RedisKeys.DomainCityAdStayTime1IP.getKey()+domainId+"_"+regionName+"");
+				 //停留
+				 staytimeip1 = jedis.scard(RedisKeys.DomainCityAdStayTime1IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 staytimeip2 = jedis.scard(RedisKeys.DomainCityAdStayTime2IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 staytimeip3 = jedis.scard(RedisKeys.DomainCityAdStayTime3IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 staytimeip4 = jedis.scard(RedisKeys.DomainCityAdStayTime4IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 /*String jstaytimeip1 = jedis.get(RedisKeys.DomainCityAdStayTime1IP.getKey()+domainId+"_"+regionName+"");
 				 if(jstaytimeip1!=null)staytimeip1 = Integer.valueOf(jstaytimeip1);
 				 
 				 String jstaytimeip2 = jedis.get(RedisKeys.DomainCityAdStayTime2IP.getKey()+domainId+"_"+regionName+"");
@@ -622,9 +676,13 @@ public class StatServiceImpl implements StatService{
 				 if(jstaytimeip3!=null)staytimeip3 = Integer.valueOf(jstaytimeip3);
 				 
 				 String jstaytimeip4 = jedis.get(RedisKeys.DomainCityAdStayTime4IP.getKey()+domainId+"_"+regionName+"");
-				 if(jstaytimeip4!=null)staytimeip4 = Integer.valueOf(jstaytimeip4);
-				 
-				 String jclickip1 = jedis.get(RedisKeys.DomainCityAdC1IP.getKey()+domainId+"_"+regionName+"");
+				 if(jstaytimeip4!=null)staytimeip4 = Integer.valueOf(jstaytimeip4);*/
+				 //点击
+				 clickip1 = jedis.scard(RedisKeys.DomainCityAdC1IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 clickip2 = jedis.scard(RedisKeys.DomainCityAdC2IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 clickip3 = jedis.scard(RedisKeys.DomainCityAdC3IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 clickip4 = jedis.scard(RedisKeys.DomainCityAdC4IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 /*String jclickip1 = jedis.get(RedisKeys.DomainCityAdC1IP.getKey()+domainId+"_"+regionName+"");
 				 if(jclickip1!=null)clickip1 = Integer.valueOf(jclickip1);
 				 
 				 String jclickip2 = jedis.get(RedisKeys.DomainCityAdC2IP.getKey()+domainId+"_"+regionName+"");
@@ -634,9 +692,13 @@ public class StatServiceImpl implements StatService{
 				 if(jclickip3!=null)clickip3 = Integer.valueOf(jclickip3);
 				 
 				 String jclickip4 = jedis.get(RedisKeys.DomainCityAdC4IP.getKey()+domainId+"_"+regionName+"");
-				 if(jclickip4!=null)clickip4 = Integer.valueOf(jclickip4);
-				 
-				 String jscrollip1 = jedis.get(RedisKeys.DomainCityAdScroll1IP.getKey()+domainId+"_"+regionName+"");
+				 if(jclickip4!=null)clickip4 = Integer.valueOf(jclickip4);*/
+				 //滚动
+				 scrollip1 = jedis.scard(RedisKeys.DomainCityAdScroll1IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 scrollip2 = jedis.scard(RedisKeys.DomainCityAdScroll2IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 scrollip3 = jedis.scard(RedisKeys.DomainCityAdScroll3IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 scrollip4 = jedis.scard(RedisKeys.DomainCityAdScroll4IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 /*String jscrollip1 = jedis.get(RedisKeys.DomainCityAdScroll1IP.getKey()+domainId+"_"+regionName+"");
 				 if(jscrollip1!=null)scrollip1 = Integer.valueOf(jscrollip1);
 				 
 				 String jscrollip2 = jedis.get(RedisKeys.DomainCityAdScroll2IP.getKey()+domainId+"_"+regionName+"");
@@ -646,9 +708,13 @@ public class StatServiceImpl implements StatService{
 				 if(jscrollip3!=null)scrollip3 = Integer.valueOf(jscrollip3);
 				 
 				 String jscrollip4 = jedis.get(RedisKeys.DomainCityAdScroll4IP.getKey()+domainId+"_"+regionName+"");
-				 if(jscrollip4!=null)scrollip4 = Integer.valueOf(jscrollip4);
-				 
-				 String jmoveip1 = jedis.get(RedisKeys.DomainCityAdMouseMove1IP.getKey()+domainId+"_"+regionName+"");
+				 if(jscrollip4!=null)scrollip4 = Integer.valueOf(jscrollip4);*/
+				 //移动
+				 moveip1 = jedis.scard(RedisKeys.DomainCityAdMouseMove1IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 moveip2 = jedis.scard(RedisKeys.DomainCityAdMouseMove2IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 moveip3 = jedis.scard(RedisKeys.DomainCityAdMouseMove3IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 moveip4 = jedis.scard(RedisKeys.DomainCityAdMouseMove4IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 /*String jmoveip1 = jedis.get(RedisKeys.DomainCityAdMouseMove1IP.getKey()+domainId+"_"+regionName+"");
 				 if(jmoveip1!=null)moveip1 = Integer.valueOf(jmoveip1);
 				 
 				 String jmoveip2 = jedis.get(RedisKeys.DomainCityAdMouseMove2IP.getKey()+domainId+"_"+regionName+"");
@@ -658,7 +724,7 @@ public class StatServiceImpl implements StatService{
 				 if(jmoveip3!=null)moveip3 = Integer.valueOf(jmoveip3);
 				 
 				 String jmoveip4 = jedis.get(RedisKeys.DomainCityAdMouseMove4IP.getKey()+domainId+"_"+regionName+"");
-				 if(jmoveip4!=null)moveip4 = Integer.valueOf(jmoveip4);
+				 if(jmoveip4!=null)moveip4 = Integer.valueOf(jmoveip4);*/
 			}
 			return new DomainAreaStat(IP,PV,UV,olduserip,loginip,oldip,targetpageIP,clickip1,clickip2,clickip3,clickip4,staytimeip1,staytimeip2,
 					staytimeip3,staytimeip4,scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4);
@@ -771,8 +837,12 @@ public class StatServiceImpl implements StatService{
 				 
 				 Integer jtargetpageIP = jedis.scard(RedisKeys.DomainCityTIP.getKey()+domainId+"_"+regionName+"").intValue();
 				 if(jtargetpageIP!=null)targetpageIP = jtargetpageIP;
-				 
-				 String jstaytimeip1 = jedis.get(RedisKeys.DomainCityStayTime1IP.getKey()+domainId+"_"+regionName+"");
+				 //停留
+				 staytimeip1 = jedis.scard(RedisKeys.DomainCityStayTime1IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 staytimeip2 = jedis.scard(RedisKeys.DomainCityStayTime2IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 staytimeip3 = jedis.scard(RedisKeys.DomainCityStayTime3IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 staytimeip4 = jedis.scard(RedisKeys.DomainCityStayTime4IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 /*String jstaytimeip1 = jedis.get(RedisKeys.DomainCityStayTime1IP.getKey()+domainId+"_"+regionName+"");
 				 if(jstaytimeip1!=null)staytimeip1 = Integer.valueOf(jstaytimeip1);
 				 
 				 String jstaytimeip2 = jedis.get(RedisKeys.DomainCityStayTime2IP.getKey()+domainId+"_"+regionName+"");
@@ -782,9 +852,13 @@ public class StatServiceImpl implements StatService{
 				 if(jstaytimeip3!=null)staytimeip3 = Integer.valueOf(jstaytimeip3);
 				 
 				 String jstaytimeip4 = jedis.get(RedisKeys.DomainCityStayTime4IP.getKey()+domainId+"_"+regionName+"");
-				 if(jstaytimeip4!=null)staytimeip4 = Integer.valueOf(jstaytimeip4);
-				 
-				 String jclickip1 = jedis.get(RedisKeys.DomainCityC1IP.getKey()+domainId+"_"+regionName+"");
+				 if(jstaytimeip4!=null)staytimeip4 = Integer.valueOf(jstaytimeip4);*/
+				 //点击
+				 clickip1 = jedis.scard(RedisKeys.DomainCityC1IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 clickip2 = jedis.scard(RedisKeys.DomainCityC2IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 clickip3 = jedis.scard(RedisKeys.DomainCityC3IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 clickip4 = jedis.scard(RedisKeys.DomainCityC4IP.getKey()+domainId+"_"+regionName+"").intValue();
+				/* String jclickip1 = jedis.get(RedisKeys.DomainCityC1IP.getKey()+domainId+"_"+regionName+"");
 				 if(jclickip1!=null)clickip1 = Integer.valueOf(jclickip1);
 				 
 				 String jclickip2 = jedis.get(RedisKeys.DomainCityC2IP.getKey()+domainId+"_"+regionName+"");
@@ -794,9 +868,13 @@ public class StatServiceImpl implements StatService{
 				 if(jclickip3!=null)clickip3 = Integer.valueOf(jclickip3);
 				 
 				 String jclickip4 = jedis.get(RedisKeys.DomainCityC4IP.getKey()+domainId+"_"+regionName+"");
-				 if(jclickip4!=null)clickip4 = Integer.valueOf(jclickip4);
-				 
-				 String jscrollip1 = jedis.get(RedisKeys.DomainCityScroll1IP.getKey()+domainId+"_"+regionName+"");
+				 if(jclickip4!=null)clickip4 = Integer.valueOf(jclickip4);*/
+				 //滚动
+				 scrollip1 = jedis.scard(RedisKeys.DomainCityScroll1IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 scrollip2 = jedis.scard(RedisKeys.DomainCityScroll2IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 scrollip3 = jedis.scard(RedisKeys.DomainCityScroll3IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 scrollip4 = jedis.scard(RedisKeys.DomainCityScroll4IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 /*String jscrollip1 = jedis.get(RedisKeys.DomainCityScroll1IP.getKey()+domainId+"_"+regionName+"");
 				 if(jscrollip1!=null)scrollip1 = Integer.valueOf(jscrollip1);
 				 
 				 String jscrollip2 = jedis.get(RedisKeys.DomainCityScroll2IP.getKey()+domainId+"_"+regionName+"");
@@ -806,9 +884,13 @@ public class StatServiceImpl implements StatService{
 				 if(jscrollip3!=null)scrollip3 = Integer.valueOf(jscrollip3);
 				 
 				 String jscrollip4 = jedis.get(RedisKeys.DomainCityScroll4IP.getKey()+domainId+"_"+regionName+"");
-				 if(jscrollip4!=null)scrollip4 = Integer.valueOf(jscrollip4);
-				 
-				 String jmoveip1 = jedis.get(RedisKeys.DomainCityMouseMove1IP.getKey()+domainId+"_"+regionName+"");
+				 if(jscrollip4!=null)scrollip4 = Integer.valueOf(jscrollip4);*/
+				 //移动
+				 moveip1 = jedis.scard(RedisKeys.DomainCityMouseMove1IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 moveip2 = jedis.scard(RedisKeys.DomainCityMouseMove2IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 moveip3 = jedis.scard(RedisKeys.DomainCityMouseMove3IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 moveip4 = jedis.scard(RedisKeys.DomainCityMouseMove4IP.getKey()+domainId+"_"+regionName+"").intValue();
+				 /*String jmoveip1 = jedis.get(RedisKeys.DomainCityMouseMove1IP.getKey()+domainId+"_"+regionName+"");
 				 if(jmoveip1!=null)moveip1 = Integer.valueOf(jmoveip1);
 				 
 				 String jmoveip2 = jedis.get(RedisKeys.DomainCityMouseMove2IP.getKey()+domainId+"_"+regionName+"");
@@ -818,7 +900,7 @@ public class StatServiceImpl implements StatService{
 				 if(jmoveip3!=null)moveip3 = Integer.valueOf(jmoveip3);
 				 
 				 String jmoveip4 = jedis.get(RedisKeys.DomainCityMouseMove4IP.getKey()+domainId+"_"+regionName+"");
-				 if(jmoveip4!=null)moveip4 = Integer.valueOf(jmoveip4);
+				 if(jmoveip4!=null)moveip4 = Integer.valueOf(jmoveip4);*/
 			}
 			return new DomainAreaStat(IP,PV,UV,olduserip,loginip,oldip,targetpageIP,clickip1,clickip2,clickip3,clickip4,staytimeip1,staytimeip2,
 					staytimeip3,staytimeip4,scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4);
@@ -887,88 +969,5 @@ public class StatServiceImpl implements StatService{
 		}
 		return IP;
 	}
-
-	/**
-	 * 统计域名广告15分钟历史数据
-	 * @param siteId
-	 * @param domainId
-	 * @param date
-	 * @return
-	 */
-//	public AdaDomainAd15mStat adaDomainAd15mHistryStat(Integer siteId,Integer domainId) {
-//		AdaDomainAd15mStat ad15mHStat = new AdaDomainAd15mStat();
-//		Map<String, Object>  queryForMap = jdbcTemplate.queryForMap("select * from ada_domain_ad_15m_stat where siteId=? and domainId=? order by createTime desc limit 1",  siteId, domainId);
-//		if(queryForMap !=null && queryForMap.size()>0){
-//			ad15mHStat.setSiteId((Integer)queryForMap.get("siteId"));
-//			ad15mHStat.setDomainId((Integer)queryForMap.get("domainId"));
-//			ad15mHStat.setIp((Integer)queryForMap.get("ip"));
-//			ad15mHStat.setPv((Integer)queryForMap.get("pv"));
-//			ad15mHStat.setUv((Integer)queryForMap.get("uv"));
-//			ad15mHStat.setOlduserip((Integer)queryForMap.get("olduserip"));
-//			ad15mHStat.setLoginip((Integer)queryForMap.get("loginip"));
-//			ad15mHStat.setOldip((Integer)queryForMap.get("oldip"));
-//			ad15mHStat.setTargetpageip((Integer)queryForMap.get("targetpageip"));
-//			ad15mHStat.setClickip1((Integer)queryForMap.get("clickip1"));
-//			ad15mHStat.setClickip2((Integer)queryForMap.get("clickip2"));
-//			ad15mHStat.setClickip3((Integer)queryForMap.get("clickip3"));
-//			ad15mHStat.setClickip4((Integer)queryForMap.get("clickip4"));
-//			ad15mHStat.setStaytimeip1((Integer)queryForMap.get("staytimeip1"));
-//			ad15mHStat.setStaytimeip2((Integer)queryForMap.get("staytimeip2"));
-//			ad15mHStat.setStaytimeip3((Integer)queryForMap.get("staytimeip3"));
-//			ad15mHStat.setStaytimeip4((Integer)queryForMap.get("staytimeip4"));
-//			ad15mHStat.setScrollip1((Integer)queryForMap.get("scrollip1"));
-//			ad15mHStat.setScrollip2((Integer)queryForMap.get("scrollip3"));
-//			ad15mHStat.setScrollip3((Integer)queryForMap.get("scrollip2"));
-//			ad15mHStat.setScrollip4((Integer)queryForMap.get("scrollip4"));
-//			ad15mHStat.setMoveip1((Integer)queryForMap.get("moveip1"));
-//			ad15mHStat.setMoveip2((Integer)queryForMap.get("moveip2"));
-//			ad15mHStat.setMoveip3((Integer)queryForMap.get("moveip3"));
-//			ad15mHStat.setMoveip4((Integer)queryForMap.get("moveip4"));
-//			ad15mHStat.setMoveip4((Integer)queryForMap.get("date"));
-//		}
-//		return ad15mHStat;
-//	}
-//	
-	/**
-	 * 统计域名非广告15分钟历史数据
-	 * @param siteId
-	 * @param domainId
-	 * @param date
-	 * @return
-	 */
-//	public AdaDomainNotad15mStat adaDomainNotAd15mHistryStat(Integer siteId,Integer domainId) {
-//		AdaDomainNotad15mStat anad15mStat = new AdaDomainNotad15mStat();
-//		Map<String, Object>  queryForMap = jdbcTemplate.queryForMap("select * from ada_domain_notad_15m_stat where siteId=? and domainId=? order by createTime desc limit 1",  siteId, domainId);
-//		if(queryForMap !=null && queryForMap.size()>0){
-//			anad15mStat.setSiteId((Integer)queryForMap.get("siteId"));
-//			anad15mStat.setDomainId((Integer)queryForMap.get("domainId"));
-//			anad15mStat.setIp((Integer)queryForMap.get("ip"));
-//			anad15mStat.setPv((Integer)queryForMap.get("pv"));
-//			anad15mStat.setUv((Integer)queryForMap.get("uv"));
-//			anad15mStat.setOlduserip((Integer)queryForMap.get("olduserip"));
-//			anad15mStat.setLoginip((Integer)queryForMap.get("loginip"));
-//			anad15mStat.setOldip((Integer)queryForMap.get("oldip"));
-//			anad15mStat.setTargetpageip((Integer)queryForMap.get("targetpageip"));
-//			anad15mStat.setClickip1((Integer)queryForMap.get("clickip1"));
-//			anad15mStat.setClickip2((Integer)queryForMap.get("clickip2"));
-//			anad15mStat.setClickip3((Integer)queryForMap.get("clickip3"));
-//			anad15mStat.setClickip4((Integer)queryForMap.get("clickip4"));
-//			anad15mStat.setStaytimeip1((Integer)queryForMap.get("staytimeip1"));
-//			anad15mStat.setStaytimeip2((Integer)queryForMap.get("staytimeip2"));
-//			anad15mStat.setStaytimeip3((Integer)queryForMap.get("staytimeip3"));
-//			anad15mStat.setStaytimeip4((Integer)queryForMap.get("staytimeip4"));
-//			anad15mStat.setScrollip1((Integer)queryForMap.get("scrollip1"));
-//			anad15mStat.setScrollip2((Integer)queryForMap.get("scrollip3"));
-//			anad15mStat.setScrollip3((Integer)queryForMap.get("scrollip2"));
-//			anad15mStat.setScrollip4((Integer)queryForMap.get("scrollip4"));
-//			anad15mStat.setMoveip1((Integer)queryForMap.get("moveip1"));
-//			anad15mStat.setMoveip2((Integer)queryForMap.get("moveip2"));
-//			anad15mStat.setMoveip3((Integer)queryForMap.get("moveip3"));
-//			anad15mStat.setMoveip4((Integer)queryForMap.get("moveip4"));
-//			anad15mStat.setMoveip4((Integer)queryForMap.get("date"));
-//		}
-//		return anad15mStat;
-//	}
-
 
 }
