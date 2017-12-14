@@ -88,6 +88,30 @@ thead th {
 .portlet-title {
     padding-left:  10px !important;
 }
+.dataTables_scrollBody tbody td {
+    padding: 0px 0px !important;
+    text-align: left;
+    line-height: 35.2px;
+}
+.myprogress {
+    border-radius: 4px;
+    height: 35.2px;
+    
+    margin-bottom: 0px !important;
+}
+.only {
+    border: 0 none;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    line-height: 35.2px;
+    padding-left:8px;
+    width: 1px;
+}
+.tdonly{
+	padding-left:8px;
+}
 </style>
 
 <!-- 
@@ -234,42 +258,186 @@ thead th {
                 			<c:if test="${dataType=='domainNotAd'}"><a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${item[23]}" data-toggle="dropdown" onclick="openMenu(this)">${item[25]}</a></c:if>
                 		</td>
 						<td style="min-width: 80px">${item[0]}</td>
-						<td style="min-width: 80px">${item[1]}</td>
-						<td style="min-width: 80px">${item[2]}</td>
-						<!-- ${domain.loginip} (${domain.log}%) eef1f5-->
-						<td style="min-width: 80px">${item[3]} (<fmt:formatNumber type="number" value="${item[3] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${item[4]} (<fmt:formatNumber type="number" value="${item[4] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${item[5]} (<fmt:formatNumber type="number" value="${item[5] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${item[6]} (<fmt:formatNumber type="number" value="${item[6] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td> 
+						<td style="min-width: 80px"><span class="tdonly">${item[1]}</span></td>
+						<td style="min-width: 80px"><span class="tdonly">${item[2]}</span></td>
+						<!-- 用户分析 -->
+						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${item[3] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[3] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[3]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${item[4] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[4] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[4]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${item[5] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[5] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[5]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${item[6] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[6] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[6]} </span>
+								</div>
+							</div>
+						</td>
 						
 						<c:set var="sumST" scope="session" value="${item[7]+item[8]+item[9]+item[10]}"/>
 						<c:set var="sumC" scope="session" value="${item[11]+item[12]+item[13]+item[14]}"/>
 						<c:set var="sumS" scope="session" value="${item[15]+item[16]+item[17]+item[18]}"/>
 						<c:set var="sumM" scope="session" value="${item[19]+item[20]+item[21]+item[22]}"/>
-						
-						<td style="min-width: 80px">${sumST} (<fmt:formatNumber type="number" value="${sumST / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="st">${item[7]} (<fmt:formatNumber type="number" value="${item[7] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="st">${item[8]} (<fmt:formatNumber type="number" value="${item[8] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="st">${item[9]} (<fmt:formatNumber type="number" value="${item[9] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="st">${item[10]} (<fmt:formatNumber type="number" value="${item[10] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						
-						<td style="min-width: 80px">${sumC} (<fmt:formatNumber type="number" value="${sumC / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="c">${item[11]} (<fmt:formatNumber type="number" value="${item[11] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="c">${item[12]} (<fmt:formatNumber type="number" value="${item[12] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="c">${item[13]} (<fmt:formatNumber type="number" value="${item[13] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="c">${item[14]} (<fmt:formatNumber type="number" value="${item[14] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						
-						<td style="min-width: 80px">${sumS} (<fmt:formatNumber type="number" value="${sumS / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="s">${item[15]} (<fmt:formatNumber type="number" value="${item[15] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="s">${item[16]} (<fmt:formatNumber type="number" value="${item[16] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="s">${item[17]} (<fmt:formatNumber type="number" value="${item[17] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="s">${item[18]} (<fmt:formatNumber type="number" value="${item[18] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						
-						<td style="min-width: 80px">${sumM} (<fmt:formatNumber type="number" value="${sumM / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="m">${item[19]} (<fmt:formatNumber type="number" value="${item[19] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="m">${item[20]} (<fmt:formatNumber type="number" value="${item[20] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="m">${item[21]} (<fmt:formatNumber type="number" value="${item[21] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="m">${item[22]} (<fmt:formatNumber type="number" value="${item[22] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<!-- 停留 -->
+						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${sumST / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${sumST / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${sumST} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="st" title="<fmt:formatNumber type='number' value='${item[7] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[7] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[7]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="st" title="<fmt:formatNumber type='number' value='${item[8] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[8] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[8]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="st" title="<fmt:formatNumber type='number' value='${item[9] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[9] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[9]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="st" title="<fmt:formatNumber type='number' value='${item[10] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[10] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[10]} </span>
+								</div>
+							</div>
+						</td>
+						<!-- 点击 -->
+						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${sumC / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${sumC / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${sumC} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="c" title="<fmt:formatNumber type='number' value='${item[11] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[11] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[11]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="c" title="<fmt:formatNumber type='number' value='${item[12] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[12] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[12]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="c" title="<fmt:formatNumber type='number' value='${item[13] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[13] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[13]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="c" title="<fmt:formatNumber type='number' value='${item[14] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[14] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[14]} </span>
+								</div>
+							</div>
+						</td>
+						<!-- 滚动 -->
+						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${sumS / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${sumS / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${sumS} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="s" title="<fmt:formatNumber type='number' value='${item[15] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[15] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[15]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="s" title="<fmt:formatNumber type='number' value='${item[16] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[16] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[16]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="s" title="<fmt:formatNumber type='number' value='${item[17] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[17] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[17]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="s" title="<fmt:formatNumber type='number' value='${item[18] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[18] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[18]} </span>
+								</div>
+							</div>
+						</td>
+						<!-- 移动 -->
+						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${sumM / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${sumM / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${sumM} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="m" title="<fmt:formatNumber type='number' value='${item[19] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[19] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[19]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="m" title="<fmt:formatNumber type='number' value='${item[20] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[20] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[20]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="m" title="<fmt:formatNumber type='number' value='${item[21] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[21] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[21]} </span>
+								</div>
+							</div>
+						</td>
+						<td style="min-width: 80px" class="displaynone" event="m" title="<fmt:formatNumber type='number' value='${item[22] / item[0]}' pattern='0.00' maxFractionDigits='2'/>%">
+							<div class="myprogress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[22] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%">
+								<span class="only"> ${item[22]} </span>
+								</div>
+							</div>
+						</td>
 	                </tr>
 	                </c:forEach>
 	                
@@ -504,7 +672,7 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 //第一次异步刷新
-	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
+	// t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
 	  
 	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
