@@ -150,10 +150,26 @@ function adaIsOldUser(){
 	} catch(e){
 	}
 }
+
+function adaAllowPutLog(){
+	try{
+		var now = new Date();
+		var stayTime = now.getTime()-adaPageInTime.getTime();
+		if(stayTime > 5*1000){
+			return true;
+		}else{
+			return false;
+		}
+	} catch(e){
+	}
+}
 /*************************************************************************************/
 /** 鼠标点击次数计数 **/
 document.onclick = function(){
 	try{
+		if(!adaAllowPutLog()){ 
+			return;
+		}
 		/** 判断如果Cookie中未生成客户端ID,则生成新的客户端ID **/
 		var existsAdaMouseClickTimes = (document.cookie.indexOf("bBd7H5Hd=") != -1);
 		if(existsAdaMouseClickTimes){
@@ -224,6 +240,9 @@ window.setInterval(function (){
 
 function adaMousescroll(){
 	try{
+		if(!adaAllowPutLog()){ 
+			return;
+		}
 		/** 判断如果Cookie中未生成,则生成新的滚动次数 **/
 		var existsadaMousescrollTimes = (document.cookie.indexOf("HmrswNQk=") != -1);
 		if(existsadaMousescrollTimes){
@@ -304,6 +323,9 @@ document.onmousemove=function(even){
 };
 function adaMouseMove(){
 	try{
+		if(!adaAllowPutLog()){ 
+			return;
+		}
 		/** 判断如果Cookie中未生成,则生成新的移动次数 **/
 		var existsadaMouseMoveNum = (document.cookie.indexOf("yRn5RWYr=") != -1);
 		if(existsadaMouseMoveNum){
