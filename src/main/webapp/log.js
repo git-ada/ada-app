@@ -162,7 +162,7 @@ document.onclick = function(){
 			adaMouseClickTimes = 0;
 		}
 		adaMouseClickTimes = parseInt(adaMouseClickTimes) +1;
-		document.cookie = "bBd7H5Hd="+adaMouseClickTimes+";expires="+adaGet24HourExpires()+"; path=/";
+		document.cookie = "bBd7H5Hd="+adaMouseClickTimes+";expires="+adaGetTodayExpires()+"; path=/";
 		
 		if(adaMouseClickTimes==1 || adaMouseClickTimes == 3 || adaMouseClickTimes == 6 || adaMouseClickTimes == 11){
 			adaPutLog2();
@@ -192,7 +192,7 @@ function adaStatStayTime(){
 			lastStayTime = 0;
 		}
 		adaPageStayTime = parseInt(lastStayTime) + 1;
-		document.cookie = "Tcn272xJ="+adaPageStayTime+";expires="+adaGet24HourExpires()+"; path=/";
+		document.cookie = "Tcn272xJ="+adaPageStayTime+";expires="+adaGetTodayExpires()+"; path=/";
 		if(adaPageStayTime == 5 || adaPageStayTime == 30 || adaPageStayTime == 120 || adaPageStayTime == 300){
 			adaPutLog3();
 		}
@@ -232,7 +232,7 @@ function adaMousescroll(){
 			lastMousescrollTiems = 0;
 		}
 		adaMousescrollTimes = parseInt(lastMousescrollTiems) + 1;
-		document.cookie = "HmrswNQk="+adaMousescrollTimes+";expires="+adaGet24HourExpires()+"; path=/";
+		document.cookie = "HmrswNQk="+adaMousescrollTimes+";expires="+adaGetTodayExpires()+"; path=/";
 		if(adaMousescrollTimes == 1 || adaMousescrollTimes == 3 || adaMousescrollTimes == 5 || adaMousescrollTimes == 10){
 			adaPutLog5();
 		}
@@ -312,7 +312,7 @@ function adaMouseMove(){
 			lastadaMouseMoveNum = 0;
 		}
 		adaMouseMoveTiems = parseInt(lastadaMouseMoveNum) + 1;
-		document.cookie = "yRn5RWYr="+adaMouseMoveTiems+";expires="+adaGet24HourExpires()+"; path=/";
+		document.cookie = "yRn5RWYr="+adaMouseMoveTiems+";expires="+adaGetTodayExpires()+"; path=/";
 		if(adaMouseMoveTiems == 1 || adaMouseMoveTiems == 3 || adaMouseMoveTiems == 5 || adaMouseMoveTiems == 10){
 			adaPutLog4();
 		}
@@ -320,7 +320,7 @@ function adaMouseMove(){
 	}
 }
 
-/** 从当前时间开始, Cookie在24小时内有效   **/
+/** 从当前时间开始, Cookie在24小时内有效 
 function adaGet24HourExpires() {
 	try{
 		if(adaIsCookieExists("fr8itTYL")){
@@ -338,7 +338,8 @@ function adaGet24HourExpires() {
 	} catch(e){
 	}
 }
-/** Cookie当天有效,即Cookie在晚上23:59:59后过期
+  **/
+/** Cookie当天有效,即Cookie在晚上23:59:59后过期 **/
 function adaGetTodayExpires (){
 	try{
 		var curDate = new Date();  
@@ -357,7 +358,7 @@ function adaGetTodayExpires (){
 	} catch(e){
 	}
 }
- **/
+
 /*************************************************************************************/
 /** 获取cookie **/
 function adaGetcookie(name){
@@ -486,7 +487,7 @@ function adaLogin(){
 		/** 判断客户端今天是否已登录过 **/
 		if(document.cookie.indexOf("b3n5RWop=") == -1){
 			/** 记录一个已登录的状态,有效期一天 **/
-			document.cookie = "b3n5RWop=1;expires="+adaGet24HourExpires()+"; path=/";
+			document.cookie = "b3n5RWop=1;expires="+adaGetTodayExpires()+"; path=/";
 			var httprequest = adagetHttpRequest();
 			var encodeURI = encodeURIComponent(window.location.href);
 			httprequest.open("get", adaLogServer + "/l6?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&a="+adaAdId+"&p="+encodeURI+"&t="+Date.parse(new Date()), true);
@@ -520,7 +521,7 @@ function adaPutLog1() {
 		var f = "";
 		if(document.cookie.indexOf("fr8itTYL=") == -1){
 			f = Date.parse(adaPageInTime);
-			document.cookie = "fr8itTYL="+adaPageInTime+";expires="+adaGet24HourExpires()+"; path=/";
+			document.cookie = "fr8itTYL="+adaPageInTime+";expires="+adaGetTodayExpires()+"; path=/";
 		}
 		httprequest.open("post", adaLogServer + "/l1?u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&a="+adaAdId+"&p="+encodeURI+"&r="+pageReferrer+"&o="+adaFirstTime+"&f="+f+"&os="+adaIsOS()+"&br="+adaIsBrowser()+"&ss="+screenSize+"&ps="+pageSize+"&if="+iSiframe+"&ua="+userAgent+"&t="+Date.parse(new Date()), true);
 		httprequest.onreadystatechange = function () {
@@ -546,7 +547,7 @@ function adaPutLog1() {
 								   if(jet.a !=null && jet.a !="undefined" && jet.a != ""){
 									   adaAdId = jet.a;
 									   /** 当天第一个请求记录广告ID **/
-									   document.cookie = "bgn59Wyo="+adaAdId+";expires="+adaGet24HourExpires()+"; path=/";
+									   document.cookie = "bgn59Wyo="+adaAdId+";expires="+adaGetTodayExpires()+"; path=/";
 								   }
 							   }
 						} catch (e) {
