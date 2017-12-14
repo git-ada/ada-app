@@ -533,15 +533,15 @@ var initTable1 = function () {
 						}else if(dataType=="domainRegion"){
 							SUMIP = "地域独立IP数";
 							SUMPV = "地域访问量";
-							firstTh = "地域<a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
+							firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
 						}else if(dataType=="domainRegionAd"){
 							SUMIP = "地域广告入口独立IP数";
 							SUMPV = "地域广告入口访问量";
-							firstTh = "地域<a style='color: #333;' onclick='changeDataType(\"domainAd\")'><i class='icon-action-undo'></i></a>";
+							firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domainAd\")'><i class='icon-action-undo'></i></a>";
 						}else if(dataType=="domainRegionNotAd"){
 							SUMIP = "地域非广告入口独立IP数";
 							SUMPV = "地域非广告入口访问量";
-							firstTh = "地域<a style='color: #333;' onclick='changeDataType(\"domainNotAd\")'><i class='icon-action-undo'></i></a>";
+							firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domainNotAd\")'><i class='icon-action-undo'></i></a>";
 						}
 						if(dataList!=null && dataList.length>0){
 							for(var i=0;i<dataList.length;i++){
@@ -579,6 +579,8 @@ var initTable1 = function () {
 	                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+item[23]+"\")'>地域统计</a></li>"+
 							      	"</ul></div>";
 							      	menu+=tr3;
+							    }else if(){
+							    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
 							    }else if(dataType=="domainRegionAd"){
 							    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
 							    }else if(dataType=="domainRegionNotAd"){
