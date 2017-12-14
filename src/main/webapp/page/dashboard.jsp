@@ -109,9 +109,9 @@ th:last-child,td:last-child {
 				<div class="number">
 					<span data-counter="counterup" data-value="${sumip}" id="ip">${sumip}</span>(个)
 				</div>
-				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMIP">今日全站独立IP数</div></c:if>
-				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMIP">今日广告入口独立IP数</div></c:if>
-				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMIP">今日非广告入口独立IP数</div></c:if>
+				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMIP">全站独立IP数</div></c:if>
+				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMIP">广告入口独立IP数</div></c:if>
+				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMIP">非广告入口独立IP数</div></c:if>
 			</div>
 		</div>
 	</div>
@@ -125,9 +125,9 @@ th:last-child,td:last-child {
 				<div class="number">
 					<span data-counter="counterup" data-value="${sumpv}" id="pv">${sumpv}</span>(页)
 				</div>
-				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMPV">今日全站访问量</div></c:if>
-				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMPV">今日广告入口访问量</div></c:if>
-				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMPV">今日非广告入口访问量</div></c:if>
+				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMPV">全站访问量</div></c:if>
+				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMPV">广告入口访问量</div></c:if>
+				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMPV">非广告入口访问量</div></c:if>
 			</div>
 		</div>
 	</div>
@@ -164,7 +164,11 @@ th:last-child,td:last-child {
 <div class="portlet light portlet-fit bordered">
 	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;">
 		<div class="caption" style="padding-bottom: 0px;">
-            <span class="caption-subject bold font-dark uppercase "> 今日实时统计</span>
+            <span class="caption-subject bold font-dark uppercase ">
+            	<c:if test="${dataType=='domain'}">全站统计</c:if>
+            	<c:if test="${dataType=='domainAd'}">广告入口统计</c:if> 
+            	<c:if test="${dataType=='domainNotAd'}">非广告入口统计</c:if>  
+            </span>
             <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
         </div>
         <div class="inputs">
@@ -181,8 +185,8 @@ th:last-child,td:last-child {
 	            <thead>
 	                <tr>
 	                	<c:if test="${dataType=='domain'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名</th></c:if>
-						<c:if test="${dataType=='domainAd'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名（广告入口）</th></c:if>
-						<c:if test="${dataType=='domainNotAd'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名（非广告入口）</th></c:if>
+						<c:if test="${dataType=='domainAd'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名</th></c:if>
+						<c:if test="${dataType=='domainNotAd'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名</th></c:if>
 						<th scope="col" style="min-width: 80px">IP</th>			
 						<th scope="col" style="min-width: 80px">PV</th>
 						<th scope="col" style="min-width: 80px">UV</th>
@@ -221,8 +225,8 @@ th:last-child,td:last-child {
 	                <tr>
                 		<td style="min-width: 150px;" title="${item[24]}">
                 			<c:if test="${dataType=='domain'}"><a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${item[23]}" data-toggle="dropdown" onclick="openMenu(this)">${item[25]}</a></c:if>
-                			<c:if test="${dataType=='domainAd'}">${item[25]}</c:if>
-                			<c:if test="${dataType=='domainNotAd'}">${item[25]}</c:if>
+                			<c:if test="${dataType=='domainAd'}"><a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${item[23]}" data-toggle="dropdown" onclick="openMenu(this)">${item[25]}</a></c:if>
+                			<c:if test="${dataType=='domainNotAd'}"><a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${item[23]}" data-toggle="dropdown" onclick="openMenu(this)">${item[25]}</a></c:if>
                 		</td>
 						<td style="min-width: 80px">${item[0]}</td>
 						<td style="min-width: 80px">${item[1]}</td>
@@ -267,18 +271,37 @@ th:last-child,td:last-child {
 	                 <c:forEach var="item" items="${DomainStat_list}" varStatus="number">
 						<div id="context-menu${item[23]}" style="z-index: 999;position:absolute;">
 							<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
-								<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}')">分时统计</a>
-							     </li>
+								
 						      	<!-- <li>
 							         <a href="javascript:;" onclick="changeDataType('domainAd')">域名统计（广告入口）</a>
 							     </li>
 							     <li>
 							         <a href="javascript:;" onclick="changeDataType('domainNotAd')">域名统计（非广告入口）</a>
 							     </li>  -->
-							     <li>
-							         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
+							     <c:if test="${dataType=='domain'}">
+							     	<li>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}')">分时统计</a>
 							     </li>
+								     <li>
+								         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
+								     </li>
+							     </c:if>
+							     <c:if test="${dataType=='domainAd'}">
+							     	<li>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainAdTime.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
+							     </li>
+								     <li>
+								         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${item[23]})">地域统计</a>
+								     </li>
+							     </c:if>
+							     <c:if test="${dataType=='domainNotAd'}">
+							     	<li>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainAdTime.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
+							     </li>
+								     <li>
+								         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${item[23]})">地域统计</a>
+								     </li>
+							     </c:if>
 							    <%-- <li>
 							         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${item[23]})">地域统计（广告入口）</a>
 							     </li>
@@ -497,24 +520,28 @@ var initTable1 = function () {
 						var dataList = json.data_list;
 						if(dataType=="domain"){
 							firstTh = "域名";
-							SUMIP = "今日全站独立IP数";
-							SUMPV = "今日全站访问量";
+							SUMIP = "全站独立IP数";
+							SUMPV = "全站访问量";
 						}else if(dataType=="domainAd"){
-							SUMIP = "今日广告入口独立IP数";
-							SUMPV = "今日广告入口访问量";
-							firstTh = "域名（广告入口）";
+							SUMIP = "广告入口独立IP数";
+							SUMPV = "广告入口访问量";
+							firstTh = "域名";
 						}else if(dataType=="domainNotAd"){
-							SUMIP = "今日非广告入口独立IP数";
-							SUMPV = "今日非广告入口访问量";
-							firstTh = "域名（非广告入口）";
+							SUMIP = "非广告入口独立IP数";
+							SUMPV = "非广告入口访问量";
+							firstTh = "域名";
+						}else if(dataType=="domainRegion"){
+							SUMIP = "地域独立IP数";
+							SUMPV = "地域访问量";
+							firstTh = "地域<a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
 						}else if(dataType=="domainRegionAd"){
 							SUMIP = "地域广告入口独立IP数";
 							SUMPV = "地域广告入口访问量";
-							firstTh = "地域（广告入口）<a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
+							firstTh = "地域<a style='color: #333;' onclick='changeDataType(\"domainAd\")'><i class='icon-action-undo'></i></a>";
 						}else if(dataType=="domainRegionNotAd"){
 							SUMIP = "地域非广告入口独立IP数";
 							SUMPV = "地域非广告入口访问量";
-							firstTh = "地域（非广告入口）<a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
+							firstTh = "地域<a style='color: #333;' onclick='changeDataType(\"domainNotAd\")'><i class='icon-action-undo'></i></a>";
 						}
 						if(dataList!=null && dataList.length>0){
 							for(var i=0;i<dataList.length;i++){
@@ -530,14 +557,28 @@ var initTable1 = function () {
 										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+item[23]+"\")'>分时统计</a></li>"+
 										 /* "<li><a href='javascript:;' onclick='changeDataType(\"domainAd\")'>域名统计（广告入口）</a></li>"+
 								     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainNotAd\")'>域名统计（非广告入口）</a></li>"+ */
-	                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+item[23]+"\")'>地域统计（广告入口）</a></li>"+
-	                                 	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+item[23]+"\")'>地域统计（非广告入口）</a></li>"+ 
+	                                	 /* "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+item[23]+"\")'>地域统计（广告入口）</a></li>"+
+	                                 	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+item[23]+"\")'>地域统计（非广告入口）</a></li>"+ */ 
+	                                 	"<li><a href='javascript:;' onclick='changeDataType(\"domainRegion,"+item[23]+"\")'>地域统计</a></li>"+
 							      	"</ul></div>";
 							      	menu+=tr3;
 							    }else if(dataType=="domainAd"){
-							    	firstTd = "<td style='min-width: 130px;'  title='"+item[24]+"'>"+item[25]+"</td>";
+							    	firstTd = "<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+							    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
+									"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
+										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainAdTime.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
+	                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+item[23]+"\")'>地域统计</a></li>"+
+							      	"</ul></div>";
+							      	menu+=tr3;
+							    	
 							    }else if(dataType=="domainNotAd"){
-							    	firstTd = "<td style='min-width: 130px;'  title='"+item[24]+"'>"+item[25]+"</td>";
+							    	firstTd = "<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+							    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
+									"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
+										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainAdTime.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
+	                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+item[23]+"\")'>地域统计</a></li>"+
+							      	"</ul></div>";
+							      	menu+=tr3;
 							    }else if(dataType=="domainRegionAd"){
 							    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
 							    }else if(dataType=="domainRegionNotAd"){
