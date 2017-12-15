@@ -262,7 +262,7 @@ thead th {
 							     </li>  -->
 							     <c:if test="${dataType=='domain'}">
 							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}')">分时统计</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
 							     </li>
 								     <li>
 								         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
@@ -270,7 +270,7 @@ thead th {
 							     </c:if>
 							     <c:if test="${dataType=='domainAd'}">
 							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainAdTime.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
 							     </li>
 								     <li>
 								         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${item[23]})">地域统计</a>
@@ -278,7 +278,7 @@ thead th {
 							     </c:if>
 							     <c:if test="${dataType=='domainNotAd'}">
 							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainAdTime.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
 							     </li>
 								     <li>
 								         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${item[23]})">地域统计</a>
