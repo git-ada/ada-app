@@ -73,6 +73,8 @@ th:last-child,td:last-child {
 .displaynone{
 	display: none;
 }
+.stdisplaynone{
+}
 .page-spinner-bar {
     left: 50%;
     margin-left: -55px;
@@ -350,7 +352,25 @@ function changeDisplay(a,data){
 		  jQuery(i).addClass("icon-magnifier-remove");
 		
 		  //jQuery("[event="+data+"]").toggleClass("displaynone");
-		  jQuery("[event="+data+"]").show();
+		 /*  var aa = 0;
+		  jQuery(".stdisplaynone").each(function (){
+			  jQuery(this).show();
+			  
+			  aa++;
+		  }); 
+		  console.log(aa+"aa"); */
+     	   jQuery("[event='"+data+"']").each(function (){
+			  jQuery(this).show();
+		  });  
+	/* 	  var bb = 1;
+		    jQuery("td").each(function(){
+			   console.log(bb+"bbb");
+			   bb++;
+		   });  */
+		  /* jQuery("[class=displaynone]").each(function(){
+			  jQuery(this).show();
+			  console.log("aaa");
+		  }); */
 		  jQuery(".dataTables_scrollHeadInner").css("width","4000px");
 		  
 		  var left =  jQuery(".dataTables_scrollBody").scrollLeft();
@@ -400,6 +420,7 @@ var initTable1 = function () {
         },
         buttons: [
         ],
+        paging: false,
         scrollY:        document.documentElement.clientHeight-290,
         deferRender:    true,
         "ordering": false,
@@ -513,7 +534,7 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 //第一次异步刷新
-	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
+	 //t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
 	  
 	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
@@ -577,7 +598,24 @@ var initTable1 = function () {
 				SUMPV = "地域非广告入口访问量";
 				firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domainNotAd\")'><i class='icon-action-undo'></i></a>";
 			}
+			 var stDisplay = "";
+			    var cDisplay = "";
+			    var sDisplay = "";
+			    var mtDisplay = "";
+			    
+			    if(num==1){
+	    	 	 stDisplay = "displaynone";
+			     cDisplay = "displaynone";
+			     sDisplay = "displaynone";
+			     mtDisplay = "displaynone";
+			    }else if(num==2){
+			    	if(!stClick) stDisplay = "displaynone";
+			    	if(!cClick) cDisplay = "displaynone";
+			    	if(!sClick) sDisplay = "displaynone";
+			    	if(!mClick) mtDisplay = "displaynone";
+			    }
 			if(dataList!=null && dataList.length>0){
+				console.log("数据条数------>"+dataList.length);
 				for(var i=0;i<dataList.length;i++){
 					var item = dataList[i];
 					var firstTd = "";
@@ -616,29 +654,14 @@ var initTable1 = function () {
 				    }else if(dataType=="domainRegionNotAd"){
 				    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
 				    }
-				    var stDisplay = "";
-				    var cDisplay = "";
-				    var sDisplay = "";
-				    var mtDisplay = "";
-				    
-				    if(num==1){
-		    	 	 stDisplay = "displaynone";
-				     cDisplay = "displaynone";
-				     sDisplay = "displaynone";
-				     mtDisplay = "displaynone";
-				    }else if(num==2){
-				    	if(!stClick) stDisplay = "displaynone";
-				    	if(!cClick) cDisplay = "displaynone";
-				    	if(!sClick) sDisplay = "displaynone";
-				    	if(!mClick) mtDisplay = "displaynone";
-				    }
+				   
 				    
 				    var sumST = item[7]+item[8]+item[9]+item[10];
 				    var sumC = item[11]+item[12]+item[13]+item[14];
 				    var sumS = item[15]+item[16]+item[17]+item[18];
 				    var sumM = item[19]+item[20]+item[21]+item[22];
 				    var IP = item[0];
-			  		tr+="<tr>" + firstTd+
+			  		tr+="<tr num='"+i+"'>" + firstTd+
 					  "<td >"+IP+"</td>"+
 					  "<td ><span class='tdonly'>"+item[1]+"</span></td>"+
 					  "<td ><span class='tdonly'>"+item[2]+"</span></td>"+
@@ -705,7 +728,6 @@ var initTable1 = function () {
 						"</tr>";
 					lefttable+=tr2;
 				  }
-							
 				}
 			}
 			
