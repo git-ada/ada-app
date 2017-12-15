@@ -1113,7 +1113,7 @@
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'广告总pv',
+	                  name:'总pv',
 	                  icon : 'line',
 	                  textStyle:{}
 	              },{
@@ -1180,7 +1180,7 @@
 	   	              data:d7
 	   	          },
 	   	          {
-	   	              name:'广告总pv',
+	   	              name:'总pv',
 	   	              type:'line',
 	   	         	  stack: '广告总pv',
 	   	              data:d8
