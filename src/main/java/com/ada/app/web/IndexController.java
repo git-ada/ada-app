@@ -128,20 +128,30 @@ public class IndexController {
 				AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
 				/** 获取站点下域名统计信息 **/
 				Map sumMap = getDomainStat_list(today);
-				List<List<Object>> DomainStat_list = (List<List<Object>>) sumMap.get("DomainStat_list");
-				 model.addAttribute("DomainStat_list", DomainStat_list);
-				 model.addAttribute("sumip", siteStat.getIp());
-				 model.addAttribute("sumpv", siteStat.getPv());
+				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+				Map map = new HashMap();
+				map.put("data_list", data_list);
+				map.put("dataType", dataType);
+				JSONObject json  = new JSONObject(map);
+				model.addAttribute("tbodydata", json);
+				model.addAttribute("sumip", siteStat.getIp());
+				model.addAttribute("sumpv", siteStat.getPv());
 			}else if("domainAd".equals(dataType)){
 				Map map = getDomainAdData(today);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
-				model.addAttribute("DomainStat_list", data_list);
+				Map map2 = new HashMap();
+				map2.put("data_list", data_list);
+				map2.put("dataType", dataType);
+				model.addAttribute("tbodydata", map2);
 				model.addAttribute("sumip", map.get("sumip"));
 				model.addAttribute("sumpv", map.get("sumpv"));
 			}else if("domainNotAd".equals(dataType)){
 				Map map = getDomainNotAdData(today);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
-				model.addAttribute("DomainStat_list", data_list);
+				Map map2 = new HashMap();
+				map2.put("data_list", data_list);
+				map2.put("dataType", dataType);
+				model.addAttribute("tbodydata", map2);
 				model.addAttribute("sumip", map.get("sumip"));
 				model.addAttribute("sumpv", map.get("sumpv"));
 			}

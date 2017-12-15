@@ -250,198 +250,7 @@ thead th {
 				     </tr>
 	            </thead>
 	            <tbody id="tbody">
-	                	<c:forEach var="item" items="${DomainStat_list}" varStatus="number">
-	                <tr>
-                		<td style="min-width: 150px;" title="${item[24]}">
-                			<c:if test="${dataType=='domain'}"><a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${item[23]}" data-toggle="dropdown" onclick="openMenu(this)">${item[25]}</a></c:if>
-                			<c:if test="${dataType=='domainAd'}"><a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${item[23]}" data-toggle="dropdown" onclick="openMenu(this)">${item[25]}</a></c:if>
-                			<c:if test="${dataType=='domainNotAd'}"><a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${item[23]}" data-toggle="dropdown" onclick="openMenu(this)">${item[25]}</a></c:if>
-                		</td>
-						<td style="min-width: 80px">${item[0]}</td>
-						<td style="min-width: 80px"><span class="tdonly">${item[1]}</span></td>
-						<td style="min-width: 80px"><span class="tdonly">${item[2]}</span></td>
-						<!-- 用户分析 -->
-						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${item[3] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[3] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[3]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${item[4] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[4] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[4]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${item[5] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[5] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[5]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${item[6] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[6] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[6]} </span>
-								</div>
-							</div>
-						</td>
-						
-						<c:set var="sumST" scope="session" value="${item[7]+item[8]+item[9]+item[10]}"/>
-						<c:set var="sumC" scope="session" value="${item[11]+item[12]+item[13]+item[14]}"/>
-						<c:set var="sumS" scope="session" value="${item[15]+item[16]+item[17]+item[18]}"/>
-						<c:set var="sumM" scope="session" value="${item[19]+item[20]+item[21]+item[22]}"/>
-						<!-- 停留 -->
-						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${sumST / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${sumST / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${sumST} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="st" title="<fmt:formatNumber type='number' value='${item[7] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[7] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[7]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="st" title="<fmt:formatNumber type='number' value='${item[8] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[8] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[8]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="st" title="<fmt:formatNumber type='number' value='${item[9] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[9] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[9]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="st" title="<fmt:formatNumber type='number' value='${item[10] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[10] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[10]} </span>
-								</div>
-							</div>
-						</td>
-						<!-- 点击 -->
-						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${sumC / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${sumC / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${sumC} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="c" title="<fmt:formatNumber type='number' value='${item[11] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[11] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[11]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="c" title="<fmt:formatNumber type='number' value='${item[12] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[12] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[12]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="c" title="<fmt:formatNumber type='number' value='${item[13] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[13] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[13]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="c" title="<fmt:formatNumber type='number' value='${item[14] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[14] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[14]} </span>
-								</div>
-							</div>
-						</td>
-						<!-- 滚动 -->
-						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${sumS / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${sumS / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${sumS} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="s" title="<fmt:formatNumber type='number' value='${item[15] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[15] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[15]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="s" title="<fmt:formatNumber type='number' value='${item[16] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[16] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[16]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="s" title="<fmt:formatNumber type='number' value='${item[17] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[17] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[17]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="s" title="<fmt:formatNumber type='number' value='${item[18] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[18] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[18]} </span>
-								</div>
-							</div>
-						</td>
-						<!-- 移动 -->
-						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${sumM / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${sumM / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${sumM} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="m" title="<fmt:formatNumber type='number' value='${item[19] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[19] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[19]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="m" title="<fmt:formatNumber type='number' value='${item[20] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[20] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[20]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="m" title="<fmt:formatNumber type='number' value='${item[21] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[21] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[21]} </span>
-								</div>
-							</div>
-						</td>
-						<td style="min-width: 80px" class="displaynone" event="m" title="<fmt:formatNumber type='number' value='${item[22] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
-							<div class="myprogress">
-								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[22] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[22]} </span>
-								</div>
-							</div>
-						</td>
-	                </tr>
-	                </c:forEach>
-	                
-	                 <c:forEach var="item" items="${DomainStat_list}" varStatus="number">
+	                	<c:forEach var="item" items="${tbodydata.data_list}" varStatus="number">
 						<div id="context-menu${item[23]}" style="z-index: 999;position:absolute;">
 							<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
 								
@@ -453,7 +262,7 @@ thead th {
 							     </li>  -->
 							     <c:if test="${dataType=='domain'}">
 							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}')">分时统计</a>
 							     </li>
 								     <li>
 								         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
@@ -461,7 +270,7 @@ thead th {
 							     </c:if>
 							     <c:if test="${dataType=='domainAd'}">
 							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainAdTime.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
 							     </li>
 								     <li>
 								         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${item[23]})">地域统计</a>
@@ -469,7 +278,7 @@ thead th {
 							     </c:if>
 							     <c:if test="${dataType=='domainNotAd'}">
 							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainAdTime.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
 							     </li>
 								     <li>
 								         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${item[23]})">地域统计</a>
@@ -513,6 +322,11 @@ function openMenu(a,event){
 function Percentage(num, total) { 
     return (Math.round(num / total * 10000) / 100.00 + "%");// 小数点后两位百分比
    
+}
+
+function PercentageMax(num, total){
+	var p = Math.round(num / total * 10000) / 100.00 >100 ? 100 : Math.round(num / total * 10000) / 100.00;
+	return (p+"%");
 }
 
 /** 修改td样式 **/
@@ -585,8 +399,12 @@ var initTable1 = function () {
         "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
     });
 }
-
+/**--------------预加载-------------------- **/
 	jQuery(document).ready(function() {
+		var tbodydata = '${tbodydata}';
+		var json = eval('(' + tbodydata + ')');
+		loadTbody(json,1);
+		
 	    initTable1();
 	     jQuery("#pauseOrplay").click(function(){
 	    	 if(jQuery("#pauseOrplay i").attr("class")=="icon-control-pause"){
@@ -672,7 +490,7 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 //第一次异步刷新
-	// t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
+	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
 	  
 	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
@@ -681,151 +499,7 @@ var initTable1 = function () {
 					
 					if (data!=null) {
 						var json = eval('(' + data + ')');
-						
-						domainId = json.domainId;//域名ID
-						var table = "";
-						var lefttable = "";
-						var menu = "";
-						var firstTh = "域名";
-						var SUMIP = "";
-						var SUMPV = "";
-						/** 数据列表 **/
-						var dataList = json.data_list;
-						if(dataType=="domain"){
-							firstTh = "域名";
-							SUMIP = "全站独立IP数";
-							SUMPV = "全站访问量";
-						}else if(dataType=="domainAd"){
-							SUMIP = "广告入口独立IP数";
-							SUMPV = "广告入口访问量";
-							firstTh = "域名";
-						}else if(dataType=="domainNotAd"){
-							SUMIP = "非广告入口独立IP数";
-							SUMPV = "非广告入口访问量";
-							firstTh = "域名";
-						}else if(dataType=="domainRegion"){
-							SUMIP = "地域独立IP数";
-							SUMPV = "地域访问量";
-							firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
-						}else if(dataType=="domainRegionAd"){
-							SUMIP = "地域广告入口独立IP数";
-							SUMPV = "地域广告入口访问量";
-							firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domainAd\")'><i class='icon-action-undo'></i></a>";
-						}else if(dataType=="domainRegionNotAd"){
-							SUMIP = "地域非广告入口独立IP数";
-							SUMPV = "地域非广告入口访问量";
-							firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domainNotAd\")'><i class='icon-action-undo'></i></a>";
-						}
-						if(dataList!=null && dataList.length>0){
-							for(var i=0;i<dataList.length;i++){
-								var item = dataList[i];
-								var firstTd = "";
-								var tr = "";
-							    var tr2 = "";
-							    var tr3 = "";
-							    if(dataType=="domain"){
-							    	firstTd="<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
-							    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
-									"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
-										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
-										 /* "<li><a href='javascript:;' onclick='changeDataType(\"domainAd\")'>域名统计（广告入口）</a></li>"+
-								     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainNotAd\")'>域名统计（非广告入口）</a></li>"+ */
-	                                	 /* "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+item[23]+"\")'>地域统计（广告入口）</a></li>"+
-	                                 	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+item[23]+"\")'>地域统计（非广告入口）</a></li>"+ */ 
-	                                 	"<li><a href='javascript:;' onclick='changeDataType(\"domainRegion,"+item[23]+"\")'>地域统计</a></li>"+
-							      	"</ul></div>";
-							      	menu+=tr3;
-							    }else if(dataType=="domainAd"){
-							    	firstTd = "<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
-							    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
-									"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
-										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
-	                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+item[23]+"\")'>地域统计</a></li>"+
-							      	"</ul></div>";
-							      	menu+=tr3;
-							    	
-							    }else if(dataType=="domainNotAd"){
-							    	firstTd = "<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
-							    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
-									"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
-										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
-	                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+item[23]+"\")'>地域统计</a></li>"+
-							      	"</ul></div>";
-							      	menu+=tr3;
-							    }else if(dataType=="domainRegion"){
-							    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
-							    }else if(dataType=="domainRegionAd"){
-							    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
-							    }else if(dataType=="domainRegionNotAd"){
-							    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
-							    }
-							    var stDisplay = jQuery("[event=st]").first().attr("class");
-							    var cDisplay = jQuery("[event=c]").first().attr("class");
-							    var sDisplay = jQuery("[event=s]").first().attr("class");
-							    var mtDisplay = jQuery("[event=m]").first().attr("class");
-							    
-							    var sumST = item[7]+item[8]+item[9]+item[10];
-							    var sumC = item[11]+item[12]+item[13]+item[14];
-							    var sumS = item[15]+item[16]+item[17]+item[18];
-							    var sumM = item[19]+item[20]+item[21]+item[22];
-							    var IP = item[0];
-						  		tr+="<tr>" + firstTd+
-								  "<td >"+IP+"</td>"+
-								  "<td >"+item[1]+"</td>"+
-								  "<td >"+item[2]+"</td>"+
-								  "<td >"+item[3]+" ("+Percentage(item[3],IP)+")</td>"+
-								  "<td >"+item[4]+" ("+Percentage(item[4],IP)+")</td>"+
-								  "<td >"+item[5]+" ("+Percentage(item[5],IP)+")</td>"+
-								  "<td >"+item[6]+" ("+Percentage(item[6],IP)+")</td>"+
-								  
-								  "<td >"+sumST+" ("+Percentage(sumST,IP)+")</td>"+
-								  "<td class='"+stDisplay+"' event='st'>"+item[7]+" ("+Percentage(item[7],IP)+")</td>"+
-								  "<td class='"+stDisplay+"' event='st'>"+item[8]+" ("+Percentage(item[8],IP)+")</td>"+
-								  "<td class='"+stDisplay+"' event='st'>"+item[9]+" ("+Percentage(item[9],IP)+")</td>"+
-								  "<td class='"+stDisplay+"' event='st'>"+item[10]+" ("+Percentage(item[10],IP)+")</td>"+
-								  
-								  "<td >"+sumC+" ("+Percentage(sumC,IP)+")</td>"+
-								  "<td class='"+cDisplay+"' event='c'>"+item[11]+" ("+Percentage(item[11],IP)+")</td>"+
-								  "<td class='"+cDisplay+"' event='c'>"+item[12]+" ("+Percentage(item[12],IP)+")</td>"+
-								  "<td class='"+cDisplay+"' event='c'>"+item[13]+" ("+Percentage(item[13],IP)+")</td>"+
-								  "<td class='"+cDisplay+"' event='c'>"+item[14]+" ("+Percentage(item[14],IP)+")</td>"+
-								  
-								  "<td >"+sumS+" ("+Percentage(sumS,IP)+")</td>"+
-								  "<td class='"+sDisplay+"' event='s'>"+item[15]+" ("+Percentage(item[15],IP)+")</td>"+
-								  "<td class='"+sDisplay+"' event='s'>"+item[16]+" ("+Percentage(item[16],IP)+")</td>"+
-								  "<td class='"+sDisplay+"' event='s'>"+item[17]+" ("+Percentage(item[17],IP)+")</td>"+
-								  "<td class='"+sDisplay+"' event='s'>"+item[18]+" ("+Percentage(item[18],IP)+")</td>"+
-								  
-								  "<td >"+sumM+" ("+Percentage(sumM,IP)+")</td>"+
-								  "<td class='"+mtDisplay+"' event='m'>"+item[19]+" ("+Percentage(item[19],IP)+")</td>"+
-								  "<td class='"+mtDisplay+"' event='m'>"+item[20]+" ("+Percentage(item[20],IP)+")</td>"+
-								  "<td class='"+mtDisplay+"' event='m'>"+item[21]+" ("+Percentage(item[21],IP)+")</td>"+
-								  "<td class='"+mtDisplay+"' event='m'>"+item[22]+" ("+Percentage(item[22],IP)+")</td>"+
-								  "</tr>";
-								  table+=tr;
-							  
-								tr2+="<tr>"+firstTd+
-								  "<td style='min-width: 80px'>"+IP+"</td>"+
-								  /* "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+ */
-									"</tr>";
-								lefttable+=tr2;
-										
-							}
-						}
-						
-						if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh){
-							jQuery("#SUMIP").html(SUMIP);
-							jQuery("#SUMPV").html(SUMPV);
-							jQuery("#ip").html(json.sumip);
-							jQuery("#pv").html(json.sumpv);
-							jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
-							jQuery("#tbody").empty();
-							jQuery("#tbody").append(table);
-							jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
-							jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable+menu);
-							jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
-							
-						}
+						loadTbody(json,2);
 					
 					}
 					clearTimeout(t);
@@ -842,6 +516,185 @@ var initTable1 = function () {
 					t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
 				}
 			});
+	 }
+	 /** js渲染tbody **/
+	 function loadTbody(json,num){
+		 domainId = json.domainId;//域名ID
+			var table = "";
+			var lefttable = "";
+			var menu = "";
+			var firstTh = "域名";
+			var SUMIP = "";
+			var SUMPV = "";
+			/** 数据列表 **/
+			var dataList = json.data_list;
+			 
+			if(dataType=="domain"){
+				firstTh = "域名";
+				SUMIP = "全站独立IP数";
+				SUMPV = "全站访问量";
+			}else if(dataType=="domainAd"){
+				SUMIP = "广告入口独立IP数";
+				SUMPV = "广告入口访问量";
+				firstTh = "域名";
+			}else if(dataType=="domainNotAd"){
+				SUMIP = "非广告入口独立IP数";
+				SUMPV = "非广告入口访问量";
+				firstTh = "域名";
+			}else if(dataType=="domainRegion"){
+				SUMIP = "地域独立IP数";
+				SUMPV = "地域访问量";
+				firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
+			}else if(dataType=="domainRegionAd"){
+				SUMIP = "地域广告入口独立IP数";
+				SUMPV = "地域广告入口访问量";
+				firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domainAd\")'><i class='icon-action-undo'></i></a>";
+			}else if(dataType=="domainRegionNotAd"){
+				SUMIP = "地域非广告入口独立IP数";
+				SUMPV = "地域非广告入口访问量";
+				firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domainNotAd\")'><i class='icon-action-undo'></i></a>";
+			}
+			if(dataList!=null && dataList.length>0){
+				for(var i=0;i<dataList.length;i++){
+					var item = dataList[i];
+					var firstTd = "";
+					var tr = "";
+				    var tr2 = "";
+				    var tr3 = "";
+				    if(dataType=="domain"){
+				    	firstTd="<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
+						"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
+							"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
+                      	"<li><a href='javascript:;' onclick='changeDataType(\"domainRegion,"+item[23]+"\")'>地域统计</a></li>"+
+				      	"</ul></div>";
+				      	menu+=tr3;
+				    }else if(dataType=="domainAd"){
+				    	firstTd = "<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
+						"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
+							"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
+                     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+item[23]+"\")'>地域统计</a></li>"+
+				      	"</ul></div>";
+				      	menu+=tr3;
+				    	
+				    }else if(dataType=="domainNotAd"){
+				    	firstTd = "<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
+						"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
+							"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
+                     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+item[23]+"\")'>地域统计</a></li>"+
+				      	"</ul></div>";
+				      	menu+=tr3;
+				    }else if(dataType=="domainRegion"){
+				    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
+				    }else if(dataType=="domainRegionAd"){
+				    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
+				    }else if(dataType=="domainRegionNotAd"){
+				    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
+				    }
+				    var stDisplay = jQuery("[event=st]").first().attr("class");
+				    var cDisplay = jQuery("[event=c]").first().attr("class");
+				    var sDisplay = jQuery("[event=s]").first().attr("class");
+				    var mtDisplay = jQuery("[event=m]").first().attr("class");
+				    
+				    var sumST = item[7]+item[8]+item[9]+item[10];
+				    var sumC = item[11]+item[12]+item[13]+item[14];
+				    var sumS = item[15]+item[16]+item[17]+item[18];
+				    var sumM = item[19]+item[20]+item[21]+item[22];
+				    var IP = item[0];
+			  		tr+="<tr>" + firstTd+
+					  "<td >"+IP+"</td>"+
+					  "<td ><span class='tdonly'>"+item[1]+"</span></td>"+
+					  "<td ><span class='tdonly'>"+item[2]+"</span></td>"+
+					  
+					  "<td title='"+Percentage(item[3],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[3],IP)+" '>"+
+					  	"<span class='only'> "+item[3]+" </span></div></div></td>"+
+				  	  "<td title='"+Percentage(item[4],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[4],IP)+" '>"+
+				  	    "<span class='only'> "+item[4]+" </span></div></div></td>"+
+				  	  "<td title='"+Percentage(item[5],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[5],IP)+" '>"+
+				  	    "<span class='only'> "+item[5]+" </span></div></div></td>"+
+				  	  "<td title='"+Percentage(item[6],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[6],IP)+" '>"+
+				  	    "<span class='only'> "+item[6]+" </span></div></div></td>"+
+				  	    
+				  	  "<td title='"+Percentage(sumST,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumST,IP)+" '>"+
+				  	    "<span class='only'> "+sumST+" </span></div></div></td>"+
+				  	  "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[7],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[7],IP)+" '>"+
+				  	    "<span class='only'> "+item[7]+" </span></div></div></td>"+
+				  	  "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[8],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[8],IP)+" '>"+
+				  	    "<span class='only'> "+item[8]+" </span></div></div></td>"+
+				  	  "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[9],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[9],IP)+" '>"+
+				  	    "<span class='only'> "+item[9]+" </span></div></div></td>"+
+				  	  "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[10],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[10],IP)+" '>"+
+				  	    "<span class='only'> "+item[10]+" </span></div></div></td>"+
+				  	    
+				  	  "<td title='"+Percentage(sumC,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumC,IP)+" '>"+
+				  	    "<span class='only'> "+sumC+" </span></div></div></td>"+
+				  	  "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[11],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[11],IP)+" '>"+
+				  	    "<span class='only'> "+item[11]+" </span></div></div></td>"+
+				  	  "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[12],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[12],IP)+" '>"+
+				  	    "<span class='only'> "+item[12]+" </span></div></div></td>"+
+				  	  "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[13],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[13],IP)+" '>"+
+				  	    "<span class='only'> "+item[13]+" </span></div></div></td>"+
+				  	  "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[14],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[14],IP)+" '>"+
+				  	    "<span class='only'> "+item[14]+" </span></div></div></td>"+
+				  	    
+				  	  "<td title='"+Percentage(sumS,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumS,IP)+" '>"+
+				  	    "<span class='only'> "+sumS+" </span></div></div></td>"+
+				  	  "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[15],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[15],IP)+" '>"+
+				  	    "<span class='only'> "+item[15]+" </span></div></div></td>"+
+				  	  "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[16],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[16],IP)+" '>"+
+				  	    "<span class='only'> "+item[16]+" </span></div></div></td>"+
+				  	  "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[17],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[17],IP)+" '>"+
+				  	    "<span class='only'> "+item[17]+" </span></div></div></td>"+
+				  	  "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[18],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[18],IP)+" '>"+
+				  	    "<span class='only'> "+item[18]+" </span></div></div></td>"+
+					  
+				  	  "<td title='"+Percentage(sumM,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumM,IP)+" '>"+
+				  	    "<span class='only'> "+sumM+" </span></div></div></td>"+
+				  	  "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[19],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[19],IP)+" '>"+
+				  	    "<span class='only'> "+item[19]+" </span></div></div></td>"+
+				  	  "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[20],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[20],IP)+" '>"+
+				  	    "<span class='only'> "+item[20]+" </span></div></div></td>"+
+				  	  "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[21],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[21],IP)+" '>"+
+				  	    "<span class='only'> "+item[21]+" </span></div></div></td>"+
+				  	  "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[22],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[22],IP)+" '>"+
+				  	    "<span class='only'> "+item[22]+" </span></div></div></td>"+
+					 
+					  "</tr>";
+					  table+=tr;
+				  if(num==2){
+					  tr2+="<tr>"+firstTd+
+					  "<td style='min-width: 80px'>"+IP+"</td>"+
+					  /* "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+ */
+						"</tr>";
+					lefttable+=tr2;
+				  }
+							
+				}
+			}
+			
+			if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh){
+				if(num==1){
+					//alert(table+menu);
+					//jQuery("#tbody").empty();
+					jQuery("#tbody").append(table);
+					//jQuery("#menu").append(menu);
+				}else if(num==2){
+					jQuery("#SUMIP").html(SUMIP);
+					jQuery("#SUMPV").html(SUMPV);
+					jQuery("#ip").html(json.sumip);
+					jQuery("#pv").html(json.sumpv);
+					jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
+					jQuery("#tbody").empty();
+					jQuery("#tbody").append(table);
+					jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
+					jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable+menu);
+					jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
+				}
+				
+				
+			}
 	 }
 	 
 </script>
