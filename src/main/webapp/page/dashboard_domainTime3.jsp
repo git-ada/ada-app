@@ -1264,7 +1264,7 @@
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'总ip数',
+	                  name:'总IP数',
 	                  icon : 'line',
 	                  textStyle:{}
 	              }]
@@ -1445,13 +1445,13 @@
 	   	              name:'广告老IP数',
 	   	              type:'bar',
 	   	         	  stack: '老IP数',
-	   	              data:d4
+	   	              data:d3
 	   	          },
 	   	          {
 	   	              name:'非广告老IP数',
 	   	              type:'bar',
 	   	         	  stack: '老IP数',
-	   	              data:d7
+	   	              data:d6
 	   	          },
 	   	          {
 	   	              name:'总IP数',
