@@ -517,7 +517,7 @@ var initTable1 = function () {
 	  
 	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do?dataType="+type+"&domainId="+domainId,
+				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId,
 				success : function(data) {
 					
 					if (data!=null) {
