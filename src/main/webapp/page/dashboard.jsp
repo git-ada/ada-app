@@ -305,6 +305,10 @@ thead th {
 <script type="text/javascript">
 var dataType = '${dataType}';//页面数据类型
 var domainId = "";//域名ID
+var stClick = false;
+var cClick = false;
+var sClick = false;
+var mClick = false;
 function openMenu(a,event){
 	 var e = event || window.event;
 	var yy  = parseInt(e.screenY-120);
@@ -333,20 +337,39 @@ function PercentageMax(num, total){
 function changeDisplay(a,data){
 	 var i = jQuery(a).find("i");
 	  if(jQuery(i).attr("class")=="icon-magnifier-add"){
+		  if(data == "st"){
+			  stClick = true;
+		  }else if(data == "c"){
+			  cClick = true;
+		  }else if(data == "s"){
+			  sClick = true;
+		  }else if(data == "m"){
+			  mClick = true;
+		  }
 		  jQuery(i).removeClass("icon-magnifier-add");
 		  jQuery(i).addClass("icon-magnifier-remove");
 		
-		  jQuery("[event="+data+"]").toggleClass("displaynone");
+		  //jQuery("[event="+data+"]").toggleClass("displaynone");
+		  jQuery("[event="+data+"]").show();
 		  jQuery(".dataTables_scrollHeadInner").css("width","4000px");
 		  
 		  var left =  jQuery(".dataTables_scrollBody").scrollLeft();
 		  jQuery(".dataTables_scrollBody").scrollLeft(left+500);
 	  }else if(jQuery(i).attr("class")=="icon-magnifier-remove"){
+		  if(data == "st"){
+			  stClick = false;
+		  }else if(data == "c"){
+			  cClick = false;
+		  }else if(data == "s"){
+			  sClick = false;
+		  }else if(data == "m"){
+			  mClick = false;
+		  }
 		  jQuery(i).removeClass("icon-magnifier-remove");
 		  jQuery(i).addClass("icon-magnifier-add");
 		  
-		  jQuery("[event="+data+"]").toggleClass("displaynone");
-			 
+		  //jQuery("[event="+data+"]").toggleClass("displaynone");
+		  jQuery("[event="+data+"]").hide();
 	  }
 	 
 	 
@@ -593,10 +616,22 @@ var initTable1 = function () {
 				    }else if(dataType=="domainRegionNotAd"){
 				    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
 				    }
-				    var stDisplay = jQuery("[event=st]").first().attr("class");
-				    var cDisplay = jQuery("[event=c]").first().attr("class");
-				    var sDisplay = jQuery("[event=s]").first().attr("class");
-				    var mtDisplay = jQuery("[event=m]").first().attr("class");
+				    var stDisplay = "";
+				    var cDisplay = "";
+				    var sDisplay = "";
+				    var mtDisplay = "";
+				    
+				    if(num==1){
+		    	 	 stDisplay = "displaynone";
+				     cDisplay = "displaynone";
+				     sDisplay = "displaynone";
+				     mtDisplay = "displaynone";
+				    }else if(num==2){
+				    	if(!stClick) stDisplay = "displaynone";
+				    	if(!cClick) cDisplay = "displaynone";
+				    	if(!sClick) sDisplay = "displaynone";
+				    	if(!mClick) mtDisplay = "displaynone";
+				    }
 				    
 				    var sumST = item[7]+item[8]+item[9]+item[10];
 				    var sumC = item[11]+item[12]+item[13]+item[14];
@@ -677,7 +712,7 @@ var initTable1 = function () {
 			if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh){
 				if(num==1){
 					//alert(table+menu);
-					//jQuery("#tbody").empty();
+					jQuery("#tbody").empty();
 					jQuery("#tbody").append(table);
 					//jQuery("#menu").append(menu);
 				}else if(num==2){
