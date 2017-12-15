@@ -233,6 +233,20 @@ public class IndexController {
 		return "dashboard_domainTime";
 	}
 	
+	@RequestMapping(value = "dashboard_domainTime3")
+	public String dashboard_domainTime3(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId){
+		if(domainId!=null && !"".equals(domainId)){
+			JSONObject json = domainTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1);
+			
+			model.addAttribute("json", json);
+		}
+		model.addAttribute("domainId", domainId);
+		
+		return "dashboard_domainTime3";
+	}
+	
+	
 	
 	/**
 	 * 实时数据页面 渠道列表
@@ -281,6 +295,21 @@ public class IndexController {
 	 */
 	@RequestMapping("ajaxdashboard_domainTime")
 	public void ajaxdashboard_domainTime(HttpServletRequest request,HttpServletResponse response ,Model model,
+			String pageNo,String domainId){
+		Integer pageno = Integer.valueOf(pageNo);
+		Integer domainid = Integer.valueOf(domainId);
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(this.domainTimechartList(domainid,domainTime_PageSize,Interval_time,pageno));
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping("ajaxdashboard_domainTime3")
+	public void ajaxdashboard_domainTime3(HttpServletRequest request,HttpServletResponse response ,Model model,
 			String pageNo,String domainId){
 		Integer pageno = Integer.valueOf(pageNo);
 		Integer domainid = Integer.valueOf(domainId);
@@ -533,6 +562,7 @@ public class IndexController {
 				}
 			}
 			for(int i=adList.size()-1;i>=0;i--){
+//				for(int ii=notadList.size()-1;ii>=0;ii--){
 				/** 广告入口数据  **/
 				AdaDomainAd15mStat item = adList.get(i);
 				String date = new SimpleDateFormat("HH:mm").format(item.getEndTime());
@@ -543,6 +573,7 @@ public class IndexController {
 				json_adChart_1.put("oldip", item.getOldip()); // 老IP数
 				json_adChart_1.put("loginip", item.getLoginip());//登陆用户数
 				json_adChart_1.put("targetpageip", item.getTargetpageip());//进入目标页
+				json_adChart_1.put("ip", item.getIp());//进入目标页
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_1.put("color", "#EF3F3F");
 					json_adChart_1.put("lcolor", "red");
@@ -557,6 +588,7 @@ public class IndexController {
 				json_adChart_2.put("c3", item.getClickip3());
 				json_adChart_2.put("c4", item.getClickip4());
 				json_adChart_2.put("ip", item.getIp());
+				json_adChart_2.put("adcTotal", item.getClickip1()+item.getClickip2()+item.getClickip3()+item.getClickip4());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_2.put("color", "#EF3F3F");
 					json_adChart_2.put("lcolor", "red");
@@ -571,6 +603,7 @@ public class IndexController {
 				json_adChart_3.put("st3", item.getStaytimeip3());
 				json_adChart_3.put("st4", item.getStaytimeip4());
 				json_adChart_3.put("ip", item.getIp());
+				json_adChart_3.put("adstTotal", item.getStaytimeip1()+item.getStaytimeip2()+item.getStaytimeip3()+item.getStaytimeip4());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_3.put("color", "#EF3F3F");
 					json_adChart_3.put("lcolor", "red");
@@ -585,6 +618,7 @@ public class IndexController {
 				json_adChart_4.put("s3", item.getScrollip3());
 				json_adChart_4.put("s4", item.getScrollip4());
 				json_adChart_4.put("ip", item.getIp());
+				json_adChart_4.put("adsTotal", item.getScrollip1()+item.getScrollip2()+item.getScrollip3()+item.getScrollip4());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_4.put("color", "#EF3F3F");
 					json_adChart_4.put("lcolor", "red");
@@ -599,6 +633,7 @@ public class IndexController {
 				json_adChart_5.put("m3", item.getMoveip3());
 				json_adChart_5.put("m4", item.getMoveip4());
 				json_adChart_5.put("ip", item.getIp());
+				json_adChart_5.put("admTotal", item.getMoveip1()+item.getMoveip2()+item.getMoveip3()+item.getMoveip4());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_5.put("color", "#EF3F3F");
 					json_adChart_5.put("lcolor", "red");
@@ -618,9 +653,10 @@ public class IndexController {
 				}
 				ad_chart_6.add(json_adChart_6);
 				
-			}
-			
+				}
 			for(int i=notadList.size()-1;i>=0;i--){
+			
+			
 				/** 非广告入口数据 **/
 				AdaDomainNotad15mStat notad = notadList.get(i);
 				String date = new SimpleDateFormat("HH:mm").format(notad.getEndTime());
@@ -631,6 +667,7 @@ public class IndexController {
 				json_notadChart_1.put("oldip", notad.getOldip());
 				json_notadChart_1.put("loginip", notad.getLoginip());
 				json_notadChart_1.put("targetpageip", notad.getTargetpageip());
+				json_notadChart_1.put("ip", notad.getIp());//进入目标页
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_notadChart_1.put("color", "#EF3F3F");
 					json_notadChart_1.put("lcolor", "red");
@@ -645,6 +682,7 @@ public class IndexController {
 				json_notadChart_2.put("c3", notad.getClickip3());
 				json_notadChart_2.put("c4", notad.getClickip4());
 				json_notadChart_2.put("ip", notad.getIp());
+				json_notadChart_2.put("notAdcTotal", notad.getClickip1()+notad.getClickip2()+notad.getClickip3()+notad.getClickip4());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_notadChart_2.put("color", "#EF3F3F");
 					json_notadChart_2.put("lcolor", "red");
@@ -659,6 +697,7 @@ public class IndexController {
 				json_notadChart_3.put("st3", notad.getStaytimeip3());
 				json_notadChart_3.put("st4", notad.getStaytimeip4());
 				json_notadChart_3.put("ip", notad.getIp());
+				json_notadChart_3.put("notAdstTotal", notad.getStaytimeip1()+notad.getStaytimeip2()+notad.getStaytimeip3()+notad.getStaytimeip4());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_notadChart_3.put("color", "#EF3F3F");
 					json_notadChart_3.put("lcolor", "red");
@@ -673,6 +712,7 @@ public class IndexController {
 				json_notadChart_4.put("s3", notad.getScrollip3());
 				json_notadChart_4.put("s4", notad.getScrollip4());
 				json_notadChart_4.put("ip", notad.getIp());
+				json_notadChart_4.put("notAdsTotal", notad.getScrollip1()+notad.getScrollip2()+notad.getScrollip3()+notad.getScrollip4());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_notadChart_4.put("color", "#EF3F3F");
 					json_notadChart_4.put("lcolor", "red");
@@ -687,6 +727,7 @@ public class IndexController {
 				json_notadChart_5.put("m3", notad.getMoveip3());
 				json_notadChart_5.put("m4", notad.getMoveip4());
 				json_notadChart_5.put("ip", notad.getIp());
+				json_notadChart_5.put("notAdmTotal", notad.getMoveip1()+notad.getMoveip2()+notad.getMoveip3()+notad.getMoveip4());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_notadChart_5.put("color", "#EF3F3F");
 					json_notadChart_5.put("lcolor", "red");
@@ -706,6 +747,7 @@ public class IndexController {
 				}
 				notad_chart_6.add(json_notadChart_6);
 			}
+//			}
 			json.put("success", true);
 			json.put("nextPage", pageNo-1);
 			json.put("lastPage", pageNo+1);
