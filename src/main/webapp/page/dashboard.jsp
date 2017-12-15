@@ -228,39 +228,39 @@ th:last-child,td:last-child {
 						<td style="min-width: 80px">${item[1]}</td>
 						<td style="min-width: 80px">${item[2]}</td>
 						<!-- ${domain.loginip} (${domain.log}%) eef1f5-->
-						<td style="min-width: 80px">${item[3]} (<fmt:formatNumber type="number" value="${item[3] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${item[4]} (<fmt:formatNumber type="number" value="${item[4] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${item[5]} (<fmt:formatNumber type="number" value="${item[5] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${item[6]} (<fmt:formatNumber type="number" value="${item[6] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td> 
+						<td style="min-width: 80px">${item[3]} (<fmt:formatNumber type="number" value="${item[3] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${item[4]} (<fmt:formatNumber type="number" value="${item[4] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${item[5]} (<fmt:formatNumber type="number" value="${item[5] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${item[6]} (<fmt:formatNumber type="number" value="${item[6] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td> 
 						
 						<c:set var="sumST" scope="session" value="${item[7]+item[8]+item[9]+item[10]}"/>
 						<c:set var="sumC" scope="session" value="${item[11]+item[12]+item[13]+item[14]}"/>
 						<c:set var="sumS" scope="session" value="${item[15]+item[16]+item[17]+item[18]}"/>
 						<c:set var="sumM" scope="session" value="${item[19]+item[20]+item[21]+item[22]}"/>
 						
-						<td style="min-width: 80px">${sumST} (<fmt:formatNumber type="number" value="${sumST / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="st">${item[7]} (<fmt:formatNumber type="number" value="${item[7] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="st">${item[8]} (<fmt:formatNumber type="number" value="${item[8] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="st">${item[9]} (<fmt:formatNumber type="number" value="${item[9] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="st">${item[10]} (<fmt:formatNumber type="number" value="${item[10] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${sumST} (<fmt:formatNumber type="number" value="${sumST / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="st">${item[7]} (<fmt:formatNumber type="number" value="${item[7] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="st">${item[8]} (<fmt:formatNumber type="number" value="${item[8] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="st">${item[9]} (<fmt:formatNumber type="number" value="${item[9] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="st">${item[10]} (<fmt:formatNumber type="number" value="${item[10] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 						
-						<td style="min-width: 80px">${sumC} (<fmt:formatNumber type="number" value="${sumC / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="c">${item[11]} (<fmt:formatNumber type="number" value="${item[11] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="c">${item[12]} (<fmt:formatNumber type="number" value="${item[12] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="c">${item[13]} (<fmt:formatNumber type="number" value="${item[13] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="c">${item[14]} (<fmt:formatNumber type="number" value="${item[14] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${sumC} (<fmt:formatNumber type="number" value="${sumC / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="c">${item[11]} (<fmt:formatNumber type="number" value="${item[11] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="c">${item[12]} (<fmt:formatNumber type="number" value="${item[12] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="c">${item[13]} (<fmt:formatNumber type="number" value="${item[13] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="c">${item[14]} (<fmt:formatNumber type="number" value="${item[14] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 						
-						<td style="min-width: 80px">${sumS} (<fmt:formatNumber type="number" value="${sumS / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="s">${item[15]} (<fmt:formatNumber type="number" value="${item[15] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="s">${item[16]} (<fmt:formatNumber type="number" value="${item[16] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="s">${item[17]} (<fmt:formatNumber type="number" value="${item[17] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="s">${item[18]} (<fmt:formatNumber type="number" value="${item[18] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${sumS} (<fmt:formatNumber type="number" value="${sumS / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="s">${item[15]} (<fmt:formatNumber type="number" value="${item[15] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="s">${item[16]} (<fmt:formatNumber type="number" value="${item[16] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="s">${item[17]} (<fmt:formatNumber type="number" value="${item[17] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="s">${item[18]} (<fmt:formatNumber type="number" value="${item[18] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 						
-						<td style="min-width: 80px">${sumM} (<fmt:formatNumber type="number" value="${sumM / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="m">${item[19]} (<fmt:formatNumber type="number" value="${item[19] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="m">${item[20]} (<fmt:formatNumber type="number" value="${item[20] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="m">${item[21]} (<fmt:formatNumber type="number" value="${item[21] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="m">${item[22]} (<fmt:formatNumber type="number" value="${item[22] / item[0]}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px">${sumM} (<fmt:formatNumber type="number" value="${sumM / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="m">${item[19]} (<fmt:formatNumber type="number" value="${item[19] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="m">${item[20]} (<fmt:formatNumber type="number" value="${item[20] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="m">${item[21]} (<fmt:formatNumber type="number" value="${item[21] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
+						<td style="min-width: 80px" class="displaynone" event="m">${item[22]} (<fmt:formatNumber type="number" value="${item[22] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
 	                </tr>
 	                </c:forEach>
 	                
