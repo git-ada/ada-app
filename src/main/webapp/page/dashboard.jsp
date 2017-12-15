@@ -270,6 +270,9 @@ th:last-child,td:last-child {
 								<li>
 							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}')">分时统计</a>
 							     </li>
+							     <li>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${item[23]}')">分时统计2</a>
+							     </li>
 							<!--      <li>
 							         <a href="javascript:;" onclick="changeDataType('domainAd')">域名统计（广告入口）</a>
 							     </li>

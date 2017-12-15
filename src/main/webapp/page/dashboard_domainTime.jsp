@@ -54,7 +54,7 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <a onclick="gotoPage('${pageContext.request.contextPath}/dashboard.jhtm?dataType=domain')"> <i class="icon-action-undo"></i></a>
+                  <a href="javascript:gotoHistoryPage(-1);"> <i class="icon-action-undo"></i></a>
                   <i class=" icon-info font-green"></i>
                   <span class="caption-subject font-green bold uppercase">基本数据</span>
                           <!-- caption-subject font-dark bold uppercase -->
@@ -389,7 +389,7 @@
 	   	          }
 	   	      },
 	   	      //color:['#48C0D8','#00E3E3','#00FFFF','#80FFFF'], //图例颜色 #48C0D8 #17C7E3
-	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#17C7E3'], //图例颜色 #48C0D8 #17C7E3 #ef3f3f
+	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','red'], //图例颜色 #48C0D8 #17C7E3 #ef3f3f
 	   	      legend: {
 	   	    	  x : '5.5%',//图例x方向移动距离
 	   	    	  y : '85%', //图例y方向移动距离
@@ -418,7 +418,7 @@
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'ip',
+	                  name:'IP',
 	                  icon : 'line',
 	                  textStyle:{}
 	              }]
@@ -477,7 +477,7 @@
 	   	              data:d5
 	   	          },
 	   	          {
-	   	              name:'ip',
+	   	              name:'IP',
 	   	              type:'line',
 	   	         	  stack: 'ip',
 	   	              data:d6
@@ -524,7 +524,7 @@
 	   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 	   	          }
 	   	      },//#F04848
-	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#17C7E3'], //图例颜色
+	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','red'], //图例颜色
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%',
@@ -549,7 +549,7 @@
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'ip',
+	                  name:'IP',
 	                  icon : 'line',
 	                  textStyle:{  }
 	              }]
@@ -608,7 +608,7 @@
 	   	              data:d5
 	   	          },
 	   	          {
-	   	              name:'ip',
+	   	              name:'IP',
 	   	              type:'line',
 	   	         	  stack: 'ip',
 	   	              data:d6
@@ -655,7 +655,7 @@
 	   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow' 
 	   	          }
 	   	      },
-	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#17C7E3'], //图例颜色
+	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','red'], //图例颜色
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%',
@@ -680,7 +680,7 @@
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'ip',
+	                  name:'IP',
 	                  icon : 'line',
 	                  textStyle:{ }
 	              }]
@@ -739,7 +739,7 @@
 	   	              data:d5
 	   	          },
 	   	          {
-	   	              name:'ip',
+	   	              name:'IP',
 	   	              type:'line',
 	   	         	  stack: 'ip',
 	   	              data:d6
@@ -786,7 +786,7 @@
 	   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow' 
 	   	          }
 	   	      },
-	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#17C7E3'], //图例颜色
+	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','red'], //图例颜色
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%',
@@ -811,7 +811,7 @@
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'ip',
+	                  name:'IP',
 	                  icon : 'line',
 	                  textStyle:{ }
 	              }]
@@ -870,7 +870,7 @@
 	   	              data:d5
 	   	          },
 	   	          {
-	   	              name:'ip',
+	   	              name:'IP',
 	   	              type:'line',
 	   	         	  stack: 'ip',
 	   	              data:d6
