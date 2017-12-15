@@ -264,7 +264,7 @@ thead th {
 						<td style="min-width: 80px" title="<fmt:formatNumber type='number' value='${item[3] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/>%">
 							<div class="myprogress">
 								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber type="number" value="${item[3] / item[0] * 100}" pattern="0.00" maxFractionDigits="2"/>%">
-								<span class="only"> ${item[3]} <fmt:formatNumber type='number' value='${item[3] / item[0] * 100}' pattern='0.00' maxFractionDigits='2'/></span>
+								<span class="only"> ${item[3]} </span>
 								</div>
 							</div>
 						</td>
@@ -453,7 +453,7 @@ thead th {
 							     </li>  -->
 							     <c:if test="${dataType=='domain'}">
 							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}')">分时统计</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
 							     </li>
 								     <li>
 								         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
@@ -461,7 +461,7 @@ thead th {
 							     </c:if>
 							     <c:if test="${dataType=='domainAd'}">
 							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainAdTime.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
 							     </li>
 								     <li>
 								         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${item[23]})">地域统计</a>
@@ -469,7 +469,7 @@ thead th {
 							     </c:if>
 							     <c:if test="${dataType=='domainNotAd'}">
 							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainAdTime.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
 							     </li>
 								     <li>
 								         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${item[23]})">地域统计</a>
@@ -727,7 +727,7 @@ var initTable1 = function () {
 							    	firstTd="<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
 							    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
 									"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
-										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+item[23]+"\")'>分时统计</a></li>"+
+										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
 										 /* "<li><a href='javascript:;' onclick='changeDataType(\"domainAd\")'>域名统计（广告入口）</a></li>"+
 								     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainNotAd\")'>域名统计（非广告入口）</a></li>"+ */
 	                                	 /* "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+item[23]+"\")'>地域统计（广告入口）</a></li>"+
@@ -739,7 +739,7 @@ var initTable1 = function () {
 							    	firstTd = "<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
 							    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
 									"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
-										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainAdTime.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
+										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
 	                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+item[23]+"\")'>地域统计</a></li>"+
 							      	"</ul></div>";
 							      	menu+=tr3;
@@ -748,7 +748,7 @@ var initTable1 = function () {
 							    	firstTd = "<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
 							    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
 									"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
-										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainAdTime.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
+										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
 	                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+item[23]+"\")'>地域统计</a></li>"+
 							      	"</ul></div>";
 							      	menu+=tr3;

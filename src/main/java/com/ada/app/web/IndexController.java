@@ -254,7 +254,7 @@ public class IndexController {
 		}
 		model.addAttribute("dataType", dataType);
 		model.addAttribute("domainId", domainId);
-		return "domainTimechartList_one";
+		return "dashboard_domainTime_one";
 	}
 	
 	
@@ -426,28 +426,60 @@ public class IndexController {
 			return json;
 		}
 		List list = new ArrayList();
-		if("domain".equals(dataType)){
-			//List = 
-		}else if("domainAd".equals(dataType)){
-			list = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
-		}else if("domainNotAd".equals(dataType)){
-			list = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
-		}
-		
-		if((list==null || list.size()<1)){
-			json.put("success", false);
-			json.put("message", "暂无统计数据！");
-			return json;
-		}
-		
-		JSONArray chart_1=new JSONArray();// IP、PV、UV
-		JSONArray chart_2=new JSONArray();//老用户数、老ip、登陆用户数、进入目标页
-		JSONArray chart_3=new JSONArray();//用户停留时长5-30、31-120、121-300、300+秒
-		JSONArray chart_4=new JSONArray();//鼠标点击次数1-2、3-5、6-10、10+
-		JSONArray chart_5=new JSONArray();//鼠标滚动次数1-2、3-5、6-10、10+
-		JSONArray chart_6=new JSONArray();//鼠标移动次数1-2、3-5、6-10、10+
 		
 		try {
+			if("domain".equals(dataType)){
+				List<AdaDomainAd15mStat> adlist = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+				List<AdaDomainNotad15mStat> notAdlist = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+				for(int i=0;i<adlist.size();i++){
+					BaseStatBean item = new BaseStatBean();
+					AdaDomainAd15mStat ad = adlist.get(i);
+					AdaDomainNotad15mStat notAd =  notAdlist.get(i);
+					item.setEndTime(ad.getEndTime());
+					item.setIp(ad.getIp()+notAd.getIp());
+					item.setPv(ad.getPv()+notAd.getPv());
+					item.setUv(ad.getUv()+notAd.getUv());
+					item.setLoginip(ad.getLoginip()+notAd.getLoginip());
+					item.setOldip(ad.getOldip()+notAd.getOldip());
+					item.setOlduserip(ad.getOlduserip()+notAd.getOlduserip());
+					item.setTargetpageip(ad.getTargetpageip()+notAd.getTargetpageip());
+					item.setStaytimeip1(ad.getStaytimeip1()+notAd.getStaytimeip1());
+					item.setStaytimeip2(ad.getStaytimeip2()+notAd.getStaytimeip2());
+					item.setStaytimeip3(ad.getStaytimeip3()+notAd.getStaytimeip3());
+					item.setStaytimeip4(ad.getStaytimeip4()+notAd.getStaytimeip4());
+					item.setClickip1(ad.getClickip1()+notAd.getClickip1());
+					item.setClickip2(ad.getClickip2()+notAd.getClickip2());
+					item.setClickip3(ad.getClickip3()+notAd.getClickip3());
+					item.setClickip4(ad.getClickip4()+notAd.getClickip4());
+					item.setScrollip1(ad.getScrollip1()+notAd.getScrollip1());
+					item.setScrollip2(ad.getScrollip2()+notAd.getScrollip2());
+					item.setScrollip3(ad.getScrollip3()+notAd.getScrollip3());
+					item.setScrollip4(ad.getScrollip4()+notAd.getScrollip4());
+					item.setMoveip1(ad.getMoveip1()+notAd.getMoveip1());
+					item.setMoveip2(ad.getMoveip2()+notAd.getMoveip2());
+					item.setMoveip3(ad.getMoveip3()+notAd.getMoveip3());
+					item.setMoveip4(ad.getMoveip4()+notAd.getMoveip4());
+					list.add(item);
+				}
+			}else if("domainAd".equals(dataType)){
+				list = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+			}else if("domainNotAd".equals(dataType)){
+				list = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+			}
+			
+			if((list==null || list.size()<1)){
+				json.put("success", false);
+				json.put("message", "暂无统计数据！");
+				return json;
+			}
+			
+			JSONArray chart_1=new JSONArray();// IP、PV、UV
+			JSONArray chart_2=new JSONArray();//老用户数、老ip、登陆用户数、进入目标页
+			JSONArray chart_3=new JSONArray();//用户停留时长5-30、31-120、121-300、300+秒
+			JSONArray chart_4=new JSONArray();//鼠标点击次数1-2、3-5、6-10、10+
+			JSONArray chart_5=new JSONArray();//鼠标滚动次数1-2、3-5、6-10、10+
+			JSONArray chart_6=new JSONArray();//鼠标移动次数1-2、3-5、6-10、10+
+			
 			if(list.size()<pageSize){//数据条数不足时 补充条数
 				for(int i=0;i<pageSize-list.size();i++){
 					BaseStatBean item = new BaseStatBean();
@@ -595,12 +627,12 @@ public class IndexController {
 			json.put("lastPage", pageNo+1);
 			json.put("dataType", dataType);
 			
-			json.put("ad_chart_1", chart_1);
-			json.put("ad_chart_2", chart_2);
-			json.put("ad_chart_3", chart_3);
-			json.put("ad_chart_4", chart_4);
-			json.put("ad_chart_5", chart_5);
-			json.put("ad_chart_6", chart_6);
+			json.put("chart_1", chart_1);
+			json.put("chart_2", chart_2);
+			json.put("chart_3", chart_3);
+			json.put("chart_4", chart_4);
+			json.put("chart_5", chart_5);
+			json.put("chart_6", chart_6);
 		} catch (Exception e) {
 			log.error("获取域名广告入口和非广告入口图形数据失败,msg->"+e.getMessage(),e);
 		}

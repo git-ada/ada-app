@@ -265,6 +265,7 @@ function refre(){
 					colorField: "color",
 					lineAlpha: 0,
 					 },{
+			            id: "g2",
 		                valueField: "ip",
 		                classNameField: "bulletClass",
 		                title: "IP",
@@ -274,6 +275,11 @@ function refre(){
 		                lineThickness: 2,
 		                legendValueText: "[[value]] ",
 		                legendPeriodValueText: "总计: [[value.sum]] ",
+		                bullet: "round",
+		                bulletBorderColor: "red",
+		                bulletBorderAlpha: 1,
+		                bulletBorderThickness: 2,
+		                bulletColor: "#fff",
 		                labelPosition: "right",
 		                balloonText: "IP:[[value]]",
 		                showBalloon: !0,
@@ -288,6 +294,11 @@ function refre(){
 		                lineThickness: 2,
 		                legendValueText: "[[value]] ",
 		                legendPeriodValueText: "总计: [[value.sum]] ",
+		                bullet: "round",
+		                bulletBorderColor: "blue",
+		                bulletBorderAlpha: 1,
+		                bulletBorderThickness: 2,
+		                bulletColor: "#fff",
 		                labelPosition: "right",
 		                balloonText: "UV:[[value]]",
 		                showBalloon: !0,
@@ -831,6 +842,7 @@ function refre(){
 						colorField: "color",
 						lineAlpha: 0,
 					 },{
+						id: "g2",
 		                valueField: "m2",
 		                classNameField: "bulletClass",
 		                title: "3-5次",
@@ -840,6 +852,11 @@ function refre(){
 		                lineThickness: 2,
 		                legendValueText: "[[value]] ",
 		                legendPeriodValueText: "总计:[[value.sum]] ",
+		                bullet: "round",
+		                bulletBorderColor: "red",
+		                bulletBorderAlpha: 1,
+		                bulletBorderThickness: 2,
+		                bulletColor: "#fff",
 		                labelPosition: "right",
 		                balloonText: "3-5次:[[value]]",
 		                showBalloon: !0,
@@ -854,6 +871,11 @@ function refre(){
 		                lineThickness: 2,
 		                legendValueText: "[[value]] ",
 		                legendPeriodValueText: "总计:[[value.sum]] ",
+		                bullet: "round",
+		                bulletBorderColor: "blue",
+		                bulletBorderAlpha: 1,
+		                bulletBorderThickness: 2,
+		                bulletColor: "#fff",
 		                labelPosition: "right",
 		                balloonText: "6-10次:[[value]]",
 		                showBalloon: !0,
@@ -868,6 +890,11 @@ function refre(){
 		                lineThickness: 2,
 		                legendValueText: "[[value]] ",
 		                legendPeriodValueText: "总计:[[value.sum]] ",
+		                bullet: "round",
+		                bulletBorderColor: "green",
+		                bulletBorderAlpha: 1,
+		                bulletBorderThickness: 2,
+		                bulletColor: "#fff",
 		                labelPosition: "right",
 		                balloonText: "10+次:[[value]]",
 		                showBalloon: !0,
@@ -900,21 +927,13 @@ function refre(){
 
 		jQuery(document).ready(function() {
 		    var chartdata = ${json};
-		    if(dataType=="domainAd"){
-		    	chart_1("ad_chart_1",chartdata.ad_chart_1);
-		    	chart_2("ad_chart_2",chartdata.ad_chart_2);
-		    	chart_3("ad_chart_3",chartdata.ad_chart_3);
-		    	chart_4("ad_chart_4",chartdata.ad_chart_4);
-		    	chart_5("ad_chart_5",chartdata.ad_chart_5);
-		    	chart_6("ad_chart_6",chartdata.ad_chart_6);
-		    }else if(dataType=="domainNotAd"){
-		    	chart_1("ad_chart_1",chartdata.notad_chart_1);
-			    chart_2("ad_chart_2",chartdata.notad_chart_2);
-			    chart_3("ad_chart_3",chartdata.notad_chart_3);
-			    chart_4("ad_chart_4",chartdata.notad_chart_4);
-			    chart_5("ad_chart_5",chartdata.notad_chart_5);
-			    chart_6("ad_chart_6",chartdata.notad_chart_6);
-		    }
+		    
+	    	chart_1("chart_1",chartdata.chart_1);
+	    	chart_2("chart_2",chartdata.chart_2);
+	    	chart_3("chart_3",chartdata.chart_3);
+	    	chart_4("chart_4",chartdata.chart_4);
+	    	chart_5("chart_5",chartdata.chart_5);
+	    	chart_6("chart_6",chartdata.chart_6);
 		    
 		    jQuery("a[a-type=lastPage]").attr("page-data",chartdata.lastPage);
 		    jQuery("a[a-type=nextPage]").attr("page-data",chartdata.nextPage);
