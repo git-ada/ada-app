@@ -35,7 +35,7 @@
     </ul>
 </div> -->
  
- <!-- 第六个图表 基本数据 -->
+ <!-- 第一个图表 基本数据 -->
  <div class="row">
   <div class="col-lg-12 col-xs-12 col-sm-12">
       <!-- BEGIN PORTLET-->
@@ -52,13 +52,13 @@
                </div>
           </div>
           <div class="portlet-body">
-              <div id="ad_chart_6" class="chart" style="height: 300px;"> </div>
+              <div id="chart_1" class="chart" style="height: 300px;"> </div>
           </div>
       </div>
       <!-- END PORTLET-->
   </div>
 </div>
- <!-- 第一个图表 用户分析-->
+ <!-- 第二个图表 用户分析-->
 <div class="row">
   <div class="col-lg-12 col-xs-12 col-sm-12">
       <!-- BEGIN PORTLET-->
@@ -74,7 +74,7 @@
                </div>
           </div>
           <div class="portlet-body">
-              <div id="ad_chart_1" class="chart" style="height: 300px;"> </div>
+              <div id="chart_2" class="chart" style="height: 300px;"> </div>
           </div>
       </div>
       <!-- END PORTLET-->
@@ -96,13 +96,13 @@
                </div>
           </div>
           <div class="portlet-body">
-              <div id="ad_chart_3" class="chart" style="height: 300px;"> </div>
+              <div id="chart_3" class="chart" style="height: 300px;"> </div>
           </div>
       </div>
       <!-- END PORTLET-->
   </div>
 </div>
- <!-- 第二个图表 -->
+ <!-- 第四个图表 -->
 <div class="row">
   <div class="col-lg-12 col-xs-12 col-sm-12">
       <!-- BEGIN PORTLET-->
@@ -118,7 +118,7 @@
                </div>
           </div>
           <div class="portlet-body">
-              <div id="ad_chart_2" class="chart" style="height: 300px;"> </div>
+              <div id="chart_4" class="chart" style="height: 300px;"> </div>
           </div>
       </div>
       <!-- END PORTLET-->
@@ -126,7 +126,7 @@
   
 </div>
 
-<!-- 第四个图表 -->
+<!-- 第五个图表 -->
 <div class="row">
   <div class="col-lg-12 col-xs-12 col-sm-12">
       <!-- BEGIN PORTLET-->
@@ -142,14 +142,14 @@
                </div>
           </div>
           <div class="portlet-body">
-              <div id="ad_chart_4" class="chart" style="height: 300px;"> </div>
+              <div id="chart_5" class="chart" style="height: 300px;"> </div>
           </div>
       </div>
       <!-- END PORTLET-->
   </div>
   
 </div>
-<!-- 第五个图表 -->
+<!-- 第六个图表 -->
 <div class="row">
   <div class="col-lg-12 col-xs-12 col-sm-12">
       <!-- BEGIN PORTLET-->
@@ -165,7 +165,7 @@
                </div>
           </div>
           <div class="portlet-body">
-              <div id="ad_chart_5" class="chart" style="height: 300px;"> </div>
+              <div id="chart_6" class="chart" style="height: 300px;"> </div>
           </div>
       </div>
       <!-- END PORTLET-->
@@ -211,21 +211,12 @@ function refre(){
 						 jQuery("a[a-type=lastPage]").attr("page-data",json.lastPage);
 						 jQuery("a[a-type=nextPage]").attr("page-data",json.nextPage);
 						    
-						 if(dataType=="domainAd"){
-					    	chart_1("ad_chart_1",json.ad_chart_1);
-					    	chart_2("ad_chart_2",json.ad_chart_2);
-					    	chart_3("ad_chart_3",json.ad_chart_3);
-					    	chart_4("ad_chart_4",json.ad_chart_4);
-					    	chart_5("ad_chart_5",json.ad_chart_5);
-					    	chart_6("ad_chart_6",json.ad_chart_6);
-					    }else if(dataType=="domainNotAd"){
-					    	chart_1("ad_chart_1",json.notad_chart_1);
-						    chart_2("ad_chart_2",json.notad_chart_2);
-						    chart_3("ad_chart_3",json.notad_chart_3);
-						    chart_4("ad_chart_4",json.notad_chart_4);
-						    chart_5("ad_chart_5",json.notad_chart_5);
-						    chart_6("ad_chart_6",json.notad_chart_6);
-					    }
+				    	chart_1("chart_1",json.chart_1);
+				    	chart_2("chart_2",json.chart_2);
+				    	chart_3("chart_3",json.chart_3);
+				    	chart_4("chart_4",json.chart_4);
+				    	chart_5("chart_5",json.chart_5);
+				    	chart_6("chart_6",json.chart_6);
 					   
 					} else {
 						toastr.success(json.message);
@@ -236,6 +227,87 @@ function refre(){
 	} 
 	 
 	 function chart_1(divid,json) {
+			var e = AmCharts.makeChart(divid, {
+				type: "serial",
+				fontSize: 12,
+				fontFamily: "Microsoft YaHei",
+				dataDateFormat: "HH:mm:ss",
+				dataProvider: e,
+				addClassNames: !0,
+				startDuration: 1,
+				color: "#6c7b88",
+				marginLeft: 0,
+				legend: {
+						bulletType: "round",
+						equalWidths: !1,
+						valueWidth: 120,
+						useGraphSettings: !0,
+						color: "#6c7b88"
+					},
+				dataProvider: json,
+				valueAxes: [{
+					id: "a1",
+					gridAlpha: 0,
+					axisAlpha: 0,
+				}],
+				graphs: [{
+					id: "g1",
+					valueField: "pv",
+					title: "PV",
+					type: "column",
+					fillAlphas: .7,
+					valueAxis: "a1",
+					balloonText: "PV：[[value]] ",
+					legendValueText: "[[value]] ",
+					legendPeriodValueText: "总计: [[value.sum]] ",
+					lineColor: "#08a3cc",
+					alphaField: "alpha",
+					colorField: "color",
+					lineAlpha: 0,
+					 },{
+		                valueField: "ip",
+		                classNameField: "bulletClass",
+		                title: "IP",
+		                type: "line",
+		                valueAxis: "a1",
+		                lineColor: "red",
+		                lineThickness: 2,
+		                legendValueText: "[[value]] ",
+		                legendPeriodValueText: "总计: [[value.sum]] ",
+		                labelPosition: "right",
+		                balloonText: "IP:[[value]]",
+		                showBalloon: !0,
+		                animationPlayed: !0
+		            },{
+		                valueField: "uv",
+		                classNameField: "bulletClass",
+		                title: "UV",
+		                type: "line",
+		                valueAxis: "a1",
+		                lineColor: "blue",
+		                lineThickness: 2,
+		                legendValueText: "[[value]] ",
+		                legendPeriodValueText: "总计: [[value.sum]] ",
+		                labelPosition: "right",
+		                balloonText: "UV:[[value]]",
+		                showBalloon: !0,
+		                animationPlayed: !0
+		            }
+					 ],
+				chartCursor: {
+						zoomable: !1,
+						categoryBalloonDateFormat: "HH:mm:ss",
+						cursorAlpha: 0,
+						categoryBalloonColor: "#e26a6a",
+						categoryBalloonAlpha: .8,
+						valueBalloonsEnabled: !1
+				},
+				categoryField: "date",
+				
+			});
+		}
+	 
+	 function chart_2(divid,json) {
 			var e = AmCharts.makeChart(divid, {
 				type: "serial",
 				fontSize: 12,
@@ -354,131 +426,7 @@ function refre(){
 					}]
 				}
 			});
-			/* $("#chart_1").closest(".portlet").find(".fullscreen").click(function() {
-				e.invalidateSize()
-			}); */
 		}
-	 function chart_2(divid,json) {
-			var e = AmCharts.makeChart(divid, {
-				type: "serial",
-				fontSize: 12,
-				fontFamily: "Microsoft YaHei",
-				dataDateFormat: "HH:mm:ss",
-				dataProvider: e,
-				addClassNames: !0,
-				startDuration: 1,
-				color: "#6c7b88",
-				marginLeft: 0,
-				legend: {
-						bulletType: "round",
-						equalWidths: !1,
-						valueWidth: 120,
-						useGraphSettings: !0,
-						color: "#6c7b88"
-					},
-				dataProvider: json,
-				valueAxes: [{
-					id: "a1",
-					gridAlpha: 0,
-					axisAlpha: 0,
-				}],
-				graphs: [{
-						id: "g1",
-						valueField: "c1",
-						title: "1-2次",
-						type: "column",
-						fillAlphas: .7,
-						valueAxis: "a1",
-						balloonText: "1-2次：[[value]] ",
-						legendValueText: "[[value]] ",
-						legendPeriodValueText: "总计: [[value.sum]] ",
-						lineColor: "#08a3cc",
-						alphaField: "alpha",
-						colorField: "color",
-						lineAlpha: 0,
-					 },{
-		                id: "g2",
-		                valueField: "c2",
-		                classNameField: "bulletClass",
-		                title: "3-5次",
-		                type: "line",
-		                valueAxis: "a1",
-		                lineColor: "#e26a6a",
-		                lineThickness: 2,
-		                legendValueText: "[[value]] ",
-		                legendPeriodValueText: "总计: [[value.sum]] ",
-		                bullet: "round",
-		                bulletBorderColor: "red",
-		                bulletBorderAlpha: 1,
-		                bulletBorderThickness: 2,
-		                bulletColor: "#fff",
-		                labelPosition: "right",
-		                balloonText: "3-5次 :[[value]]",
-		                showBalloon: !0,
-		                animationPlayed: !0
-		            },{
-		                valueField: "c3",
-		                classNameField: "bulletClass",
-		                title: "6-10次",
-		                type: "line",
-		                valueAxis: "a1",
-		                lineColor: "blue",
-		                lineThickness: 2,
-		                legendValueText: "[[value]] ",
-		                legendPeriodValueText: "总计: [[value.sum]] ",
-		                bullet: "round",
-		                bulletBorderColor: "blue",
-		                bulletBorderAlpha: 1,
-		                bulletBorderThickness: 2,
-		                bulletColor: "#fff",
-		                labelPosition: "right",
-		                balloonText: "6-10次 :[[value]]",
-		                showBalloon: !0,
-		                animationPlayed: !0
-		            },{
-		                id: "g4",
-		                valueField: "c4",
-		                classNameField: "bulletClass",
-		                title: "10+次",
-		                type: "line",
-		                valueAxis: "a1",
-		                lineColor: "green",
-		                lineThickness: 2,
-		                legendValueText: "[[value]] ",
-		                legendPeriodValueText: "总计: [[value.sum]] ",
-		                bullet: "round",
-		                bulletBorderColor: "green",
-		                bulletBorderAlpha: 1,
-		                bulletBorderThickness: 2,
-		                bulletColor: "#fff",
-		                labelPosition: "right",
-		                balloonText: "10+次 :[[value]]",
-		                showBalloon: !0,
-		                animationPlayed: !0
-		            }
-					 
-					 ],
-				chartCursor: {
-						zoomable: !1,
-						categoryBalloonDateFormat: "HH:mm:ss",
-						cursorAlpha: 0,
-						categoryBalloonColor: "#e26a6a",
-						categoryBalloonAlpha: .8,
-						valueBalloonsEnabled: !1
-				},
-				categoryField: "date",
-				
-				exportConfig: {
-					menuBottom: "20px",
-					menuRight: "22px",
-					menuItems: [{
-						icon: App.getGlobalPluginsPath() + "amcharts/amcharts/images/export.png",
-						format: "png"
-					}]
-				}
-			});
-		}
-	 
 	 function chart_3(divid,json) {
 			var e = AmCharts.makeChart(divid, {
 				type: "serial",
@@ -626,6 +574,129 @@ function refre(){
 				}],
 				graphs: [{
 						id: "g1",
+						valueField: "c1",
+						title: "1-2次",
+						type: "column",
+						fillAlphas: .7,
+						valueAxis: "a1",
+						balloonText: "1-2次：[[value]] ",
+						legendValueText: "[[value]] ",
+						legendPeriodValueText: "总计: [[value.sum]] ",
+						lineColor: "#08a3cc",
+						alphaField: "alpha",
+						colorField: "color",
+						lineAlpha: 0,
+					 },{
+		                id: "g2",
+		                valueField: "c2",
+		                classNameField: "bulletClass",
+		                title: "3-5次",
+		                type: "line",
+		                valueAxis: "a1",
+		                lineColor: "#e26a6a",
+		                lineThickness: 2,
+		                legendValueText: "[[value]] ",
+		                legendPeriodValueText: "总计: [[value.sum]] ",
+		                bullet: "round",
+		                bulletBorderColor: "red",
+		                bulletBorderAlpha: 1,
+		                bulletBorderThickness: 2,
+		                bulletColor: "#fff",
+		                labelPosition: "right",
+		                balloonText: "3-5次 :[[value]]",
+		                showBalloon: !0,
+		                animationPlayed: !0
+		            },{
+		                valueField: "c3",
+		                classNameField: "bulletClass",
+		                title: "6-10次",
+		                type: "line",
+		                valueAxis: "a1",
+		                lineColor: "blue",
+		                lineThickness: 2,
+		                legendValueText: "[[value]] ",
+		                legendPeriodValueText: "总计: [[value.sum]] ",
+		                bullet: "round",
+		                bulletBorderColor: "blue",
+		                bulletBorderAlpha: 1,
+		                bulletBorderThickness: 2,
+		                bulletColor: "#fff",
+		                labelPosition: "right",
+		                balloonText: "6-10次 :[[value]]",
+		                showBalloon: !0,
+		                animationPlayed: !0
+		            },{
+		                id: "g4",
+		                valueField: "c4",
+		                classNameField: "bulletClass",
+		                title: "10+次",
+		                type: "line",
+		                valueAxis: "a1",
+		                lineColor: "green",
+		                lineThickness: 2,
+		                legendValueText: "[[value]] ",
+		                legendPeriodValueText: "总计: [[value.sum]] ",
+		                bullet: "round",
+		                bulletBorderColor: "green",
+		                bulletBorderAlpha: 1,
+		                bulletBorderThickness: 2,
+		                bulletColor: "#fff",
+		                labelPosition: "right",
+		                balloonText: "10+次 :[[value]]",
+		                showBalloon: !0,
+		                animationPlayed: !0
+		            }
+					 
+					 ],
+				chartCursor: {
+						zoomable: !1,
+						categoryBalloonDateFormat: "HH:mm:ss",
+						cursorAlpha: 0,
+						categoryBalloonColor: "#e26a6a",
+						categoryBalloonAlpha: .8,
+						valueBalloonsEnabled: !1
+				},
+				categoryField: "date",
+				
+				exportConfig: {
+					menuBottom: "20px",
+					menuRight: "22px",
+					menuItems: [{
+						icon: App.getGlobalPluginsPath() + "amcharts/amcharts/images/export.png",
+						format: "png"
+					}]
+				}
+			});
+		}
+	 
+	 
+	 
+	 function chart_5(divid,json) {
+			var e = AmCharts.makeChart(divid, {
+				type: "serial",
+				fontSize: 12,
+				fontFamily: "Microsoft YaHei",
+				dataDateFormat: "HH:mm:ss",
+				dataProvider: e,
+				addClassNames: !0,
+				startDuration: 1,
+				color: "#6c7b88",
+				marginLeft: 0,
+				legend: {
+						bulletType: "round",
+						equalWidths: !1,
+						valueWidth: 120,
+						useGraphSettings: !0,
+						color: "#6c7b88"
+					},
+				dataProvider: json,
+				valueAxes: [{
+					id: "a1",
+					gridAlpha: 0,
+					axisAlpha: 0,
+				}],
+				graphs: [{
+						id: "g1",
 						valueField: "s1",
 						title: "1-2次",
 						type: "column",
@@ -721,7 +792,7 @@ function refre(){
 			});
 		}
 	  
-	 function chart_5(divid,json) {
+	 function chart_6(divid,json) {
 			var e = AmCharts.makeChart(divid, {
 				type: "serial",
 				fontSize: 12,
@@ -825,86 +896,7 @@ function refre(){
 			});
 		}
 	 
-	 function chart_6(divid,json) {
-			var e = AmCharts.makeChart(divid, {
-				type: "serial",
-				fontSize: 12,
-				fontFamily: "Microsoft YaHei",
-				dataDateFormat: "HH:mm:ss",
-				dataProvider: e,
-				addClassNames: !0,
-				startDuration: 1,
-				color: "#6c7b88",
-				marginLeft: 0,
-				legend: {
-						bulletType: "round",
-						equalWidths: !1,
-						valueWidth: 120,
-						useGraphSettings: !0,
-						color: "#6c7b88"
-					},
-				dataProvider: json,
-				valueAxes: [{
-					id: "a1",
-					gridAlpha: 0,
-					axisAlpha: 0,
-				}],
-				graphs: [{
-					id: "g1",
-					valueField: "pv",
-					title: "PV",
-					type: "column",
-					fillAlphas: .7,
-					valueAxis: "a1",
-					balloonText: "PV：[[value]] ",
-					legendValueText: "[[value]] ",
-					legendPeriodValueText: "总计: [[value.sum]] ",
-					lineColor: "#08a3cc",
-					alphaField: "alpha",
-					colorField: "color",
-					lineAlpha: 0,
-					 },{
-		                valueField: "ip",
-		                classNameField: "bulletClass",
-		                title: "IP",
-		                type: "line",
-		                valueAxis: "a1",
-		                lineColor: "red",
-		                lineThickness: 2,
-		                legendValueText: "[[value]] ",
-		                legendPeriodValueText: "总计: [[value.sum]] ",
-		                labelPosition: "right",
-		                balloonText: "IP:[[value]]",
-		                showBalloon: !0,
-		                animationPlayed: !0
-		            },{
-		                valueField: "uv",
-		                classNameField: "bulletClass",
-		                title: "UV",
-		                type: "line",
-		                valueAxis: "a1",
-		                lineColor: "blue",
-		                lineThickness: 2,
-		                legendValueText: "[[value]] ",
-		                legendPeriodValueText: "总计: [[value.sum]] ",
-		                labelPosition: "right",
-		                balloonText: "UV:[[value]]",
-		                showBalloon: !0,
-		                animationPlayed: !0
-		            }
-					 ],
-				chartCursor: {
-						zoomable: !1,
-						categoryBalloonDateFormat: "HH:mm:ss",
-						cursorAlpha: 0,
-						categoryBalloonColor: "#e26a6a",
-						categoryBalloonAlpha: .8,
-						valueBalloonsEnabled: !1
-				},
-				categoryField: "date",
-				
-			});
-		}
+	 
 
 		jQuery(document).ready(function() {
 		    var chartdata = ${json};

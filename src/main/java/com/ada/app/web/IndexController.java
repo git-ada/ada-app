@@ -244,17 +244,17 @@ public class IndexController {
 	 * @param dataType
 	 * @return
 	 */
-	@RequestMapping("dashboard_domainAdTime")
+	@RequestMapping("domainTimechartList_one")
 	public String dashboard_domainAdTime(HttpServletRequest request,HttpServletResponse response, Model model,
 			String domainId,String dataType){
 		
 		if(dataType!=null && domainId!=null){
-			JSONObject json = domainAdTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1,dataType);
+			JSONObject json = domainTimechartList_one(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1,dataType);
 			model.addAttribute("json", json);
 		}
 		model.addAttribute("dataType", dataType);
 		model.addAttribute("domainId", domainId);
-		return "dashboard_domainAdTime";
+		return "domainTimechartList_one";
 	}
 	
 	
@@ -313,11 +313,11 @@ public class IndexController {
 			PrintWriter out = response.getWriter();
 			if(dataType!=null && !"".equals(dataType)){
 				if("domain".equals(dataType)){
-					out.print(this.domainTimechartList(domainid,domainTime_PageSize,Interval_time,pageno));
+					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
 				}else if("domainAd".equals(dataType)){
-					out.print(this.domainAdTimechartList(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
+					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
 				}else if("domainNotAd".equals(dataType)){
-					out.print(this.domainAdTimechartList(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
+					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
 				}
 			}
 			
@@ -417,343 +417,192 @@ public class IndexController {
 		return json;
 	}
 	
-	protected JSONObject domainAdTimechartList(Integer domainId,int pageSize,int len,Integer pageNo,String dataType){
+	protected JSONObject domainTimechartList_one(Integer domainId,int pageSize,int len,Integer pageNo,String dataType){
 		
 		JSONObject json=new JSONObject();
-		if(pageNo== null || pageNo<1){
+		if(pageNo== null || pageNo<1 || dataType==null){
 			json.put("success", false);
 			json.put("message", "已是最新统计数据！");
 			return json;
 		}
+		List list = new ArrayList();
+		if("domain".equals(dataType)){
+			//List = 
+		}else if("domainAd".equals(dataType)){
+			list = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+		}else if("domainNotAd".equals(dataType)){
+			list = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+		}
 		
-		List<AdaDomainAd15mStat> adList = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
-		List<AdaDomainNotad15mStat> notadList = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
-		
-		if((adList==null || adList.size()<1)&&(notadList==null || notadList.size()<1)){
+		if((list==null || list.size()<1)){
 			json.put("success", false);
 			json.put("message", "暂无统计数据！");
 			return json;
 		}
 		
-		if("domainAd".equals(dataType)){
-			JSONArray ad_chart_1=new JSONArray();//老用户数、老ip、登陆用户数、进入目标页
-			JSONArray ad_chart_2=new JSONArray();//鼠标点击次数1-2、3-5、6-10、10+
-			JSONArray ad_chart_3=new JSONArray();//用户停留时长5-30、31-120、121-300、300+秒
-			JSONArray ad_chart_4=new JSONArray();//鼠标滚动次数1-2、3-5、6-10、10+
-			JSONArray ad_chart_5=new JSONArray();//鼠标移动次数1-2、3-5、6-10、10+
-			JSONArray ad_chart_6=new JSONArray();// IP、PV、UV
-			try {
-				if(adList.size()<pageSize){//广告入口
-					for(int i=0;i<pageSize-adList.size();i++){
-						String date = new SimpleDateFormat("HH:mm").format(adList.get(adList.size()-1).getEndTime());
-						String strdate = com.ada.app.util.Dates.getbeforeTime(date, len*(i+1));
-						JSONObject json_item_1=new JSONObject();
-						JSONObject json_item_2=new JSONObject();
-						JSONObject json_item_3=new JSONObject();
-						JSONObject json_item_4=new JSONObject();
-						JSONObject json_item_5=new JSONObject();
-						JSONObject json_item_6=new JSONObject();
-						
-						json_item_1.put("date", strdate);
-						json_item_1.put("olduser", 0);// 老用户数
-						json_item_1.put("oldip", 0); // 老IP数
-						json_item_1.put("loginip", 0);//登陆用户数
-						json_item_1.put("targetpageip", 0);//进入目标页
-						
-						json_item_2.put("date", strdate);
-						json_item_2.put("c1", 0);
-						json_item_2.put("c2", 0);
-						json_item_2.put("c3", 0);
-						json_item_2.put("c4", 0);
-						
-						json_item_3.put("date", strdate);
-						json_item_3.put("st1", 0);
-						json_item_3.put("st2", 0);
-						json_item_3.put("st3", 0);
-						json_item_3.put("st4", 0);
-						
-						json_item_4.put("date", strdate);
-						json_item_4.put("s1", 0);
-						json_item_4.put("s2", 0);
-						json_item_4.put("s3", 0);
-						json_item_4.put("s4", 0);
-						
-						json_item_5.put("date", strdate);
-						json_item_5.put("m1", 0);
-						json_item_5.put("m2", 0);
-						json_item_5.put("m3", 0);
-						json_item_5.put("m4", 0);
-						
-						json_item_6.put("date",strdate);
-						json_item_6.put("ip", 0);
-						json_item_6.put("pv", 0);
-						json_item_6.put("uv", 0);
-						
-						ad_chart_1.add(json_item_1);
-						ad_chart_2.add(json_item_2);
-						ad_chart_3.add(json_item_3);
-						ad_chart_4.add(json_item_4);
-						ad_chart_5.add(json_item_5);
-						ad_chart_6.add(json_item_6);
-					}
-				}
-				for(int i=adList.size()-1;i>=0;i--){
-					/** 广告入口数据  **/
-					AdaDomainAd15mStat item = adList.get(i);
+		JSONArray chart_1=new JSONArray();// IP、PV、UV
+		JSONArray chart_2=new JSONArray();//老用户数、老ip、登陆用户数、进入目标页
+		JSONArray chart_3=new JSONArray();//用户停留时长5-30、31-120、121-300、300+秒
+		JSONArray chart_4=new JSONArray();//鼠标点击次数1-2、3-5、6-10、10+
+		JSONArray chart_5=new JSONArray();//鼠标滚动次数1-2、3-5、6-10、10+
+		JSONArray chart_6=new JSONArray();//鼠标移动次数1-2、3-5、6-10、10+
+		
+		try {
+			if(list.size()<pageSize){//数据条数不足时 补充条数
+				for(int i=0;i<pageSize-list.size();i++){
+					BaseStatBean item = new BaseStatBean();
+					BeanUtils.copyProperties(list.get(list.size()-1), item);
 					String date = new SimpleDateFormat("HH:mm").format(item.getEndTime());
-					//第一个图表
-					JSONObject json_adChart_1=new JSONObject();
-					json_adChart_1.put("date", date); // 统计日期
-					json_adChart_1.put("olduser", item.getOlduserip());// 老用户数
-					json_adChart_1.put("oldip", item.getOldip()); // 老IP数
-					json_adChart_1.put("loginip", item.getLoginip());//登陆用户数
-					json_adChart_1.put("targetpageip", item.getTargetpageip());//进入目标页
-					if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
-						json_adChart_1.put("color", "#EF3F3F");
-						json_adChart_1.put("lcolor", "red");
-						json_adChart_1.put("alpha", 1);
-					}
-					ad_chart_1.add(json_adChart_1);
-					//第二个图表
-					JSONObject json_adChart_2=new JSONObject();
-					json_adChart_2.put("date", date); // 统计日期
-					json_adChart_2.put("c1", item.getClickip1());
-					json_adChart_2.put("c2", item.getClickip2());
-					json_adChart_2.put("c3", item.getClickip3());
-					json_adChart_2.put("c4", item.getClickip4());
-					if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
-						json_adChart_2.put("color", "#EF3F3F");
-						json_adChart_2.put("lcolor", "red");
-						json_adChart_2.put("alpha", 1);
-					}
-					ad_chart_2.add(json_adChart_2);
-					//第三个图表
-					JSONObject json_adChart_3=new JSONObject();
-					json_adChart_3.put("date", date);
-					json_adChart_3.put("st1", item.getStaytimeip1());
-					json_adChart_3.put("st2", item.getStaytimeip2());
-					json_adChart_3.put("st3", item.getStaytimeip3());
-					json_adChart_3.put("st4", item.getStaytimeip4());
-					if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
-						json_adChart_3.put("color", "#EF3F3F");
-						json_adChart_3.put("lcolor", "red");
-						json_adChart_3.put("alpha", 1);
-					}
-					ad_chart_3.add(json_adChart_3);
-					//第四个图表
-					JSONObject json_adChart_4=new JSONObject();
-					json_adChart_4.put("date", date);
-					json_adChart_4.put("s1", item.getScrollip1());
-					json_adChart_4.put("s2", item.getScrollip2());
-					json_adChart_4.put("s3", item.getScrollip3());
-					json_adChart_4.put("s4", item.getScrollip4());
-					if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
-						json_adChart_4.put("color", "#EF3F3F");
-						json_adChart_4.put("lcolor", "red");
-						json_adChart_4.put("alpha", 1);
-					}
-					ad_chart_4.add(json_adChart_4);
-					//第五个图表
-					JSONObject json_adChart_5=new JSONObject();
-					json_adChart_5.put("date", date);
-					json_adChart_5.put("m1", item.getMoveip1());
-					json_adChart_5.put("m2", item.getMoveip2());
-					json_adChart_5.put("m3", item.getMoveip3());
-					json_adChart_5.put("m4", item.getMoveip4());
-					if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
-						json_adChart_5.put("color", "#EF3F3F");
-						json_adChart_5.put("lcolor", "red");
-						json_adChart_5.put("alpha", 1);
-					}
-					ad_chart_5.add(json_adChart_5);
-					//第六个图表
-					JSONObject json_adChart_6=new JSONObject();
-					json_adChart_6.put("date", date);
-					json_adChart_6.put("ip", item.getIp());
-					json_adChart_6.put("pv", item.getPv());
-					json_adChart_6.put("uv", item.getUv());
-					if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
-						json_adChart_6.put("color", "#EF3F3F");
-						json_adChart_6.put("lcolor", "red");
-						json_adChart_6.put("alpha", 1);
-					}
-					ad_chart_6.add(json_adChart_6);
+					String strdate = com.ada.app.util.Dates.getbeforeTime(date, len*(i+1));
+					JSONObject json_item_1=new JSONObject();
+					JSONObject json_item_2=new JSONObject();
+					JSONObject json_item_3=new JSONObject();
+					JSONObject json_item_4=new JSONObject();
+					JSONObject json_item_5=new JSONObject();
+					JSONObject json_item_6=new JSONObject();
 					
+					json_item_1.put("date",strdate);
+					json_item_1.put("ip", 0);
+					json_item_1.put("pv", 0);
+					json_item_1.put("uv", 0);
+					
+					json_item_2.put("date", strdate);
+					json_item_2.put("olduser", 0);// 老用户数
+					json_item_2.put("oldip", 0); // 老IP数
+					json_item_2.put("loginip", 0);//登陆用户数
+					json_item_2.put("targetpageip", 0);//进入目标页
+
+					json_item_3.put("date", strdate);
+					json_item_3.put("st1", 0);
+					json_item_3.put("st2", 0);
+					json_item_3.put("st3", 0);
+					json_item_3.put("st4", 0);
+					
+					json_item_4.put("date", strdate);
+					json_item_4.put("c1", 0);
+					json_item_4.put("c2", 0);
+					json_item_4.put("c3", 0);
+					json_item_4.put("c4", 0);
+					
+					json_item_5.put("date", strdate);
+					json_item_5.put("s1", 0);
+					json_item_5.put("s2", 0);
+					json_item_5.put("s3", 0);
+					json_item_5.put("s4", 0);
+					
+					json_item_6.put("date", strdate);
+					json_item_6.put("m1", 0);
+					json_item_6.put("m2", 0);
+					json_item_6.put("m3", 0);
+					json_item_6.put("m4", 0);
+					
+					chart_1.add(json_item_1);
+					chart_2.add(json_item_2);
+					chart_3.add(json_item_3);
+					chart_4.add(json_item_4);
+					chart_5.add(json_item_5);
+					chart_6.add(json_item_6);
 				}
-				
-				json.put("success", true);
-				json.put("nextPage", pageNo-1);
-				json.put("lastPage", pageNo+1);
-				json.put("dataType", dataType);
-				
-				json.put("ad_chart_1", ad_chart_1);
-				json.put("ad_chart_2", ad_chart_2);
-				json.put("ad_chart_3", ad_chart_3);
-				json.put("ad_chart_4", ad_chart_4);
-				json.put("ad_chart_5", ad_chart_5);
-				json.put("ad_chart_6", ad_chart_6);
-			} catch (Exception e) {
-				log.error("获取域名广告入口和非广告入口图形数据失败,msg->"+e.getMessage(),e);
 			}
-		}else if("domainNotAd".equals(dataType)){
-			JSONArray notad_chart_1=new JSONArray();
-			JSONArray notad_chart_2=new JSONArray();
-			JSONArray notad_chart_3=new JSONArray();
-			JSONArray notad_chart_4=new JSONArray();
-			JSONArray notad_chart_5=new JSONArray();
-			JSONArray notad_chart_6=new JSONArray();
-			try {
-				if(notadList.size()<pageSize){
-					for(int i=0;i<pageSize-notadList.size();i++){
-						String date = new SimpleDateFormat("HH:mm").format(notadList.get(notadList.size()-1).getEndTime());
-						String strdate = com.ada.app.util.Dates.getbeforeTime(date, len*(i+1));
-						JSONObject json_item_1=new JSONObject();
-						JSONObject json_item_2=new JSONObject();
-						JSONObject json_item_3=new JSONObject();
-						JSONObject json_item_4=new JSONObject();
-						JSONObject json_item_5=new JSONObject();
-						JSONObject json_item_6=new JSONObject();
-						
-						json_item_1.put("date", strdate);
-						json_item_1.put("olduser", 0);// 老用户数
-						json_item_1.put("oldip", 0); // 老IP数
-						json_item_1.put("loginip", 0);//登陆用户数
-						json_item_1.put("targetpageip", 0);//进入目标页
-						
-						json_item_2.put("date", strdate);
-						json_item_2.put("c1", 0);
-						json_item_2.put("c2", 0);
-						json_item_2.put("c3", 0);
-						json_item_2.put("c4", 0);
-						
-						json_item_3.put("date", strdate);
-						json_item_3.put("st1", 0);
-						json_item_3.put("st2", 0);
-						json_item_3.put("st3", 0);
-						json_item_3.put("st4", 0);
-						
-						json_item_4.put("date", strdate);
-						json_item_4.put("s1", 0);
-						json_item_4.put("s2", 0);
-						json_item_4.put("s3", 0);
-						json_item_4.put("s4", 0);
-						
-						json_item_5.put("date", strdate);
-						json_item_5.put("m1", 0);
-						json_item_5.put("m2", 0);
-						json_item_5.put("m3", 0);
-						json_item_5.put("m4", 0);
-						
-						json_item_6.put("date",strdate);
-						json_item_6.put("ip", 0);
-						json_item_6.put("pv", 0);
-						json_item_6.put("uv", 0);
-						
-						notad_chart_1.add(json_item_1);
-						notad_chart_2.add(json_item_2);
-						notad_chart_3.add(json_item_3);
-						notad_chart_4.add(json_item_4);
-						notad_chart_5.add(json_item_5);
-						notad_chart_6.add(json_item_6);
-					}
-				}
+			for(int i=list.size()-1;i>=0;i--){
+				/** 广告入口数据  **/
+				BaseStatBean item = new BaseStatBean();
+				BeanUtils.copyProperties(list.get(i), item);
 				
-				
-				for(int i=notadList.size()-1;i>=0;i--){
-					/** 非广告入口数据 **/
-					AdaDomainNotad15mStat notad = notadList.get(i);
-					String date = new SimpleDateFormat("HH:mm").format(notad.getEndTime());
-					//第一图表
-					JSONObject json_notadChart_1=new JSONObject();
-					json_notadChart_1.put("date", date);
-					json_notadChart_1.put("olduser", notad.getOlduserip());
-					json_notadChart_1.put("oldip", notad.getOldip());
-					json_notadChart_1.put("loginip", notad.getLoginip());
-					json_notadChart_1.put("targetpageip", notad.getTargetpageip());
-					if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
-						json_notadChart_1.put("color", "#EF3F3F");
-						json_notadChart_1.put("lcolor", "red");
-						json_notadChart_1.put("alpha", 1);
-					}
-					notad_chart_1.add(json_notadChart_1);
-					//第二个图表
-					JSONObject json_notadChart_2=new JSONObject();
-					json_notadChart_2.put("date", date);
-					json_notadChart_2.put("c1", notad.getClickip1());
-					json_notadChart_2.put("c2", notad.getClickip2());
-					json_notadChart_2.put("c3", notad.getClickip3());
-					json_notadChart_2.put("c4", notad.getClickip4());
-					if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
-						json_notadChart_2.put("color", "#EF3F3F");
-						json_notadChart_2.put("lcolor", "red");
-						json_notadChart_2.put("alpha", 1);
-					}
-					notad_chart_2.add(json_notadChart_2);
-					//第三个图表
-					JSONObject json_notadChart_3=new JSONObject();
-					json_notadChart_3.put("date", date);
-					json_notadChart_3.put("st1", notad.getStaytimeip1());
-					json_notadChart_3.put("st2", notad.getStaytimeip2());
-					json_notadChart_3.put("st3", notad.getStaytimeip3());
-					json_notadChart_3.put("st4", notad.getStaytimeip4());
-					if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
-						json_notadChart_3.put("color", "#EF3F3F");
-						json_notadChart_3.put("lcolor", "red");
-						json_notadChart_3.put("alpha", 1);
-					}
-					notad_chart_3.add(json_notadChart_3);
-					//第四个图表
-					JSONObject json_notadChart_4=new JSONObject();
-					json_notadChart_4.put("date", date);
-					json_notadChart_4.put("s1", notad.getScrollip1());
-					json_notadChart_4.put("s2", notad.getScrollip2());
-					json_notadChart_4.put("s3", notad.getScrollip3());
-					json_notadChart_4.put("s4", notad.getScrollip4());
-					if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
-						json_notadChart_4.put("color", "#EF3F3F");
-						json_notadChart_4.put("lcolor", "red");
-						json_notadChart_4.put("alpha", 1);
-					}
-					notad_chart_4.add(json_notadChart_4);
-					//第五个图表
-					JSONObject json_notadChart_5=new JSONObject();
-					json_notadChart_5.put("date", date);
-					json_notadChart_5.put("m1", notad.getMoveip1());
-					json_notadChart_5.put("m2", notad.getMoveip2());
-					json_notadChart_5.put("m3", notad.getMoveip3());
-					json_notadChart_5.put("m4", notad.getMoveip4());
-					if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
-						json_notadChart_5.put("color", "#EF3F3F");
-						json_notadChart_5.put("lcolor", "red");
-						json_notadChart_5.put("alpha", 1);
-					}
-					notad_chart_5.add(json_notadChart_5);
-					//第六个图表
-					JSONObject json_notadChart_6=new JSONObject();
-					json_notadChart_6.put("date", date);
-					json_notadChart_6.put("ip", notad.getIp());
-					json_notadChart_6.put("pv", notad.getPv());
-					json_notadChart_6.put("uv", notad.getUv());
-					if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
-						json_notadChart_6.put("color", "#EF3F3F");
-						json_notadChart_6.put("lcolor", "red");
-						json_notadChart_6.put("alpha", 1);
-					}
-					notad_chart_6.add(json_notadChart_6);
+				String date = new SimpleDateFormat("HH:mm").format(item.getEndTime());
+				//第一个图表
+				JSONObject json_adChart_1=new JSONObject();
+				json_adChart_1.put("date", date);
+				json_adChart_1.put("ip", item.getIp());
+				json_adChart_1.put("pv", item.getPv());
+				json_adChart_1.put("uv", item.getUv());
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					json_adChart_1.put("color", "#EF3F3F");
+					json_adChart_1.put("lcolor", "red");
+					json_adChart_1.put("alpha", 1);
 				}
-				json.put("success", true);
-				json.put("nextPage", pageNo-1);
-				json.put("lastPage", pageNo+1);
-				json.put("dataType", dataType);
-				json.put("notad_chart_1", notad_chart_1);
-				json.put("notad_chart_2", notad_chart_2);
-				json.put("notad_chart_3", notad_chart_3);
-				json.put("notad_chart_4", notad_chart_4);
-				json.put("notad_chart_5", notad_chart_5);
-				json.put("notad_chart_6", notad_chart_6);
-			} catch (Exception e) {
-				log.error("获取域名广告入口和非广告入口图形数据失败,msg->"+e.getMessage(),e);
+				chart_1.add(json_adChart_1);
+				//第二个图表
+				JSONObject json_adChart_2=new JSONObject();
+				json_adChart_2.put("date", date); // 统计日期
+				json_adChart_2.put("olduser", item.getOlduserip());// 老用户数
+				json_adChart_2.put("oldip", item.getOldip()); // 老IP数
+				json_adChart_2.put("loginip", item.getLoginip());//登陆用户数
+				json_adChart_2.put("targetpageip", item.getTargetpageip());//进入目标页
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					json_adChart_2.put("color", "#EF3F3F");
+					json_adChart_2.put("lcolor", "red");
+					json_adChart_2.put("alpha", 1);
+				}
+				chart_2.add(json_adChart_2);
+				//第三个图表
+				JSONObject json_adChart_3=new JSONObject();
+				json_adChart_3.put("date", date);
+				json_adChart_3.put("st1", item.getStaytimeip1());
+				json_adChart_3.put("st2", item.getStaytimeip2());
+				json_adChart_3.put("st3", item.getStaytimeip3());
+				json_adChart_3.put("st4", item.getStaytimeip4());
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					json_adChart_3.put("color", "#EF3F3F");
+					json_adChart_3.put("lcolor", "red");
+					json_adChart_3.put("alpha", 1);
+				}
+				chart_3.add(json_adChart_3);
+				//第四个图表
+				JSONObject json_adChart_4=new JSONObject();
+				json_adChart_4.put("date", date); // 统计日期
+				json_adChart_4.put("c1", item.getClickip1());
+				json_adChart_4.put("c2", item.getClickip2());
+				json_adChart_4.put("c3", item.getClickip3());
+				json_adChart_4.put("c4", item.getClickip4());
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					json_adChart_4.put("color", "#EF3F3F");
+					json_adChart_4.put("lcolor", "red");
+					json_adChart_4.put("alpha", 1);
+				}
+				chart_4.add(json_adChart_4);
+				
+				//第五个图表
+				JSONObject json_adChart_5=new JSONObject();
+				json_adChart_5.put("date", date);
+				json_adChart_5.put("s1", item.getScrollip1());
+				json_adChart_5.put("s2", item.getScrollip2());
+				json_adChart_5.put("s3", item.getScrollip3());
+				json_adChart_5.put("s4", item.getScrollip4());
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					json_adChart_5.put("color", "#EF3F3F");
+					json_adChart_5.put("lcolor", "red");
+					json_adChart_5.put("alpha", 1);
+				}
+				chart_5.add(json_adChart_5);
+				//第六个图表
+				JSONObject json_adChart_6=new JSONObject();
+				json_adChart_6.put("date", date);
+				json_adChart_6.put("m1", item.getMoveip1());
+				json_adChart_6.put("m2", item.getMoveip2());
+				json_adChart_6.put("m3", item.getMoveip3());
+				json_adChart_6.put("m4", item.getMoveip4());
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					json_adChart_6.put("color", "#EF3F3F");
+					json_adChart_6.put("lcolor", "red");
+					json_adChart_6.put("alpha", 1);
+				}
+				chart_6.add(json_adChart_6);
 			}
+			
+			json.put("success", true);
+			json.put("nextPage", pageNo-1);
+			json.put("lastPage", pageNo+1);
+			json.put("dataType", dataType);
+			
+			json.put("ad_chart_1", chart_1);
+			json.put("ad_chart_2", chart_2);
+			json.put("ad_chart_3", chart_3);
+			json.put("ad_chart_4", chart_4);
+			json.put("ad_chart_5", chart_5);
+			json.put("ad_chart_6", chart_6);
+		} catch (Exception e) {
+			log.error("获取域名广告入口和非广告入口图形数据失败,msg->"+e.getMessage(),e);
 		}
 	
 		
