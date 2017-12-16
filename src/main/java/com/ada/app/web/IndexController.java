@@ -240,7 +240,7 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "dashboard_domainTime")
 	public String dashboard_domainTime(HttpServletRequest request,HttpServletResponse response, Model model,
-			String domainId){
+			String domainId,String domain){
 		if(domainId!=null && !"".equals(domainId)){
 			JSONObject json = domainTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1);
 			
@@ -248,6 +248,7 @@ public class IndexController {
 		}
 		model.addAttribute("domainId", domainId);
 		model.addAttribute("dataType", "domain");
+		model.addAttribute("domain", domain);
 		return "dashboard_domainTime";
 	}
 	/**
@@ -258,27 +259,28 @@ public class IndexController {
 	 */
 	@RequestMapping("domainTimechartList_one")
 	public String dashboard_domainAdTime(HttpServletRequest request,HttpServletResponse response, Model model,
-			String domainId,String dataType){
+			String domainId,String dataType,String domain){
 		
 		if(dataType!=null && domainId!=null){
-			JSONObject json = domainTimechartList_one(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1,dataType);
+			JSONObject json = domainTimechartList_one(Integer.valueOf(domainId),45,Interval_time,1,dataType);
 			model.addAttribute("json", json);
 		}
 		model.addAttribute("dataType", dataType);
 		model.addAttribute("domainId", domainId);
+		model.addAttribute("domain", domain);
 		return "dashboard_domainTime_one";
 	}
 	
 	@RequestMapping(value = "dashboard_domainTime3")
 	public String dashboard_domainTime3(HttpServletRequest request,HttpServletResponse response, Model model,
-			String domainId){
+			String domainId,String domain){
 		if(domainId!=null && !"".equals(domainId)){
 			JSONObject json = domainTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1);
 			
 			model.addAttribute("json", json);
 		}
 		model.addAttribute("domainId", domainId);
-		
+		model.addAttribute("domain", domain);
 		return "dashboard_domainTime3";
 	}
 	
@@ -1523,9 +1525,9 @@ public class IndexController {
 		 list.add(ip);
 		 list.add(pv);
 		 list.add(uv);
-		 list.add(loginip);
-		 list.add(oldip);
 		 list.add(olduserip);
+		 list.add(oldip);
+		 list.add(loginip);
 		 list.add(targetpageip);
 		 list.add(staytimeip1);
 		 list.add(staytimeip2);
