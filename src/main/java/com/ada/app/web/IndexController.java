@@ -262,7 +262,7 @@ public class IndexController {
 			String domainId,String dataType,String domain){
 		
 		if(dataType!=null && domainId!=null){
-			JSONObject json = domainTimechartList_one(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1,dataType);
+			JSONObject json = domainTimechartList_one(Integer.valueOf(domainId),45,Interval_time,1,dataType);
 			model.addAttribute("json", json);
 		}
 		model.addAttribute("dataType", dataType);
