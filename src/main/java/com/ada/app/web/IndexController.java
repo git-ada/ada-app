@@ -1523,9 +1523,9 @@ public class IndexController {
 		 list.add(ip);
 		 list.add(pv);
 		 list.add(uv);
-		 list.add(loginip);
-		 list.add(oldip);
 		 list.add(olduserip);
+		 list.add(oldip);
+		 list.add(loginip);
 		 list.add(targetpageip);
 		 list.add(staytimeip1);
 		 list.add(staytimeip2);

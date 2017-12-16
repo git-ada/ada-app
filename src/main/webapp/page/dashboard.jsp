@@ -222,10 +222,10 @@ thead th {
 						<th scope="col" style="min-width: 80px">IP</th>			
 						<th scope="col" style="min-width: 80px">PV</th>
 						<th scope="col" style="min-width: 80px">UV</th>
-						<th scope="col" style="min-width: 80px">登录用户数</th>
-						<th scope="col" style="min-width: 80px">老IP数</th>
-						<th scope="col" style="min-width: 80px">老用户数</th>	
-						<th scope="col" style="min-width: 80px">进入目标页</th>
+						<th scope="col" style="min-width: 80px">老用户</th>
+						<th scope="col" style="min-width: 80px">老IP</th>	
+						<th scope="col" style="min-width: 80px">登录用户</th>
+						<th scope="col" style="min-width: 80px">目标页</th>
 						
 						<th scope="col" style="min-width: 80px">停留 <a style="color: #333;" onclick="changeDisplay(this,'st')" title=""> <i class="icon-magnifier-add"></i> </a></th>
 						<th scope="col" style="min-width: 80px" class="displaynone" event="st">5-30秒</th>
