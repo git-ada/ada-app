@@ -534,7 +534,7 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 //第一次异步刷新
-	 //t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
+	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
 	  
 	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
