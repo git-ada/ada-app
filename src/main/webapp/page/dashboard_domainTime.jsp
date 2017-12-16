@@ -47,6 +47,18 @@
 
 </style>
  
+ <div class="page-bar" style="border: none;">
+    <ul class="page-breadcrumb" style="width: 100%">
+        <li>
+            <i class="icon-home"></i>
+            	首页
+            <i class="fa fa-angle-right"></i>
+        </li>
+         <li>
+            <span>${domain}</span>
+        </li>
+    </ul>
+</div> 
  <!-- 第六个图表 基本数据 -->
  <div class="row">
   <div class="col-lg-6 col-xs-12 col-sm-12">

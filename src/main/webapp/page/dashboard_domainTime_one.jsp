@@ -22,7 +22,7 @@
 </style>
 
 
-<!-- <div class="page-bar">
+ <div class="page-bar" style="border: none;">
     <ul class="page-breadcrumb" style="width: 100%">
         <li>
             <i class="icon-home"></i>
@@ -30,10 +30,10 @@
             <i class="fa fa-angle-right"></i>
         </li>
          <li>
-            <span>实时数据</span>
+            <span>${domain}</span>
         </li>
     </ul>
-</div> -->
+</div> 
  
  <!-- 第一个图表 基本数据 -->
  <div class="row">

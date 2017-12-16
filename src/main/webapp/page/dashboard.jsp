@@ -213,43 +213,43 @@ thead th {
 	
 	<!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
 	<div class="portlet-body" style="margin: 0px;padding: 0;">
-		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column" style="border: 0">
+		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column" style="border: 0;width: 100%">
 	            <thead>
 	                <tr>
-	                	<c:if test="${dataType=='domain'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名</th></c:if>
-						<c:if test="${dataType=='domainAd'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名</th></c:if>
-						<c:if test="${dataType=='domainNotAd'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名</th></c:if>
-						<th scope="col" style="min-width: 80px">IP</th>			
-						<th scope="col" style="min-width: 80px">PV</th>
-						<th scope="col" style="min-width: 80px">UV</th>
-						<th scope="col" style="min-width: 80px">老用户</th>
-						<th scope="col" style="min-width: 80px">老IP</th>	
-						<th scope="col" style="min-width: 80px">登录用户</th>
-						<th scope="col" style="min-width: 80px">目标页</th>
+	                	<c:if test="${dataType=='domain'}"><th scope="col" style="min-width: 140px;" id="firstTh">域名</th></c:if>
+						<c:if test="${dataType=='domainAd'}"><th scope="col" style="min-width: 140px;" id="firstTh">域名</th></c:if>
+						<c:if test="${dataType=='domainNotAd'}"><th scope="col" style="min-width: 140px;" id="firstTh">域名</th></c:if>
+						<th scope="col" style="min-width: 70px">IP</th>			
+						<th scope="col" style="min-width: 70px">PV</th>
+						<th scope="col" style="min-width: 70px">UV</th>
+						<th scope="col" style="min-width: 70px">老用户</th>
+						<th scope="col" style="min-width: 70px">老IP</th>	
+						<th scope="col" style="min-width: 70px">登录用户</th>
+						<th scope="col" style="min-width: 70px">目标页</th>
 						
-						<th scope="col" style="min-width: 80px">停留 <a style="color: #333;" onclick="changeDisplay(this,'st')" title=""> <i class="icon-magnifier-add"></i> </a></th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="st">5-30秒</th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="st">31-120秒</th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="st">121-300秒</th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="st">300+秒</th>
+						<th scope="col" style="min-width: 70px">停留 <a style="color: #333;" onclick="changeDisplay(this,'st')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="st">5-30秒</th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="st">31-120秒</th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="st">121-300秒</th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="st">300+秒</th>
 						
-						<th scope="col" style="min-width: 80px">点击<a style="color: #333;" onclick="changeDisplay(this,'c')" title=""> <i class="icon-magnifier-add"></i> </a></th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="c">1-2次</th>			
-						<th scope="col" style="min-width: 80px" class="displaynone" event="c">3-5次</th>			
-						<th scope="col" style="min-width: 80px" class="displaynone" event="c">6-10次</th>			
-						<th scope="col" style="min-width: 80px" class="displaynone" event="c">10+次</th>
+						<th scope="col" style="min-width: 70px">点击<a style="color: #333;" onclick="changeDisplay(this,'c')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="c">1-2次</th>			
+						<th scope="col" style="min-width: 70px" class="displaynone" event="c">3-5次</th>			
+						<th scope="col" style="min-width: 70px" class="displaynone" event="c">6-10次</th>			
+						<th scope="col" style="min-width: 70px" class="displaynone" event="c">10+次</th>
 						
-						<th scope="col" style="min-width: 80px">滚动<a style="color: #333;" onclick="changeDisplay(this,'s')" title=""> <i class="icon-magnifier-add"></i> </a></th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="s">1-2次</th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="s">3-5次</th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="s">6-10次</th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="s">10+次</th>
+						<th scope="col" style="min-width: 70px">滚动<a style="color: #333;" onclick="changeDisplay(this,'s')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="s">1-2次</th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="s">3-5次</th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="s">6-10次</th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="s">10+次</th>
 						
-						<th scope="col" style="min-width: 80px">移动<a style="color: #333;" onclick="changeDisplay(this,'m')" title=""> <i class="icon-magnifier-add"></i> </a></th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="m">1-2次</th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="m">3-5次</th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="m">6-10次</th>
-						<th scope="col" style="min-width: 80px" class="displaynone" event="m">10+次</th>
+						<th scope="col" style="min-width: 70px">移动<a style="color: #333;" onclick="changeDisplay(this,'m')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="m">1-2次</th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="m">3-5次</th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="m">6-10次</th>
+						<th scope="col" style="min-width: 70px" class="displaynone" event="m">10+次</th>
 				     </tr>
 	            </thead>
 	            <tbody id="tbody">
@@ -259,13 +259,13 @@ thead th {
 
 							     <c:if test="${dataType=='domain'}">
 							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计1</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}&domain=${item[24]}')">分时统计1</a>
 							     </li>
 							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}')">分时统计2</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}&domain=${item[24]}')">分时统计2</a>
 							     </li>
 							     <li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${item[23]}')">分时统计3</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${item[23]}&domain=${item[24]}')">分时统计3</a>
 							     </li>
 								     <li>
 								         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
@@ -453,6 +453,9 @@ var initTable1 = function () {
 	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-111);
 	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-111);
 	    		 
+	    		 //jQuery(".dataTables_scrollHeadInner").css("width","4000px");
+	    		 //jQuery(".dataTables_scrollHeadInner table").css("width","100%");
+	    		 
 	    		 jQuery("#fullscreenOractual i").removeClass("icon-size-fullscreen");
 	    		 jQuery("#fullscreenOractual i").addClass("icon-size-actual");
 	    		 
@@ -514,7 +517,7 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 //第一次异步刷新
-	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
+	 //t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
 	  
 	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
@@ -603,7 +606,7 @@ var initTable1 = function () {
 				    var tr2 = "";
 				    var tr3 = "";
 				    if(dataType=="domain"){
-				    	firstTd="<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	firstTd="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
 				    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
 						"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
 							"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
@@ -611,7 +614,7 @@ var initTable1 = function () {
 				      	"</ul></div>";
 				      	menu+=tr3;
 				    }else if(dataType=="domainAd"){
-				    	firstTd = "<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	firstTd = "<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
 				    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
 						"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
 							"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
@@ -620,7 +623,7 @@ var initTable1 = function () {
 				      	menu+=tr3;
 				    	
 				    }else if(dataType=="domainNotAd"){
-				    	firstTd = "<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	firstTd = "<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
 				    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
 						"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
 							"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
@@ -628,11 +631,11 @@ var initTable1 = function () {
 				      	"</ul></div>";
 				      	menu+=tr3;
 				    }else if(dataType=="domainRegion"){
-				    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
+				    	firstTd = "<td style='min-width: 140px;'  >"+item[23]+"</td>";
 				    }else if(dataType=="domainRegionAd"){
-				    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
+				    	firstTd = "<td style='min-width: 140px;'  >"+item[23]+"</td>";
 				    }else if(dataType=="domainRegionNotAd"){
-				    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
+				    	firstTd = "<td style='min-width: 140px;'  >"+item[23]+"</td>";
 				    }
 				   
 				    
@@ -703,7 +706,7 @@ var initTable1 = function () {
 					  table+=tr;
 				  if(num==2){
 					  tr2+="<tr>"+firstTd+
-					  "<td style='min-width: 80px'>"+IP+"</td>"+
+					  "<td style='min-width: 70px'>"+IP+"</td>"+
 					  /* "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+ */
 						"</tr>";
 					lefttable+=tr2;

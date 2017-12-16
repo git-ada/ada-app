@@ -22,6 +22,18 @@
 
 </style>
  
+ <div class="page-bar" style="border: none;">
+    <ul class="page-breadcrumb" style="width: 100%">
+        <li>
+            <i class="icon-home"></i>
+            	首页
+            <i class="fa fa-angle-right"></i>
+        </li>
+         <li>
+            <span>${domain}</span>
+        </li>
+    </ul>
+</div> 
  <!-- 第六个图表 基本数据 -->
  <div class="row">
   <div class="col-lg-12 col-xs-12 col-sm-12">
@@ -29,7 +41,7 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <a href="javascript:gotoPage('${pageContext.request.contextPath}/dashboard.jhtm?dataType=${dataType}');"> <i class="icon-action-undo"></i></a>
+                  <a href="javascript:gotoPage('${pageContext.request.contextPath}/dashboard.jhtm?dataType=domain');"> <i class="icon-action-undo"></i></a>
                   <i class=" icon-info font-green"></i>
                   <span class="caption-subject font-green bold uppercase">IP&PV&UV</span>
               </div>
