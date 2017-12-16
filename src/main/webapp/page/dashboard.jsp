@@ -73,6 +73,8 @@ th:last-child,td:last-child {
 .displaynone{
 	display: none;
 }
+.stdisplaynone{
+}
 .page-spinner-bar {
     left: 50%;
     margin-left: -55px;
@@ -82,7 +84,36 @@ th:last-child,td:last-child {
     width: 100px;
     z-index: 10060 !important;
 }
-
+thead th {
+    padding-left: 10px!important;
+}
+.portlet-title {
+    padding-left:  10px !important;
+}
+.dataTables_scrollBody tbody td {
+    padding: 0px 0px !important;
+    text-align: left;
+    line-height: 35.2px;
+}
+.myprogress {
+    border-radius: 4px;
+    height: 35.2px;
+    
+    margin-bottom: 0px !important;
+}
+.only {
+    border: 0 none;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    line-height: 35.2px;
+    padding-left:8px;
+    width: 1px;
+}
+.tdonly{
+	padding-left:8px;
+}
 </style>
 
 <!-- 
@@ -109,9 +140,9 @@ th:last-child,td:last-child {
 				<div class="number">
 					<span data-counter="counterup" data-value="${sumip}" id="ip">${sumip}</span>(个)
 				</div>
-				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMIP">今日全站独立IP数</div></c:if>
-				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMIP">今日广告入口独立IP数</div></c:if>
-				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMIP">今日非广告入口独立IP数</div></c:if>
+				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMIP">全站独立IP数</div></c:if>
+				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMIP">广告入口独立IP数</div></c:if>
+				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMIP">非广告入口独立IP数</div></c:if>
 			</div>
 		</div>
 	</div>
@@ -125,9 +156,9 @@ th:last-child,td:last-child {
 				<div class="number">
 					<span data-counter="counterup" data-value="${sumpv}" id="pv">${sumpv}</span>(页)
 				</div>
-				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMPV">今日全站访问量</div></c:if>
-				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMPV">今日广告入口访问量</div></c:if>
-				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMPV">今日非广告入口访问量</div></c:if>
+				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMPV">全站访问量</div></c:if>
+				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMPV">广告入口访问量</div></c:if>
+				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMPV">非广告入口访问量</div></c:if>
 			</div>
 		</div>
 	</div>
@@ -164,7 +195,11 @@ th:last-child,td:last-child {
 <div class="portlet light portlet-fit bordered">
 	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;">
 		<div class="caption" style="padding-bottom: 0px;">
-            <span class="caption-subject bold font-dark uppercase "> 今日实时统计</span>
+            <span class="caption-subject bold font-dark uppercase ">
+            	<c:if test="${dataType=='domain'}">全站统计</c:if>
+            	<c:if test="${dataType=='domainAd'}">广告入口统计</c:if> 
+            	<c:if test="${dataType=='domainNotAd'}">非广告入口统计</c:if>  
+            </span>
             <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
         </div>
         <div class="inputs">
@@ -181,8 +216,8 @@ th:last-child,td:last-child {
 	            <thead>
 	                <tr>
 	                	<c:if test="${dataType=='domain'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名</th></c:if>
-						<c:if test="${dataType=='domainAd'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名（广告入口）</th></c:if>
-						<c:if test="${dataType=='domainNotAd'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名（非广告入口）</th></c:if>
+						<c:if test="${dataType=='domainAd'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名</th></c:if>
+						<c:if test="${dataType=='domainNotAd'}"><th scope="col" style="min-width: 150px;" id="firstTh">域名</th></c:if>
 						<th scope="col" style="min-width: 80px">IP</th>			
 						<th scope="col" style="min-width: 80px">PV</th>
 						<th scope="col" style="min-width: 80px">UV</th>
@@ -217,74 +252,41 @@ th:last-child,td:last-child {
 				     </tr>
 	            </thead>
 	            <tbody id="tbody">
-	                	<c:forEach var="item" items="${DomainStat_list}" varStatus="number">
-	                <tr>
-                		<td style="min-width: 150px;" title="${item[24]}">
-                			<c:if test="${dataType=='domain'}"><a id="dropdown" style="text-decoration:underline;color: #333;"  data-target="#context-menu${item[23]}" data-toggle="dropdown" onclick="openMenu(this)">${item[25]}</a></c:if>
-                			<c:if test="${dataType=='domainAd'}">${item[25]}</c:if>
-                			<c:if test="${dataType=='domainNotAd'}">${item[25]}</c:if>
-                		</td>
-						<td style="min-width: 80px">${item[0]}</td>
-						<td style="min-width: 80px">${item[1]}</td>
-						<td style="min-width: 80px">${item[2]}</td>
-						<!-- ${domain.loginip} (${domain.log}%) eef1f5-->
-						<td style="min-width: 80px">${item[3]} (<fmt:formatNumber type="number" value="${item[3] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${item[4]} (<fmt:formatNumber type="number" value="${item[4] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${item[5]} (<fmt:formatNumber type="number" value="${item[5] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px">${item[6]} (<fmt:formatNumber type="number" value="${item[6] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td> 
-						
-						<c:set var="sumST" scope="session" value="${item[7]+item[8]+item[9]+item[10]}"/>
-						<c:set var="sumC" scope="session" value="${item[11]+item[12]+item[13]+item[14]}"/>
-						<c:set var="sumS" scope="session" value="${item[15]+item[16]+item[17]+item[18]}"/>
-						<c:set var="sumM" scope="session" value="${item[19]+item[20]+item[21]+item[22]}"/>
-						
-						<td style="min-width: 80px">${sumST} (<fmt:formatNumber type="number" value="${sumST / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="st">${item[7]} (<fmt:formatNumber type="number" value="${item[7] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="st">${item[8]} (<fmt:formatNumber type="number" value="${item[8] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="st">${item[9]} (<fmt:formatNumber type="number" value="${item[9] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="st">${item[10]} (<fmt:formatNumber type="number" value="${item[10] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						
-						<td style="min-width: 80px">${sumC} (<fmt:formatNumber type="number" value="${sumC / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="c">${item[11]} (<fmt:formatNumber type="number" value="${item[11] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="c">${item[12]} (<fmt:formatNumber type="number" value="${item[12] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="c">${item[13]} (<fmt:formatNumber type="number" value="${item[13] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="c">${item[14]} (<fmt:formatNumber type="number" value="${item[14] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						
-						<td style="min-width: 80px">${sumS} (<fmt:formatNumber type="number" value="${sumS / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="s">${item[15]} (<fmt:formatNumber type="number" value="${item[15] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="s">${item[16]} (<fmt:formatNumber type="number" value="${item[16] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="s">${item[17]} (<fmt:formatNumber type="number" value="${item[17] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="s">${item[18]} (<fmt:formatNumber type="number" value="${item[18] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						
-						<td style="min-width: 80px">${sumM} (<fmt:formatNumber type="number" value="${sumM / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="m">${item[19]} (<fmt:formatNumber type="number" value="${item[19] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="m">${item[20]} (<fmt:formatNumber type="number" value="${item[20] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="m">${item[21]} (<fmt:formatNumber type="number" value="${item[21] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-						<td style="min-width: 80px" class="displaynone" event="m">${item[22]} (<fmt:formatNumber type="number" value="${item[22] / item[0] *100}" pattern="0.00" maxFractionDigits="2"/>%)</td>
-	                </tr>
-	                </c:forEach>
-	                
-	                 <c:forEach var="item" items="${DomainStat_list}" varStatus="number">
+	                	<c:forEach var="item" items="${tbodydata.data_list}" varStatus="number">
 						<div id="context-menu${item[23]}" style="z-index: 999;position:absolute;">
 							<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
-								<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}')">分时统计</a>
+
+							     <c:if test="${dataType=='domain'}">
+							     	<li>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计1</a>
+							     </li>
+							     	<li>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}')">分时统计2</a>
 							     </li>
 							     <li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${item[23]}')">分时统计2</a>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${item[23]}')">分时统计3</a>
 							     </li>
-							<!--      <li>
-							         <a href="javascript:;" onclick="changeDataType('domainAd')">域名统计（广告入口）</a>
+								     <li>
+								         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
+								     </li>
+							     </c:if>
+							     <c:if test="${dataType=='domainAd'}">
+							     	<li>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
 							     </li>
-							     <li>
-							         <a href="javascript:;" onclick="changeDataType('domainNotAd')">域名统计（非广告入口）</a>
-							     </li> -->
-							    <li>
-							         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${item[23]})">地域统计（广告入口）</a>
+								     <li>
+								         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${item[23]})">地域统计</a>
+								     </li>
+							     </c:if>
+							     <c:if test="${dataType=='domainNotAd'}">
+							     	<li>
+							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
 							     </li>
-							     <li>
-							         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${item[23]})">地域统计（非广告入口）</a>
-							     </li>
+								     <li>
+								         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${item[23]})">地域统计</a>
+								     </li>
+							     </c:if>
+					
 							 </ul>
 						</div>
 					</c:forEach>
@@ -300,6 +302,10 @@ th:last-child,td:last-child {
 <script type="text/javascript">
 var dataType = '${dataType}';//页面数据类型
 var domainId = "";//域名ID
+var stClick = false;
+var cClick = false;
+var sClick = false;
+var mClick = false;
 function openMenu(a,event){
 	 var e = event || window.event;
 	var yy  = parseInt(e.screenY-120);
@@ -319,24 +325,66 @@ function Percentage(num, total) {
    
 }
 
+function PercentageMax(num, total){
+	var p = Math.round(num / total * 10000) / 100.00 >100 ? 100 : Math.round(num / total * 10000) / 100.00;
+	return (p+"%");
+}
+
 /** 修改td样式 **/
 function changeDisplay(a,data){
 	 var i = jQuery(a).find("i");
 	  if(jQuery(i).attr("class")=="icon-magnifier-add"){
+		  if(data == "st"){
+			  stClick = true;
+		  }else if(data == "c"){
+			  cClick = true;
+		  }else if(data == "s"){
+			  sClick = true;
+		  }else if(data == "m"){
+			  mClick = true;
+		  }
 		  jQuery(i).removeClass("icon-magnifier-add");
 		  jQuery(i).addClass("icon-magnifier-remove");
 		
-		  jQuery("[event="+data+"]").toggleClass("displaynone");
+		  //jQuery("[event="+data+"]").toggleClass("displaynone");
+		 /*  var aa = 0;
+		  jQuery(".stdisplaynone").each(function (){
+			  jQuery(this).show();
+			  
+			  aa++;
+		  }); 
+		  console.log(aa+"aa"); */
+     	   jQuery("[event='"+data+"']").each(function (){
+			  jQuery(this).show();
+		  });  
+	/* 	  var bb = 1;
+		    jQuery("td").each(function(){
+			   console.log(bb+"bbb");
+			   bb++;
+		   });  */
+		  /* jQuery("[class=displaynone]").each(function(){
+			  jQuery(this).show();
+			  console.log("aaa");
+		  }); */
 		  jQuery(".dataTables_scrollHeadInner").css("width","4000px");
 		  
 		  var left =  jQuery(".dataTables_scrollBody").scrollLeft();
 		  jQuery(".dataTables_scrollBody").scrollLeft(left+500);
 	  }else if(jQuery(i).attr("class")=="icon-magnifier-remove"){
+		  if(data == "st"){
+			  stClick = false;
+		  }else if(data == "c"){
+			  cClick = false;
+		  }else if(data == "s"){
+			  sClick = false;
+		  }else if(data == "m"){
+			  mClick = false;
+		  }
 		  jQuery(i).removeClass("icon-magnifier-remove");
 		  jQuery(i).addClass("icon-magnifier-add");
 		  
-		  jQuery("[event="+data+"]").toggleClass("displaynone");
-			 
+		  //jQuery("[event="+data+"]").toggleClass("displaynone");
+		  jQuery("[event="+data+"]").hide();
 	  }
 	 
 	 
@@ -368,7 +416,7 @@ var initTable1 = function () {
         buttons: [
         ],
         scrollY:        document.documentElement.clientHeight-290,
-        deferRender:    true,
+        deferRender:    false,
         "ordering": false,
         scroller:       true,
         scrollX:        true,
@@ -389,8 +437,12 @@ var initTable1 = function () {
         "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
     });
 }
-
+/**--------------预加载-------------------- **/
 	jQuery(document).ready(function() {
+		var tbodydata = '${tbodydata}';
+		var json = eval('(' + tbodydata + ')');
+		loadTbody(json,1);
+		
 	    initTable1();
 	     jQuery("#pauseOrplay").click(function(){
 	    	 if(jQuery("#pauseOrplay i").attr("class")=="icon-control-pause"){
@@ -480,136 +532,12 @@ var initTable1 = function () {
 	  
 	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do?dataType="+type+"&domainId="+domainId,
+				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId,
 				success : function(data) {
 					
 					if (data!=null) {
 						var json = eval('(' + data + ')');
-						
-						domainId = json.domainId;//域名ID
-						var table = "";
-						var lefttable = "";
-						var menu = "";
-						var firstTh = "域名";
-						var SUMIP = "";
-						var SUMPV = "";
-						/** 数据列表 **/
-						var dataList = json.data_list;
-						if(dataType=="domain"){
-							firstTh = "域名";
-							SUMIP = "今日全站独立IP数";
-							SUMPV = "今日全站访问量";
-						}else if(dataType=="domainAd"){
-							SUMIP = "今日广告入口独立IP数";
-							SUMPV = "今日广告入口访问量";
-							firstTh = "域名（广告入口）";
-						}else if(dataType=="domainNotAd"){
-							SUMIP = "今日非广告入口独立IP数";
-							SUMPV = "今日非广告入口访问量";
-							firstTh = "域名（非广告入口）";
-						}else if(dataType=="domainRegionAd"){
-							SUMIP = "地域广告入口独立IP数";
-							SUMPV = "地域广告入口访问量";
-							firstTh = "地域（广告入口）<a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
-						}else if(dataType=="domainRegionNotAd"){
-							SUMIP = "地域非广告入口独立IP数";
-							SUMPV = "地域非广告入口访问量";
-							firstTh = "地域（非广告入口）<a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
-						}
-						if(dataList!=null && dataList.length>0){
-							for(var i=0;i<dataList.length;i++){
-								var item = dataList[i];
-								var firstTd = "";
-								var tr = "";
-							    var tr2 = "";
-							    var tr3 = "";
-							    if(dataType=="domain"){
-							    	firstTd="<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
-							    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
-									"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
-										"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+item[23]+"\")'>分时统计</a></li>"+
-										 /* "<li><a href='javascript:;' onclick='changeDataType(\"domainAd\")'>域名统计（广告入口）</a></li>"+
-								     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainNotAd\")'>域名统计（非广告入口）</a></li>"+ */
-	                                	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+item[23]+"\")'>地域统计（广告入口）</a></li>"+
-	                                 	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+item[23]+"\")'>地域统计（非广告入口）</a></li>"+ 
-							      	"</ul></div>";
-							      	menu+=tr3;
-							    }else if(dataType=="domainAd"){
-							    	firstTd = "<td style='min-width: 130px;'  title='"+item[24]+"'>"+item[25]+"</td>";
-							    }else if(dataType=="domainNotAd"){
-							    	firstTd = "<td style='min-width: 130px;'  title='"+item[24]+"'>"+item[25]+"</td>";
-							    }else if(dataType=="domainRegionAd"){
-							    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
-							    }else if(dataType=="domainRegionNotAd"){
-							    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
-							    }
-							    var stDisplay = jQuery("[event=st]").first().attr("class");
-							    var cDisplay = jQuery("[event=c]").first().attr("class");
-							    var sDisplay = jQuery("[event=s]").first().attr("class");
-							    var mtDisplay = jQuery("[event=m]").first().attr("class");
-							    
-							    var sumST = item[7]+item[8]+item[9]+item[10];
-							    var sumC = item[11]+item[12]+item[13]+item[14];
-							    var sumS = item[15]+item[16]+item[17]+item[18];
-							    var sumM = item[19]+item[20]+item[21]+item[22];
-							    var IP = item[0];
-						  		tr+="<tr>" + firstTd+
-								  "<td >"+IP+"</td>"+
-								  "<td >"+item[1]+"</td>"+
-								  "<td >"+item[2]+"</td>"+
-								  "<td >"+item[3]+" ("+Percentage(item[3],IP)+")</td>"+
-								  "<td >"+item[4]+" ("+Percentage(item[4],IP)+")</td>"+
-								  "<td >"+item[5]+" ("+Percentage(item[5],IP)+")</td>"+
-								  "<td >"+item[6]+" ("+Percentage(item[6],IP)+")</td>"+
-								  
-								  "<td >"+sumST+" ("+Percentage(sumST,IP)+")</td>"+
-								  "<td class='"+stDisplay+"' event='st'>"+item[7]+" ("+Percentage(item[7],IP)+")</td>"+
-								  "<td class='"+stDisplay+"' event='st'>"+item[8]+" ("+Percentage(item[8],IP)+")</td>"+
-								  "<td class='"+stDisplay+"' event='st'>"+item[9]+" ("+Percentage(item[9],IP)+")</td>"+
-								  "<td class='"+stDisplay+"' event='st'>"+item[10]+" ("+Percentage(item[10],IP)+")</td>"+
-								  
-								  "<td >"+sumC+" ("+Percentage(sumC,IP)+")</td>"+
-								  "<td class='"+cDisplay+"' event='c'>"+item[11]+" ("+Percentage(item[11],IP)+")</td>"+
-								  "<td class='"+cDisplay+"' event='c'>"+item[12]+" ("+Percentage(item[12],IP)+")</td>"+
-								  "<td class='"+cDisplay+"' event='c'>"+item[13]+" ("+Percentage(item[13],IP)+")</td>"+
-								  "<td class='"+cDisplay+"' event='c'>"+item[14]+" ("+Percentage(item[14],IP)+")</td>"+
-								  
-								  "<td >"+sumS+" ("+Percentage(sumS,IP)+")</td>"+
-								  "<td class='"+sDisplay+"' event='s'>"+item[15]+" ("+Percentage(item[15],IP)+")</td>"+
-								  "<td class='"+sDisplay+"' event='s'>"+item[16]+" ("+Percentage(item[16],IP)+")</td>"+
-								  "<td class='"+sDisplay+"' event='s'>"+item[17]+" ("+Percentage(item[17],IP)+")</td>"+
-								  "<td class='"+sDisplay+"' event='s'>"+item[18]+" ("+Percentage(item[18],IP)+")</td>"+
-								  
-								  "<td >"+sumM+" ("+Percentage(sumM,IP)+")</td>"+
-								  "<td class='"+mtDisplay+"' event='m'>"+item[19]+" ("+Percentage(item[19],IP)+")</td>"+
-								  "<td class='"+mtDisplay+"' event='m'>"+item[20]+" ("+Percentage(item[20],IP)+")</td>"+
-								  "<td class='"+mtDisplay+"' event='m'>"+item[21]+" ("+Percentage(item[21],IP)+")</td>"+
-								  "<td class='"+mtDisplay+"' event='m'>"+item[22]+" ("+Percentage(item[22],IP)+")</td>"+
-								  "</tr>";
-								  table+=tr;
-							  
-								tr2+="<tr>"+firstTd+
-								  "<td style='min-width: 80px'>"+IP+"</td>"+
-								  /* "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+ */
-									"</tr>";
-								lefttable+=tr2;
-										
-							}
-						}
-						
-						if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh){
-							jQuery("#SUMIP").html(SUMIP);
-							jQuery("#SUMPV").html(SUMPV);
-							jQuery("#ip").html(json.sumip);
-							jQuery("#pv").html(json.sumpv);
-							jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
-							jQuery("#tbody").empty();
-							jQuery("#tbody").append(table);
-							jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
-							jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable+menu);
-							jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
-							
-						}
+						loadTbody(json,2);
 					
 					}
 					clearTimeout(t);
@@ -626,6 +554,198 @@ var initTable1 = function () {
 					t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
 				}
 			});
+	 }
+	 /** js渲染tbody **/
+	 function loadTbody(json,num){
+		 domainId = json.domainId;//域名ID
+			var table = "";
+			var lefttable = "";
+			var menu = "";
+			var firstTh = "域名";
+			var SUMIP = "";
+			var SUMPV = "";
+			/** 数据列表 **/
+			var dataList = json.data_list;
+			 
+			if(dataType=="domain"){
+				firstTh = "域名";
+				SUMIP = "全站独立IP数";
+				SUMPV = "全站访问量";
+			}else if(dataType=="domainAd"){
+				SUMIP = "广告入口独立IP数";
+				SUMPV = "广告入口访问量";
+				firstTh = "域名";
+			}else if(dataType=="domainNotAd"){
+				SUMIP = "非广告入口独立IP数";
+				SUMPV = "非广告入口访问量";
+				firstTh = "域名";
+			}else if(dataType=="domainRegion"){
+				SUMIP = "地域独立IP数";
+				SUMPV = "地域访问量";
+				firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
+			}else if(dataType=="domainRegionAd"){
+				SUMIP = "地域广告入口独立IP数";
+				SUMPV = "地域广告入口访问量";
+				firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domainAd\")'><i class='icon-action-undo'></i></a>";
+			}else if(dataType=="domainRegionNotAd"){
+				SUMIP = "地域非广告入口独立IP数";
+				SUMPV = "地域非广告入口访问量";
+				firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domainNotAd\")'><i class='icon-action-undo'></i></a>";
+			}
+			 var stDisplay = "";
+			    var cDisplay = "";
+			    var sDisplay = "";
+			    var mtDisplay = "";
+			    
+			    if(num==1){
+	    	 	 stDisplay = "displaynone";
+			     cDisplay = "displaynone";
+			     sDisplay = "displaynone";
+			     mtDisplay = "displaynone";
+			    }else if(num==2){
+			    	if(!stClick) stDisplay = "displaynone";
+			    	if(!cClick) cDisplay = "displaynone";
+			    	if(!sClick) sDisplay = "displaynone";
+			    	if(!mClick) mtDisplay = "displaynone";
+			    }
+			if(dataList!=null && dataList.length>0){
+				console.log("数据条数------>"+dataList.length);
+				for(var i=0;i<dataList.length;i++){
+					var item = dataList[i];
+					var firstTd = "";
+					var tr = "";
+				    var tr2 = "";
+				    var tr3 = "";
+				    if(dataType=="domain"){
+				    	firstTd="<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
+						"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
+							"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
+                      	"<li><a href='javascript:;' onclick='changeDataType(\"domainRegion,"+item[23]+"\")'>地域统计</a></li>"+
+				      	"</ul></div>";
+				      	menu+=tr3;
+				    }else if(dataType=="domainAd"){
+				    	firstTd = "<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
+						"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
+							"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
+                     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionAd,"+item[23]+"\")'>地域统计</a></li>"+
+				      	"</ul></div>";
+				      	menu+=tr3;
+				    	
+				    }else if(dataType=="domainNotAd"){
+				    	firstTd = "<td style='min-width: 150px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
+						"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
+							"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
+                     	 "<li><a href='javascript:;' onclick='changeDataType(\"domainRegionNotAd,"+item[23]+"\")'>地域统计</a></li>"+
+				      	"</ul></div>";
+				      	menu+=tr3;
+				    }else if(dataType=="domainRegion"){
+				    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
+				    }else if(dataType=="domainRegionAd"){
+				    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
+				    }else if(dataType=="domainRegionNotAd"){
+				    	firstTd = "<td style='min-width: 150px;'  >"+item[23]+"</td>";
+				    }
+				   
+				    
+				    var sumST = item[7]+item[8]+item[9]+item[10];
+				    var sumC = item[11]+item[12]+item[13]+item[14];
+				    var sumS = item[15]+item[16]+item[17]+item[18];
+				    var sumM = item[19]+item[20]+item[21]+item[22];
+				    var IP = item[0];
+			  		tr+="<tr num='"+i+"'>" + firstTd+
+					  "<td >"+IP+"</td>"+
+					  "<td ><span class='tdonly'>"+item[1]+"</span></td>"+
+					  "<td ><span class='tdonly'>"+item[2]+"</span></td>"+
+					  
+					  "<td title='"+Percentage(item[3],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[3],IP)+" '>"+
+					  	"<span class='only'> "+item[3]+" </span></div></div></td>"+
+				  	  "<td title='"+Percentage(item[4],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[4],IP)+" '>"+
+				  	    "<span class='only'> "+item[4]+" </span></div></div></td>"+
+				  	  "<td title='"+Percentage(item[5],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[5],IP)+" '>"+
+				  	    "<span class='only'> "+item[5]+" </span></div></div></td>"+
+				  	  "<td title='"+Percentage(item[6],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[6],IP)+" '>"+
+				  	    "<span class='only'> "+item[6]+" </span></div></div></td>"+
+				  	    
+				  	  "<td title='"+Percentage(sumST,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumST,IP)+" '>"+
+				  	    "<span class='only'> "+sumST+" </span></div></div></td>"+
+				  	  "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[7],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[7],IP)+" '>"+
+				  	    "<span class='only'> "+item[7]+" </span></div></div></td>"+
+				  	  "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[8],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[8],IP)+" '>"+
+				  	    "<span class='only'> "+item[8]+" </span></div></div></td>"+
+				  	  "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[9],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[9],IP)+" '>"+
+				  	    "<span class='only'> "+item[9]+" </span></div></div></td>"+
+				  	  "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[10],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[10],IP)+" '>"+
+				  	    "<span class='only'> "+item[10]+" </span></div></div></td>"+
+				  	    
+				  	  "<td title='"+Percentage(sumC,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumC,IP)+" '>"+
+				  	    "<span class='only'> "+sumC+" </span></div></div></td>"+
+				  	  "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[11],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[11],IP)+" '>"+
+				  	    "<span class='only'> "+item[11]+" </span></div></div></td>"+
+				  	  "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[12],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[12],IP)+" '>"+
+				  	    "<span class='only'> "+item[12]+" </span></div></div></td>"+
+				  	  "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[13],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[13],IP)+" '>"+
+				  	    "<span class='only'> "+item[13]+" </span></div></div></td>"+
+				  	  "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[14],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[14],IP)+" '>"+
+				  	    "<span class='only'> "+item[14]+" </span></div></div></td>"+
+				  	    
+				  	  "<td title='"+Percentage(sumS,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumS,IP)+" '>"+
+				  	    "<span class='only'> "+sumS+" </span></div></div></td>"+
+				  	  "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[15],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[15],IP)+" '>"+
+				  	    "<span class='only'> "+item[15]+" </span></div></div></td>"+
+				  	  "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[16],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[16],IP)+" '>"+
+				  	    "<span class='only'> "+item[16]+" </span></div></div></td>"+
+				  	  "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[17],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[17],IP)+" '>"+
+				  	    "<span class='only'> "+item[17]+" </span></div></div></td>"+
+				  	  "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[18],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[18],IP)+" '>"+
+				  	    "<span class='only'> "+item[18]+" </span></div></div></td>"+
+					  
+				  	  "<td title='"+Percentage(sumM,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumM,IP)+" '>"+
+				  	    "<span class='only'> "+sumM+" </span></div></div></td>"+
+				  	  "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[19],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[19],IP)+" '>"+
+				  	    "<span class='only'> "+item[19]+" </span></div></div></td>"+
+				  	  "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[20],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[20],IP)+" '>"+
+				  	    "<span class='only'> "+item[20]+" </span></div></div></td>"+
+				  	  "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[21],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[21],IP)+" '>"+
+				  	    "<span class='only'> "+item[21]+" </span></div></div></td>"+
+				  	  "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[22],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[22],IP)+" '>"+
+				  	    "<span class='only'> "+item[22]+" </span></div></div></td>"+
+					 
+					  "</tr>";
+					  table+=tr;
+				  if(num==2){
+					  tr2+="<tr>"+firstTd+
+					  "<td style='min-width: 80px'>"+IP+"</td>"+
+					  /* "<td style='min-width: 80px'>"+dataList[i].pv+"</td>"+ */
+						"</tr>";
+					lefttable+=tr2;
+				  }
+				}
+			}
+			
+			if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh){
+				if(num==1){
+					//alert(table+menu);
+					jQuery("#tbody").empty();
+					jQuery("#tbody").append(table);
+					//jQuery("#menu").append(menu);
+				}else if(num==2){
+					jQuery("#SUMIP").html(SUMIP);
+					jQuery("#SUMPV").html(SUMPV);
+					jQuery("#ip").html(json.sumip);
+					jQuery("#pv").html(json.sumpv);
+					jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
+					jQuery("#tbody").empty();
+					jQuery("#tbody").append(table);
+					jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
+					jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable+menu);
+					jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
+				}
+				
+				
+			}
 	 }
 	 
 </script>

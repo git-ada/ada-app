@@ -128,20 +128,30 @@ public class IndexController {
 				AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
 				/** 获取站点下域名统计信息 **/
 				Map sumMap = getDomainStat_list(today);
-				List<List<Object>> DomainStat_list = (List<List<Object>>) sumMap.get("DomainStat_list");
-				 model.addAttribute("DomainStat_list", DomainStat_list);
-				 model.addAttribute("sumip", siteStat.getIp());
-				 model.addAttribute("sumpv", siteStat.getPv());
+				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+				Map map = new HashMap();
+				map.put("data_list", data_list);
+				map.put("dataType", dataType);
+				JSONObject json  = new JSONObject(map);
+				model.addAttribute("tbodydata", json);
+				model.addAttribute("sumip", siteStat.getIp());
+				model.addAttribute("sumpv", siteStat.getPv());
 			}else if("domainAd".equals(dataType)){
 				Map map = getDomainAdData(today);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
-				model.addAttribute("DomainStat_list", data_list);
+				Map map2 = new HashMap();
+				map2.put("data_list", data_list);
+				map2.put("dataType", dataType);
+				model.addAttribute("tbodydata", map2);
 				model.addAttribute("sumip", map.get("sumip"));
 				model.addAttribute("sumpv", map.get("sumpv"));
 			}else if("domainNotAd".equals(dataType)){
 				Map map = getDomainNotAdData(today);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
-				model.addAttribute("DomainStat_list", data_list);
+				Map map2 = new HashMap();
+				map2.put("data_list", data_list);
+				map2.put("dataType", dataType);
+				model.addAttribute("tbodydata", map2);
 				model.addAttribute("sumip", map.get("sumip"));
 				model.addAttribute("sumpv", map.get("sumpv"));
 			}
@@ -188,6 +198,12 @@ public class IndexController {
 				json.put("data_list", data_list);
 				json.put("sumip", map.get("sumip"));
 				json.put("sumpv", map.get("sumpv"));
+			}else if("domainRegion".equals(dataType)){/**获取域名地域统计信息**/
+				Map map = getDomainRegion(today,Integer.valueOf(domainId));
+				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+				json.put("data_list", data_list);
+				json.put("sumip", map.get("sumip"));
+				json.put("sumpv", map.get("sumpv"));
 			}else if("domainRegionAd".equals(dataType)){/** 获取域名地域广告入口统计信息 **/
 				Map map = getDomainRegionAd_data(today,Integer.valueOf(domainId));
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
@@ -229,8 +245,26 @@ public class IndexController {
 			model.addAttribute("json", json);
 		}
 		model.addAttribute("domainId", domainId);
-		
+		model.addAttribute("dataType", "domain");
 		return "dashboard_domainTime";
+	}
+	/**
+	 * 域名广告入口和非广告入口分时统计信息
+	 * @param domainId
+	 * @param dataType
+	 * @return
+	 */
+	@RequestMapping("domainTimechartList_one")
+	public String dashboard_domainAdTime(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId,String dataType){
+		
+		if(dataType!=null && domainId!=null){
+			JSONObject json = domainTimechartList_one(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1,dataType);
+			model.addAttribute("json", json);
+		}
+		model.addAttribute("dataType", dataType);
+		model.addAttribute("domainId", domainId);
+		return "dashboard_domainTime_one";
 	}
 	
 	@RequestMapping(value = "dashboard_domainTime3")
@@ -295,13 +329,23 @@ public class IndexController {
 	 */
 	@RequestMapping("ajaxdashboard_domainTime")
 	public void ajaxdashboard_domainTime(HttpServletRequest request,HttpServletResponse response ,Model model,
-			String pageNo,String domainId){
+			String pageNo,String domainId,String dataType){
+		
 		Integer pageno = Integer.valueOf(pageNo);
 		Integer domainid = Integer.valueOf(domainId);
 		try {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print(this.domainTimechartList(domainid,domainTime_PageSize,Interval_time,pageno));
+			if(dataType!=null && !"".equals(dataType)){
+				if("domain".equals(dataType)){
+					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
+				}else if("domainAd".equals(dataType)){
+					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
+				}else if("domainNotAd".equals(dataType)){
+					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
+				}
+			}
+			
 			out.flush();
 			out.close();
 		} catch (Exception e) {
@@ -411,6 +455,234 @@ public class IndexController {
 		}
 		
 		return json;
+	}
+	
+	protected JSONObject domainTimechartList_one(Integer domainId,int pageSize,int len,Integer pageNo,String dataType){
+		
+		JSONObject json=new JSONObject();
+		if(pageNo== null || pageNo<1 || dataType==null){
+			json.put("success", false);
+			json.put("message", "已是最新统计数据！");
+			return json;
+		}
+		List list = new ArrayList();
+		
+		try {
+			if("domain".equals(dataType)){
+				List<AdaDomainAd15mStat> adlist = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+				List<AdaDomainNotad15mStat> notAdlist = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+				for(int i=0;i<adlist.size();i++){
+					BaseStatBean item = new BaseStatBean();
+					AdaDomainAd15mStat ad = adlist.get(i);
+					AdaDomainNotad15mStat notAd =  notAdlist.get(i);
+					item.setEndTime(ad.getEndTime());
+					item.setIp(ad.getIp()+notAd.getIp());
+					item.setPv(ad.getPv()+notAd.getPv());
+					item.setUv(ad.getUv()+notAd.getUv());
+					item.setLoginip(ad.getLoginip()+notAd.getLoginip());
+					item.setOldip(ad.getOldip()+notAd.getOldip());
+					item.setOlduserip(ad.getOlduserip()+notAd.getOlduserip());
+					item.setTargetpageip(ad.getTargetpageip()+notAd.getTargetpageip());
+					item.setStaytimeip1(ad.getStaytimeip1()+notAd.getStaytimeip1());
+					item.setStaytimeip2(ad.getStaytimeip2()+notAd.getStaytimeip2());
+					item.setStaytimeip3(ad.getStaytimeip3()+notAd.getStaytimeip3());
+					item.setStaytimeip4(ad.getStaytimeip4()+notAd.getStaytimeip4());
+					item.setClickip1(ad.getClickip1()+notAd.getClickip1());
+					item.setClickip2(ad.getClickip2()+notAd.getClickip2());
+					item.setClickip3(ad.getClickip3()+notAd.getClickip3());
+					item.setClickip4(ad.getClickip4()+notAd.getClickip4());
+					item.setScrollip1(ad.getScrollip1()+notAd.getScrollip1());
+					item.setScrollip2(ad.getScrollip2()+notAd.getScrollip2());
+					item.setScrollip3(ad.getScrollip3()+notAd.getScrollip3());
+					item.setScrollip4(ad.getScrollip4()+notAd.getScrollip4());
+					item.setMoveip1(ad.getMoveip1()+notAd.getMoveip1());
+					item.setMoveip2(ad.getMoveip2()+notAd.getMoveip2());
+					item.setMoveip3(ad.getMoveip3()+notAd.getMoveip3());
+					item.setMoveip4(ad.getMoveip4()+notAd.getMoveip4());
+					list.add(item);
+				}
+			}else if("domainAd".equals(dataType)){
+				list = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+			}else if("domainNotAd".equals(dataType)){
+				list = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+			}
+			
+			if((list==null || list.size()<1)){
+				json.put("success", false);
+				json.put("message", "暂无统计数据！");
+				return json;
+			}
+			
+			JSONArray chart_1=new JSONArray();// IP、PV、UV
+			JSONArray chart_2=new JSONArray();//老用户数、老ip、登陆用户数、进入目标页
+			JSONArray chart_3=new JSONArray();//用户停留时长5-30、31-120、121-300、300+秒
+			JSONArray chart_4=new JSONArray();//鼠标点击次数1-2、3-5、6-10、10+
+			JSONArray chart_5=new JSONArray();//鼠标滚动次数1-2、3-5、6-10、10+
+			JSONArray chart_6=new JSONArray();//鼠标移动次数1-2、3-5、6-10、10+
+			
+			if(list.size()<pageSize){//数据条数不足时 补充条数
+				for(int i=0;i<pageSize-list.size();i++){
+					BaseStatBean item = new BaseStatBean();
+					BeanUtils.copyProperties(list.get(list.size()-1), item);
+					String date = new SimpleDateFormat("HH:mm").format(item.getEndTime());
+					String strdate = com.ada.app.util.Dates.getbeforeTime(date, len*(i+1));
+					JSONObject json_item_1=new JSONObject();
+					JSONObject json_item_2=new JSONObject();
+					JSONObject json_item_3=new JSONObject();
+					JSONObject json_item_4=new JSONObject();
+					JSONObject json_item_5=new JSONObject();
+					JSONObject json_item_6=new JSONObject();
+					
+					json_item_1.put("date",strdate);
+					json_item_1.put("ip", 0);
+					json_item_1.put("pv", 0);
+					json_item_1.put("uv", 0);
+					
+					json_item_2.put("date", strdate);
+					json_item_2.put("olduser", 0);// 老用户数
+					json_item_2.put("oldip", 0); // 老IP数
+					json_item_2.put("loginip", 0);//登陆用户数
+					json_item_2.put("targetpageip", 0);//进入目标页
+
+					json_item_3.put("date", strdate);
+					json_item_3.put("st1", 0);
+					json_item_3.put("st2", 0);
+					json_item_3.put("st3", 0);
+					json_item_3.put("st4", 0);
+					
+					json_item_4.put("date", strdate);
+					json_item_4.put("c1", 0);
+					json_item_4.put("c2", 0);
+					json_item_4.put("c3", 0);
+					json_item_4.put("c4", 0);
+					
+					json_item_5.put("date", strdate);
+					json_item_5.put("s1", 0);
+					json_item_5.put("s2", 0);
+					json_item_5.put("s3", 0);
+					json_item_5.put("s4", 0);
+					
+					json_item_6.put("date", strdate);
+					json_item_6.put("m1", 0);
+					json_item_6.put("m2", 0);
+					json_item_6.put("m3", 0);
+					json_item_6.put("m4", 0);
+					
+					chart_1.add(json_item_1);
+					chart_2.add(json_item_2);
+					chart_3.add(json_item_3);
+					chart_4.add(json_item_4);
+					chart_5.add(json_item_5);
+					chart_6.add(json_item_6);
+				}
+			}
+			for(int i=list.size()-1;i>=0;i--){
+				/** 广告入口数据  **/
+				BaseStatBean item = new BaseStatBean();
+				BeanUtils.copyProperties(list.get(i), item);
+				
+				String date = new SimpleDateFormat("HH:mm").format(item.getEndTime());
+				//第一个图表
+				JSONObject json_adChart_1=new JSONObject();
+				json_adChart_1.put("date", date);
+				json_adChart_1.put("ip", item.getIp());
+				json_adChart_1.put("pv", item.getPv());
+				json_adChart_1.put("uv", item.getUv());
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					json_adChart_1.put("color", "#EF3F3F");
+					json_adChart_1.put("lcolor", "red");
+					json_adChart_1.put("alpha", 1);
+				}
+				chart_1.add(json_adChart_1);
+				//第二个图表
+				JSONObject json_adChart_2=new JSONObject();
+				json_adChart_2.put("date", date); // 统计日期
+				json_adChart_2.put("olduser", item.getOlduserip());// 老用户数
+				json_adChart_2.put("oldip", item.getOldip()); // 老IP数
+				json_adChart_2.put("loginip", item.getLoginip());//登陆用户数
+				json_adChart_2.put("targetpageip", item.getTargetpageip());//进入目标页
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					json_adChart_2.put("color", "#EF3F3F");
+					json_adChart_2.put("lcolor", "red");
+					json_adChart_2.put("alpha", 1);
+				}
+				chart_2.add(json_adChart_2);
+				//第三个图表
+				JSONObject json_adChart_3=new JSONObject();
+				json_adChart_3.put("date", date);
+				json_adChart_3.put("st1", item.getStaytimeip1());
+				json_adChart_3.put("st2", item.getStaytimeip2());
+				json_adChart_3.put("st3", item.getStaytimeip3());
+				json_adChart_3.put("st4", item.getStaytimeip4());
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					json_adChart_3.put("color", "#EF3F3F");
+					json_adChart_3.put("lcolor", "red");
+					json_adChart_3.put("alpha", 1);
+				}
+				chart_3.add(json_adChart_3);
+				//第四个图表
+				JSONObject json_adChart_4=new JSONObject();
+				json_adChart_4.put("date", date); // 统计日期
+				json_adChart_4.put("c1", item.getClickip1());
+				json_adChart_4.put("c2", item.getClickip2());
+				json_adChart_4.put("c3", item.getClickip3());
+				json_adChart_4.put("c4", item.getClickip4());
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					json_adChart_4.put("color", "#EF3F3F");
+					json_adChart_4.put("lcolor", "red");
+					json_adChart_4.put("alpha", 1);
+				}
+				chart_4.add(json_adChart_4);
+				
+				//第五个图表
+				JSONObject json_adChart_5=new JSONObject();
+				json_adChart_5.put("date", date);
+				json_adChart_5.put("s1", item.getScrollip1());
+				json_adChart_5.put("s2", item.getScrollip2());
+				json_adChart_5.put("s3", item.getScrollip3());
+				json_adChart_5.put("s4", item.getScrollip4());
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					json_adChart_5.put("color", "#EF3F3F");
+					json_adChart_5.put("lcolor", "red");
+					json_adChart_5.put("alpha", 1);
+				}
+				chart_5.add(json_adChart_5);
+				//第六个图表
+				JSONObject json_adChart_6=new JSONObject();
+				json_adChart_6.put("date", date);
+				json_adChart_6.put("m1", item.getMoveip1());
+				json_adChart_6.put("m2", item.getMoveip2());
+				json_adChart_6.put("m3", item.getMoveip3());
+				json_adChart_6.put("m4", item.getMoveip4());
+				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
+					json_adChart_6.put("color", "#EF3F3F");
+					json_adChart_6.put("lcolor", "red");
+					json_adChart_6.put("alpha", 1);
+				}
+				chart_6.add(json_adChart_6);
+			}
+			
+			json.put("success", true);
+			json.put("nextPage", pageNo-1);
+			json.put("lastPage", pageNo+1);
+			json.put("dataType", dataType);
+			
+			json.put("chart_1", chart_1);
+			json.put("chart_2", chart_2);
+			json.put("chart_3", chart_3);
+			json.put("chart_4", chart_4);
+			json.put("chart_5", chart_5);
+			json.put("chart_6", chart_6);
+		} catch (Exception e) {
+			log.error("获取域名广告入口和非广告入口图形数据失败,msg->"+e.getMessage(),e);
+		}
+	
+		
+		
+		
+		
+		return json;
+	
 	}
 	
 	/**
@@ -751,7 +1023,6 @@ public class IndexController {
 			json.put("success", true);
 			json.put("nextPage", pageNo-1);
 			json.put("lastPage", pageNo+1);
-			
 			json.put("ad_chart_1", ad_chart_1);
 			json.put("notad_chart_1", notad_chart_1);
 			json.put("ad_chart_2", ad_chart_2);
@@ -784,7 +1055,7 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>50){
+			 if(domainIp!=null && domainIp>0){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -857,6 +1128,47 @@ public class IndexController {
 		map.put("ChannelStat_list", ChannelStat_list);
 		map.put("channelSumIP", channelSumIP);
 		map.put("channelSumPV", channelSumPV);
+		return map;
+	}
+	/** 地域统计信息  **/
+	protected Map getDomainRegion(Date date,Integer domainId){
+		List<List<Object>> region_list = new ArrayList<List<Object>>();
+		Set<String> regionData = statService.getCityList(domainId, date);
+		List<String[]> IPs = new ArrayList();//先取出IP数 
+		for(String cityName:regionData){
+			Integer IP = statService.statRegionIP(domainId, cityName, date);
+			 if(IP!=null && IP>50){
+				 IPs.add(new String[]{cityName,String.valueOf(IP)});
+			 }
+		}
+		
+		/** 根据ip数排序 **/
+		 Collections.sort(IPs,new Comparator<String[]>(){
+				public int compare(String[] int1, String[] int2) {
+					Integer integer = Integer.valueOf(int1[1]) ;
+					Integer integer2 = Integer.valueOf(int2[1]);
+					return integer2.compareTo(integer);
+				}
+	     });
+		
+		Integer SumIP = 0;/** ip总数 **/
+		Integer SumPV = 0;/** PV总数 **/
+		for (int i=0;i<IPs.size();i++) {
+			String regionName = IPs.get(i)[0];
+			DomainAreaStat region = statService.statDomainRegion(regionName, domainId, date);
+			List<Object> list = getList(region);
+			list.add(regionName);
+		    Integer ip = region.getIp();
+		    SumIP += ip;
+		    SumPV += region.getPv();
+		    region_list.add(list);
+			 
+		}
+	
+		Map map = new HashMap();
+		map.put("data_list", region_list);
+		map.put("sumip", SumIP);
+		map.put("sumpv", SumPV);
 		return map;
 	}
 	/** 地域广告入口统计数据 **/
@@ -993,7 +1305,7 @@ public class IndexController {
 		 
 		 return map;
 	}
-	/** 地域非广告入口数据 **/
+	/** 域名非广告入口数据 **/
 	protected Map getDomainNotAdData(Date date){
 
 		/** 从sessions中获取站点信息 **/

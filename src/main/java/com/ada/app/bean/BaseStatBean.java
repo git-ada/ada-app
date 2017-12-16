@@ -51,6 +51,8 @@ public class BaseStatBean {
 	private Integer moveip3;
 	/** 10+次移动*/
 	private Integer moveip4;
+	/** 结束时间 */
+	private Timestamp endTime;
 	
 	public BaseStatBean() {
 		super();
@@ -224,6 +226,12 @@ public class BaseStatBean {
 	}
 	public void setMoveip4(Integer moveip4) {
 		this.moveip4 = moveip4;
+	}
+	public Timestamp getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
 	}
 		
 		
