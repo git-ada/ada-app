@@ -29,9 +29,9 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <a href="javascript:gotoHistoryPage(-1);"> <i class="icon-action-undo"></i></a>
+                  <a href="javascript:gotoPage('${pageContext.request.contextPath}/dashboard.jhtm?dataType=${dataType}');"> <i class="icon-action-undo"></i></a>
                   <i class=" icon-info font-green"></i>
-                  <span class="caption-subject font-green bold uppercase">基本数据</span>
+                  <span class="caption-subject font-green bold uppercase">IP&PV&UV</span>
               </div>
                <div class="actions" style="margin-right: 15px;">
                    <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
@@ -53,7 +53,7 @@
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
                   <i class=" icon-users font-green"></i>
-                  <span class="caption-subject font-green bold uppercase">用户分析</span>
+                  <span class="caption-subject font-green bold uppercase">登录用户&目标页</span>
               </div>
               <div class="actions" style="margin-right: 15px;">
                    <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
@@ -74,7 +74,7 @@
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
                   <i class=" icon-users font-green"></i>
-                  <span class="caption-subject font-green bold uppercase">用户分析</span>
+                  <span class="caption-subject font-green bold uppercase">老用户&老ip</span>
               </div>
               <div class="actions" style="margin-right: 15px;">
                    <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
@@ -266,7 +266,7 @@
             d10.push(item.st3);
             d11.push(item.st4);
             d12.push(item.ip + d6[index]);
-            d13.push(item.notAdstTotal + d7[index]);//
+            d13.push(item.notAdstTotal + d7[index]);
         });
     	//alert("d13: -->"+d13);
     	var myChart = echarts.init(document.getElementById(divid));
@@ -286,7 +286,7 @@
 	   	          }
 	   	      },
 	   	      //color:['#81d4e4','#57c5db','#2db7d2','#2492a8','red'], //图例颜色 
-	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#ff8c66','#ff6633','#ff4000','#cc3300','red','blue'], //图例颜色 
+	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#ff6666','#ff3333','#ff0000','#e60000','red','blue'], //图例颜色 
 	   	      legend: {
 	   	    	  x : '5.5%',//图例x方向移动距离
 	   	    	  y : '85%', //图例y方向移动距离
@@ -330,14 +330,17 @@
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'总IP数',
-	                  icon : 'line',
-	                  textStyle:{}
-	              },{
 	                  name:'总停留数',
 	                  icon : 'line',
 	                  textStyle:{}
-	              }]
+	              },{
+	                  name:'总IP数',
+	                  icon : 'line',
+	                  textStyle:{}
+	              }],
+	              selected: {
+	                    '总IP数': false  
+	                } 
 	   	      },
 	   	      grid: {
 	   	    	  y:'5%',
@@ -416,16 +419,16 @@
 	   	              data:d11
 	   	          },
 	   	          {
-	   	              name:'总IP数',
-	   	              type:'line',
-	   	         	  stack: '总IP数',
-	   	              data:d12
-	   	          },
-	   	          {
 	   	              name:'总停留数',
 	   	              type:'line',
 	   	         	  stack: '总停留数',
 	   	              data:d13
+	   	          },
+	   	          {
+	   	              name:'总IP数',
+	   	              type:'line',
+	   	         	  stack: '总IP数',
+	   	              data:d12
 	   	          }
 	   	      ]
 	   	});
@@ -497,7 +500,7 @@
 	   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 	   	          }
 	   	      },//#F04848
-	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#ff8c66','#ff6633','#ff4000','#cc3300','red','blue'], //图例颜色 
+	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#ff6666','#ff3333','#ff0000','#e60000','red','blue'], //图例颜色 
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%',
@@ -537,14 +540,17 @@
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'总IP数',
-	                  icon : 'line',
-	                  textStyle:{}
-	              },{
 	                  name:'总点击数',
 	                  icon : 'line',
 	                  textStyle:{}
-	              }]
+	              },{
+	                  name:'总IP数',
+	                  icon : 'line',
+	                  textStyle:{}
+	              }],
+	              selected: {
+	                    '总IP数': false  
+	                } 
 	   	      },
 	   	      grid: {
 	   	    	  y:'5%',
@@ -624,17 +630,18 @@
 	   	              data:d11
 	   	          },
 	   	          {
-	   	              name:'总IP数',
-	   	              type:'line',
-	   	         	  stack: '总IP数',
-	   	              data:d12
-	   	          },
-	   	          {
 	   	              name:'总点击数',
 	   	              type:'line',
 	   	         	  stack: '总点击数',
 	   	              data:d13
+	   	          },
+	   	          {
+	   	              name:'总IP数',
+	   	              type:'line',
+	   	         	  stack: '总IP数',
+	   	              data:d12
 	   	          }
+	   	          
 	   	      ]
 	   	});
 	          
@@ -703,7 +710,7 @@
 	   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 	   	          }
 	   	      },//#F04848
-	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#ff8c66','#ff6633','#ff4000','#cc3300','red','blue'], //图例颜色 
+	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#ff6666','#ff3333','#ff0000','#e60000','red','blue'], //图例颜色 
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%',
@@ -743,14 +750,17 @@
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'总IP数',
-	                  icon : 'line',
-	                  textStyle:{}
-	              },{
 	                  name:'总滚动数',
 	                  icon : 'line',
 	                  textStyle:{}
-	              }]
+	              },{
+	                  name:'总IP数',
+	                  icon : 'line',
+	                  textStyle:{}
+	              }],
+	              selected: {
+	                    '总IP数': false  
+	                } 
 	   	      },
 	   	      grid: {
 	   	    	  y:'5%',
@@ -830,16 +840,16 @@
 	   	              data:d11
 	   	          },
 	   	          {
-	   	              name:'总IP数',
-	   	              type:'line',
-	   	         	  stack: '总IP数',
-	   	              data:d12
-	   	          },
-	   	          {
 	   	              name:'总滚动数',
 	   	              type:'line',
 	   	         	  stack: '总滚动数',
 	   	              data:d13
+	   	          },
+	   	          {
+	   	              name:'总IP数',
+	   	              type:'line',
+	   	         	  stack: '总IP数',
+	   	              data:d12
 	   	          }
 	   	      ]
 	   	});
@@ -908,7 +918,7 @@
 	   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow' 
 	   	          }
 	   	      },
-	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#ff8c66','#ff6633','#ff4000','#cc3300','red','blue'], //图例颜色 
+	   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','#ff6666','#ff3333','#ff0000','#e60000','red','blue'], //图例颜色 
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%',
@@ -948,14 +958,17 @@
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'总IP数',
-	                  icon : 'line',
-	                  textStyle:{}
-	              },{
 	                  name:'总移动数',
 	                  icon : 'line',
 	                  textStyle:{}
-	              }]
+	              },{
+	                  name:'总IP数',
+	                  icon : 'line',
+	                  textStyle:{}
+	              }],
+	              selected: {
+	                    '总IP数': false  
+	                } 
 	   	      },
 	   	      grid: {
 	   	    	  y:'5%',
@@ -1035,16 +1048,16 @@
 	   	              data:d11
 	   	          },
 	   	          {
-	   	              name:'总IP数',
-	   	              type:'line',
-	   	         	  stack: '总IP数',
-	   	              data:d12
-	   	          },
-	   	          {
 	   	              name:'总移动数',
 	   	              type:'line',
 	   	         	  stack: '总移动数',
 	   	              data:d13
+	   	          },
+	   	          {
+	   	              name:'总IP数',
+	   	              type:'line',
+	   	         	  stack: '总IP数',
+	   	              data:d12
 	   	          }
 	   	      ]
 	   	  });
@@ -1089,7 +1102,7 @@
 	   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow' 
 	   	          }
 	   	      },
-	   	      color:['#2db6d2','#2492a8','#FF8040','#F75000','red','blue','green'], //图例颜色 
+	   	      color:['#2492a8','#e60000','#2db6d2','#ff3333','red','blue','green'], //图例颜色 
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%',
@@ -1240,7 +1253,7 @@
 	   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow' 
 	   	          }
 	   	      },
-	   	      color:['#2db6d2','#2492a8','#FF8040','#F75000','red'], //图例颜色  2db7d2
+	   	      color:['#2492a8','#e60000','#2db6d2','#ff3333','red'], //图例颜色 
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%',
@@ -1266,8 +1279,11 @@
 	              },{
 	                  name:'总IP数',
 	                  icon : 'line',
-	                  textStyle:{}
-	              }]
+	                  textStyle:{ borderRadius:0 }
+	              }],
+	              selected: {
+	                    '总IP数': false  
+	                } 
 	   	      },
 	   	      grid: {
 	   	    	  y:'5%',
@@ -1371,7 +1387,8 @@
 	   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow' 
 	   	          }
 	   	      },
-	   	      color:['#2db6d2','#2492a8','#FF8040','#F75000','red'], //图例颜色 
+	   	      //color:['#2db6d2','#2492a8','#ff0000','#e60000'], //图例颜色 
+	   	      color:['#2492a8','#e60000','#2db6d2','#ff3333','red'], //图例颜色 
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%',
@@ -1397,8 +1414,11 @@
 	              },{
 	                  name:'总IP数',
 	                  icon : 'line',
-	                  textStyle:{}
-	              }]
+	                  textStyle:{ }
+	              }],
+	              selected: {
+	                    '总IP数': false  
+	                } 
 	   	      },
 	   	      grid: {
 	   	    	  y:'5%',
@@ -1456,7 +1476,7 @@
 	   	          {
 	   	              name:'总IP数',
 	   	              type:'line',
-	   	         	  stack: '总IP数',
+	   	         	  stack: '老IP数',
 	   	              data:d8
 	   	          }
 	   	      ]
