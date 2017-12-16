@@ -89,6 +89,7 @@ thead th {
 }
 .portlet-title {
     padding-left:  10px !important;
+    border-bottom: none !important;
 }
 .dataTables_scrollBody tbody td {
     padding: 0px 0px !important;
@@ -354,9 +355,13 @@ function changeDisplay(a,data){
 			  aa++;
 		  }); 
 		  console.log(aa+"aa"); */
+		  var aa = 0;
      	   jQuery("[event='"+data+"']").each(function (){
-			  jQuery(this).show();
+			  jQuery(this).toggleClass("displaynone");
+			  aa++;
 		  });  
+     	  console.log("---->"+data);
+		  console.log(aa+"aa"); 
 	/* 	  var bb = 1;
 		    jQuery("td").each(function(){
 			   console.log(bb+"bbb");
@@ -384,7 +389,9 @@ function changeDisplay(a,data){
 		  jQuery(i).addClass("icon-magnifier-add");
 		  
 		  //jQuery("[event="+data+"]").toggleClass("displaynone");
-		  jQuery("[event="+data+"]").hide();
+		   jQuery("[event='"+data+"']").each(function (){
+				  jQuery(this).toggleClass("displaynone");
+			  });  
 	  }
 	 
 	 
@@ -400,41 +407,20 @@ var table;
 var initTable1 = function () {
      table = $('#scrolltable');
      oTable = table.dataTable({
-        "language": {
-            "aria": {
-                "sortAscending": ": activate to sort column ascending",
-                "sortDescending": ": activate to sort column descending"
-            },
-            "emptyTable": "暂无数据",
-            "info": "",
-            "infoEmpty": "",
-            "infoFiltered": "(filtered1 from _MAX_ total entries)",
-            "lengthMenu": "_MENU_ entries",
-            "search": "Search:",
-            "zeroRecords": "No matching records found"
-        },
-        buttons: [
-        ],
+   
+  
+        paging: false,
         scrollY:        document.documentElement.clientHeight-290,
-        deferRender:    false,
         "ordering": false,
-        scroller:       true,
         scrollX:        true,
         "info": false,
         stateSave:      true,
         "searching": false,
         fixedColumns:   {
             leftColumns: 2
-        },
-        "order": [
-            [0, 'asc']
-        ],
-        "lengthMenu": [
-            [10, 15, 20, -1],
-            [10, 15, 20, "All"] // change per page values here
-        ],
-        "pageLength": 10,
-        "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+        }
+   
+ 
     });
 }
 /**--------------预加载-------------------- **/

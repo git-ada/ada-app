@@ -142,7 +142,8 @@ public class IndexController {
 				Map map2 = new HashMap();
 				map2.put("data_list", data_list);
 				map2.put("dataType", dataType);
-				model.addAttribute("tbodydata", map2);
+				JSONObject json  = new JSONObject(map2);
+				model.addAttribute("tbodydata", json);
 				model.addAttribute("sumip", map.get("sumip"));
 				model.addAttribute("sumpv", map.get("sumpv"));
 			}else if("domainNotAd".equals(dataType)){
@@ -151,7 +152,8 @@ public class IndexController {
 				Map map2 = new HashMap();
 				map2.put("data_list", data_list);
 				map2.put("dataType", dataType);
-				model.addAttribute("tbodydata", map2);
+				JSONObject json  = new JSONObject(map2);
+				model.addAttribute("tbodydata", json);
 				model.addAttribute("sumip", map.get("sumip"));
 				model.addAttribute("sumpv", map.get("sumpv"));
 			}
@@ -1055,7 +1057,7 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
+			 if(domainIp!=null && domainIp>50){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
