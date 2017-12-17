@@ -115,6 +115,14 @@ thead th {
 .tdonly{
 	padding-left:8px;
 }
+
+table.dataTable{
+    clear: both;
+    margin:0px !important;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
 </style>
 
 <!-- 
@@ -213,7 +221,7 @@ thead th {
 	
 	<!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
 	<div class="portlet-body" style="margin: 0px;padding: 0;">
-		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column" style="border: 0;width: 100%">
+		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column" style="border: 0;">
 	            <thead>
 	                <tr>
 	                	<c:if test="${dataType=='domain'}"><th scope="col" style="min-width: 140px;" id="firstTh">域名</th></c:if>
@@ -447,8 +455,8 @@ var initTable1 = function () {
 	    jQuery("#fullscreenOractual").click(function(){
 	    	 if(jQuery("#fullscreenOractual i").attr("class")=="icon-size-fullscreen"){
 	    		 
-	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-95);
-	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-55);
+	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-110);
+	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-70);
 	    		 
 	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-111);
 	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-111);
