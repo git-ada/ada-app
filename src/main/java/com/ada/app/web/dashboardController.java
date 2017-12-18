@@ -1130,20 +1130,27 @@ public class dashboardController {
 	/** 地域统计信息  **/
 	protected Map getDomainRegion(Date date,Integer domainId,String city){
 		List<List<Object>> region_list = new ArrayList<List<Object>>();
-		Set<String> regionData = statService.getCityList(domainId, date);//查询该域名下的所有城市
-		List<String> regionList = new ArrayList<String>();
-		if(city!=null && !"".equals(city)){
-			for(String cityName:regionData){
-				regionList.add(cityName);
-			}
-		}
-		
 		List<String[]> IPs = new ArrayList();//先取出IP数 
-		for(String cityName:regionList){
-			Integer IP = statService.statRegionIP(domainId, cityName, date);
-			 if(IP!=null && IP>50){
-				 IPs.add(new String[]{cityName,String.valueOf(IP)});
-			 }
+		Set<String> regiondata = statService.getCityList(domainId, date);
+		
+		if(city!=null && !"".equals(city)){
+			List<String> regionList = new ArrayList<String>();
+			for(String cityName:regiondata){
+				if(cityName.indexOf(city)!=-1)regionList.add(cityName);
+			}
+			for(String cityName:regionList){
+				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
+				 if(IP!=null && IP>50){
+					 IPs.add(new String[]{cityName,String.valueOf(IP)});
+				 }
+			}
+		}else{
+			for(String cityName:regiondata){
+				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
+				 if(IP!=null && IP>50){
+					 IPs.add(new String[]{cityName,String.valueOf(IP)});
+				 }
+			}
 		}
 		
 		/** 根据ip数排序 **/
@@ -1172,20 +1179,27 @@ public class dashboardController {
 	/** 地域广告入口统计数据 **/
 	protected Map getDomainRegionAd_data(Date date,Integer domainId,String city){
 		List<List<Object>> regionAd_list = new ArrayList<List<Object>>();
-		Set<String> regionAddata = statService.getCityList(domainId, date);
-		List<String> regionList = new ArrayList<String>();
-		if(city!=null && !"".equals(city)){
-			for(String cityName:regionAddata){
-				regionList.add(cityName);
-			}
-		}
-		
 		List<String[]> IPs = new ArrayList();//先取出IP数 
-		for(String cityName:regionList){
-			Integer IP = statService.statRegionAdIP(domainId, cityName, date);
-			 if(IP!=null && IP>50){
-				 IPs.add(new String[]{cityName,String.valueOf(IP)});
-			 }
+		Set<String> regiondata = statService.getCityList(domainId, date);
+		
+		if(city!=null && !"".equals(city)){
+			List<String> regionList = new ArrayList<String>();
+			for(String cityName:regiondata){
+				if(cityName.indexOf(city)!=-1)regionList.add(cityName);
+			}
+			for(String cityName:regionList){
+				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
+				 if(IP!=null && IP>50){
+					 IPs.add(new String[]{cityName,String.valueOf(IP)});
+				 }
+			}
+		}else{
+			for(String cityName:regiondata){
+				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
+				 if(IP!=null && IP>50){
+					 IPs.add(new String[]{cityName,String.valueOf(IP)});
+				 }
+			}
 		}
 		
 		/** 根据ip数排序 **/
@@ -1214,20 +1228,30 @@ public class dashboardController {
 	/** 地域非广告入口统计数据 **/
 	protected Map getDomainRegionNotAd_data(Date date,Integer domainId,String city) {
 		List<List<Object>> regionNotAd_list = new ArrayList<List<Object>>();
-		Set<String> regionNotAddata = statService.getCityList(domainId, date);
-		List<String> regionList = new ArrayList<String>();
+		List<String[]> IPs = new ArrayList();//先取出IP数 
+		Set<String> regiondata = statService.getCityList(domainId, date);
+		
 		if(city!=null && !"".equals(city)){
-			for(String cityName:regionNotAddata){
-				regionList.add(cityName);
+			List<String> regionList = new ArrayList<String>();
+			for(String cityName:regiondata){
+				if(cityName.indexOf(city)!=-1)regionList.add(cityName);
+			}
+			for(String cityName:regionList){
+				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
+				 if(IP!=null && IP>50){
+					 IPs.add(new String[]{cityName,String.valueOf(IP)});
+				 }
+			}
+		}else{
+			for(String cityName:regiondata){
+				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
+				 if(IP!=null && IP>50){
+					 IPs.add(new String[]{cityName,String.valueOf(IP)});
+				 }
 			}
 		}
-		List<String[]> IPs = new ArrayList();//先取出IP数 
-		for(String cityName:regionList){
-			Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
-			 if(IP!=null && IP>50){
-				 IPs.add(new String[]{cityName,String.valueOf(IP)});
-			 }
-		}
+		
+	
 		/** 根据ip数排序 **/
 		 Collections.sort(IPs,new Comparator<String[]>(){
 				public int compare(String[] int1, String[] int2) {
