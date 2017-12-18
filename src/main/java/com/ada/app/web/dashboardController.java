@@ -174,7 +174,7 @@ public class dashboardController {
 	@RequestMapping("ajaxRefreshPage")
 	public void ajaxRefreshPage(HttpServletRequest request,HttpServletResponse response ,Model model,
 			String dataType,String domainId,String firstTd){
-		log.info("城市名称----------》"+firstTd);
+		//log.info("城市名称----------》"+firstTd);
 		JSONObject json=new JSONObject();
 		
 		/** 获取当前站点统计信息 **/
@@ -198,15 +198,15 @@ public class dashboardController {
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
 				json.put("data_list", data_list);
 			}else if("domainRegion".equals(dataType)){/**获取域名地域统计信息**/
-				Map map = getDomainRegion(today,Integer.valueOf(domainId),firstTd);
+				Map map = getDomainRegion(today,Integer.valueOf(domainId),null);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
 				json.put("data_list", data_list);
 			}else if("domainRegionAd".equals(dataType)){/** 获取域名地域广告入口统计信息 **/
-				Map map = getDomainRegionAd_data(today,Integer.valueOf(domainId),firstTd);
+				Map map = getDomainRegionAd_data(today,Integer.valueOf(domainId),null);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
 				json.put("data_list", data_list);
 			}else if("domainRegionNotAd".equals(dataType)){/** 获取域名地域非广告入口统计信息 **/
-				Map map = getDomainRegionNotAd_data(today,Integer.valueOf(domainId),firstTd);
+				Map map = getDomainRegionNotAd_data(today,Integer.valueOf(domainId),null);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
 				json.put("data_list", data_list);
 			}

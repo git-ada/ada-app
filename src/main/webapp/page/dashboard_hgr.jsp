@@ -603,6 +603,20 @@ function onlyOne(name){
 }
 /** ------改变页面数据类型-------------**/
 function changeDataType(type,domain_Id){
+	if(dataType.indexOf("domain")){
+		if(type.indexOf("domain")){
+			dataType = type;
+		}
+	}else if(dataType.indexOf("domainRegion")){
+		if(type=="domain"){
+			dataType = "domainRegion";
+		}else if(type=="domainAd"){
+			dataType = "domainRegionAd";
+		}else if(type=="domainNotAd"){
+			dataType = "domainRegionNotAd";
+		}
+		
+	}
 	clearTimeout(t);
 	App.startPageLoading({animate: !0});//开启 加载 动画
 	dataType = type;
