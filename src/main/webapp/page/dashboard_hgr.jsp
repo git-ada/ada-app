@@ -205,11 +205,11 @@ table.dataTable{
 	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;">
 		<div class="caption" style="padding-bottom: 0px;">
             <div class="btn-group btn-group-devided" data-toggle="buttons">
-               <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domain'}">active</c:if>" onclick="changeDataType('domain')">
+               <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domain'}">active</c:if>" onclick="changeDataType('all')">
                    <input type="radio" name="options" class="toggle" id="option1" >全站统计</label>
-               <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domainAd'}">active</c:if>" onclick="changeDataType('domainAd')">
+               <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domainAd'}">active</c:if>" onclick="changeDataType('Ad')">
                    <input type="radio" name="options" class="toggle" id="option2" >广告入口</label>
-               <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domainNotAd'}">active</c:if>" onclick="changeDataType('domainNotAd')">
+               <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domainNotAd'}">active</c:if>" onclick="changeDataType('NotAd')">
                    <input type="radio" name="options" class="toggle" id="option3" >非广告入口</label>
            </div>
            <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
@@ -478,7 +478,7 @@ var initTable1 = function () {
 			    	if(!mClick) mtDisplay = "displaynone";
 			    }
 			if(dataList!=null && dataList.length>0){
-				console.log("数据条数------>"+dataList.length);
+				//console.log("数据条数------>"+dataList.length);
 				for(var i=0;i<dataList.length;i++){
 					var item = dataList[i];
 					var firstTd = "";
@@ -603,24 +603,44 @@ function onlyOne(name){
 }
 /** ------改变页面数据类型-------------**/
 function changeDataType(type,domain_Id){
-	if(dataType.indexOf("domain")){
-		jQuery("#ifsearch").css("display","block");
-			dataType = type;
-	}else if(dataType.indexOf("domainRegion")){
-		jQuery("#ifsearch").css("display","none");
-		if(type=="domain"){
-			dataType = "domainRegion";
-		}else if(type=="domainAd"){
-			dataType = "domainRegionAd";
-		}else if(type=="domainNotAd"){
-			dataType = "domainRegionNotAd";
-		}
-		
-	}
 	clearTimeout(t);
 	App.startPageLoading({animate: !0});//开启 加载 动画
-	dataType = type;
-	domainId = domain_Id;
+	if(type=="all"){
+		if(dataType.indexOf("domainRegion")>=0){
+			dataType = "domainRegion";
+			jQuery("#ifsearch").css("display","none");
+		}else{
+			dataType = "domain";
+			jQuery("#ifsearch").css("display","block");
+		}
+	}else if(type=="Ad"){
+		if(dataType.indexOf("domainRegion")>=0){
+			dataType = "domainRegionAd";
+			jQuery("#ifsearch").css("display","none");
+		}else{
+			dataType = "domainAd";
+			jQuery("#ifsearch").css("display","block");
+		}
+	}else if(type=="NotAd"){
+		if(dataType.indexOf("domainRegion")>=0){
+			dataType = "domainRegionNotAd";
+			jQuery("#ifsearch").css("display","none");
+		}else{
+			dataType = "domainNotAd";
+			jQuery("#ifsearch").css("display","block");
+		}
+	}else{
+		if(type.indexOf("domainRegion")>=0){
+			domainId = domain_Id;
+			jQuery("#ifsearch").css("display","none");
+		}else if(type.indexOf("domain")>=0){
+			jQuery("#ifsearch").css("display","block");
+		}
+		
+		dataType = type;
+	}
+	
+	
 	ajaxRefreshPage();
 	
 }
