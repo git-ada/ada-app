@@ -404,7 +404,7 @@ var initTable1 = function () {
 	    		 
 	    	 }
 	     });  
-	    
+	    //给搜索框添加 键盘按键的离开事件
 	    jQuery("#search").keyup(function (){
 	    	clearTimeout(t);
 	    	App.startPageLoading({animate: !0});//开启 加载 动画
@@ -418,7 +418,8 @@ var initTable1 = function () {
 	 //第一次异步刷新
 	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
 	  
-	 function ajaxRefreshPage(domainId){
+	 function ajaxRefreshPage(){
+		 console.log("domainId---->"+domainId);
 		 jQuery.ajax({
 				url : "${pageContext.request.contextPath}/hgr/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId+"&firstTd="+search,
 				success : function(data) {
