@@ -406,6 +406,8 @@ var initTable1 = function () {
 	     });  
 	    
 	    jQuery("#search").keyup(function (){
+	    	clearTimeout(t);
+	    	App.startPageLoading({animate: !0});//开启 加载 动画
 	    	search = jQuery(this).val();
 	    	ajaxRefreshPage();
 	    });
