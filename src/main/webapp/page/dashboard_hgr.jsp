@@ -215,11 +215,11 @@ table.dataTable{
            <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
         </div>
         <div class="inputs">
-            <div class="actions" style="float: left;">
+            <div class="actions" style="float: left;display: block;" id="ifsearch">
             	<div class="portlet-input input-inline">
                     <div class="input-icon right">
                         <i class="icon-magnifier"></i>
-                        <input id="search" type="text" class="form-control input-circle" name="firstTd" placeholder="搜索..."> </div>
+                        <input id="search" type="text" class="form-control input-circle" name="firstTd" placeholder="搜索域名..."> </div>
                 </div>
 				<a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
 				<a class="btn btn-circle btn-icon-only btn-default fullscreen"  id="fullscreenOractual"><i class="icon-size-fullscreen"></i></a>
@@ -604,10 +604,10 @@ function onlyOne(name){
 /** ------改变页面数据类型-------------**/
 function changeDataType(type,domain_Id){
 	if(dataType.indexOf("domain")){
-		if(type.indexOf("domain")){
+		jQuery("#ifsearch").css("display","block");
 			dataType = type;
-		}
 	}else if(dataType.indexOf("domainRegion")){
+		jQuery("#ifsearch").css("display","none");
 		if(type=="domain"){
 			dataType = "domainRegion";
 		}else if(type=="domainAd"){
