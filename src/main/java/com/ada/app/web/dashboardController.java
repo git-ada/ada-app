@@ -1140,14 +1140,14 @@ public class dashboardController {
 			}
 			for(String cityName:regionList){
 				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
-				 if(IP!=null && IP>50){
+				 if(IP!=null && IP>0){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }
 			}
 		}else{
 			for(String cityName:regiondata){
 				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
-				 if(IP!=null && IP>50){
+				 if(IP!=null && IP>0){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }
 			}
