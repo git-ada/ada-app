@@ -204,11 +204,30 @@ table.dataTable{
 <div class="portlet light portlet-fit bordered">
 	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;">
 		<div class="caption" style="padding-bottom: 0px;">
-            <span class="caption-subject bold font-dark uppercase ">
-            	<c:if test="${dataType=='domain'}">全站统计</c:if>
-            	<c:if test="${dataType=='domainAd'}">广告入口统计</c:if> 
-            	<c:if test="${dataType=='domainNotAd'}">非广告入口统计</c:if>  
-            </span>
+            
+            	<div class="btn-group">
+                      <a class="btn green-haze btn-outline btn-circle btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
+                      	   <span id="alltype">
+	                      	 <c:if test="${dataType=='domain'}">全站统计</c:if>
+	            			 <c:if test="${dataType=='domainAd'}">广告入口统计</c:if> 
+	            			 <c:if test="${dataType=='domainNotAd'}">非广告入口统计</c:if>
+            			  </span>
+                          <i class="fa fa-angle-down"></i>
+                      </a>
+                      <ul class="dropdown-menu pull-right">
+                          <li>
+                              <a onclick="changeDataType('domain')">全站统计</a>
+                          </li>
+                          <li>
+                              <a onclick="changeDataType('domainAd')">广告入口统计</a>
+                          </li>
+                          <li>
+                              <a onclick="changeDataType('domainNotAd')">非广告入口统计</a>
+                          </li>
+                       
+                      </ul>
+                  </div>
+           
             <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
         </div>
         <div class="inputs">
@@ -491,6 +510,13 @@ var initTable1 = function () {
 	function changeDataType(type,domainId){
 		App.startPageLoading({animate: !0});//开启 加载 动画
 		dataType = type;
+		if(type=="domain"){
+			jQuery("#alltype").html("全站统计");
+		}else if(type=="domainAd"){
+			jQuery("#alltype").html("广告入口统计");
+		}else if(type=="domainNotAd"){
+			jQuery("#alltype").html("非广告入口统计");
+		}
 		ajaxRefreshPage(type,domainId);
 		
 	}
