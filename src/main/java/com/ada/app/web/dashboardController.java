@@ -174,7 +174,7 @@ public class dashboardController {
 	@RequestMapping("ajaxRefreshPage")
 	public void ajaxRefreshPage(HttpServletRequest request,HttpServletResponse response ,Model model,
 			String dataType,String domainId,String firstTd){
-		
+		log.info("城市名称----------》"+firstTd);
 		JSONObject json=new JSONObject();
 		
 		/** 获取当前站点统计信息 **/
@@ -1129,7 +1129,7 @@ public class dashboardController {
 	}
 	/** 地域统计信息  **/
 	protected Map getDomainRegion(Date date,Integer domainId,String city){
-		log.info("城市名称----------》"+city);
+	
 		List<List<Object>> region_list = new ArrayList<List<Object>>();
 		List<String[]> IPs = new ArrayList();//先取出IP数 
 		Set<String> regiondata = statService.getCityList(domainId, date);
@@ -1147,7 +1147,7 @@ public class dashboardController {
 			}
 		}else{
 			for(String cityName:regiondata){
-				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
+				Integer IP = statService.statRegionIP(domainId, cityName, date);
 				 if(IP!=null && IP>50){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }
@@ -1196,7 +1196,7 @@ public class dashboardController {
 			}
 		}else{
 			for(String cityName:regiondata){
-				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
+				Integer IP = statService.statRegionAdIP(domainId, cityName, date);
 				 if(IP!=null && IP>50){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }

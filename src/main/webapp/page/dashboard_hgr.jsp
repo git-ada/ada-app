@@ -421,6 +421,7 @@ var initTable1 = function () {
 	 function ajaxRefreshPage(){
 		 console.log("domainId---->"+domainId);
 		 jQuery.ajax({
+			 	type:"post",
 				url : "${pageContext.request.contextPath}/hgr/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId+"&firstTd="+search,
 				success : function(data) {
 					
