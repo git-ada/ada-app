@@ -1129,6 +1129,7 @@ public class dashboardController {
 	}
 	/** 地域统计信息  **/
 	protected Map getDomainRegion(Date date,Integer domainId,String city){
+		log.info("城市名称----------》"+city);
 		List<List<Object>> region_list = new ArrayList<List<Object>>();
 		List<String[]> IPs = new ArrayList();//先取出IP数 
 		Set<String> regiondata = statService.getCityList(domainId, date);
@@ -1139,15 +1140,15 @@ public class dashboardController {
 				if(cityName.indexOf(city)!=-1)regionList.add(cityName);
 			}
 			for(String cityName:regionList){
-				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
-				 if(IP!=null && IP>0){
+				Integer IP = statService.statRegionIP(domainId, cityName, date);
+				 if(IP!=null && IP>50){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }
 			}
 		}else{
 			for(String cityName:regiondata){
 				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
-				 if(IP!=null && IP>0){
+				 if(IP!=null && IP>50){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }
 			}
@@ -1188,7 +1189,7 @@ public class dashboardController {
 				if(cityName.indexOf(city)!=-1)regionList.add(cityName);
 			}
 			for(String cityName:regionList){
-				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
+				Integer IP = statService.statRegionAdIP(domainId, cityName, date);
 				 if(IP!=null && IP>50){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }
