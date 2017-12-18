@@ -333,7 +333,7 @@
 			if(pageNo==0)pageNo=1;
 			//ajax读取 上一月的数据
 			jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajaxdashboard_domainTime.do?pageNo=" + pageNo+"&domainId="+${domainId}+"&dataType=domain",
+				url : "${pageContext.request.contextPath}/ajaxdashboard_domainTime.do?pageNo=" + pageNo+"&domainId="+${domainId}+"&dataType=AdAndNotAd",
 				success : function(data) {
 					var json = eval('(' + data + ')');
 					if (json.success) {

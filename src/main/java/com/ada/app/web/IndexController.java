@@ -347,6 +347,8 @@ public class IndexController {
 					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
 				}else if("domainNotAd".equals(dataType)){
 					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
+				}else if("AdAndNotAd".equals(dataType)){
+					out.print(this.domainTimechartList(domainid,domainTime_PageSize,Interval_time,pageno));
 				}
 			}
 			
