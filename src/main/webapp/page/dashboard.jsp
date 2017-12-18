@@ -213,6 +213,12 @@ table.dataTable{
         </div>
         <div class="inputs">
             <div class="actions" style="float: left;">
+            	<div class="portlet-input input-inline">
+                     <div class="input-icon right">
+                         <i class="icon-magnifier" onclick="" style="cursor: pointer;"></i>
+                         <input type="text" class="form-control input-circle" placeholder="search..."> 
+                     </div>
+                </div>
 				<a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
 				<a class="btn btn-circle btn-icon-only btn-default fullscreen"  id="fullscreenOractual"><i class="icon-size-fullscreen"></i></a>
 			</div>
