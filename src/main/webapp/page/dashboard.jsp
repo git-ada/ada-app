@@ -455,11 +455,11 @@ var initTable1 = function () {
 	    jQuery("#fullscreenOractual").click(function(){
 	    	 if(jQuery("#fullscreenOractual i").attr("class")=="icon-size-fullscreen"){
 	    		 
-	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-110);
-	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-70);
+	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-95);
+	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-55);
 	    		 
-	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-111);
-	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-111);
+	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-120);
+	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-120);
 	    		 
 	    		 //jQuery(".dataTables_scrollHeadInner").css("width","4000px");
 	    		 //jQuery(".dataTables_scrollHeadInner table").css("width","100%");
