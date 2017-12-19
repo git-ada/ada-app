@@ -1132,6 +1132,7 @@ public class IndexController3 {
 		 for(int i=0;i<domainIps.size();i++){
 			Integer domainId = domainIps.get(i)[0];
 			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
+			
 			//Map map = getMap(domainStat);
 			List<Object> list = getList(domainStat);
 			list.add(domainId);
