@@ -134,6 +134,7 @@ public class IndexController {
 				map.put("dataType", dataType);
 				JSONObject json  = new JSONObject(map);
 				model.addAttribute("tbodydata", json);
+				System.out.println("实时json : "+json);
 				model.addAttribute("sumip", siteStat.getIp());
 				model.addAttribute("sumpv", siteStat.getPv());
 			}else if("domainAd".equals(dataType)){
@@ -1061,7 +1062,7 @@ public class IndexController {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>50){
+			 if(domainIp!=null && domainIp>00){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }

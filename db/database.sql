@@ -121,17 +121,22 @@ ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT='站点';
 /*==============================================================*/
 /* Table: ada_site_stat                                         */
 /*==============================================================*/
-create table ada_site_stat
-(
-   id                   int(11) not null auto_increment comment 'ID',
-   siteId               int(11) comment '站点ID',
-   ip                   int(11) comment 'IP',
-   pv                   int(11) comment 'PV',
-   date                 date comment '日期',
-   createTime           datetime default NULL comment '创建时间',
-   primary key (id)
-)
-ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT='站点统计';
+CREATE TABLE `ada_site_stat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `siteId` int(11) DEFAULT NULL COMMENT '站点ID',
+  `ip` int(11) DEFAULT NULL COMMENT 'IP',
+  `pv` int(11) DEFAULT NULL COMMENT 'PV',
+  `uv` int(11) DEFAULT NULL COMMENT 'UV',
+  `adIp` int(11) DEFAULT NULL COMMENT 'adIP',
+  `adPv` int(11) DEFAULT NULL COMMENT 'adPV',
+  `adUv` int(11) DEFAULT NULL COMMENT 'adUV',
+  `notAdIp` int(11) DEFAULT NULL COMMENT 'notadIP',
+  `notAdPv` int(11) DEFAULT NULL COMMENT 'notadPV',
+  `notAdUv` int(11) DEFAULT NULL COMMENT 'notadUV',
+  `date` date DEFAULT NULL COMMENT '日期',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='站点统计';
 
 /*==============================================================*/
 /* Table: ada_target_page                                       */

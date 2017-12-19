@@ -9,15 +9,17 @@ import org.springframework.data.jpa.repository.Query;
 
 import cn.com.jiand.mvc.framework.dao.jpa.EntityJpaDao;
 
+import com.ada.app.bean.AdaDomainadTotalStat;
 import com.ada.app.domain.AdaDomainAd15mStat;
 import com.ada.app.domain.AdaDomainAdStat;
+import com.ada.app.domain.AdaSiteStat;
 
 /**
  * 域名广告入口统计 JPA Dao
  * @author Wanghl.cn By Code Generator
  */
 public interface AdaDomainAdStatDao extends EntityJpaDao<AdaDomainAdStat, Integer> {
-
+	
     /** 
      *通过ID查询
      */

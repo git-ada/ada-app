@@ -276,27 +276,24 @@ table.dataTable{
 	/** 点击图表区域获取x轴时间作为参数以加载下面的域名列表 **/
 	function byClickLoadTableData(clickDate){
 		var json = '';
-		alertt("进来了-----------");
-		jQuery.ajax({
-			url : "${pageContext.request.contextPath}/dashboardHistry.do?dataType=domain&date="+clickDate,
-			success : function(data) {
-				json = eval('(' + data + ')');
-				if (json.success) {
-					
-				} else {
-					toastr.success(json.message);
-				}
-			}
-		});
-	}
-	function histryChart(divid, data1, data2){
+		alert("进来了-----------");
+		$.ajax({
+            type : "post",
+            async : false, 
+            url : "${pageContext.request.contextPath}/dashboardHistry.do?dataType=domain&clickDate="+clickDate,
+            success : function(result) {
+            	
+            }
+         });   
 		
+	}
+		
+	function histryChart(divid, data1, data2){
 		var d1 = [];
 		var d2 = [];
 		var d3 = [];
 		var d4 = [];
 		var d5 = [];
-		var d6 = '';
 		$.each(data1, function (index, item) {
 	        d1.push(item.date);
 	        d2.push(item.adip);

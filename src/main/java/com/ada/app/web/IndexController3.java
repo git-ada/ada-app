@@ -42,6 +42,7 @@ import com.ada.app.dao.AdaDomainAdStatDao;
 import com.ada.app.dao.AdaDomainDao;
 import com.ada.app.dao.AdaDomainNotAd15mStatDao;
 import com.ada.app.dao.AdaDomainNotAdStatDao;
+import com.ada.app.dao.AdaDomainStatDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaSiteStatDao;
 import com.ada.app.domain.AdaChannel;
@@ -80,6 +81,8 @@ public class IndexController3 {
 	private AdaSiteStatDao statDao;
 	@Autowired
 	private AdaDomainDao adaDomainDao;
+	@Autowired
+	private AdaDomainStatDao domainStatDao;
 	@Autowired
 	private AdaDomainAdStatDao adStatDao;
 	@Autowired
@@ -137,7 +140,7 @@ public class IndexController3 {
 			json.put("message", "已是最新统计数据 !");
 			return json;
 		}
-		Date yestoday = Dates.yestoday();
+		Date yestoday = Dates.todayStart();
 		
 		List<AdaSiteStat> siteList = statDao.findBySiteIdLoadHistryData(adaSite.getId(), yestoday,(pageNo-1)*pageSize,pageSize); 
 		if((siteList==null || siteList.size()<1)){
@@ -185,59 +188,81 @@ public class IndexController3 {
 	 */
 	@RequestMapping(value = "dashboardHistry")
 	public String nowHistry(HttpServletRequest request,HttpServletResponse response, Model model,
-			String dataType,String date) throws Exception {
+			String dataType,String clickDate) throws Exception {
 		
 		/** 从sessions中获取站点信息 **/ 
 		AdaSite adaSite = Sessions.getCurrentSite();
 		
 		/** 获取当前站点默认历史统计信息 **/
-		Date today = Dates.yestoday();
-//		Date today = Dates.todayStart();
-		if(date == null || date.equals("")){
-			today = Dates.yestoday();
-		}else {
-			today = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-		}
-		
-		if(dataType!=null){
-			if("domain".equals(dataType)){
-				AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
-				/** 获取站点下域名统计信息 **/
-				Map sumMap = getDomainStat_list(today);
-				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
-				Map map = new HashMap();
-				map.put("data_list", data_list);
-				map.put("dataType", dataType);
-				JSONObject json  = new JSONObject(map);
-				model.addAttribute("tbodydata", json);
-				System.out.println("历史 json : "+json);
-				//model.addAttribute("sumip", siteStat.getIp());
-				//model.addAttribute("sumpv", siteStat.getPv());
-			}else if("domainAd".equals(dataType)){
-				Map map = getDomainAdData(today);
-				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
-				Map map2 = new HashMap();
-				map2.put("data_list", data_list);
-				map2.put("dataType", dataType);
-				JSONObject json  = new JSONObject(map2);
-				model.addAttribute("tbodydata", json);
-				//model.addAttribute("sumip", map.get("sumip"));
-				//model.addAttribute("sumpv", map.get("sumpv"));
-			}else if("domainNotAd".equals(dataType)){
-				Map map = getDomainNotAdData(today);
-				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
-				Map map2 = new HashMap();
-				map2.put("data_list", data_list);
-				map2.put("dataType", dataType);
-				JSONObject json  = new JSONObject(map2);
-				model.addAttribute("tbodydata", json);
-				//model.addAttribute("sumip", map.get("sumip"));
-				//model.addAttribute("sumpv", map.get("sumpv"));
+		Date date = null;
+		System.out.println("clickDate:---->"+clickDate);
+		if(clickDate == null || "".equals(clickDate)){
+			//默认加载昨天的历史数据
+			date = Dates.yestoday();
+			System.out.println("yestoday: "+date);
+			if(dataType!=null){
+				if("domain".equals(dataType)){
+					AdaSiteStat siteStat = statService.statSite(adaSite.getId(), date);
+					/** 获取站点下域名统计信息 **/
+					Map sumMap = getDomainStat_list(date);
+					List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+					Map map = new HashMap();
+					map.put("data_list", data_list);
+					map.put("dataType", dataType);
+					JSONObject json  = new JSONObject(map);
+					model.addAttribute("tbodydata", json);
+					System.out.println("历史 json : "+json);
+					//model.addAttribute("sumip", siteStat.getIp());
+					//model.addAttribute("sumpv", siteStat.getPv());
+				}else if("domainAd".equals(dataType)){
+					Map map = getDomainAdData(date);
+					List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+					Map map2 = new HashMap();
+					map2.put("data_list", data_list);
+					map2.put("dataType", dataType);
+					JSONObject json  = new JSONObject(map2);
+					model.addAttribute("tbodydata", json);
+					//model.addAttribute("sumip", map.get("sumip"));
+					//model.addAttribute("sumpv", map.get("sumpv"));
+				}else if("domainNotAd".equals(dataType)){
+					Map map = getDomainNotAdData(date);
+					List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+					Map map2 = new HashMap();
+					map2.put("data_list", data_list);
+					map2.put("dataType", dataType);
+					JSONObject json  = new JSONObject(map2);
+					model.addAttribute("tbodydata", json);
+					//model.addAttribute("sumip", map.get("sumip"));
+					//model.addAttribute("sumpv", map.get("sumpv"));
+				}
+				
 			}
+			model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd").format(date)); 
+			model.addAttribute("dataType", dataType);
+			
+		}else {
+			//点击加载历史数据
+			date = new SimpleDateFormat("yyyy-MM-dd").parse(clickDate);
+			System.out.println("clickDate : "+date);
+			if(dataType!=null){
+				if("domain".equals(dataType)){
+					//AdaSiteStat siteStat = statService.statSite(adaSite.getId(), date);
+					/** 获取站点下域名统计信息 **/
+					Map sumMap = getDomainStat_histryList(date);
+					List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+					Map map = new HashMap();
+					map.put("data_list", data_list);
+					map.put("dataType", dataType);
+					JSONObject json  = new JSONObject(map);
+					model.addAttribute("tbodydata", json);
+					System.out.println("历史 json : "+json);
+				}
+				
+			}
+			model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd").format(date)); 
+			model.addAttribute("dataType", dataType);
 			
 		}
-		model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd").format(today)); 
-		model.addAttribute("dataType", dataType);
 		
 		if(adaSite.getId()!=null && !"".equals(adaSite.getId())){
 			JSONObject json = siteChartHistryList(domainTime_PageSize,Interval_time2,1);
@@ -1024,6 +1049,7 @@ public class IndexController3 {
 		 /** 域名列表信息 **/
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
 		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
+		 
 		 Integer domainSumIP = 0;/** ip总数 **/
 		 Integer domainSumPV = 0;/** PV总数 **/
 		 
@@ -1058,7 +1084,65 @@ public class IndexController3 {
 			}else{
 				 list.add(domainstr);
 			}
-			 
+			
+			domainSumIP+=domainStat.getIp();
+			domainSumPV+=domainStat.getPv();
+			DomainStat_list.add(list);
+		}
+		 
+		 Map map = new HashMap();
+		
+		 map.put("DomainStat_list", DomainStat_list);
+		 map.put("domainSumIP", domainSumIP);
+		 map.put("domainSumPV", domainSumPV);
+		 
+		 return map;
+	}
+	
+	/** 域名统计历史信息 **/
+	protected Map getDomainStat_histryList(Date date){
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();
+		 /** 域名列表信息 **/
+		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
+		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
+		 
+		 Integer domainSumIP = 0;/** ip总数 **/
+		 Integer domainSumPV = 0;/** PV总数 **/
+		 
+		 List<Integer[]> domainIps = new ArrayList();
+		 
+		 for(AdaDomain domain : domains){
+//			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
+			 Integer domainIp = domainStatDao.findByDateLoadIp(domain.getId(), date);
+			 if(domainIp!=null && domainIp>0){
+				 domainIps.add(new Integer[]{domain.getId(),domainIp});
+			 }
+		 }
+		 
+		 /** 根据ip数排序 **/
+		 Collections.sort(domainIps,new Comparator<Integer[]>(){
+				public int compare(Integer[] int1, Integer[] int2) {
+					Integer integer = (Integer) int1[1];
+					Integer integer2 = (Integer) int2[1];
+					return integer2.compareTo(integer);
+				}
+	     });
+		 
+		 for(int i=0;i<domainIps.size();i++){
+			Integer domainId = domainIps.get(i)[0];
+			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
+			//Map map = getMap(domainStat);
+			List<Object> list = getList(domainStat);
+			list.add(domainId);
+			String domainstr = adaDomainDao.findById(domainStat.getDomainId()).getDomain();
+			list.add(domainstr);
+			if(domainstr.length()>18){
+				 list.add(domainstr.substring(0, 18));
+			}else{
+				 list.add(domainstr);
+			}
+			
 			domainSumIP+=domainStat.getIp();
 			domainSumPV+=domainStat.getPv();
 			DomainStat_list.add(list);
