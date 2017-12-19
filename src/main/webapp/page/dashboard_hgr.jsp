@@ -138,8 +138,14 @@ table.dataTable{
 }
 .btn.btn-outline.dark {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border-color: #bbb;
+    border-color: #c2cad8;
     color: #333;
+}
+.btn-group-sm > .btn, .btn-sm {
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 1.9 !important;
+    padding: 5px 10px;
 }
 </style>
 
@@ -251,22 +257,25 @@ table.dataTable{
 	                </div>
 	                <div class="btn-group">
 	                    <a href="" class="btn dark btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
-	                    	<span id="top" > TOP 50 </span> 
+	                    	<span id="top" > TOP 50 &nbsp;</span> 
 	                        <span class="fa fa-angle-down"> </span>
 	                    </a>
-	                    <ul class="dropdown-menu pull-right">
-	                        <li>
-	                            <a onclick="changeTop(50)"><span style="color: #333;"> TOP 50 </span></a>
+	                    <ul class="dropdown-menu pull-right" id="topul">
+	                        <li class="active" onclick="changeTop(this,50)">
+	                            <a ><span style="color: #333;"> TOP 50 &nbsp;</span></a>
 	                        </li>
-	                        <li>
-	                            <a onclick="changeTop(100)"><span style="color: #333;"> TOP 100 </span></a>
+	                        <li onclick="changeTop(this,100)">
+	                            <a ><span style="color: #333;"> TOP 100 </span></a>
 	                        </li>
-	                        <li class="active">
-	                            <a onclick="changeTop(200)"><span style="color: #333;"> TOP 200 </span></a>
+	                        <li  onclick="changeTop(this,200)">
+	                            <a ><span style="color: #333;"> TOP 200 </span></a>
+	                        </li>
+	                        <li onclick="changeTop(this,500)">
+	                            <a ><span style="color: #333;"> TOP 500 </span></a>
 	                        </li>
 	                    </ul>
 	                </div>
-                </div>
+                </div>&nbsp;
 				<a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
 				<a class="btn btn-circle btn-icon-only btn-default fullscreen"  id="fullscreenOractual"><i class="icon-size-fullscreen"></i></a>
 			</div>
@@ -872,10 +881,17 @@ function PercentageMax(num, total){
 	return (p+"%");
 }
 /**------  改变top值  ------**/
-function changeTop(num){
+function changeTop(a,num){
+	jQuery("#topul li").removeClass("active");
+	jQuery(a).addClass("active");
 	clearTimeout(t);
 	App.startPageLoading({animate: !0});//开启 加载 动画
-	jQuery("#top").html(" TOP "+num);
+	if(num==50){
+		jQuery("#top").html(" TOP "+num +"&nbsp;&nbsp;");
+	}else{
+		jQuery("#top").html(" TOP "+num);
+	}
+	
 	ipTop = num;
 	ajaxRefreshPage();
 }
