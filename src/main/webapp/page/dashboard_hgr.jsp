@@ -171,7 +171,7 @@ table.dataTable{
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${sumip}" id="ip">${sumip}</span>(个)
+					<span data-counter="counterup" data-value="${siteStat.ip}" id="ip">${siteStat.ip}</span>(个)
 				</div>
 				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMIP">全站独立IP数</div></c:if>
 				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMIP">广告入口独立IP数</div></c:if>
@@ -187,7 +187,7 @@ table.dataTable{
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${sumpv}" id="pv">${sumpv}</span>(页)
+					<span data-counter="counterup" data-value="${siteStat.pv}" id="pv">${siteStat.pv}</span>(页)
 				</div>
 				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMPV">全站访问量</div></c:if>
 				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMPV">广告入口访问量</div></c:if>
@@ -203,9 +203,9 @@ table.dataTable{
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${channelSumIP}" id="cip">${channelSumIP}</span>(个)
+					<span data-counter="counterup" data-value="${siteStat.adIP}" id="adIP">${siteStat.adIP}</span>(个)
 				</div>
-				<div class="desc">今日渠道独立IP数</div>
+				<div class="desc">广告入口独立IP数</div>
 			</div>
 		</div>
 	</div>
@@ -217,9 +217,9 @@ table.dataTable{
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${channelSumPV}" id="cpv">${channelSumPV}</span>(页)
+					<span data-counter="counterup" data-value="${siteStat.adPv}" id="adPv">${siteStat.adPv}</span>(页)
 				</div>
-				<div class="desc">今日渠道访问量</div>
+				<div class="desc">广告入口访问量</div>
 			</div>
 		</div>
 	</div>
@@ -738,8 +738,10 @@ var initTable1 = function () {
 					jQuery("#tbody").empty();
 					jQuery("#tbody").append(table);
 				}else if(num==2){
-					jQuery("#ip").html(json.sumip);
-					jQuery("#pv").html(json.sumpv);
+					jQuery("#ip").html(json.siteStat.ip);
+					jQuery("#pv").html(json.siteStat.pv);
+					jQuery("#adIP").html(json.siteStat.adIP);
+					jQuery("#adPv").html(json.siteStat.adPv);
 					jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
 					jQuery("#tbody").empty();
 					jQuery("#tbody").append(table);
