@@ -133,6 +133,11 @@ table.dataTable{
     float: right;
     padding-top: 12px !important;
 }
+.btn.btn-outline.dark {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border-color: #bbb;
+    color: #333;
+}
 </style>
 
 <!-- 
@@ -217,24 +222,18 @@ table.dataTable{
 		
             <div class="btn-group btn-group-devided" data-toggle="buttons">
             	<div class="tabbable-line">
-            	<ul class="nav nav-tabs ">
-                <li class="active">
-                    <a href="#tab_15_1" data-toggle="tab" aria-expanded="true" onclick="changeDataType('all')">全站统计</a>
-                </li>
-                <li class="">
-                    <a href="#tab_15_2" data-toggle="tab" aria-expanded="false" onclick="changeDataType('Ad')">广告入口统计</a>
-                </li>
-                <li class="">
-                    <a href="#tab_15_3" data-toggle="tab" aria-expanded="false" onclick="changeDataType('NotAd')">非广告入口统计</a>
-                </li>
-            </ul>
-            </div>
-               <%-- <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domain'}">active</c:if>" onclick="changeDataType('all')">
-                   <input type="radio" name="options" class="toggle" id="option1" >全站统计</label>
-               <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domainAd'}">active</c:if>" onclick="changeDataType('Ad')">
-                   <input type="radio" name="options" class="toggle" id="option2" >广告入口</label>
-               <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domainNotAd'}">active</c:if>" onclick="changeDataType('NotAd')">
-                   <input type="radio" name="options" class="toggle" id="option3" >非广告入口</label> --%>
+	            	<ul class="nav nav-tabs ">
+		                <li class="active">
+		                    <a href="#tab_15_1" data-toggle="tab" aria-expanded="true" onclick="changeDataType('all')">全站统计</a>
+		                </li>
+		                <li class="">
+		                    <a href="#tab_15_2" data-toggle="tab" aria-expanded="false" onclick="changeDataType('Ad')">广告入口统计</a>
+		                </li>
+		                <li class="">
+		                    <a href="#tab_15_3" data-toggle="tab" aria-expanded="false" onclick="changeDataType('NotAd')">非广告入口统计</a>
+		                </li>
+	           		 </ul>
+	            </div>
            </div>
            <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
            
@@ -248,18 +247,18 @@ table.dataTable{
                 </div>
                 <div class="btn-group">
                     <a href="" class="btn dark btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
-                    	<span id="top"> TOP 200 </span> 
+                    	<span id="top" > TOP 50 </span> 
                         <span class="fa fa-angle-down"> </span>
                     </a>
                     <ul class="dropdown-menu pull-right">
                         <li>
-                            <a onclick="changeTop(50)"> TOP 50</a>
+                            <a onclick="changeTop(50)"><span style="color: #333;"> TOP 50 </span></a>
                         </li>
                         <li>
-                            <a onclick="changeTop(100)"> TOP 100</a>
+                            <a onclick="changeTop(100)"><span style="color: #333;"> TOP 100 </span></a>
                         </li>
                         <li class="active">
-                            <a onclick="changeTop(200)"> TOP 200</a>
+                            <a onclick="changeTop(200)"><span style="color: #333;"> TOP 200 </span></a>
                         </li>
                     </ul>
                 </div>
@@ -353,7 +352,7 @@ var stClick = false;
 var cClick = false;
 var sClick = false;
 var mClick = false;
-
+var top = 50;// 总ip TOP
  
 
 var t;
@@ -368,7 +367,7 @@ var initTable1 = function () {
    
   
         paging: false,
-        scrollY:        document.documentElement.clientHeight-290,
+        scrollY:        document.documentElement.clientHeight-295,
         "ordering": false,
         scrollX:        true,
         "info": false,
@@ -419,11 +418,11 @@ var initTable1 = function () {
 	    		 
 	    		   
 	    	 }else if(jQuery("#fullscreenOractual i").attr("class")=="icon-size-actual"){
-	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-290);
-	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-235);
+	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-295);
+	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-240);
 	    		
-	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-290);
-	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-290);
+	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-295);
+	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-295);
 	    		 
 	    		 jQuery("#fullscreenOractual i").removeClass("icon-size-actual");
 	    		 jQuery("#fullscreenOractual i").addClass("icon-size-fullscreen");
@@ -448,7 +447,7 @@ var initTable1 = function () {
 		 console.log("domainId---->"+domainId);
 		 jQuery.ajax({
 			 	type:"post",
-				url : "${pageContext.request.contextPath}/hgr/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId+"&firstTd="+search,
+				url : "${pageContext.request.contextPath}/hgr/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId+"&firstTd="+search+"&top="+top,
 				success : function(data) {
 					
 					if (data!=null) {
@@ -742,7 +741,14 @@ function PercentageMax(num, total){
 	var p = Math.round(num / total * 10000) / 100.00 >100 ? 100 : Math.round(num / total * 10000) / 100.00;
 	return (p+"%");
 }
-
+/**------  改变top值  ------**/
+function changeTop(num){
+	clearTimeout(t);
+	App.startPageLoading({animate: !0});//开启 加载 动画
+	jQuery("#top").html(" TOP "+num);
+	top = num;
+	ajaxRefreshPage();
+}
 /** 修改td样式 **/
 function changeDisplay(a,data){
 	 var i = jQuery(a).find("i");
