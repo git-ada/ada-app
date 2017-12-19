@@ -53,7 +53,21 @@ public class StatServiceImpl implements StatService{
 			if(_SitePV != null) sitePV = Integer.valueOf(_SitePV);
 			//取出站点IPSet集合
 			int siteIP = jedis.scard(RedisKeys.SiteIP.getKey()+site+"").intValue();
-			return new AdaSiteStat(site, siteIP, sitePV, date);
+			Integer siteuv = 0;//站点UV
+			String siteUV = jedis.get(RedisKeys.SiteUV.getKey()+site+"");
+			if(siteUV != null) siteuv = Integer.valueOf(siteUV);
+			
+			//站点广告入口ip
+			int AdIP = jedis.scard(RedisKeys.AdIP.getKey()+site+"").intValue();
+			Integer adpv = 0;//站点广告入口pv
+			Integer aduv = 0;//站点广告入口uv
+			String adPV = jedis.get(RedisKeys.AdPV.getKey()+site+"");
+			if(adPV != null) adpv = Integer.valueOf(adPV);
+			
+			String adUV= jedis.get(RedisKeys.AdUV.getKey()+site+"");
+			if(adUV != null) aduv = Integer.valueOf(adUV);
+			
+			return new AdaSiteStat(site, siteIP, sitePV, date,siteuv,AdIP,adpv,aduv);
 		} finally{
 			returnResource(date,jedis);
 		}

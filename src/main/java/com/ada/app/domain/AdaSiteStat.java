@@ -138,12 +138,16 @@ public class AdaSiteStat extends AbstractEntity<Integer> {
 		this.notAdUv = notAdUv;
 	}
 
-	public AdaSiteStat(Integer siteId, Integer ip, Integer pv, Date date) {
+	public AdaSiteStat(Integer siteId, Integer ip, Integer pv, Date date,Integer uv,Integer adIP,Integer adPv,Integer aduv) {
 		super();
 		this.siteId = siteId;
 		this.ip = ip;
 		this.pv = pv;
 		this.date = date;
+		this.uv = uv;
+		this.adIP = adIP;
+		this.adPv = adPv;
+		this.aduv = aduv;
 	}
 
 	@Id	
