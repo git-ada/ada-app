@@ -122,7 +122,9 @@ table.dataTable{
     border-collapse: separate;
     border-spacing: 0;
 }
-
+.ifsearch{
+	display: none;
+}
 </style>
 
 <!-- 
@@ -215,8 +217,8 @@ table.dataTable{
            <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
         </div>
         <div class="inputs">
-            <div class="actions" style="float: left;display: block;" id="ifsearch">
-            	<div class="portlet-input input-inline">
+            <div class="actions" style="float: left;" >
+            	<div class="portlet-input input-inline " id="ifsearch">
                     <div class="input-icon right">
                         <i class="icon-magnifier"></i>
                         <input id="search" type="text" class="form-control input-circle" name="firstTd" placeholder="搜索域名..."> </div>
@@ -269,52 +271,36 @@ table.dataTable{
 				     </tr>
 	            </thead>
 	            <tbody id="tbody">
-	                	<c:forEach var="item" items="${tbodydata.data_list}" varStatus="number">
-						<div id="context-menu${item[23]}" style="z-index: 999;position:absolute;">
-							<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
-
-							     <c:if test="${dataType=='domain'}">
-							     	<li>
-							       <a href="javascript:;" onclick="onlyOne('${item[24]}')"><i class="icon-magnifier"></i>单独查看</a>
-							     </li>
-							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}&domain=${item[24]}')">分时统计</a>
-							     </li>
-							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}&domain=${item[24]}')">广告与非广告对比</a>
-							     </li>
-							     <%-- <li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${item[23]}&domain=${item[24]}')">分时统计3</a>
-							     </li> --%>
-								     <li>
-								         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
-								     </li>
-							     </c:if>
-							     <c:if test="${dataType=='domainAd'}">
-							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
-							     </li>
-								     <li>
-								         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${item[23]})">地域统计</a>
-								     </li>
-							     </c:if>
-							     <c:if test="${dataType=='domainNotAd'}">
-							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
-							     </li>
-								     <li>
-								         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${item[23]})">地域统计</a>
-								     </li>
-							     </c:if>
-					
-							 </ul>
-						</div>
-					</c:forEach>
+	            	
 	            </tbody>
 	            
 	            
 	        </table>
 	</div>
+</div>
+
+<div id="menu">
+         <%-- <c:forEach var="item" items="${tbodydata.data_list}" varStatus="number"> --%>
+		<div id="context-menu" style="z-index: 999;position:absolute;">
+			<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
+				 <%-- <li>
+			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${item[23]}&domain=${item[24]}')">分时统计3</a>
+			     </li> --%>
+			     <li>
+			       <a href="javascript:;" id="onlyOne"><i class="icon-magnifier"></i>单独查看</a>
+			     </li>
+			     <li>
+			       <a href="javascript:;" id="oneTime">分时统计</a>
+			     </li>
+			     	<li>
+			       <a href="javascript:;" id="AdVSNotAd">广告与非广告对比</a>
+			     </li>
+			     <li>
+			         <a href="javascript:;" id="region">地域统计</a>
+			     </li>
+			 </ul>
+		</div>
+	<%-- </c:forEach> --%>
 </div>
 
 <!-- START PAGE SCRIPTS -->
@@ -485,17 +471,17 @@ var initTable1 = function () {
 					var tr = "";
 				    var tr2 = "";
 				    if(dataType=="domain"){
-				    	firstTd="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	firstTd ="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></td>";
 				    }else if(dataType=="domainAd"){
-				    	firstTd = "<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	firstTd ="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></td>";
 				    }else if(dataType=="domainNotAd"){
-				    	firstTd = "<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	firstTd ="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></td>";
 				    }else if(dataType=="domainRegion"){
-				    	firstTd = "<td style='min-width: 140px;'  >"+item[23]+"</td>";
+				    	firstTd ="<td style='min-width: 140px;'  >"+item[23]+"</td>";
 				    }else if(dataType=="domainRegionAd"){
-				    	firstTd = "<td style='min-width: 140px;'  >"+item[23]+"</td>";
+				    	firstTd ="<td style='min-width: 140px;'  >"+item[23]+"</td>";
 				    }else if(dataType=="domainRegionNotAd"){
-				    	firstTd = "<td style='min-width: 140px;'  >"+item[23]+"</td>";
+				    	firstTd ="<td style='min-width: 140px;'  >"+item[23]+"</td>";
 				    }
 				   
 				    
@@ -608,33 +594,33 @@ function changeDataType(type,domain_Id){
 	if(type=="all"){
 		if(dataType.indexOf("domainRegion")>=0){
 			dataType = "domainRegion";
-			jQuery("#ifsearch").css("display","none");
+			jQuery("#ifsearch").hide();
 		}else{
 			dataType = "domain";
-			jQuery("#ifsearch").css("display","block");
+			jQuery("#ifsearch").show();
 		}
 	}else if(type=="Ad"){
 		if(dataType.indexOf("domainRegion")>=0){
 			dataType = "domainRegionAd";
-			jQuery("#ifsearch").css("display","none");
+			jQuery("#ifsearch").hide();
 		}else{
 			dataType = "domainAd";
-			jQuery("#ifsearch").css("display","block");
+			jQuery("#ifsearch").show();
 		}
 	}else if(type=="NotAd"){
 		if(dataType.indexOf("domainRegion")>=0){
 			dataType = "domainRegionNotAd";
-			jQuery("#ifsearch").css("display","none");
+			jQuery("#ifsearch").hide();
 		}else{
 			dataType = "domainNotAd";
-			jQuery("#ifsearch").css("display","block");
+			jQuery("#ifsearch").show();
 		}
 	}else{
 		if(type.indexOf("domainRegion")>=0){
 			domainId = domain_Id;
-			jQuery("#ifsearch").css("display","none");
+			jQuery("#ifsearch").hide();
 		}else if(type.indexOf("domain")>=0){
-			jQuery("#ifsearch").css("display","block");
+			jQuery("#ifsearch").show();
 		}
 		
 		dataType = type;
@@ -679,8 +665,23 @@ function graphicLoading(obj) {
 		});
 	}
 }
+//打开菜单
 function openMenu(a,event){
-	 var e = event || window.event;
+	
+	var id = jQuery(a).attr("id");
+	var domain = jQuery(a).attr("domain");
+	 jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
+	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"')");
+	jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"')");
+	if(dataType=="domain"){
+		jQuery("#region").attr("onclick","changeDataType('domainRegion',"+id+")");
+	}else if(dataType==""){
+		jQuery("#region").attr("onclick","changeDataType('domainRegionAd',"+id+")");
+	}else if(dataType==""){
+		jQuery("#region").attr("onclick","changeDataType('domainRegionNotAd',"+id+")");
+	} 
+	
+	var e = event || window.event;
 	var yy  = parseInt(e.screenY-120);
 	var  xx = parseInt(e.screenX);
 	var menuHeight = parseInt(jQuery(jQuery(a).attr("data-target")+" ul").css("height"));//菜单高度
