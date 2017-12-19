@@ -88,7 +88,7 @@ thead th {
     padding-left: 10px!important;
 }
 .portlet-title {
-    padding-left:  10px !important;
+    padding-left:  0px !important;
     border-bottom: none !important;
 }
 .dataTables_scrollBody tbody td {
@@ -124,6 +124,14 @@ table.dataTable{
 }
 .ifsearch{
 	display: none;
+}
+.nav-pills, .nav-tabs {
+    margin-bottom: 0px !important;
+}
+.portlet.light > .portlet-title > .inputs {
+    display: inline-block;
+    float: right;
+    padding-top: 12px !important;
 }
 </style>
 
@@ -204,24 +212,56 @@ table.dataTable{
 </div>
 
 <div class="portlet light portlet-fit bordered">
-	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;">
+	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 0px;padding-right: 5px;">
 		<div class="caption" style="padding-bottom: 0px;">
+		
             <div class="btn-group btn-group-devided" data-toggle="buttons">
-               <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domain'}">active</c:if>" onclick="changeDataType('all')">
+            	<div class="tabbable-line">
+            	<ul class="nav nav-tabs ">
+                <li class="active">
+                    <a href="#tab_15_1" data-toggle="tab" aria-expanded="true" onclick="changeDataType('all')">全站统计</a>
+                </li>
+                <li class="">
+                    <a href="#tab_15_2" data-toggle="tab" aria-expanded="false" onclick="changeDataType('Ad')">广告入口统计</a>
+                </li>
+                <li class="">
+                    <a href="#tab_15_3" data-toggle="tab" aria-expanded="false" onclick="changeDataType('NotAd')">非广告入口统计</a>
+                </li>
+            </ul>
+            </div>
+               <%-- <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domain'}">active</c:if>" onclick="changeDataType('all')">
                    <input type="radio" name="options" class="toggle" id="option1" >全站统计</label>
                <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domainAd'}">active</c:if>" onclick="changeDataType('Ad')">
                    <input type="radio" name="options" class="toggle" id="option2" >广告入口</label>
                <label class="btn red btn-outline btn-circle btn-sm <c:if test="${dataType=='domainNotAd'}">active</c:if>" onclick="changeDataType('NotAd')">
-                   <input type="radio" name="options" class="toggle" id="option3" >非广告入口</label>
+                   <input type="radio" name="options" class="toggle" id="option3" >非广告入口</label> --%>
            </div>
            <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
+           
         </div>
         <div class="inputs">
             <div class="actions" style="float: left;" >
             	<div class="portlet-input input-inline " id="ifsearch">
                     <div class="input-icon right">
                         <i class="icon-magnifier"></i>
-                        <input id="search" type="text" class="form-control input-circle" name="firstTd" placeholder="搜索域名..."> </div>
+                        <input id="search" type="text" class="form-control input-circle" name="firstTd" style="font-size: 12px;" placeholder="搜索域名..."> </div>
+                </div>
+                <div class="btn-group">
+                    <a href="" class="btn dark btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
+                    	<span id="top"> TOP 200 </span> 
+                        <span class="fa fa-angle-down"> </span>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li>
+                            <a onclick="changeTop(50)"> TOP 50</a>
+                        </li>
+                        <li>
+                            <a onclick="changeTop(100)"> TOP 100</a>
+                        </li>
+                        <li class="active">
+                            <a onclick="changeTop(200)"> TOP 200</a>
+                        </li>
+                    </ul>
                 </div>
 				<a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
 				<a class="btn btn-circle btn-icon-only btn-default fullscreen"  id="fullscreenOractual"><i class="icon-size-fullscreen"></i></a>
