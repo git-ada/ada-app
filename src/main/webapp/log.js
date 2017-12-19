@@ -62,14 +62,6 @@ function adaPageIn(){
 			adaChannelId = adaGetcookie("tqTY092G").split("=")[1];
 		}
 		adaPutLog1();
-		
-		/** 凌晨跨天,重新计算一次 **/
-		var todayStart = new Date(adaPageInTime.getFullYear(),adaPageInTime.getMonth(),adaPageInTime.getDate());
-		var t = todayStart.getTime()+86401000;
-		var time = t-adaPageInTime.getTime();
-		window.setTimeout(function(){
-			adaPageIn();
-		},time);
 	} catch(e){
 	}
 }
@@ -612,6 +604,16 @@ function adaPutLog1() {
 									   adaSetCookie(adaEntranceTypeKey,adaEntranceType,adaGetTodayExpires());
 								   }
 							   }
+							   
+							   /** 凌晨跨天,重新计算一次 **/
+							   var serverTime = new Date(jet.o);
+							   var todayStart = new Date(serverTime.getFullYear(),serverTime.getMonth(),serverTime.getDate());
+							   var t = todayStart.getTime()+86401000;
+							   var time = t-adaPageInTime.getTime();
+							   console.log(time);
+								window.setTimeout(function(){
+									adaPageIn();
+								},time);
 						} catch (e) {
 						}
 				   }
