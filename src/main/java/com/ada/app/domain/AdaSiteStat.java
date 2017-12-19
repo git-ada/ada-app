@@ -25,14 +25,117 @@ public class AdaSiteStat extends AbstractEntity<Integer> {
     /** IP */
 	private Integer ip;                    
     /** PV */
-	private Integer pv;                    
+	private Integer pv;    
+	/** IP */
+	private Integer uv; 
+	/** IP */
+	private Integer adIP;  
+    /** PV */
+	private Integer adPv;   
+	/** PV */
+	private Integer aduv;   
+    /** PV */
+	private Integer notAdIp;    
+	/** IP */
+	private Integer notAdPv;
+	/** PV */
+    private Integer notAdUv;  
+
     /** 日期 */
 	private Date date;                    
     /** 创建时间 */
 	private Timestamp createTime;
 	
+	
+	public AdaSiteStat(Integer ip, Integer pv, Integer adIP,
+			Integer adPv, Integer notAdIp, Integer notAdPv, Date date) {
+		super();
+		this.ip = ip;
+		this.pv = pv;
+		this.adIP = adIP;
+		this.adPv = adPv;
+		this.notAdIp = notAdIp;
+		this.notAdPv = notAdPv;
+		this.date = date;
+	}
+
+
+	public AdaSiteStat(Integer siteId, Integer ip, Integer pv, Integer uv,
+			Integer adIP, Integer adPv, Integer aduv, Integer notAdIp,
+			Integer notAdPv, Integer notAdUv, Date date) {
+		super();
+		this.siteId = siteId;
+		this.ip = ip;
+		this.pv = pv;
+		this.uv = uv;
+		this.adIP = adIP;
+		this.adPv = adPv;
+		this.aduv = aduv;
+		this.notAdIp = notAdIp;
+		this.notAdPv = notAdPv;
+		this.notAdUv = notAdUv;
+		this.date = date;
+	}
+
+
 	public AdaSiteStat() {
 		super();
+	}
+
+	public Integer getUv() {
+		return uv;
+	}
+
+	public void setUv(Integer uv) {
+		this.uv = uv;
+	}
+
+	public Integer getAdIP() {
+		return adIP;
+	}
+
+	public void setAdIP(Integer adIP) {
+		this.adIP = adIP;
+	}
+
+	public Integer getAdPv() {
+		return adPv;
+	}
+
+	public void setAdPv(Integer adPv) {
+		this.adPv = adPv;
+	}
+
+	public Integer getAduv() {
+		return aduv;
+	}
+
+	public void setAduv(Integer aduv) {
+		this.aduv = aduv;
+	}
+
+	public Integer getNotAdIp() {
+		return notAdIp;
+	}
+
+	public void setNotAdIp(Integer notAdIp) {
+		this.notAdIp = notAdIp;
+	}
+
+	public Integer getNotAdPv() {
+		return notAdPv;
+	}
+
+	public void setNotAdPv(Integer notAdPv) {
+		this.notAdPv = notAdPv;
+	}
+
+	public Integer getNotAdUv() {
+		return notAdUv;
+	}
+
+	public void setNotAdUv(Integer notAdUv) {
+		this.notAdUv = notAdUv;
 	}
 
 	public AdaSiteStat(Integer siteId, Integer ip, Integer pv, Date date) {
