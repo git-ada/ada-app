@@ -844,7 +844,7 @@ function openMenu(a,event){
 	var domain = jQuery(a).attr("domain");
 	 jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
 	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"')");
-	jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"')");
+	jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"&dataType="+dataType+"')");
 	if(dataType=="domain"){
 		jQuery("#region").attr("onclick","changeDataType('domainRegion',"+id+")");
 	}else if(dataType==""){

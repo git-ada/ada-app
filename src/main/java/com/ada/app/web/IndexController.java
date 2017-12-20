@@ -230,14 +230,14 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "dashboard_domainTime")
 	public String dashboard_domainTime(HttpServletRequest request,HttpServletResponse response, Model model,
-			String domainId,String domain){
+			String domainId,String domain,String dataType){
 		if(domainId!=null && !"".equals(domainId)){
 			JSONObject json = domainTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1);
 			
 			model.addAttribute("json", json);
 		}
 		model.addAttribute("domainId", domainId);
-		model.addAttribute("dataType", "domain");
+		model.addAttribute("dataType", dataType);
 		model.addAttribute("domain", domain);
 		return "dashboard_domainTime";
 	}
