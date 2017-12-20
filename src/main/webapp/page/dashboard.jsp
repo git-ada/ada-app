@@ -542,6 +542,10 @@ var initTable1 = function () {
 			    	sumuv = json.domainNotAdStat.uv>0? json.domainNotAdStat.uv : 1;
 			    }
 			    
+			    console.log("sumip----------->",sumip);
+			    console.log("sumpv----------->",sumpv);
+			    console.log("sumuv----------->",sumuv);
+			    
 				for(var i=0;i<dataList.length;i++){
 					var item = dataList[i];
 					var firstTd = "";
