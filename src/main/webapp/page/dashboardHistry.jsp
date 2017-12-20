@@ -164,17 +164,56 @@ table.dataTable{
 </div>
 
 <div class="portlet light portlet-fit bordered">
-	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;">
+	<div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 0px;padding-right: 5px;">
 		<div class="caption" style="padding-bottom: 0px;">
-            <span class="caption-subject bold font-dark uppercase ">
-            	<c:if test="${dataType=='domain'}">全站统计</c:if>
-            	<c:if test="${dataType=='domainAd'}">广告入口统计</c:if> 
-            	<c:if test="${dataType=='domainNotAd'}">非广告入口统计</c:if>  
-            </span>
-            <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
+		
+            <div class="btn-group btn-group-devided" data-toggle="buttons">
+            	<div class="tabbable-line">
+	            	<ul class="nav nav-tabs ">
+		                <li class="active">
+		                    <a href="#tab_15_1" data-toggle="tab" aria-expanded="true" onclick="changeDataType('all')">全站统计</a>
+		                </li>
+		                <li class="">
+		                    <a href="#tab_15_2" data-toggle="tab" aria-expanded="false" onclick="changeDataType('Ad')">广告入口统计</a>
+		                </li>
+		                <li class="">
+		                    <a href="#tab_15_3" data-toggle="tab" aria-expanded="false" onclick="changeDataType('NotAd')">非广告入口统计</a>
+		                </li>
+	           		 </ul>
+	            </div>
+           </div>
+           <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
+           
         </div>
         <div class="inputs">
-            <div class="actions" style="float: left;">
+            <div class="actions" style="float: left;" >
+            	<div id="ifsearch" style="float: left;">
+	            	<div class="portlet-input input-inline " >
+	                    <div class="input-icon right">
+	                        <i class="icon-magnifier"></i>
+	                        <input id="search" type="text" class="form-control input-circle" name="firstTd" style="font-size: 12px;" placeholder="搜索域名..."> </div>
+	                </div>
+	                <div class="btn-group">
+	                    <a href="" class="btn dark btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
+	                    	<span id="top" > TOP 50 &nbsp;</span> 
+	                        <span class="fa fa-angle-down"> </span>
+	                    </a>
+	                    <ul class="dropdown-menu pull-right" id="topul">
+	                        <li class="active" onclick="changeTop(this,50)">
+	                            <a ><span style="color: #333;"> TOP 50 &nbsp;</span></a>
+	                        </li>
+	                        <li onclick="changeTop(this,100)">
+	                            <a ><span style="color: #333;"> TOP 100 </span></a>
+	                        </li>
+	                        <li  onclick="changeTop(this,200)">
+	                            <a ><span style="color: #333;"> TOP 200 </span></a>
+	                        </li>
+	                        <li onclick="changeTop(this,500)">
+	                            <a ><span style="color: #333;"> TOP 500 </span></a>
+	                        </li>
+	                    </ul>
+	                </div>
+                </div>&nbsp;
 				<a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
 				<a class="btn btn-circle btn-icon-only btn-default fullscreen"  id="fullscreenOractual"><i class="icon-size-fullscreen"></i></a>
 			</div>
@@ -182,8 +221,9 @@ table.dataTable{
 	</div>
 	
 	<!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
+	<!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
 	<div class="portlet-body" style="margin: 0px;padding: 0;">
-		<table id="scrolltableHistry" class="table table-striped table-bordered table-hover order-column" style="border: 0;">
+		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column" style="border: 0;">
 	            <thead>
 	                <tr>
 	                	<c:if test="${dataType=='domain'}"><th scope="col" style="min-width: 140px;" id="firstTh">域名</th></c:if>
@@ -222,8 +262,8 @@ table.dataTable{
 						<th scope="col" style="min-width: 70px" class="displaynone" event="m">10+次</th>
 				     </tr>
 	            </thead>
-	            <tbody id="tbodyhistry">
-	                	
+	            <tbody id="tbody">
+	            	
 	            </tbody>
 	            
 	            
@@ -231,12 +271,35 @@ table.dataTable{
 	</div>
 </div>
 <div id="menu">
+         <%-- <c:forEach var="item" items="${tbodydata.data_list}" varStatus="number"> --%>
+		<div id="context-menu" style="z-index: 999;position:absolute;">
+			<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
+				 <%-- <li>
+			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${item[23]}&domain=${item[24]}')">分时统计3</a>
+			     </li> --%>
+			     <li>
+			       <a href="javascript:;" id="onlyOne"><i class="icon-magnifier"></i>单独查看</a>
+			     </li>
+			     <li>
+			       <a href="javascript:;" id="oneTime">分时统计</a>
+			     </li>
+			     	<li>
+			       <a href="javascript:;" id="AdVSNotAd">广告与非广告对比</a>
+			     </li>
+			     <li>
+			         <a href="javascript:;" id="region">地域统计</a>
+			     </li>
+			 </ul>
+		</div>
+	<%-- </c:forEach> --%>
+</div>
+<div id="menu_bak">
 		<div id="context-menu" style="z-index: 999;position:absolute;">
 			<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
 
 			     <c:if test="${dataType=='domain'}">
 			     	<li>
-			       <a href="javascript:;" id="oneTime">分时统计1</a>
+			       <a href="javascript:;" id="oneTime">分时统计</a>
 			     </li>
 			     	<li>
 			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_histry.jhtm?domainId=${item[23]}&domain=${item[24]}&clickDate=${lasttime}')">分时统计2</a>
@@ -459,10 +522,12 @@ table.dataTable{
 
 var dataType = '${dataType}';//页面数据类型
 var domainId = "";//域名ID
+var search = "";//搜索
 var stClick = false;
 var cClick = false;
 var sClick = false;
 var mClick = false;
+var ipTop = 50;// 总ip TOP
 //打开菜单
 function openMenu(a,event){
 	

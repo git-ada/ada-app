@@ -1194,7 +1194,7 @@ public class IndexController3 {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
+			 if(domainIp!=null){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1210,6 +1210,7 @@ public class IndexController3 {
 		 
 		 for(int i=0;i<domainIps.size();i++){
 			Integer domainId = domainIps.get(i)[0];
+			
 			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
 			//Map map = getMap(domainStat);
 			List<Object> list = getList(domainStat);
@@ -1253,7 +1254,7 @@ public class IndexController3 {
 		 for(AdaDomain domain : domains){
 //			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
 			 Integer domainIp = domainStatDao.findByDateLoadIp(domain.getId(), date);
-			 if(domainIp!=null && domainIp>50){
+			 if(domainIp!=null && domainIp>0){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1432,7 +1433,7 @@ public class IndexController3 {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
+			 if(domainIp!=null){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1486,7 +1487,7 @@ public class IndexController3 {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainNotAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
+			 if(domainIp!=null){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
