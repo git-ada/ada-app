@@ -894,9 +894,9 @@ function openMenu(a,event){
 	jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"&dataType="+dataType+"')");
 	if(dataType=="domain"){
 		jQuery("#region").attr("onclick","changeDataType('domainRegion',"+id+")");
-	}else if(dataType==""){
+	}else if(dataType=="domainAd"){
 		jQuery("#region").attr("onclick","changeDataType('domainRegionAd',"+id+")");
-	}else if(dataType==""){
+	}else if(dataType=="domainNotAd"){
 		jQuery("#region").attr("onclick","changeDataType('domainRegionNotAd',"+id+")");
 	} 
 	
