@@ -512,7 +512,36 @@ var initTable1 = function () {
 		    	if(!mClick) mtDisplay = "displaynone";
 		    }
 			if(dataList!=null && dataList.length>0){
-				//console.log("数据条数------>"+dataList.length);
+				/* console.log("数据条数------>"+dataList.length); */
+				var sumip = 1;
+			    var sumpv = 1;
+			    var sumuv = 1;
+			    if(dataType=="domain"){
+			    	sumip = json.siteStat.ip>0 ? json.siteStat.ip : 1;
+			    	sumpv = json.siteStat.pv>0 ? json.siteStat.pv : 1;
+			    	sumuv = json.siteStat.uv>0 ? json.siteStat.uv : 1;
+			    }else if(dataType=="domainAd"){
+			    	sumip = json.siteStat.adIP>0 ? json.siteStat.adIP : 1;
+			    	sumpv = json.siteStat.adPv>0 ? json.siteStat.adPv : 1;
+			    	sumuv = json.siteStat.aduv>0 ? json.siteStat.aduv : 1;
+			    }else if(dataType=="domainNotAd"){
+			    	sumip = json.siteStat.ip-json.siteStat.adIP>0 ? json.siteStat.ip-json.siteStat.adIP : 1;
+			    	sumpv = json.siteStat.pv-json.siteStat.adPv>0 ? json.siteStat.pv-json.siteStat.adPv : 1;
+			    	sumuv = json.siteStat.uv-json.siteStat.aduv>0 ? json.siteStat.uv-json.siteStat.aduv : 1;
+			    }else if(dataType=="domainRegion"){
+			    	sumip = json.domainStat.ip>0? json.domainStat.ip : 1;
+			    	sumpv = json.domainStat.pv>0? json.domainStat.pv : 1;
+			    	sumuv = json.domainStat.uv>0? json.domainStat.uv : 1;
+			    }else if(dataType=="domainRegionAd"){
+			    	sumip = json.domainAdStat.ip>0? json.domainAdStat.ip : 1;
+			    	sumpv = json.domainAdStat.pv>0? json.domainAdSata.pv : 1;
+			    	sumuv = json.domainAdStat.uv>0? json.domainAdStat.uv : 1;
+			    }else if(dataType=="domainRegionNotAd"){
+			    	sumip = json.domainNotAdStat.ip>0? json.domainNotAdStat.ip : 1;
+			    	sumpv = json.domainNotAdStat.pv>0? json.domainNotAdStat.pv : 1;
+			    	sumuv = json.domainNotAdStat.uv>0? json.domainNotAdStat.uv : 1;
+			    }
+			    
 				for(var i=0;i<dataList.length;i++){
 					var item = dataList[i];
 					var firstTd = "";
@@ -531,22 +560,7 @@ var initTable1 = function () {
 				    }else if(dataType=="domainRegionNotAd"){
 				    	firstTd ="<td><span class='tdonly'>"+item[23]+"</span></td>";
 				    }
-				    var sumip = 1;
-				    var sumpv = 1;
-				    var sumuv = 1;
-				    if(dataType=="domain"){
-				    	sumip = json.siteStat.ip>0 ? json.siteStat.ip : 1;
-				    	sumpv = json.siteStat.pv>0 ? json.siteStat.pv : 1;
-				    	sumuv = json.siteStat.uv>0 ? json.siteStat.uv : 1;
-				    }else if(dataType=="domainAd"){
-				    	sumip = json.siteStat.adIP>0 ? json.siteStat.adIP : 1;
-				    	sumpv = json.siteStat.adPv>0 ? json.siteStat.adPv : 1;
-				    	sumuv = json.siteStat.aduv>0 ? json.siteStat.aduv : 1;
-				    }else if(dataType=="domainNotAd"){
-				    	sumip = json.siteStat.ip-json.siteStat.adIP>0 ? json.siteStat.ip-json.siteStat.adIP : 1;
-				    	sumpv = json.siteStat.pv-json.siteStat.adPv>0 ? json.siteStat.pv-json.siteStat.adPv : 1;
-				    	sumuv = json.siteStat.uv-json.siteStat.aduv>0 ? json.siteStat.uv-json.siteStat.aduv : 1;
-				    }
+				    
 				    var sumST = item[7]+item[8]+item[9]+item[10];
 				    var sumC = item[11]+item[12]+item[13]+item[14];
 				    var sumS = item[15]+item[16]+item[17]+item[18];
