@@ -188,7 +188,7 @@
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	 function refre(){
-	 	 refreshPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${domainId}');
+	 	 refreshPage('${pageContext.request.contextPath}/dashboard_domainTime3_histry.jhtm?domainId=${domainId}');
 	 }
 	 function graphicLoading(obj) {
 		var pageNo = 1;
@@ -207,7 +207,7 @@
 			if(pageNo==0)pageNo=1;
 			//ajax读取 上一月的数据
 			jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajaxdashboard_domainTime3.do?pageNo=" + pageNo+"&domainId="+${domainId},
+				url : "${pageContext.request.contextPath}/ajaxdashboard_domainTime3_histry.do?pageNo=" + pageNo+"&domainId="+${domainId},
 				success : function(data) {
 					var json = eval('(' + data + ')');
 					if (json.success) {

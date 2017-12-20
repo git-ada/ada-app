@@ -244,6 +244,9 @@ table.dataTable{
 			     <li>
 			       <a href="javascript:;" id="oneTime3">分时统计3</a>
 			     </li>
+			     <li>
+				         <a href="javascript:;" id="oneTime4">地域统计</a>
+				     </li>
 			     <!-- 
 			     	<li>
 			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_histry.jhtm?domainId=${item[23]}&domain=${item[24]}&clickDate=${lasttime}')">分时统计2</a>
@@ -251,10 +254,11 @@ table.dataTable{
 			     <li>
 			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3_histry.jhtm?domainId=${item[23]}&domain=${item[24]}&clickDate=${lasttime}')">分时统计3</a>
 			     </li>
-			      -->
+			      
 				     <li>
 				         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
 				     </li>
+				     -->
 			     </c:if>
 			     <c:if test="${dataType=='domainAd'}">
 			     	<li>
@@ -482,7 +486,7 @@ function openMenu(a,event){
 	//jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"')");
 	//jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"')");
 	if(dataType=="domain"){
-		jQuery("#region").attr("onclick","changeDataType('domainRegion',"+id+")");
+		jQuery("#oneTime4").attr("onclick","changeDataType('domainRegion',"+id+")");
 	}else if(dataType==""){
 		jQuery("#region").attr("onclick","changeDataType('domainRegionAd',"+id+")");
 	}else if(dataType==""){
