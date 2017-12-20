@@ -1,4 +1,4 @@
-package com.ada.app.web;
+/*package com.ada.app.web;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -27,9 +27,9 @@ import java.util.TreeMap;
 @Module(name="访问日志")
 @RequestMapping(value = "/ada-access-log")
 public class AdaAccessLogManagerController extends AbstractJQueryEntityController<AdaAccessLog, AdaAccessLogService> {
-	/**
+	*//**
 	 * 权限列表
-	 */
+	 *//*
 	public final static class View extends Permission {public View()     {super("查看");}}
 	public final static class Create extends Permission {public Create() {super("新增");}}
 	public final static class Edit extends Permission {public Edit()     {super("编辑");}}
@@ -113,3 +113,4 @@ public class AdaAccessLogManagerController extends AbstractJQueryEntityControlle
 		return new String[]{"id","站点ID","域名ID","渠道ID","IP地址","客户端ID","浏览页","客户端头信息","操作系统","浏览器","屏幕大小","页面大小","引用页","在Iframe中","首次访问时间","当天首次访问时间","客户端请求时间","创建时间",""};
 	}
 }
+*/
