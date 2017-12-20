@@ -417,8 +417,8 @@ var initTable1 = function () {
 	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-100);
 	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-60);
 	    		 
-	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-120);
-	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-120);
+	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-118);
+	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-118);
 	    		 
 	    		 //jQuery(".dataTables_scrollHeadInner").css("width","4000px");
 	    		 //jQuery(".dataTables_scrollHeadInner table").css("width","100%");
