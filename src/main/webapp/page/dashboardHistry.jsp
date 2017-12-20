@@ -152,8 +152,8 @@ table.dataTable{
                </div>
            
                <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                   <a href="javascript:graphicLoadinghistry(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a href="javascript:graphicLoadinghistry(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -183,7 +183,7 @@ table.dataTable{
 	
 	<!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
 	<div class="portlet-body" style="margin: 0px;padding: 0;">
-		<table id="scrolltable" class="table table-striped table-bordered table-hover order-column" style="border: 0;">
+		<table id="scrolltableHistry" class="table table-striped table-bordered table-hover order-column" style="border: 0;">
 	            <thead>
 	                <tr>
 	                	<c:if test="${dataType=='domain'}"><th scope="col" style="min-width: 140px;" id="firstTh">域名</th></c:if>
@@ -222,78 +222,131 @@ table.dataTable{
 						<th scope="col" style="min-width: 70px" class="displaynone" event="m">10+次</th>
 				     </tr>
 	            </thead>
-	            <tbody id="tbody">
-	                	<c:forEach var="item" items="${tbodydata.data_list}" varStatus="number">
-						<div id="context-menu${item[23]}" style="z-index: 999;position:absolute;">
-							<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
-
-							     <c:if test="${dataType=='domain'}">
-							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}&domain=${item[24]}')">分时统计1</a>
-							     </li>
-							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${item[23]}&domain=${item[24]}')">分时统计2</a>
-							     </li>
-							     <li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${item[23]}&domain=${item[24]}')">分时统计3</a>
-							     </li>
-								     <li>
-								         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
-								     </li>
-							     </c:if>
-							     <c:if test="${dataType=='domainAd'}">
-							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
-							     </li>
-								     <li>
-								         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${item[23]})">地域统计</a>
-								     </li>
-							     </c:if>
-							     <c:if test="${dataType=='domainNotAd'}">
-							     	<li>
-							       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
-							     </li>
-								     <li>
-								         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${item[23]})">地域统计</a>
-								     </li>
-							     </c:if>
-					
-							 </ul>
-						</div>
-					</c:forEach>
+	            <tbody id="tbodyhistry">
+	                	
 	            </tbody>
 	            
 	            
 	        </table>
 	</div>
 </div>
+<div id="menu">
+		<div id="context-menu" style="z-index: 999;position:absolute;">
+			<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
 
+			     <c:if test="${dataType=='domain'}">
+			     <li>
+			       <a href="javascript:;" id="oneTime">分时统计1</a>
+			     </li>
+			     <li>
+			       <a href="javascript:;" id="oneTime2">分时统计2</a>
+			     </li>
+			     <li>
+			       <a href="javascript:;" id="oneTime3">分时统计3</a>
+			     </li>
+			     <!-- 
+			     	<li>
+			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_histry.jhtm?domainId=${item[23]}&domain=${item[24]}&clickDate=${lasttime}')">分时统计2</a>
+			     </li>
+			     <li>
+			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3_histry.jhtm?domainId=${item[23]}&domain=${item[24]}&clickDate=${lasttime}')">分时统计3</a>
+			     </li>
+			      -->
+				     <li>
+				         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
+				     </li>
+			     </c:if>
+			     <c:if test="${dataType=='domainAd'}">
+			     	<li>
+			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one_histry.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
+			     </li>
+				     <li>
+				         <a href="javascript:;" onclick="changeDataType('domainRegionAd',${item[23]})">地域统计</a>
+				     </li>
+			     </c:if>
+			     <c:if test="${dataType=='domainNotAd'}">
+			     	<li>
+			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/domainTimechartList_one_histry.jhtm?domainId=${item[23]}&dataType=${dataType}')">分时统计</a>
+			     </li>
+				     <li>
+				         <a href="javascript:;" onclick="changeDataType('domainRegionNotAd',${item[23]})">地域统计</a>
+				     </li>
+			     </c:if>
+	
+			 </ul>
+		</div>
+</div>
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/echarts.js" type="text/javascript" ></script>
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-	
-	/** 点击图表区域获取x轴时间作为参数以加载下面的域名列表 **/
-	function byClickLoadTableData(clickDate){
-		var json = '';
-		alert("进来了-----------");
-		$.ajax({
-            type : "post",
-            async : false, 
-            url : "${pageContext.request.contextPath}/dashboardHistry.do?dataType=domain&clickDate="+clickDate,
-            success : function(result) {
-            	
-            }
-         });   
-		
+    var clickDate = "";
+     function getClickDate(){
+    	 var clickDate = ${lasttime};
+    	 return clickDate;
+     }
+    /** 图表拉动 **/
+	function graphicLoadinghistry(obj) {
+		var pageNo = 1;
+		if (obj == 1) { //表示前一段时间的数据
+			pageNo = jQuery("a[a-type=lastPage]").attr("page-data");
+		} else if (obj == -1) { //表示后一段时间的数据
+			pageNo = jQuery("a[a-type=nextPage]").attr("page-data");
+		} else {
+			//表示被人客户端恶意修改参数
+			return;
+		}
+		if (null == pageNo || "" == pageNo) {
+			toastr.success("已经没有数据了！");
+			return;
+		} else {
+			if(pageNo==0)pageNo=1;
+			//ajax读取 上一月的数据
+			jQuery.ajax({
+				url : "${pageContext.request.contextPath}/ajaxLoadDashboardHistry.do?pageNo=" + pageNo,
+				success : function(data) {
+					var json = eval('(' + data + ')');
+					if (json.success) {
+						jQuery("a[a-type=lastPage]").attr("page-data",json.lastPage);
+						jQuery("a[a-type=nextPage]").attr("page-data",json.nextPage);
+						
+						histryChart("ad_chart_1", json.ad_chart_1,json.notad_chart_1);
+					    
+					} else {
+						toastr.success(json.message);
+					}
+				}
+			});
+		}
 	}
-		
+	
+	/** 
+	 *点击图表区域获取x轴时间作为参数以加载下面的域名列表 
+	 **/
+	function byClickLoadTableData(clickDate){
+		jQuery.ajax({
+			url : "${pageContext.request.contextPath}/clickLoadHistryData.do?dataType=domain&clickDate="+clickDate,
+			success : function(data) {
+				if (data!=null) {
+					var json = eval('(' + data + ')');
+					loadTbody(json,2);
+					getClickDate();
+				}
+			},
+			error: function (data) {
+				alert("数据加载异常!!!");
+			}
+		});
+	}
+	
+	/** 全站历史数据图表 **/
 	function histryChart(divid, data1, data2){
 		var d1 = [];
 		var d2 = [];
 		var d3 = [];
 		var d4 = [];
 		var d5 = [];
+		var d6 = '';
 		$.each(data1, function (index, item) {
 	        d1.push(item.date);
 	        d2.push(item.adip);
@@ -418,8 +471,25 @@ var stClick = false;
 var cClick = false;
 var sClick = false;
 var mClick = false;
+//打开菜单
 function openMenu(a,event){
-	 var e = event || window.event;
+	
+	var id = jQuery(a).attr("id");
+	var domain = jQuery(a).attr("domain");
+	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_one_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	jQuery("#oneTime2").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	jQuery("#oneTime3").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	//jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"')");
+	//jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"')");
+	if(dataType=="domain"){
+		jQuery("#region").attr("onclick","changeDataType('domainRegion',"+id+")");
+	}else if(dataType==""){
+		jQuery("#region").attr("onclick","changeDataType('domainRegionAd',"+id+")");
+	}else if(dataType==""){
+		jQuery("#region").attr("onclick","changeDataType('domainRegionNotAd',"+id+")");
+	} 
+	
+	var e = event || window.event;
 	var yy  = parseInt(e.screenY-120);
 	var  xx = parseInt(e.screenX);
 	var menuHeight = parseInt(jQuery(jQuery(a).attr("data-target")+" ul").css("height"));//菜单高度
@@ -516,7 +586,7 @@ var oTable2;
 var table;
 //渲染table
 var initTable1 = function () {
-     table = $('#scrolltable');
+     table = $('#scrolltableHistry');
      oTable = table.dataTable({
    
   
@@ -536,15 +606,14 @@ var initTable1 = function () {
 }
 /**--------------预加载-------------------- **/
 	jQuery(document).ready(function() {
-		alert("进来了！！！");
+		//alert("进来了！！！");
 		var tbodydata = '${tbodydata}';
 		var json = eval('(' + tbodydata + ')');
 		loadTbody(json,1);
 		
 		var histryData = '${histryJson}';
 		var json2 = eval('(' + histryData + ')');
-		//alert("histryData:-->"+histryData);
-		histryChart("ad_chart_1", json2.ad_chart_1,json2.notad_chart_1)
+		histryChart("ad_chart_1", json2.ad_chart_1,json2.notad_chart_1);
 		
 	    initTable1();
 	     jQuery("#pauseOrplay").click(function(){
@@ -621,6 +690,7 @@ var initTable1 = function () {
 						$("#forward").attr("data-value", json.nextMonth); //下一页
 						$("#backoff").attr("data-value", json.lastMonth); //上一页
 						t(json.order); //调用图形列表方法
+						
 					} else {
 						/* $("#forward").attr("data-value", json.nextMonth); //下一页
 						$("#backoff").attr("data-value", json.lastMonth); //上一页
@@ -634,8 +704,8 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 //第一次异步刷新
-	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
-	  
+	 //t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
+	  /**
 	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
 				url : "${pageContext.request.contextPath}/ajaxRefreshHistryData.do?dataType="+dataType+"&domainId="+domainId,
@@ -661,6 +731,7 @@ var initTable1 = function () {
 				}
 			});
 	 }
+	  **/
 	 /** js渲染tbody **/
 	 function loadTbody(json,num){
 		 domainId = json.domainId;//域名ID
@@ -723,7 +794,7 @@ var initTable1 = function () {
 				    var tr2 = "";
 				    var tr3 = "";
 				    if(dataType=="domain"){
-				    	firstTd="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu"+item[23]+"' data-toggle='dropdown' onclick='openMenu(this)'>"+item[25]+"</a></td>";
+				    	firstTd="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></td>";
 				    	tr3+="<div id='context-menu"+dataList[i].id+"' style='position: absolute;z-index: 999;'>"+
 						"<ul class='dropdown-menu' role='menu' style='z-index: 99999'>"+
 							"<li><a href='javascript:;' onclick='gotoPage(\"${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+item[23]+"&dataType="+dataType+"\")'>分时统计</a></li>"+
@@ -834,8 +905,8 @@ var initTable1 = function () {
 			if(browsingHistory[browsingHistory.length-1].indexOf("/dashboardHistry.jhtm")>=0 && dataType==json.dataType && isRefresh){
 				if(num==1){
 					//alert(table+menu);
-					jQuery("#tbody").empty();
-					jQuery("#tbody").append(table);
+					jQuery("#tbodyhistry").empty();
+					jQuery("#tbodyhistry").append(table);
 					//jQuery("#menu").append(menu);
 				}else if(num==2){
 					//jQuery("#SUMIP").html(SUMIP);
@@ -843,11 +914,13 @@ var initTable1 = function () {
 					//jQuery("#ip").html(json.sumip);
 					//jQuery("#pv").html(json.sumpv);
 					jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
-					jQuery("#tbody").empty();
-					jQuery("#tbody").append(table);
-					jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
-					jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable+menu);
+					jQuery("#tbodyhistry").empty();
+					jQuery("#tbodyhistry").append(table);
+					jQuery(".DTFC_LeftBodyWrapper #tbodyhistry").empty();
+					jQuery(".DTFC_LeftBodyWrapper #tbodyhistry").append(lefttable+menu);
 					jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
+					
+					clickDate = json.lasttime;
 				}
 				
 				

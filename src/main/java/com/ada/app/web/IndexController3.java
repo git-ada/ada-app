@@ -30,12 +30,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.com.jiand.mvc.framework.utils.Dates;
 
-import com.ada.app.bean.AdaDomainNotadTotalStat;
-import com.ada.app.bean.AdaDomainadTotalStat;
 import com.ada.app.bean.BaseStat;
 import com.ada.app.bean.BaseStatBean;
 import com.ada.app.bean.DomainAreaStat;
-import com.ada.app.bean.SiteBaseStatBean;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
 import com.ada.app.dao.AdaDomainAdStatDao;
@@ -110,7 +107,7 @@ public class IndexController3 {
 		try {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print(this.siteChartHistryList(domainTime_PageSize,Interval_time,pageno));
+			out.print(this.siteChartHistryList(domainTime_PageSize,pageno));
 			out.flush();
 			out.close();
 		} catch (Exception e) {
@@ -129,7 +126,7 @@ public class IndexController3 {
 	 * @throws IllegalAccessException 
 	 * @throws IllegalArgumentException 
 	 */
-	protected JSONObject siteChartHistryList(int pageSize,int len,Integer pageNo) throws Exception{
+	protected JSONObject siteChartHistryList(int pageSize,Integer pageNo) throws Exception{
 		/** 从sessions中获取站点信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();//
 		
@@ -174,7 +171,7 @@ public class IndexController3 {
 		} catch (Exception e) {
 			log.error("获取广告和非广告图形历史数据失败,msg->"+e.getMessage(),e);
 		}
-		System.out.println(json);
+		//System.out.println(json);
 		return json;
 	}
 	
@@ -194,85 +191,194 @@ public class IndexController3 {
 		AdaSite adaSite = Sessions.getCurrentSite();
 		
 		/** 获取当前站点默认历史统计信息 **/
-		Date date = null;
-		System.out.println("clickDate:---->"+clickDate);
-		if(clickDate == null || "".equals(clickDate)){
-			//默认加载昨天的历史数据
-			date = Dates.yestoday();
-			System.out.println("yestoday: "+date);
-			if(dataType!=null){
-				if("domain".equals(dataType)){
-					AdaSiteStat siteStat = statService.statSite(adaSite.getId(), date);
-					/** 获取站点下域名统计信息 **/
-					Map sumMap = getDomainStat_list(date);
-					List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
-					Map map = new HashMap();
-					map.put("data_list", data_list);
-					map.put("dataType", dataType);
-					JSONObject json  = new JSONObject(map);
-					model.addAttribute("tbodydata", json);
-					System.out.println("历史 json : "+json);
-					//model.addAttribute("sumip", siteStat.getIp());
-					//model.addAttribute("sumpv", siteStat.getPv());
-				}else if("domainAd".equals(dataType)){
-					Map map = getDomainAdData(date);
-					List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
-					Map map2 = new HashMap();
-					map2.put("data_list", data_list);
-					map2.put("dataType", dataType);
-					JSONObject json  = new JSONObject(map2);
-					model.addAttribute("tbodydata", json);
-					//model.addAttribute("sumip", map.get("sumip"));
-					//model.addAttribute("sumpv", map.get("sumpv"));
-				}else if("domainNotAd".equals(dataType)){
-					Map map = getDomainNotAdData(date);
-					List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
-					Map map2 = new HashMap();
-					map2.put("data_list", data_list);
-					map2.put("dataType", dataType);
-					JSONObject json  = new JSONObject(map2);
-					model.addAttribute("tbodydata", json);
-					//model.addAttribute("sumip", map.get("sumip"));
-					//model.addAttribute("sumpv", map.get("sumpv"));
-				}
-				
+		Date date = Dates.yestoday();
+	
+		//默认加载昨天的历史数据
+		if(dataType!=null){
+			if("domain".equals(dataType)){
+				AdaSiteStat siteStat = statService.statSite(adaSite.getId(), date);
+				/** 获取站点下域名统计信息 **/
+				Map sumMap = getDomainStat_list(date);
+				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+				Map map = new HashMap();
+				map.put("data_list", data_list);
+				map.put("dataType", dataType);
+				JSONObject json  = new JSONObject(map);
+				model.addAttribute("tbodydata", json);
+				//System.out.println("历史 json : "+json);
+				//model.addAttribute("sumip", siteStat.getIp());
+				//model.addAttribute("sumpv", siteStat.getPv());
+			}else if("domainAd".equals(dataType)){
+				Map map = getDomainAdData(date);
+				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+				Map map2 = new HashMap();
+				map2.put("data_list", data_list);
+				map2.put("dataType", dataType);
+				JSONObject json  = new JSONObject(map2);
+				model.addAttribute("tbodydata", json);
+				//model.addAttribute("sumip", map.get("sumip"));
+				//model.addAttribute("sumpv", map.get("sumpv"));
+			}else if("domainNotAd".equals(dataType)){
+				Map map = getDomainNotAdData(date);
+				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+				Map map2 = new HashMap();
+				map2.put("data_list", data_list);
+				map2.put("dataType", dataType);
+				JSONObject json  = new JSONObject(map2);
+				model.addAttribute("tbodydata", json);
+				//model.addAttribute("sumip", map.get("sumip"));
+				//model.addAttribute("sumpv", map.get("sumpv"));
 			}
-			model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd").format(date)); 
-			model.addAttribute("dataType", dataType);
-			
-		}else {
-			//点击加载历史数据
-			date = new SimpleDateFormat("yyyy-MM-dd").parse(clickDate);
-			System.out.println("clickDate : "+date);
-			if(dataType!=null){
-				if("domain".equals(dataType)){
-					//AdaSiteStat siteStat = statService.statSite(adaSite.getId(), date);
-					/** 获取站点下域名统计信息 **/
-					Map sumMap = getDomainStat_histryList(date);
-					List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
-					Map map = new HashMap();
-					map.put("data_list", data_list);
-					map.put("dataType", dataType);
-					JSONObject json  = new JSONObject(map);
-					model.addAttribute("tbodydata", json);
-					System.out.println("历史 json : "+json);
-				}
 				
-			}
-			model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd").format(date)); 
-			model.addAttribute("dataType", dataType);
-			
 		}
+		model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd").format(date)); 
+		model.addAttribute("dataType", dataType);
+		
 		
 		if(adaSite.getId()!=null && !"".equals(adaSite.getId())){
-			JSONObject json = siteChartHistryList(domainTime_PageSize,Interval_time2,1);
+			JSONObject json = siteChartHistryList(domainTime_PageSize,1);
 			model.addAttribute("histryJson", json);
 		}
+		
 //		model.addAttribute("domainId", domainId);
 //		model.addAttribute("dataType", "domain");
 //		model.addAttribute("domain", domain);
 
 		return "dashboardHistry";
+	}
+	
+	/**
+	 * 历史数据页面 点击获取域名列表数据
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping(value = "clickLoadHistryData")
+	public void ajaxdashboard_domainTime3(HttpServletRequest request,HttpServletResponse response ,Model model,
+			String dataType,String clickDate){
+		
+//		 model.addAttribute("lasttime", clickDate);
+//		 model.addAttribute("dataType", dataType);
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(this.clickLoadHistryData(dataType, clickDate));
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public JSONObject clickLoadHistryData(String dataType,String clickDate) throws Exception {
+		
+		/** 从sessions中获取站点信息 **/ 
+		AdaSite adaSite = Sessions.getCurrentSite();
+		//点击加载历史数据
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(clickDate);
+		//System.out.println("clickDate : "+date);
+//		if(dataType!=null){
+//			if("domain".equals(dataType)){
+				//AdaSiteStat siteStat = statService.statSite(adaSite.getId(), date);
+				/** 获取站点下域名统计信息 **/
+				Map sumMap = getDomainStat_histryList(date);
+				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+				Map map = new HashMap();
+				map.put("data_list", data_list);
+				map.put("dataType", dataType);
+				map.put("lasttime", clickDate);
+				JSONObject json  = new JSONObject(map);
+				System.out.println(json);
+//				model.addAttribute("tbodydata", json);
+//			}
+			
+//		}
+//		model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd").format(date)); 
+//		model.addAttribute("dataType", dataType);
+		
+		return json;
+	}
+	
+	/**
+	 * 实时数据页面 域名分时统计信息异步分页查询
+	 * @param request
+	 * @param response
+	 * @param model
+	 */
+	@RequestMapping("ajaxdashboard_domainTime_one")
+	public void ajaxdashboard_domainTime_one_histry(HttpServletRequest request,HttpServletResponse response ,Model model,
+			String pageNo,String domainId,String dataType,String clickDate){
+		
+		Integer pageno = Integer.valueOf(pageNo);
+		Integer domainid = Integer.valueOf(domainId);
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			if(dataType!=null && !"".equals(dataType)){
+				if("domain".equals(dataType)){
+					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType,clickDate));
+				}else if("domainAd".equals(dataType)){
+					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType,clickDate));
+				}else if("domainNotAd".equals(dataType)){
+					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType,clickDate));
+				}else if("AdAndNotAd".equals(dataType)){
+					out.print(this.domainTimechartList(domainid,domainTime_PageSize,Interval_time,pageno,clickDate));
+				}
+			}
+			
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping("ajaxdashboard_domainTime_histry")
+	public void ajaxdashboard_domainTime_histry(HttpServletRequest request,HttpServletResponse response ,Model model,
+			String pageNo,String domainId,String clickDate){
+		Integer pageno = Integer.valueOf(pageNo);
+		Integer domainid = Integer.valueOf(domainId);
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(this.domainTimechartList(domainid,domainTime_PageSize,Interval_time,pageno,clickDate));
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping("ajaxdashboard_domainTime3_histry")
+	public void ajaxdashboard_domainTime3_histry(HttpServletRequest request,HttpServletResponse response ,Model model,
+			String pageNo,String domainId,String clickDate){
+		Integer pageno = Integer.valueOf(pageNo);
+		Integer domainid = Integer.valueOf(domainId);
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(this.domainTimechartList(domainid,domainTime_PageSize,Interval_time,pageno,clickDate));
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("ajaxLoadDashboardHistry")
+	public void loadDashboardHistry(HttpServletRequest request,HttpServletResponse response ,Model model,
+			String pageNo,String domainId){
+		Integer pageno = Integer.valueOf(pageNo);
+		Integer domainid = Integer.valueOf(domainId);
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(this.siteChartHistryList(domainTime_PageSize,pageno));
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -347,17 +453,47 @@ public class IndexController3 {
 	 * 历史数据页面 域名分时统计信息
 	 * @return
 	 */
-	@RequestMapping(value = "dashboard_domainHistryTime")
-	public String dashboard_domainHistryTime(HttpServletRequest request,HttpServletResponse response, Model model,
-			String domainId){
+	@RequestMapping(value = "dashboard_domainTime_one_histry")
+	public String domainTimechartList_one_histry(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId,String domain,String clickDate,String dataType){
+		//System.out.println(clickDate);
 		if(domainId!=null && !"".equals(domainId)){
-			JSONObject json = domainTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1);
-			
+			JSONObject json = domainTimechartList_one(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1, dataType,clickDate);
+			System.out.println("1: -->"+json);
 			model.addAttribute("json", json);
 		}
 		model.addAttribute("domainId", domainId);
 		model.addAttribute("dataType", "domain");
-		return "dashboard_domainHistryTime";
+		model.addAttribute("domain", domain);
+		return "dashboard_domainTime_one_histry";
+	}
+	@RequestMapping(value = "dashboard_domainTime_histry")
+	public String dashboard_domainTime_histry(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId,String domain,String clickDate){
+		//System.out.println(clickDate);
+		if(domainId!=null && !"".equals(domainId)){
+			JSONObject json = domainTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1,clickDate);
+			System.out.println("2: -->"+json);
+			model.addAttribute("json", json);
+		}
+		model.addAttribute("domainId", domainId);
+		model.addAttribute("dataType", "domain");
+		model.addAttribute("domain", domain);
+		return "dashboard_domainTime_histry";
+	}
+	@RequestMapping(value = "dashboard_domainTime3_histry")
+	public String dashboard_domainTime3_histry(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId,String domain,String clickDate){
+		//System.out.println(clickDate);
+		if(domainId!=null && !"".equals(domainId)){
+			JSONObject json = domainTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1,clickDate);
+			//System.out.println("3: -->"+json);
+			model.addAttribute("json", json);
+		}
+		model.addAttribute("domainId", domainId);
+		model.addAttribute("dataType", "domain");
+		model.addAttribute("domain", domain);
+		return "dashboard_domainTime3_histry";
 	}
 	
 	@RequestMapping("ajaxLoadHistryData")
@@ -385,7 +521,7 @@ public class IndexController3 {
 	 */
 	@RequestMapping("ajaxdashboard_domainHistryTime")
 	public void ajaxdashboard_domainHistryTime(HttpServletRequest request,HttpServletResponse response ,Model model,
-			String pageNo,String domainId,String dataType){
+			String pageNo,String domainId,String dataType,String clickDate){
 		
 //		Date dataDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
 		Integer pageno = Integer.valueOf(pageNo);
@@ -395,11 +531,11 @@ public class IndexController3 {
 			PrintWriter out = response.getWriter();
 			if(dataType!=null && !"".equals(dataType)){
 				if("domain".equals(dataType)){
-					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
+					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType,clickDate));
 				}else if("domainAd".equals(dataType)){
-					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
+					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType,clickDate));
 				}else if("domainNotAd".equals(dataType)){
-					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
+					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType,clickDate));
 				}
 			}
 			
@@ -454,11 +590,12 @@ public class IndexController3 {
 		} catch (Exception e) {
 			log.error("查询失败,msg->"+e.getMessage(),e);
 		}
-		System.out.println("json: "+json);
+		//System.out.println("json: "+json);
 		return json;
 	}
 	
-	protected JSONObject domainTimechartList_one(Integer domainId,int pageSize,int len,Integer pageNo,String dataType){
+	protected JSONObject domainTimechartList_one(Integer domainId,int pageSize,int len,Integer pageNo,
+			String dataType,String clickDate){
 		
 		JSONObject json=new JSONObject();
 		if(pageNo== null || pageNo<1 || dataType==null){
@@ -470,8 +607,8 @@ public class IndexController3 {
 		
 		try {
 			if("domain".equals(dataType)){
-				List<AdaDomainAd15mStat> adlist = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
-				List<AdaDomainNotad15mStat> notAdlist = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+				List<AdaDomainAd15mStat> adlist = ad15mStatDao.findByDomainIdOrderByStartTimeHistry(domainId, clickDate, (pageNo-1)*pageSize, pageSize);
+				List<AdaDomainNotad15mStat> notAdlist = notAd15mStatDao.findByDomainIdOrderByStartTimeHistry(domainId, clickDate, (pageNo-1)*pageSize, pageSize);
 				for(int i=0;i<adlist.size();i++){
 					BaseStatBean item = new BaseStatBean();
 					AdaDomainAd15mStat ad = adlist.get(i);
@@ -694,7 +831,7 @@ public class IndexController3 {
 	 * @param pageNo   第几页
 	 * @return
 	 */
-	protected JSONObject domainTimechartList(Integer domainId,int pageSize,int len,Integer pageNo){
+	protected JSONObject domainTimechartList(Integer domainId,int pageSize,int len,Integer pageNo,String clickDdate){
 		
 		JSONObject json=new JSONObject();
 		if(pageNo== null || pageNo<1){
@@ -703,8 +840,8 @@ public class IndexController3 {
 			return json;
 		}
 		
-		List<AdaDomainAd15mStat> adList = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
-		List<AdaDomainNotad15mStat> notadList = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+		List<AdaDomainAd15mStat> adList = ad15mStatDao.findByDomainIdOrderByStartTimeHistry(domainId,clickDdate,(pageNo-1)*pageSize,pageSize);
+		List<AdaDomainNotad15mStat> notadList = notAd15mStatDao.findByDomainIdOrderByStartTimeHistry(domainId,clickDdate,(pageNo-1)*pageSize,pageSize);
 		
 		if((adList==null || adList.size()<1)&&(notadList==null || notadList.size()<1)){
 			json.put("success", false);
@@ -1098,6 +1235,7 @@ public class IndexController3 {
 		 
 		 return map;
 	}
+	
 	
 	/** 域名统计历史信息 **/
 	protected Map getDomainStat_histryList(Date date){

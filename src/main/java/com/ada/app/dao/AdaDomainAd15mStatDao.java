@@ -145,5 +145,8 @@ public interface AdaDomainAd15mStatDao extends EntityJpaDao<AdaDomainAd15mStat, 
 	 */
 	@Query(value = "select * from ada_domain_ad_15m_stat obj where obj.domainId=?  order by obj.endTime desc limit ?,? ",nativeQuery=true)
 	public List<AdaDomainAd15mStat> findByDomainIdOrderByStartTime(Integer domainId,int pageStart,int pageSize);
+	
+	@Query(value = "select * from ada_domain_ad_15m_stat obj where obj.domainId=? and date=? order by obj.endTime desc limit ?,? ",nativeQuery=true)
+	public List<AdaDomainAd15mStat> findByDomainIdOrderByStartTimeHistry(Integer domainId,String clickDate,int pageStart,int pageSize);
 
 }
