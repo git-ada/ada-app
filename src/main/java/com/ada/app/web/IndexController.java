@@ -29,6 +29,7 @@ import cn.com.jiand.mvc.framework.utils.Dates;
 import com.ada.app.bean.BaseStat;
 import com.ada.app.bean.BaseStatBean;
 import com.ada.app.bean.DomainAreaStat;
+import com.ada.app.bean.DomainStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
 import com.ada.app.dao.AdaDomainDao;
@@ -198,18 +199,21 @@ public class IndexController {
 			}else if("domainRegion".equals(dataType)){/**获取域名地域统计信息**/
 				Map map = getDomainRegion(today,Integer.valueOf(domainId),null);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+				AdaDomainStat domainStat = (AdaDomainStat) map.get("domainStat");
 				json.put("data_list", data_list);
-				json.put("domainStat", map.get("domainStat"));
+				json.put("domainStat", domainStat);
 			}else if("domainRegionAd".equals(dataType)){/** 获取域名地域广告入口统计信息 **/
 				Map map = getDomainRegionAd_data(today,Integer.valueOf(domainId),null);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+				AdaDomainAdStat adaDomainAdStat = (AdaDomainAdStat) map.get("domainAdStat");
 				json.put("data_list", data_list);
-				json.put("domainAdStat", map.get("domainAdStat"));
+				json.put("domainAdStat", adaDomainAdStat);
 			}else if("domainRegionNotAd".equals(dataType)){/** 获取域名地域非广告入口统计信息 **/
 				Map map = getDomainRegionNotAd_data(today,Integer.valueOf(domainId),null);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+				AdaDomainNotadStat adaDomainNotadStat = (AdaDomainNotadStat) map.get("domainNotAdStat");
 				json.put("data_list", data_list);
-				json.put("domainNotAdStat", map.get("domainNotAdStat"));
+				json.put("domainNotAdStat", adaDomainNotadStat);
 			}
 		}
 		json.put("dataType", dataType);
