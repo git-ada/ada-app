@@ -134,7 +134,7 @@ public class IndexController {
 				map.put("dataType", dataType);
 				JSONObject json  = new JSONObject(map);
 				model.addAttribute("tbodydata", json);
-				System.out.println("实时json : "+json);
+				//System.out.println("实时json : "+json);
 				model.addAttribute("sumip", siteStat.getIp());
 				model.addAttribute("sumpv", siteStat.getPv());
 			}else if("domainAd".equals(dataType)){

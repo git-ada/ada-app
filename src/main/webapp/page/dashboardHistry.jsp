@@ -245,8 +245,8 @@ table.dataTable{
 			       <a href="javascript:;" id="oneTime3">分时统计3</a>
 			     </li>
 			     <li>
-				         <a href="javascript:;" id="oneTime4">地域统计</a>
-				     </li>
+			         <a href="javascript:;" id="oneTime4">地域统计</a>
+			     </li>
 			     <!-- 
 			     	<li>
 			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_histry.jhtm?domainId=${item[23]}&domain=${item[24]}&clickDate=${lasttime}')">分时统计2</a>
@@ -334,7 +334,7 @@ table.dataTable{
 				if (data!=null) {
 					var json = eval('(' + data + ')');
 					loadTbody(json,2);
-					getClickDate();
+					//getClickDate();
 				}
 			},
 			error: function (data) {
@@ -475,6 +475,23 @@ var stClick = false;
 var cClick = false;
 var sClick = false;
 var mClick = false;
+
+function loadAreaHistryData(url) {
+	alert("进来了！！！");
+	jQuery.ajax({
+		url : url ,
+		success : function(data) {
+			if (data!=null) {
+				var json = eval('(' + data + ')');
+				loadTbody(json,2);
+			}
+		},
+		error: function (data) {
+			alert("地域数据加载异常!!!");
+		}
+	});
+}
+
 //打开菜单
 function openMenu(a,event){
 	
@@ -483,10 +500,12 @@ function openMenu(a,event){
 	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
 	jQuery("#oneTime2").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
 	jQuery("#oneTime3").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	
 	//jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"')");
 	//jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"')");
 	if(dataType=="domain"){
-		jQuery("#oneTime4").attr("onclick","changeDataType('domainRegion',"+id+")");
+		jQuery("#oneTime4").attr("onclick","changeDataType('${pageContext.request.contextPath}/clickLoadAreaHistryData.do?domainId="+id+"&dataType="+'domainRegion'+"&clickDate="+clickDate+"')");
+		//jQuery("#oneTime4").attr("onclick","loadAreaHistryData('${pageContext.request.contextPath}/clickLoadAreaHistryData.do?domainId="+id+"&dataType="+'domainRegion'+"&clickDate="+clickDate+"')");
 	}else if(dataType==""){
 		jQuery("#region").attr("onclick","changeDataType('domainRegionAd',"+id+")");
 	}else if(dataType==""){
@@ -664,12 +683,14 @@ var initTable1 = function () {
 	     });  
 	});
 	/**改变页面数据类型**/
-	function changeDataType(type,domainId){
+	function changeDataType(type){
+		//alert("------------");
 		App.startPageLoading({animate: !0});//开启 加载 动画
-		dataType = type;
-		ajaxRefreshPage(type,domainId);
+		//dataType = type;
+		ajaxRefreshPages(type);
 		
 	}
+	
 	 function graphicLoading(obj) {
 		var pageNo = 1;
 
@@ -708,23 +729,24 @@ var initTable1 = function () {
 	 
 	 var ajaxTime = 2000;
 	 //第一次异步刷新
-	 //t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
-	  
-	 function ajaxRefreshPage(type,domainId){
+	 //t = window.setTimeout("ajaxRefreshPages('"+dataType+"')",ajaxTime); 
+	 
+	 function ajaxRefreshPages(type){
 		 jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajaxRefreshHistryData.do?dataType="+type+"&domainId="+domainId,
+				//url : "${pageContext.request.contextPath}/ajaxRefreshHistryData.do?dataType="+dataType+"&domainId="+domainId,
+				url : type,		
 				success : function(data) {
-					
 					if (data!=null) {
+						//alert("=========")
 						var json = eval('(' + data + ')');
 						loadTbody(json,2);
 					
 					}
-					clearTimeout(t);
-					if(browsingHistory[browsingHistory.length-1].indexOf("/dashboardHistry.jhtm")>=0 && isRefresh){
-						ajaxTime=2000;
-						t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
-					}
+					//clearTimeout(t);
+					//if(browsingHistory[browsingHistory.length-1].indexOf("/dashboardHistry.jhtm")>=0 && isRefresh){
+						//ajaxTime=2000;
+						//t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
+					//}
 					App.stopPageLoading();//关闭 加载动画
 				},
 				error: function (data) {
@@ -745,9 +767,10 @@ var initTable1 = function () {
 			var firstTh = "域名";
 			var SUMIP = "";
 			var SUMPV = "";
+			dataType = json.dataType;
 			/** 数据列表 **/
 			var dataList = json.data_list;
-			 
+			 //alert(json.dataType);
 			if(dataType=="domain"){
 				firstTh = "域名";
 				SUMIP = "全站独立IP数";
@@ -760,7 +783,7 @@ var initTable1 = function () {
 				SUMIP = "非广告入口独立IP数";
 				SUMPV = "非广告入口访问量";
 				firstTh = "域名";
-			}else if(dataType=="domainRegion"){
+			}else if(json.dataType=="domainRegion"){
 				SUMIP = "地域独立IP数";
 				SUMPV = "地域访问量";
 				firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
@@ -790,7 +813,7 @@ var initTable1 = function () {
 			    	if(!mClick) mtDisplay = "displaynone";
 			    }
 			if(dataList!=null && dataList.length>0){
-				console.log("历史域名数据条数------>"+dataList.length);
+				//console.log("历史域名数据条数------>"+dataList.length);
 				for(var i=0;i<dataList.length;i++){
 					var item = dataList[i];
 					var firstTd = "";
@@ -829,7 +852,6 @@ var initTable1 = function () {
 				    }else if(dataType=="domainRegionNotAd"){
 				    	firstTd = "<td style='min-width: 140px;'  >"+item[23]+"</td>";
 				    }
-				   
 				    
 				    var sumST = item[7]+item[8]+item[9]+item[10];
 				    var sumC = item[11]+item[12]+item[13]+item[14];
@@ -906,13 +928,15 @@ var initTable1 = function () {
 				}
 			}
 			
-			if(browsingHistory[browsingHistory.length-1].indexOf("/dashboardHistry.jhtm")>=0 && dataType==json.dataType && isRefresh){
+			if(browsingHistory[browsingHistory.length-1].indexOf("/dashboardHistry.jhtm")>=0  && isRefresh){
 				if(num==1){
-					//alert(table+menu);
+					//alert("num==1");
+					//alert(table+menu);alert("num==2");
 					jQuery("#tbodyhistry").empty();
 					jQuery("#tbodyhistry").append(table);
 					//jQuery("#menu").append(menu);
 				}else if(num==2){
+					//alert("num==2");
 					//jQuery("#SUMIP").html(SUMIP);
 					//jQuery("#SUMPV").html(SUMPV);
 					//jQuery("#ip").html(json.sumip);
