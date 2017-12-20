@@ -173,9 +173,7 @@ table.dataTable{
 				<div class="number">
 					<span data-counter="counterup" data-value="${siteStat.ip}" id="ip">${siteStat.ip}</span>(个)
 				</div>
-				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMIP">全站独立IP数</div></c:if>
-				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMIP">广告入口独立IP数</div></c:if>
-				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMIP">非广告入口独立IP数</div></c:if>
+				<div class="desc" id="SUMIP">全站独立IP数</div>
 			</div>
 		</div>
 	</div>
@@ -189,9 +187,7 @@ table.dataTable{
 				<div class="number">
 					<span data-counter="counterup" data-value="${siteStat.pv}" id="pv">${siteStat.pv}</span>(页)
 				</div>
-				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMPV">全站访问量</div></c:if>
-				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMPV">广告入口访问量</div></c:if>
-				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMPV">非广告入口访问量</div></c:if>
+					<div class="desc" id="SUMPV">全站访问量</div>
 			</div>
 		</div>
 	</div>
@@ -232,13 +228,13 @@ table.dataTable{
             <div class="btn-group btn-group-devided" data-toggle="buttons">
             	<div class="tabbable-line">
 	            	<ul class="nav nav-tabs ">
-		                <li class="active">
+		                <li <c:if test="${dataType=='domain'}">class="active"</c:if>>
 		                    <a href="#tab_15_1" data-toggle="tab" aria-expanded="true" onclick="changeDataType('all')">全站统计</a>
 		                </li>
-		                <li class="">
+		                <li <c:if test="${dataType=='domainAd'}">class="active"</c:if>>
 		                    <a href="#tab_15_2" data-toggle="tab" aria-expanded="false" onclick="changeDataType('Ad')">广告入口统计</a>
 		                </li>
-		                <li class="">
+		                <li <c:if test="${dataType=='domainNotAd'}">class="active"</c:if>>
 		                    <a href="#tab_15_3" data-toggle="tab" aria-expanded="false" onclick="changeDataType('NotAd')">非广告入口统计</a>
 		                </li>
 	           		 </ul>
