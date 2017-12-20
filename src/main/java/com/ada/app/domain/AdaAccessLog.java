@@ -16,7 +16,7 @@ import cn.com.jiand.mvc.framework.domain.AbstractEntity;
  * @author Wanghl.cn By Code Generator
  */
 @Entity
-@Table(name = "ada_access_log")
+//@Table(name = "ada_access_log")
 public class AdaAccessLog extends AbstractEntity<Integer> {
     /** id */
 	private Integer id;                    
