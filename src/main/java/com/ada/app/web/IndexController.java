@@ -159,7 +159,7 @@ public class IndexController {
 		
 		 model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		 model.addAttribute("dataType", dataType);
-		return "dashboard_hgr";
+		return "dashboard";
 	}
 	
 	/**
