@@ -144,6 +144,7 @@ public class IndexController {
 				Map map2 = new HashMap();
 				map2.put("data_list", data_list);
 				map2.put("dataType", dataType);
+				map2.put("siteStat", siteStat);
 				JSONObject json  = new JSONObject(map2);
 				model.addAttribute("tbodydata", json);
 			}else if("domainNotAd".equals(dataType)){
@@ -152,6 +153,7 @@ public class IndexController {
 				Map map2 = new HashMap();
 				map2.put("data_list", data_list);
 				map2.put("dataType", dataType);
+				map2.put("siteStat", siteStat);
 				JSONObject json  = new JSONObject(map2);
 				model.addAttribute("tbodydata", json);
 			}
