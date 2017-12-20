@@ -15,8 +15,8 @@ import cn.com.jiand.mvc.framework.domain.AbstractEntity;
  * 访问日志 Entity
  * @author Wanghl.cn By Code Generator
  */
-@Entity
-@Table(name = "ada_access_log")
+//@Entity
+//@Table(name = "ada_access_log")
 public class AdaAccessLog extends AbstractEntity<Integer> {
     /** id */
 	private Integer id;                    
@@ -55,8 +55,8 @@ public class AdaAccessLog extends AbstractEntity<Integer> {
     /** 创建时间 */
 	private Timestamp createTime;                    
 	
-	@Id	
-	@GeneratedValue
+//	@Id	
+//	@GeneratedValue
 	public Integer getId(){
 		return this.id;
 	}
