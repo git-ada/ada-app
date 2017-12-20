@@ -534,7 +534,7 @@ var initTable1 = function () {
 			    	sumuv = json.domainStat.uv>0? json.domainStat.uv : 1;
 			    }else if(dataType=="domainRegionAd"){
 			    	sumip = json.domainAdStat.ip>0? json.domainAdStat.ip : 1;
-			    	sumpv = json.domainAdStat.pv>0? json.domainAdSata.pv : 1;
+			    	sumpv = json.domainAdStat.pv>0? json.domainAdStat.pv : 1;
 			    	sumuv = json.domainAdStat.uv>0? json.domainAdStat.uv : 1;
 			    }else if(dataType=="domainRegionNotAd"){
 			    	sumip = json.domainNotAdStat.ip>0? json.domainNotAdStat.ip : 1;
@@ -542,9 +542,9 @@ var initTable1 = function () {
 			    	sumuv = json.domainNotAdStat.uv>0? json.domainNotAdStat.uv : 1;
 			    }
 			    
-			    console.log("sumip----------->",sumip);
-			    console.log("sumpv----------->",sumpv);
-			    console.log("sumuv----------->",sumuv);
+			    //console.log("sumip----------->",sumip);
+			    //console.log("sumpv----------->",sumpv);
+			    //console.log("sumuv----------->",sumuv);
 			    
 				for(var i=0;i<dataList.length;i++){
 					var item = dataList[i];
