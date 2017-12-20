@@ -1194,7 +1194,7 @@ public class IndexController3 {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
+			 if(domainIp!=null && domainIp>50){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1253,7 +1253,7 @@ public class IndexController3 {
 		 for(AdaDomain domain : domains){
 //			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
 			 Integer domainIp = domainStatDao.findByDateLoadIp(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
+			 if(domainIp!=null && domainIp>50){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1299,10 +1299,14 @@ public class IndexController3 {
 	/** 地域统计信息  **/
 	protected Map getDomainRegion(Date date,Integer domainId){
 		List<List<Object>> region_list = new ArrayList<List<Object>>();
+		
 		Set<String> regionData = statService.getCityList(domainId, date);
+		
 		List<String[]> IPs = new ArrayList();//先取出IP数 
 		for(String cityName:regionData){
+			
 			Integer IP = statService.statRegionIP(domainId, cityName, date);
+			
 			 if(IP!=null && IP>50){
 				 IPs.add(new String[]{cityName,String.valueOf(IP)});
 			 }
@@ -1321,6 +1325,7 @@ public class IndexController3 {
 		Integer SumPV = 0;/** PV总数 **/
 		for (int i=0;i<IPs.size();i++) {
 			String regionName = IPs.get(i)[0];
+			
 			DomainAreaStat region = statService.statDomainRegion(regionName, domainId, date);
 			List<Object> list = getList(region);
 			list.add(regionName);
@@ -1432,7 +1437,7 @@ public class IndexController3 {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
+			 if(domainIp!=null && domainIp>50){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1486,7 +1491,7 @@ public class IndexController3 {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainNotAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
+			 if(domainIp!=null && domainIp>50){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }

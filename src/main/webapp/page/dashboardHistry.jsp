@@ -709,10 +709,10 @@ var initTable1 = function () {
 	 var ajaxTime = 2000;
 	 //第一次异步刷新
 	 //t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
-	  /**
+	  
 	 function ajaxRefreshPage(type,domainId){
 		 jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajaxRefreshHistryData.do?dataType="+dataType+"&domainId="+domainId,
+				url : "${pageContext.request.contextPath}/ajaxRefreshHistryData.do?dataType="+type+"&domainId="+domainId,
 				success : function(data) {
 					
 					if (data!=null) {
@@ -735,7 +735,7 @@ var initTable1 = function () {
 				}
 			});
 	 }
-	  **/
+	 
 	 /** js渲染tbody **/
 	 function loadTbody(json,num){
 		 domainId = json.domainId;//域名ID
