@@ -94,7 +94,7 @@ public class IndexController3 {
 	private AdaDomainNotAd15mStatDao notAd15mStatDao;
 	private final static int Interval_time2 = 15*4*24;
 	private final static int Interval_time = 15;//域名分时统计的时间 间隔（单位：分钟）
-	private final static int domainTime_PageSize = 30;//域名分时统计 图表数据 每一页的数据条数
+	private final static int domainTime_PageSize = 40;//域名分时统计 图表数据 每一页的数据条数
 	
 	/**
 	 *  获取站点列表历史数据

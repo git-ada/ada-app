@@ -47,6 +47,7 @@ public class AdaSiteStat extends AbstractEntity<Integer> {
 	private Timestamp createTime;
 	
 	
+	
 	public AdaSiteStat(Integer ip, Integer pv, Integer adIP,
 			Integer adPv, Integer notAdIp, Integer notAdPv, Date date) {
 		super();
