@@ -208,7 +208,7 @@ public class IndexController {
 				AdaDomainAdStat adaDomainAdStat = (AdaDomainAdStat) map.get("domainAdStat");
 				json.put("data_list", data_list);
 				json.put("domainAdStat", adaDomainAdStat);
-				log.info("进入地域广告入口");
+				log.info("进入地域广告入口 pv--->"+adaDomainAdStat.getPv());
 			}else if("domainRegionNotAd".equals(dataType)){/** 获取域名地域非广告入口统计信息 **/
 				Map map = getDomainRegionNotAd_data(today,Integer.valueOf(domainId),null);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
