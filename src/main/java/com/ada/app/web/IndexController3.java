@@ -307,7 +307,7 @@ public class IndexController3 {
 	 * @param response
 	 * @param model
 	 */
-	@RequestMapping("ajaxdashboard_domainTime_one")
+	@RequestMapping("ajaxdashboard_domainTime_histry")
 	public void ajaxdashboard_domainTime_one_histry(HttpServletRequest request,HttpServletResponse response ,Model model,
 			String pageNo,String domainId,String dataType,String clickDate){
 		
@@ -453,7 +453,7 @@ public class IndexController3 {
 	 * 历史数据页面 域名分时统计信息
 	 * @return
 	 */
-	@RequestMapping(value = "dashboard_domainTime_one_histry")
+	@RequestMapping(value = "domainTimechartList_one_histry")
 	public String domainTimechartList_one_histry(HttpServletRequest request,HttpServletResponse response, Model model,
 			String domainId,String domain,String clickDate,String dataType){
 		//System.out.println(clickDate);
