@@ -292,8 +292,12 @@ public class IndexController3 {
 		
 		/** 获取当前站点统计信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();
-		
-		Date today = new SimpleDateFormat("yyyy-MM-dd").parse(clickDate);
+		Date today = null;
+		if(!"".equals(clickDate)){
+			today = new SimpleDateFormat("yyyy-MM-dd").parse(clickDate);
+		}else{
+			today = Dates.yestoday();
+		}
 		
 		if(dataType!=null){
 			if("domain".equals(dataType)){/** 获取域名统计信息 **/
@@ -368,7 +372,7 @@ public class IndexController3 {
 				map.put("dataType", dataType);
 				map.put("lasttime", clickDate);
 				JSONObject json  = new JSONObject(map);
-				System.out.println(json);
+				//System.out.println(json);
 //				model.addAttribute("tbodydata", json);
 //			}
 			
@@ -537,7 +541,7 @@ public class IndexController3 {
 		//System.out.println(clickDate);
 		if(domainId!=null && !"".equals(domainId)){
 			JSONObject json = domainTimechartList_one(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1, dataType,clickDate);
-			System.out.println("1: -->"+json);
+			//System.out.println("1: -->"+json);
 			model.addAttribute("json", json);
 		}
 		model.addAttribute("domainId", domainId);
@@ -551,7 +555,7 @@ public class IndexController3 {
 		//System.out.println(clickDate);
 		if(domainId!=null && !"".equals(domainId)){
 			JSONObject json = domainTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1,clickDate);
-			System.out.println("2: -->"+json);
+			//System.out.println("2: -->"+json);
 			model.addAttribute("json", json);
 		}
 		model.addAttribute("domainId", domainId);

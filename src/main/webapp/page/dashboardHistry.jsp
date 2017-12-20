@@ -338,7 +338,7 @@ table.dataTable{
 				}
 			},
 			error: function (data) {
-				alert("数据加载异常!!!");
+				//alert("数据加载异常!!!");
 			}
 		});
 	}
@@ -397,7 +397,7 @@ table.dataTable{
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'总PV数',
+	                  name:'PV',
 	                  icon : 'line',
 	                  textStyle:{}
 	              }]
@@ -417,7 +417,8 @@ table.dataTable{
 	   	            	  show: true
 	   	              },
 		   	          axisLabel: {
-		   	              interval: 1 
+		   	              interval: 1 ,
+		   	              rotate:20,//倾斜度 -90 至 90 默认为0  
 		   	          },
 	   	              data : d1
 	   	          }
@@ -435,7 +436,7 @@ table.dataTable{
 		   	        },
 		   	        {
 		   	            type: 'value',
-		   	            name: '总PV数',
+		   	            name: 'PV',
 		   	            
 			   	        splitLine:{     
 		 	           		show: false
@@ -458,10 +459,10 @@ table.dataTable{
 	   	              data:d4
 	   	          },
 	   	          {
-	   	              name:'总PV数',
+	   	              name:'PV',
 	   	              type:'line',
 	   	              yAxisIndex: 1,
-	   	         	  stack: '总PV数',
+	   	         	  stack: 'PV',
 	   	              data:d3
 	   	          }
 	   	      ]
@@ -477,7 +478,7 @@ var sClick = false;
 var mClick = false;
 
 function loadAreaHistryData(url) {
-	alert("进来了！！！");
+	//alert("进来了！！！");
 	jQuery.ajax({
 		url : url ,
 		success : function(data) {
@@ -487,7 +488,7 @@ function loadAreaHistryData(url) {
 			}
 		},
 		error: function (data) {
-			alert("地域数据加载异常!!!");
+			//alert("地域数据加载异常!!!");
 		}
 	});
 }
@@ -497,7 +498,7 @@ function openMenu(a,event){
 	
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
-	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_one_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
 	jQuery("#oneTime2").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
 	jQuery("#oneTime3").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
 	
