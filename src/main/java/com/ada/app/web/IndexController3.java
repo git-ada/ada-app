@@ -161,6 +161,7 @@ public class IndexController3 {
 				json_adChart_1.put("date", date); // 统计日期
 				json_adChart_1.put("adip", item.getAdIP());
 				json_adChart_1.put("pv", item.getPv());
+				json_adChart_1.put("uv", item.getUv());
 				ad_chart.add(json_adChart_1);
 				
 				JSONObject json_notadChart_1=new JSONObject();
