@@ -481,7 +481,7 @@ var initTable1 = function () {
 	 }
 	 /** js渲染tbody **/
 	 function loadTbody(json,num){
-		 domainId = json.domainId;//域名ID
+		// domainId = json.domainId;//域名ID
 			var table = "";
 			var lefttable = "";
 			var firstTh = "域名";
