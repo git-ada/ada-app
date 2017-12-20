@@ -245,11 +245,10 @@ table.dataTable{
         </div>
         <div class="inputs">
             <div class="actions" style="float: left;" >
-            	<div id="ifsearch" style="float: left;">
 	            	<div class="portlet-input input-inline " >
 	                    <div class="input-icon right">
-	                        <i class="icon-magnifier"></i>
-	                        <input id="search" type="text" class="form-control input-circle" name="firstTd" style="font-size: 12px;" placeholder="搜索域名..."> </div>
+	                        <i id="searchImg" class="icon-magnifier" style="cursor: auto;"></i>
+	                        <input id="search" type="text"  class="form-control input-circle" name="firstTd" style="font-size: 12px;" placeholder="搜索域名..."> </div>
 	                </div>
 	                <div class="btn-group">
 	                    <a href="" class="btn dark btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
@@ -271,7 +270,7 @@ table.dataTable{
 	                        </li>
 	                    </ul>
 	                </div>
-                </div>&nbsp;
+                &nbsp;
 				<a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
 				<a class="btn btn-circle btn-icon-only btn-default fullscreen"  id="fullscreenOractual"><i class="icon-size-fullscreen"></i></a>
 			</div>
@@ -444,6 +443,14 @@ var initTable1 = function () {
 	    	clearTimeout(t);
 	    	App.startPageLoading({animate: !0});//开启 加载 动画
 	    	search = jQuery(this).val();
+	    	if(search==null || search==""){
+	    		jQuery("#searchImg").attr("class","icon-magnifier");
+	    		jQuery("#searchImg").css("cursor","auto");
+	    	}else{
+	    		jQuery("#searchImg").attr("class","icon-close");
+	    		jQuery("#searchImg").css("cursor","pointer");
+	    		jQuery("#searchImg").attr("onclick","clearSearch()");
+	    	}
 	    	ajaxRefreshPage();
 	    });
 	});
@@ -807,6 +814,9 @@ function onlyOne(name){
 	App.startPageLoading({animate: !0});//开启 加载 动画
 	search = name;
 	jQuery("#search").val(name);
+	jQuery("#searchImg").attr("class","icon-close");
+	jQuery("#searchImg").css("cursor","pointer");
+	jQuery("#searchImg").attr("onclick","clearSearch()");
 	ajaxRefreshPage();
 	
 }
@@ -817,33 +827,33 @@ function changeDataType(type,domain_Id){
 	if(type=="all"){
 		if(dataType.indexOf("domainRegion")>=0){
 			dataType = "domainRegion";
-			jQuery("#ifsearch").hide();
+			jQuery("#search").attr("disabled","disabled");
 		}else{
 			dataType = "domain";
-			jQuery("#ifsearch").show();
+			jQuery("#search").attr("disabled",false);
 		}
 	}else if(type=="Ad"){
 		if(dataType.indexOf("domainRegion")>=0){
 			dataType = "domainRegionAd";
-			jQuery("#ifsearch").hide();
+			jQuery("#search").attr("disabled","disabled");
 		}else{
 			dataType = "domainAd";
-			jQuery("#ifsearch").show();
+			jQuery("#search").attr("disabled",false);
 		}
 	}else if(type=="NotAd"){
 		if(dataType.indexOf("domainRegion")>=0){
 			dataType = "domainRegionNotAd";
-			jQuery("#ifsearch").hide();
+			jQuery("#search").attr("disabled","disabled");
 		}else{
 			dataType = "domainNotAd";
-			jQuery("#ifsearch").show();
+			jQuery("#search").attr("disabled",false);
 		}
 	}else{
 		if(type.indexOf("domainRegion")>=0){
 			domainId = domain_Id;
-			jQuery("#ifsearch").hide();
+			jQuery("#search").attr("disabled","disabled");
 		}else if(type.indexOf("domain")>=0){
-			jQuery("#ifsearch").show();
+			jQuery("#search").attr("disabled",false);
 		}
 		
 		dataType = type;
@@ -987,6 +997,17 @@ function changeDisplay(a,data){
 			  });  
 	  }
 	 
+}
+/** 清空搜索框 **/
+function clearSearch(){
+	clearTimeout(t);
+	App.startPageLoading({animate: !0});//开启 加载 动画
+	search = "";
+	jQuery("#search").val("");
+	jQuery("#searchImg").attr("class","icon-magnifier");
+	jQuery("#searchImg").css("cursor","auto");
+	jQuery("#searchImg").attr("onclick","");
+	ajaxRefreshPage();
 }
 </script>
 
