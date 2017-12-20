@@ -351,10 +351,12 @@ table.dataTable{
 		var d4 = [];
 		var d5 = [];
 		var d6 = '';
+		var d7 = [];
 		$.each(data1, function (index, item) {
 	        d1.push(item.date);
 	        d2.push(item.adip);
 	        d3.push(item.pv);
+	        d7.push(item.uv);
 	    });
 		$.each(data2, function (index, item) {
 	        d4.push(item.notadip);
@@ -364,7 +366,7 @@ table.dataTable{
 		myChart.on('click', function (params) {
 			console.log("date: "+params.name);
 			byClickLoadTableData(params.name);
-			console.log("请求完成--");
+			console.log("--request success--");
 		});
 		myChart.setOption({
 	   	      tooltip : {
@@ -381,7 +383,7 @@ table.dataTable{
 	   	              type : 'shadow'      
 	   	          }
 	   	      },
-	   	      color:['#2db7d2','#2492a8','red'], 
+	   	      color:['#2db7d2','#2492a8','blue','red'], 
 	   	      legend: {
 	   	    	  x : '5.5%',
 	   	    	  y : '85%', 
@@ -396,6 +398,10 @@ table.dataTable{
 	                  name:'非广告IP',
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
+	              },{
+	                  name:'UV',
+	                  icon : 'line',
+	                  textStyle:{}
 	              },{
 	                  name:'PV',
 	                  icon : 'line',
@@ -459,6 +465,13 @@ table.dataTable{
 	   	              data:d4
 	   	          },
 	   	          {
+	   	              name:'UV',
+	   	              type:'line',
+	   	              yAxisIndex: 1,
+	   	         	  stack: 'UV',
+	   	              data:d7
+	   	          },
+	   	          {
 	   	              name:'PV',
 	   	              type:'line',
 	   	              yAxisIndex: 1,
@@ -471,16 +484,16 @@ table.dataTable{
 
 
 var dataType = '${dataType}';//页面数据类型
+var clickDate1 = '${lasttime}';//页面数据类型
 var domainId = "";//域名ID
 var stClick = false;
 var cClick = false;
 var sClick = false;
 var mClick = false;
 
-function loadAreaHistryData(url) {
-	//alert("进来了！！！");
+function loadAreaHistryData() {
 	jQuery.ajax({
-		url : url ,
+		url : "${pageContext.request.contextPath}/clickLoadHistryData.do?dataType="+'domain'+"&clickDate="+clickDate ,
 		success : function(data) {
 			if (data!=null) {
 				var json = eval('(' + data + ')');
@@ -787,7 +800,7 @@ var initTable1 = function () {
 			}else if(json.dataType=="domainRegion"){
 				SUMIP = "地域独立IP数";
 				SUMPV = "地域访问量";
-				firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
+				firstTh = "地域  <a style='color: #333;' onclick='loadAreaHistryData()'><i class='icon-action-undo'></i></a>";
 			}else if(dataType=="domainRegionAd"){
 				SUMIP = "地域广告入口独立IP数";
 				SUMPV = "地域广告入口访问量";
