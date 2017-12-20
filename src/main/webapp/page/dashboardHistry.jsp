@@ -480,7 +480,7 @@ function openMenu(a,event){
 	
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
-	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
 	jQuery("#oneTime2").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
 	jQuery("#oneTime3").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
 	//jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"')");
