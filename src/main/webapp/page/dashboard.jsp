@@ -91,7 +91,7 @@ thead th {
     padding-left:  0px !important;
     border-bottom: none !important;
 }
-.dataTables_scrollBody tbody td {
+ tbody td {
     padding: 0px 0px !important;
     text-align: left;
     line-height: 35.2px;
@@ -519,26 +519,43 @@ var initTable1 = function () {
 					var tr = "";
 				    var tr2 = "";
 				    if(dataType=="domain"){
-				    	firstTd ="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></td>";
+				    	firstTd ="<td title='"+item[24]+"'><span class='tdonly'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></span></td>";
 				    }else if(dataType=="domainAd"){
-				    	firstTd ="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></td>";
+				    	firstTd ="<td title='"+item[24]+"'><span class='tdonly'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></span></td>";
 				    }else if(dataType=="domainNotAd"){
-				    	firstTd ="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></td>";
+				    	firstTd ="<td title='"+item[24]+"'><span class='tdonly'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></span></td>";
 				    }else if(dataType=="domainRegion"){
-				    	firstTd ="<td style='min-width: 140px;'  >"+item[23]+"</td>";
+				    	firstTd ="<td><span class='tdonly'>"+item[23]+"</span></td>";
 				    }else if(dataType=="domainRegionAd"){
-				    	firstTd ="<td style='min-width: 140px;'  >"+item[23]+"</td>";
+				    	firstTd ="<td><span class='tdonly'>"+item[23]+"</span></td>";
 				    }else if(dataType=="domainRegionNotAd"){
-				    	firstTd ="<td style='min-width: 140px;'  >"+item[23]+"</td>";
+				    	firstTd ="<td><span class='tdonly'>"+item[23]+"</span></td>";
 				    }
-				    
+				    var sumip = 1;
+				    var sumpv = 1;
+				    var sumuv = 1;
+				    if(dataType=="domain"){
+				    	sumip = json.siteStat.ip>0 ? json.siteStat.ip : 1;
+				    	sumpv = json.siteStat.pv>0 ? json.siteStat.pv : 1;
+				    	sumuv = json.siteStat.uv>0 ? json.siteStat.uv : 1;
+				    }else if(dataType=="domainAd"){
+				    	sumip = json.siteStat.adIP>0 ? json.siteStat.adIP : 1;
+				    	sumpv = json.siteStat.adPv>0 ? json.siteStat.adPv : 1;
+				    	sumuv = json.siteStat.aduv>0 ? json.siteStat.aduv : 1;
+				    }else if(dataType=="domainNotAd"){
+				    	sumip = json.siteStat.ip-json.siteStat.adIP>0 ? json.siteStat.ip-json.siteStat.adIP : 1;
+				    	sumpv = json.siteStat.pv-json.siteStat.adPv>0 ? json.siteStat.pv-json.siteStat.adPv : 1;
+				    	sumuv = json.siteStat.uv-json.siteStat.aduv>0 ? json.siteStat.uv-json.siteStat.aduv : 1;
+				    }
 				    var sumST = item[7]+item[8]+item[9]+item[10];
 				    var sumC = item[11]+item[12]+item[13]+item[14];
 				    var sumS = item[15]+item[16]+item[17]+item[18];
 				    var sumM = item[19]+item[20]+item[21]+item[22];
 				    var IP = item[0];
 				    if(IP<=0)IP = 1;
-				    
+				    var ipTd = "";//ip
+				    var pvTd = "";//pv
+				    var uvTd = "";//uv
 				    var olduserTd = "";//老用户
 				    var oldipTd = "";//老ip
 				    var loginTd = "";//登录用户
@@ -563,7 +580,24 @@ var initTable1 = function () {
 				    var m2Td = "";//2区间
 				    var m3Td = "";//3区间
 				    var m4Td = "";//4区间
-				    
+				    if(Percentagemin(item[0],sumip)<1){
+				    	ipTd = "<td title='"+Percentage(item[0],sumip)+"'><span class='tdonly'>"+item[0]+"</span></td>";
+				    }else{
+				    	ipTd = "<td title='"+Percentage(item[0],sumip)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[0],sumip)+" '>"+
+					  	"<span class='only'> "+item[0]+" </span></div></div></td>";
+				    }
+				    if(Percentagemin(item[1],sumpv)<1){
+				    	pvTd = "<td title='"+Percentage(item[1],sumpv)+"'><span class='tdonly'>"+item[1]+"</span></td>";
+				    }else{
+				    	pvTd = "<td title='"+Percentage(item[1],sumpv)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[1],sumpv)+" '>"+
+					  	"<span class='only'> "+item[1]+" </span></div></div></td>";
+				    }
+				    if(Percentagemin(item[2],sumuv)<1){
+				    	uvTd = "<td title='"+Percentage(item[2],sumuv)+"'><span class='tdonly'>"+item[2]+"</span></td>";
+				    }else{
+				    	uvTd = "<td title='"+Percentage(item[2],sumuv)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[2],sumuv)+" '>"+
+					  	"<span class='only'> "+item[2]+" </span></div></div></td>";
+				    }
 				    
 				    if(Percentagemin(item[3],IP)<1){
 				    	olduserTd = "<td title='"+Percentage(item[3],IP)+"'><span class='tdonly'>"+item[3]+"</span></td>";
@@ -710,10 +744,9 @@ var initTable1 = function () {
 					  	"<span class='only'> "+item[22]+" </span></div></div></td>";
 				    }
 				    
-			  		tr+="<tr num='"+i+"' style='heigth:35.2px;'>" + firstTd+
-					  "<td>"+IP+"</td>"+
-					  "<td><span class='tdonly'>"+item[1]+"</span></td>"+
-					  "<td><span class='tdonly'>"+item[2]+"</span></td>"+ olduserTd+oldipTd+loginTd+targetTd+
+			  		tr+="<tr num='"+i+"'>" + firstTd+
+			  		  ipTd+pvTd+uvTd+ 
+					  olduserTd+oldipTd+loginTd+targetTd+
 					  sumSTTd+st1Td+st2Td+st3Td+st4Td+
 					  sumCTd+c1Td+c2Td+c3Td+c4Td+
 					  sumSTd+s1Td+s2Td+s3Td+s4Td+
@@ -722,7 +755,7 @@ var initTable1 = function () {
 					  table+=tr;
 				  if(num==2){
 					  tr2+="<tr>"+firstTd+
-					  "<td style='min-width: 70px'>"+IP+"</td>"+
+					  ipTd+
 						"</tr>";
 					lefttable+=tr2;
 				  }

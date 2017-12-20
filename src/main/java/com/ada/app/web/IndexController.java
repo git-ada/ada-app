@@ -134,6 +134,7 @@ public class IndexController {
 				Map map = new HashMap();
 				map.put("data_list", data_list);
 				map.put("dataType", dataType);
+				map.put("siteStat", siteStat);
 				JSONObject json  = new JSONObject(map);
 				model.addAttribute("tbodydata", json);
 			}else if("domainAd".equals(dataType)){
@@ -178,12 +179,10 @@ public class IndexController {
 		/** 获取当前站点统计信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();
 		Date today = Dates.todayStart();
-		
+		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
+		json.put("siteStat", siteStat);
 		if(dataType!=null){
-			AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
-			json.put("siteStat", siteStat);
-			json.put("sumip", siteStat.getIp());
-			json.put("sumpv", siteStat.getPv());
+			
 			if("domain".equals(dataType)){/** 获取域名统计信息 **/
 				Map map = getDomainStat_list(today,firstTd,ipTop);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("DomainStat_list");
