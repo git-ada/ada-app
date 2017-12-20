@@ -199,14 +199,17 @@ public class IndexController {
 				Map map = getDomainRegion(today,Integer.valueOf(domainId),null);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
 				json.put("data_list", data_list);
+				json.put("domainStat", map.get("domainStat"));
 			}else if("domainRegionAd".equals(dataType)){/** 获取域名地域广告入口统计信息 **/
 				Map map = getDomainRegionAd_data(today,Integer.valueOf(domainId),null);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
 				json.put("data_list", data_list);
+				json.put("domainAdStat", map.get("domainAdStat"));
 			}else if("domainRegionNotAd".equals(dataType)){/** 获取域名地域非广告入口统计信息 **/
 				Map map = getDomainRegionNotAd_data(today,Integer.valueOf(domainId),null);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
 				json.put("data_list", data_list);
+				json.put("domainNotAdStat", map.get("domainNotAdStat"));
 			}
 		}
 		json.put("dataType", dataType);
