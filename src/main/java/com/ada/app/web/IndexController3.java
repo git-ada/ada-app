@@ -1280,7 +1280,7 @@ public class IndexController3 {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>50){
+			 if(domainIp!=null && domainIp>100){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1339,7 +1339,7 @@ public class IndexController3 {
 		 for(AdaDomain domain : domains){
 //			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
 			 Integer domainIp = domainStatDao.findByDateLoadIp(domain.getId(), date);
-			 if(domainIp!=null && domainIp>50){
+			 if(domainIp!=null && domainIp>100){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1529,7 +1529,7 @@ public class IndexController3 {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>50){
+			 if(domainIp!=null && domainIp>100){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1583,7 +1583,7 @@ public class IndexController3 {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainNotAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>50){
+			 if(domainIp!=null && domainIp>100){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
