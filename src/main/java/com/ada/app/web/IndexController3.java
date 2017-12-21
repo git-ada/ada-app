@@ -1,14 +1,8 @@
 package com.ada.app.web;
 
-import java.beans.PropertyDescriptor;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Method;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -16,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,7 +18,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +27,6 @@ import cn.com.jiand.mvc.framework.utils.Dates;
 import com.ada.app.bean.BaseStat;
 import com.ada.app.bean.BaseStatBean;
 import com.ada.app.bean.DomainAreaStat;
-import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
 import com.ada.app.dao.AdaDomainAdStatDao;
 import com.ada.app.dao.AdaDomainDao;
@@ -43,8 +36,6 @@ import com.ada.app.dao.AdaDomainStatDao;
 import com.ada.app.dao.AdaRegionStatDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaSiteStatDao;
-import com.ada.app.domain.AdaChannel;
-import com.ada.app.domain.AdaChannelStat;
 import com.ada.app.domain.AdaDomain;
 import com.ada.app.domain.AdaDomainAd15mStat;
 import com.ada.app.domain.AdaDomainAdStat;
@@ -54,8 +45,6 @@ import com.ada.app.domain.AdaDomainStat;
 import com.ada.app.domain.AdaRegionStat;
 import com.ada.app.domain.AdaSite;
 import com.ada.app.domain.AdaSiteStat;
-import com.ada.app.service.AdaChannelStatService;
-import com.ada.app.service.SecurityService;
 import com.ada.app.service.StatService;
 import com.ada.app.util.Sessions;
 import com.alibaba.fastjson.JSONArray;
@@ -199,9 +188,9 @@ public class IndexController3 {
 		AdaSite adaSite = Sessions.getCurrentSite();
 		
 		/** 获取当前站点默认历史统计信息 **/
-		Date date = Dates.yestoday();
-//		SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd");
-//		Date date = dfs.parse(dfs.format(yestoday));
+		Date yestoday = Dates.yestoday();
+		SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd");
+		String date = dfs.format(yestoday);
 	
 		//默认加载昨天的历史数据
 		if(dataType!=null){
@@ -219,30 +208,10 @@ public class IndexController3 {
 				//System.out.println("历史 json : "+json);
 				//model.addAttribute("sumip", siteStat.getIp());
 				//model.addAttribute("sumpv", siteStat.getPv());
-			}else if("domainAd".equals(dataType)){
-				Map map = getDomainAdData(date);
-				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
-				Map map2 = new HashMap();
-				map2.put("data_list", data_list);
-				map2.put("dataType", dataType);
-				JSONObject json  = new JSONObject(map2);
-				model.addAttribute("tbodydata", json);
-				//model.addAttribute("sumip", map.get("sumip"));
-				//model.addAttribute("sumpv", map.get("sumpv"));
-			}else if("domainNotAd".equals(dataType)){
-				Map map = getDomainNotAdData(date);
-				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
-				Map map2 = new HashMap();
-				map2.put("data_list", data_list);
-				map2.put("dataType", dataType);
-				JSONObject json  = new JSONObject(map2);
-				model.addAttribute("tbodydata", json);
-				//model.addAttribute("sumip", map.get("sumip"));
-				//model.addAttribute("sumpv", map.get("sumpv"));
 			}
 				
 		}
-		model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd").format(date)); 
+		model.addAttribute("lasttime", date); 
 		model.addAttribute("dataType", dataType);
 		
 		
@@ -369,13 +338,13 @@ public class IndexController3 {
 		/** 从sessions中获取站点信息 **/ 
 		AdaSite adaSite = Sessions.getCurrentSite();
 		//点击加载历史数据
-		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(clickDate);
+//		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(clickDate);
 		//System.out.println("clickDate : "+date);
 //		if(dataType!=null){
 //			if("domain".equals(dataType)){
 				//AdaSiteStat siteStat = statService.statSite(adaSite.getId(), date);
 				/** 获取站点下域名统计信息 **/
-				Map sumMap = getDomainStat_histryList(date);
+				Map sumMap = getDomainStat_histryList(clickDate);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				Map map = new HashMap();
 				map.put("data_list", data_list);
@@ -1286,7 +1255,7 @@ public class IndexController3 {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>100){
+			 if(domainIp!=null && domainIp>0){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1330,59 +1299,40 @@ public class IndexController3 {
 	
 	
 	/** 域名统计历史信息 **/
-	protected Map getDomainStat_histryList(Date date){
+	protected Map getDomainStat_histryList(String date){
 		/** 从sessions中获取站点信息 **/
 		 AdaSite adaSite = Sessions.getCurrentSite();
 		 /** 域名列表信息 **/
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
-		 
-//		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
-		 //Integer domainSumIP = 0;/** ip总数 **/
-		 //Integer domainSumPV = 0;/** PV总数 **/
-		 
-		 List<Integer[]> domainIps = new ArrayList();
-		 
+		 System.out.println("date:--> "+date);
 		 List<AdaDomainStat> domainStats = domainStatDao.findByDateLoadData(adaSite.getId(), date);
-		 for(AdaDomainStat domainStat : domainStats){
-		     domainIps.add(new Integer[]{domainStat.getDomainId(),domainStat.getIp()});
-		     
+		 log.info("--------------- start --------------------");
+		 Long startTime = System.currentTimeMillis();
+			
+		 if(domainStats!=null && domainStats.size()>0){
+			 for(AdaDomainStat domainStat : domainStats){
+				 List<Object> list = new ArrayList();
+				 list=getList(domainStat);
+				 list.add(domainStat.getDomainId());
+				 list.add(domainStat.getDomainName());
+				 
+				 String domain = domainStat.getDomain().getDomain();
+				 if(domain.length()>18){
+					 list.add(domain.substring(0, 18));
+				 }else{
+					 list.add(domain);
+				 }
+				 DomainStat_list.add(list);
+				 
+			 }
 		 }
 		 
-		 /** 根据ip数排序 **/
-		 Collections.sort(domainIps,new Comparator<Integer[]>(){
-				public int compare(Integer[] int1, Integer[] int2) {
-					Integer integer = (Integer) int1[1];
-					Integer integer2 = (Integer) int2[1];
-					return integer2.compareTo(integer);
-				}
-	     });
+		 Long endTime = System.currentTimeMillis();
+		 Long cost = endTime - startTime;
+		 log.info("--------------- end ------------------耗时："+cost+"ms");
 		 
-		 for(AdaDomainStat domainStat : domainStats){
-			 for(int i=0;i<domainIps.size();i++){
-				Integer domainId = domainIps.get(i)[0];
-//				AdaDomainStat domainStat = domainStatDao.findByDateLoadData(adaSite.getId(), domainId, date);
-			    
-				List<Object> list = getList(domainStat);
-				list.add(domainId);
-				
-				String domainstr = adaDomainDao.findById(domainStat.getDomainId()).getDomain();
-				list.add(domainstr);
-				if(domainstr.length()>18){
-					 list.add(domainstr.substring(0, 18));
-				}else{
-					 list.add(domainstr);
-				}
-				
-				//domainSumIP+=domainStat.getIp();
-				//domainSumPV+=domainStat.getPv();
-				DomainStat_list.add(list);
-			}
-		 }
-	     
 		 Map map = new HashMap();
 		 map.put("DomainStat_list", DomainStat_list);
-		 //map.put("domainSumIP", domainSumIP);
-		 //map.put("domainSumPV", domainSumPV);
 		 
 		 return map;
 	}
@@ -1534,7 +1484,7 @@ public class IndexController3 {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>100){
+			 if(domainIp!=null && domainIp>0){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1588,7 +1538,7 @@ public class IndexController3 {
 		 
 		 for(AdaDomain domain : domains){
 			 Integer domainIp = statService.statDomainNotAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>100){
+			 if(domainIp!=null && domainIp>0){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
@@ -1608,8 +1558,8 @@ public class IndexController3 {
 			AdaDomainStat newall = statService.statDomain(adaSite.getId(), domainId, date);//全部新数据
 			AdaDomainNotadStat domainStat = reduct(newall, newad, AdaDomainNotadStat.class);//非广告入口新数据=全部-非广告的
 			List<Object> list = getList(domainStat);
-			list.add(domainId);
-			String domainstr = adaDomainDao.findById(domainId).getDomain();
+			
+			 String domainstr = adaDomainDao.findById(domainId).getDomain();
 			 list.add(domainstr);
 			 if(domainstr.length()>18){
 				 list.add(domainstr.substring(0, 18));

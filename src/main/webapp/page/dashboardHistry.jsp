@@ -372,8 +372,12 @@ table.dataTable{
 
 		var myChart = echarts.init(document.getElementById(divid));
 		myChart.on('click', function (params) {
-			//console.log("date: "+params.name);
+			console.log("date: "+params.name);
+			console.log("----byClickLoadTableData 开始----");
+			var t1 = new Date();
 			byClickLoadTableData(params.name);
+			var t2 = new Date()- t1;
+			console.log("----byClickLoadTableData 结束----"+ t2);
 		});
 		myChart.setOption({
 	   	      tooltip : {
@@ -652,9 +656,14 @@ var initTable1 = function () {
 }
 /**--------------预加载-------------------- **/
 	jQuery(document).ready(function() {
+		console.log("历史页面进来了！！！");
 		var tbodydata = '${tbodydata}';
 		var json = eval('(' + tbodydata + ')');
+		console.log("----js开始渲染tbody----");
+		var t1 = new Date();
 		loadHistryDataTbody(json,1);
+		var t2 = new Date() - t1;
+		console.log("----js结束渲染tbody----耗时："+t2);
 		var histryData = '${histryJson}';
 		var json2 = eval('(' + histryData + ')');
 		histryChart("ad_chart_1", json2.ad_chart_1,json2.notad_chart_1);
@@ -780,7 +789,7 @@ var initTable1 = function () {
 	 
 	 /** js渲染tbody **/
 	 function loadHistryDataTbody(json,num){
-		 //console.log("----js渲染tbody----");
+		 console.log("----js渲染tbody----");
 		 domainId = json.domainId;//域名ID
 			var table = "";
 			var lefttable = "";

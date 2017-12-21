@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -31,7 +32,7 @@ public class AdaDomainStat extends AbstractEntity<Integer> implements BaseStat{
     /** 站点ID */
 	private Integer siteId;                    
     /** 渠道ID */
-	private Integer domainId;                    
+	private Integer domainId;
     /** IP */
 	private Integer ip;                    
     /** PV */
@@ -82,6 +83,10 @@ public class AdaDomainStat extends AbstractEntity<Integer> implements BaseStat{
 	private Integer loginip;
 	/** UV*/
 	private Integer uv;
+	
+	private String domainName;
+	
+	
 	
 	public AdaDomainStat() {
 		super();
@@ -431,6 +436,15 @@ public class AdaDomainStat extends AbstractEntity<Integer> implements BaseStat{
 
 	public void setUv(Integer uv) {
 		this.uv = uv;
+	}
+
+	@Transient
+	public String getDomainName() {
+		return domainName;
+	}
+
+	public void setDomainName(String domainName) {
+		this.domainName = domainName;
 	}
 	
 }
