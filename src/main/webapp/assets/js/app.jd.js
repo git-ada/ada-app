@@ -32,9 +32,10 @@ $(document).ready(function(){
 /**
  * 跳转页面
  */
-var gotoPage = function(url){
-	
-	console.log("gotoPage->"+url);
+var gotoPage = function(url,backurl){
+	if(backurl !=null && backurl != undefined){
+		browsingHistory[browsingHistory.length-1] = backurl;
+	}
 	
 	/** 首次记录 **/
 	if(browsingHistory.length==0){
