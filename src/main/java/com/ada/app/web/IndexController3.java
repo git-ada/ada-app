@@ -1346,18 +1346,10 @@ public class IndexController3 {
 		 log.info("----start findByDateLoadIp()-----");
 		 Long startTime6 = System.currentTimeMillis();
 		 for(AdaDomain domain : domains){
-			 log.info("----start findByDateLoadIp()-----");
-			 Long startTime11 = System.currentTimeMillis();
-			 
-			 Integer domainIp = domainStatDao.findByDateLoadIp(adaSite.getId(),domain.getId(), date);
-			 
-			 Long endTime11 = System.currentTimeMillis();
-			 Long cost11 = endTime11- startTime11;
-			 log.info("----end   findByDateLoadIp()-----"+cost11+"ms");
-			 
-			 if(domainIp!=null && domainIp>100){
-				 domainIps.add(new Integer[]{domain.getId(),domainIp});
-			 }
+			 Integer domainIp = domainStatDao.findByDateLoadIp(domain.getId(), date);
+//			 if(domainIp!=null && domainIp>100){
+			 domainIps.add(new Integer[]{domain.getId(),domainIp});
+//			 }
 		 }
 		 Long endTime6 = System.currentTimeMillis();
 		 Long cost6 = endTime6- startTime6;
