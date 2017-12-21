@@ -501,7 +501,7 @@ var initTable1 = function () {
 	 }
 /** js渲染tbody **/
 function loadTbody(json,num){
-	 if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh && (json.timestamp==null || timestamp==json.timestamp)){
+	 if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh ){
 		// domainId = json.domainId;//域名ID
 			var table = "";
 			var lefttable = "";
@@ -804,7 +804,7 @@ function loadTbody(json,num){
 			if(num==1){
 				jQuery("#tbody").empty();
 				jQuery("#tbody").append(table);
-			}else if(num==2){
+			}else if(num==2 && timestamp==json.timestamp){
 				jQuery("#ip").html(json.siteStat.ip);
 				jQuery("#pv").html(json.siteStat.pv);
 				jQuery("#adIP").html(json.siteStat.adIP);
