@@ -203,10 +203,10 @@ public class IndexController3 {
 		//默认加载昨天的历史数据
 		if(dataType!=null){
 			if("domain".equals(dataType)){
-				AdaSiteStat siteStat = statService.statSite(adaSite.getId(), date);
+//				AdaSiteStat siteStat = statService.statSite(adaSite.getId(), date);
 				/** 获取站点下域名统计信息 **/
-				Map sumMap = getDomainStat_list(date);
-//				Map sumMap = getDomainStat_histryList(date);
+//				Map sumMap = getDomainStat_list(date);
+				Map sumMap = getDomainStat_histryList(date);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				Map map = new HashMap();
 				map.put("data_list", data_list);
@@ -305,7 +305,7 @@ public class IndexController3 {
 		
 		if(dataType!=null){
 			if("domain".equals(dataType)){/** 获取域名统计信息 **/
-				AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
+//				AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
 				Map map = getDomainStat_list(today);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("DomainStat_list");
 				json.put("data_list", data_list);

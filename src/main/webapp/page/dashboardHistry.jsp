@@ -136,6 +136,7 @@ table.dataTable{
     padding: 6px 0 0px;
     height: 35px;
     
+    
 }
 .portlet.light {
     padding: 0px 10px 2px;
@@ -145,6 +146,8 @@ table.dataTable{
 .portlet-title {
     padding-left: 10px !important;
 }
+
+
 
 
 </style>
@@ -342,7 +345,7 @@ table.dataTable{
 			success : function(data) {
 				if (data!=null) {
 					var json = eval('(' + data + ')');
-					loadTbody(json,2);
+					loadHistryDataTbody(json,2);
 				}
 			},
 			error: function (data) {
@@ -507,7 +510,7 @@ function loadAreaHistryData() {
 		success : function(data) {
 			if (data!=null) {
 				var json = eval('(' + data + ')');
-				loadTbody(json,2);
+				loadHistryDataTbody(json,2);
 			}
 		},
 		error: function (data) {
@@ -656,7 +659,7 @@ var initTable1 = function () {
 		//alert("进来了！！！");
 		var tbodydata = '${tbodydata}';
 		var json = eval('(' + tbodydata + ')');
-		loadTbody(json,1);
+		loadHistryDataTbody(json,1);
 		
 		var histryData = '${histryJson}';
 		var json2 = eval('(' + histryData + ')');
@@ -751,7 +754,7 @@ var initTable1 = function () {
 		}
 	} 
 	 
-	 var ajaxTime = 2000;
+	 //var ajaxTime = 2000;
 	 //第一次异步刷新
 	 //t = window.setTimeout("ajaxRefreshPages('"+dataType+"')",ajaxTime); 
 	 
@@ -763,7 +766,7 @@ var initTable1 = function () {
 					if (data!=null) {
 						//alert("=========")
 						var json = eval('(' + data + ')');
-						loadTbody(json,2);
+						loadHistryDataTbody(json,2);
 					
 					}
 					//clearTimeout(t);
@@ -775,15 +778,15 @@ var initTable1 = function () {
 				},
 				error: function (data) {
 					App.stopPageLoading();//关闭 加载动画
-					clearTimeout(t);
-					ajaxTime=ajaxTime*2;
-					t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
+					//clearTimeout(t);
+					//ajaxTime=ajaxTime*2;
+					//t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
 				}
 			});
 	 }
 	 
 	 /** js渲染tbody **/
-	 function loadTbody(json,num){
+	 function loadHistryDataTbody(json,num){
 		 domainId = json.domainId;//域名ID
 			var table = "";
 			var lefttable = "";
