@@ -178,7 +178,7 @@ public class IndexController {
 	 */
 	@RequestMapping("ajaxRefreshPage")
 	public void ajaxRefreshPage(HttpServletRequest request,HttpServletResponse response ,Model model,
-			String dataType,String domainId,String firstTd,String top){
+			String dataType,String domainId,String firstTd,String top,String timestamp){
 		//log.info("城市名称----------》"+firstTd);
 		JSONObject json=new JSONObject();
 		int ipTop = 0;
@@ -227,6 +227,7 @@ public class IndexController {
 		json.put("dataType", dataType);
 		json.put("domainId", domainId);
 		json.put("lasttime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		json.put("timestamp", timestamp);
 		 try {
 				response.setContentType("text/html;charset=utf-8");
 				PrintWriter out = response.getWriter();

@@ -362,7 +362,7 @@ var cClick = false;
 var sClick = false;
 var mClick = false;
 var ipTop = '${ipTop}';// 总ip TOP
- 
+var timestamp = "";//时间戳
 
 var t;
 var isRefresh = true;
@@ -473,9 +473,10 @@ var initTable1 = function () {
 	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
 	  
 	 function ajaxRefreshPage(){
+		 timestamp = Date.parse(new Date());
 		 jQuery.ajax({
 			 	type:"post",
-				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId+"&firstTd="+search+"&top="+ipTop,
+				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId+"&firstTd="+search+"&top="+ipTop+"&timestamp="+timestamp,
 				success : function(data) {
 					
 					if (data!=null) {
@@ -498,8 +499,9 @@ var initTable1 = function () {
 				}
 			});
 	 }
-	 /** js渲染tbody **/
-	 function loadTbody(json,num){
+/** js渲染tbody **/
+function loadTbody(json,num){
+	 if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh && (json.timestamp==null || timestamp==json.timestamp)){
 		// domainId = json.domainId;//域名ID
 			var table = "";
 			var lefttable = "";
@@ -798,26 +800,26 @@ var initTable1 = function () {
 				  }
 				}
 			}
-			if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh){
-				if(num==1){
-					jQuery("#tbody").empty();
-					jQuery("#tbody").append(table);
-				}else if(num==2){
-					jQuery("#ip").html(json.siteStat.ip);
-					jQuery("#pv").html(json.siteStat.pv);
-					jQuery("#adIP").html(json.siteStat.adIP);
-					jQuery("#adPv").html(json.siteStat.adPv);
-					jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
-					jQuery("#tbody").empty();
-					jQuery("#tbody").append(table);
-					jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
-					jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable);
-					jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
-				}
-				
-				
+			
+			if(num==1){
+				jQuery("#tbody").empty();
+				jQuery("#tbody").append(table);
+			}else if(num==2){
+				jQuery("#ip").html(json.siteStat.ip);
+				jQuery("#pv").html(json.siteStat.pv);
+				jQuery("#adIP").html(json.siteStat.adIP);
+				jQuery("#adPv").html(json.siteStat.adPv);
+				jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
+				jQuery("#tbody").empty();
+				jQuery("#tbody").append(table);
+				jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
+				jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable);
+				jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
 			}
-	 }
+			
+			
+		}
+}
 	 
 //单独查看
 function onlyOne(name){
@@ -958,9 +960,10 @@ function PercentageMax(num, total){
 /**------  改变top值  ------**/
 function changeTop(a,num){
 	isRefresh = false;
+	clearTimeout(t);
 	jQuery("#topul li").removeClass("active");
 	jQuery(a).addClass("active");
-	clearTimeout(t);
+	
 	App.startPageLoading({animate: !0});//开启 加载 动画
 	if(num==50){
 		jQuery("#top").html(" TOP "+num +"&nbsp;&nbsp;");
