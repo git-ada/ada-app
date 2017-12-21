@@ -1336,7 +1336,7 @@ public class IndexController3 {
 		 /** 域名列表信息 **/
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
 		 
-		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
+//		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
 		 
 		 Integer domainSumIP = 0;/** ip总数 **/
 		 Integer domainSumPV = 0;/** PV总数 **/
@@ -1345,12 +1345,18 @@ public class IndexController3 {
 		 
 		 log.info("----start findByDateLoadIp()-----");
 		 Long startTime6 = System.currentTimeMillis();
-		 for(AdaDomain domain : domains){
-			 Integer domainIp = domainStatDao.findByDateLoadIp(domain.getId(), date);
-//			 if(domainIp!=null && domainIp>100){
-			 domainIps.add(new Integer[]{domain.getId(),domainIp});
-//			 }
+		 
+		 List<AdaDomainStat> domainStats = domainStatDao.findByDateLoadIp(adaSite.getId(), date);
+		 for(AdaDomainStat domainStat : domainStats){
+		     domainIps.add(new Integer[]{domainStat.getDomainId(),domainStat.getIp()});
 		 }
+		 
+//		 for(AdaDomain domain : domains){
+//			 Integer domainIp = domainStatDao.findByDateLoadIp(domain.getId(), date);
+//			 if(domainIp!=null && domainIp>100){
+//			 domainIps.add(new Integer[]{domain.getId(),domainIp});
+//			 }
+//		 }
 		 Long endTime6 = System.currentTimeMillis();
 		 Long cost6 = endTime6- startTime6;
 		 log.info("----end   findByDateLoadIp()-----"+cost6+"ms");
