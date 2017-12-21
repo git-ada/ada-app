@@ -1331,10 +1331,13 @@ public class IndexController3 {
 	
 	/** 域名统计历史信息 **/
 	protected Map getDomainStat_histryList(Date date){
+		log.info("----start getDomainStat_histryList()-----");
+		 Long startTime3 = System.currentTimeMillis();
 		/** 从sessions中获取站点信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();
 		 /** 域名列表信息 **/
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
+		 
 		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
 		 
 		 Integer domainSumIP = 0;/** ip总数 **/
@@ -1350,6 +1353,8 @@ public class IndexController3 {
 			 }
 		 }
 		 
+		 log.info("----start Collections.sort-----");
+		 Long startTime = System.currentTimeMillis();
 		 /** 根据ip数排序 **/
 		 Collections.sort(domainIps,new Comparator<Integer[]>(){
 				public int compare(Integer[] int1, Integer[] int2) {
@@ -1358,12 +1363,22 @@ public class IndexController3 {
 					return integer2.compareTo(integer);
 				}
 	     });
+		 Long endTime = System.currentTimeMillis();
+		 Long cost = endTime - startTime;
+		 log.info("----end Collections.sort-----"+cost+"ms");
 		 
 		 for(int i=0;i<domainIps.size();i++){
 			Integer domainId = domainIps.get(i)[0];
 //			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
+			log.info("----start findByDateLoadData()-----");
+			
+			 Long startTime2 = System.currentTimeMillis();
 			AdaDomainStat domainStat = domainStatDao.findByDateLoadData(adaSite.getId(), domainId, date);
-			//Map map = getMap(domainStat);
+			
+			Long endTime2 = System.currentTimeMillis();
+			Long cost2 = endTime2 - startTime2;
+		    log.info("----end findByDateLoadData()----"+cost2+"ms");
+		    
 			List<Object> list = getList(domainStat);
 			list.add(domainId);
 			String domainstr = adaDomainDao.findById(domainStat.getDomainId()).getDomain();
@@ -1382,8 +1397,12 @@ public class IndexController3 {
 		 Map map = new HashMap();
 		
 		 map.put("DomainStat_list", DomainStat_list);
-		 map.put("domainSumIP", domainSumIP);
-		 map.put("domainSumPV", domainSumPV);
+		 //map.put("domainSumIP", domainSumIP);
+		 //map.put("domainSumPV", domainSumPV);
+		 
+		 Long endTime3 = System.currentTimeMillis();
+		 Long cost3 = endTime3 - startTime3;
+	     log.info("----end start getDomainStat_histryList()---"+cost3+"ms");
 		 
 		 return map;
 	}

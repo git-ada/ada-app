@@ -24,7 +24,10 @@ public interface AdaDomainStatDao extends EntityJpaDao<AdaDomainStat, Integer> {
     @Query(value="select ip from ada_domain_stat where domainId = ? and date = ?",nativeQuery=true)
     public Integer findByDateLoadIp(Integer domainId,Date date);
     
-    @Query(value="select * from ada_domain_stat where siteId=? and  domainId = ? and date = ?",nativeQuery=true)
+    @Query(value="select id,siteId,domainId,ip,pv,clickip1,clickip2,clickip3,clickip4,targetpageip,date,createTime," +
+    		"staytimeip1,staytimeip2,staytimeip3,staytimeip4,scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4," +
+    		"olduserip,oldip,loginip,uv  " +
+    		"from ada_domain_stat where siteId=? and  domainId = ? and date = ?",nativeQuery=true)
     public AdaDomainStat findByDateLoadData(Integer siteId,Integer domainId,Date date);
     
     /** 
