@@ -1331,45 +1331,38 @@ public class IndexController3 {
 	
 	/** 域名统计历史信息 **/
 	protected Map getDomainStat_histryList(Date date){
-		log.info("----start getDomainStat_histryList()-----");
-		 Long startTime3 = System.currentTimeMillis();
 		/** 从sessions中获取站点信息 **/
-		log.info("----start Sessions.getCurrentSite()-----");
-		 Long startTime5 = System.currentTimeMillis();
 		 AdaSite adaSite = Sessions.getCurrentSite();
-		 Long endTime5 = System.currentTimeMillis();
-		 Long cost5 = endTime5 - startTime5;
-		 log.info("----end   Sessions.getCurrentSite()-----"+cost5+"ms");
 		 /** 域名列表信息 **/
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
 		 
-		 log.info("----start findBySiteId()-----");
-		 Long startTime4 = System.currentTimeMillis();
 		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
-		 Long endTime4 = System.currentTimeMillis();
-		 Long cost4 = endTime4 - startTime4;
-		 log.info("----end   findBySiteId()-----"+cost4+"ms");
 		 
 		 Integer domainSumIP = 0;/** ip总数 **/
 		 Integer domainSumPV = 0;/** PV总数 **/
 		 
 		 List<Integer[]> domainIps = new ArrayList();
 		 
-		 log.info("----start findBySiteId()-----");
+		 log.info("----start findByDateLoadIp()-----");
 		 Long startTime6 = System.currentTimeMillis();
 		 for(AdaDomain domain : domains){
-//			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
+			 log.info("----start findByDateLoadIp()-----");
+			 Long startTime11 = System.currentTimeMillis();
+			 
 			 Integer domainIp = domainStatDao.findByDateLoadIp(adaSite.getId(),domain.getId(), date);
+			 
+			 Long endTime11 = System.currentTimeMillis();
+			 Long cost11 = endTime11- startTime11;
+			 log.info("----end   findByDateLoadIp()-----"+cost11+"ms");
+			 
 			 if(domainIp!=null && domainIp>100){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
 		 Long endTime6 = System.currentTimeMillis();
 		 Long cost6 = endTime6- startTime6;
-		 log.info("----end   findBySiteId()-----"+cost6+"ms");
+		 log.info("----end   findByDateLoadIp()-----"+cost6+"ms");
 		 
-		 log.info("----start Collections.sort-----");
-		 Long startTime = System.currentTimeMillis();
 		 /** 根据ip数排序 **/
 		 Collections.sort(domainIps,new Comparator<Integer[]>(){
 				public int compare(Integer[] int1, Integer[] int2) {
@@ -1378,15 +1371,11 @@ public class IndexController3 {
 					return integer2.compareTo(integer);
 				}
 	     });
-		 Long endTime = System.currentTimeMillis();
-		 Long cost = endTime - startTime;
-		 log.info("----end Collections.sort-----"+cost+"ms");
 		 
 		 log.info("----start findByDateLoadData()-----");
 		 Long startTime2 = System.currentTimeMillis();
 		 for(int i=0;i<domainIps.size();i++){
 			Integer domainId = domainIps.get(i)[0];
-//			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
 			AdaDomainStat domainStat = domainStatDao.findByDateLoadData(adaSite.getId(), domainId, date);
 		    
 			List<Object> list = getList(domainStat);
@@ -1412,10 +1401,6 @@ public class IndexController3 {
 		 map.put("DomainStat_list", DomainStat_list);
 		 //map.put("domainSumIP", domainSumIP);
 		 //map.put("domainSumPV", domainSumPV);
-		 
-		 Long endTime3 = System.currentTimeMillis();
-		 Long cost3 = endTime3 - startTime3;
-	     log.info("----end start getDomainStat_histryList()---"+cost3+"ms");
 		 
 		 return map;
 	}
