@@ -192,6 +192,9 @@ public class IndexController3 {
 	public String nowHistry(HttpServletRequest request,HttpServletResponse response, Model model,
 			String dataType,String clickDate) throws Exception {
 		
+		log.info("----------- 开始加载历史数据作业-----");
+		Long startTime = System.currentTimeMillis();
+		
 		/** 从sessions中获取站点信息 **/ 
 		AdaSite adaSite = Sessions.getCurrentSite();
 		
@@ -251,7 +254,10 @@ public class IndexController3 {
 //		model.addAttribute("domainId", domainId);
 //		model.addAttribute("dataType", "domain");
 //		model.addAttribute("domain", domain);
-
+		Long endTime = System.currentTimeMillis();
+		Long cost = endTime - startTime;
+		
+		log.info("加载历史数据作业用时"+cost+"ms");
 		return "dashboardHistry";
 	}
 	

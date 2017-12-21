@@ -663,6 +663,7 @@ var initTable1 = function () {
 		var t1 = new Date();
 		loadHistryDataTbody(json,1);
 		var t2 = new Date() - t1;
+		alert("----js结束渲染tbody----耗时："+t2);
 		console.log("----js结束渲染tbody----耗时："+t2);
 		var histryData = '${histryJson}';
 		var json2 = eval('(' + histryData + ')');
