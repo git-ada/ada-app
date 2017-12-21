@@ -1355,13 +1355,18 @@ public class IndexController3 {
 		 
 		 List<Integer[]> domainIps = new ArrayList();
 		 
+		 log.info("----start findBySiteId()-----");
+		 Long startTime6 = System.currentTimeMillis();
 		 for(AdaDomain domain : domains){
 //			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 Integer domainIp = domainStatDao.findByDateLoadIp(domain.getId(), date);
+			 Integer domainIp = domainStatDao.findByDateLoadIp(adaSite.getId(),domain.getId(), date);
 			 if(domainIp!=null && domainIp>100){
 				 domainIps.add(new Integer[]{domain.getId(),domainIp});
 			 }
 		 }
+		 Long endTime6 = System.currentTimeMillis();
+		 Long cost6 = endTime6- startTime6;
+		 log.info("----end   findBySiteId()-----"+cost6+"ms");
 		 
 		 log.info("----start Collections.sort-----");
 		 Long startTime = System.currentTimeMillis();
