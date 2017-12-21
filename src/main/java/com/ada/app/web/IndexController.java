@@ -347,11 +347,11 @@ public class IndexController {
 			PrintWriter out = response.getWriter();
 			if(dataType!=null && !"".equals(dataType)){
 				if("domain".equals(dataType)){
-					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
+					out.print(this.domainTimechartList_one(domainid,45,Interval_time,pageno,dataType));
 				}else if("domainAd".equals(dataType)){
-					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
+					out.print(this.domainTimechartList_one(domainid,45,Interval_time,pageno,dataType));
 				}else if("domainNotAd".equals(dataType)){
-					out.print(this.domainTimechartList_one(domainid,domainTime_PageSize,Interval_time,pageno,dataType));
+					out.print(this.domainTimechartList_one(domainid,45,Interval_time,pageno,dataType));
 				}else if("AdAndNotAd".equals(dataType)){
 					out.print(this.domainTimechartList(domainid,domainTime_PageSize,Interval_time,pageno));
 				}
