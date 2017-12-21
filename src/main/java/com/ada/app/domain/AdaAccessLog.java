@@ -1,4 +1,4 @@
-package com.ada.app.domain;
+/*package com.ada.app.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,48 +11,48 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import cn.com.jiand.mvc.framework.domain.AbstractEntity;
 
-/**
+*//**
  * 访问日志 Entity
  * @author Wanghl.cn By Code Generator
- */
+ *//*
 @Entity
 @Table(name = "ada_access_log")
 public class AdaAccessLog extends AbstractEntity<Integer> {
-    /** id */
+    *//** id *//*
 	private Integer id;                    
-    /** 站点ID */
+    *//** 站点ID *//*
 	private Integer siteId;                    
-    /** 域名ID */
+    *//** 域名ID *//*
 	private Integer domainId;                    
-    /** 渠道ID */
+    *//** 渠道ID *//*
 	private Integer channelId;                    
-    /** IP地址 */
+    *//** IP地址 *//*
 	private String ipAddress;                    
-    /** 客户端ID */
+    *//** 客户端ID *//*
 	private String uuid;                    
-    /** 浏览页 */
+    *//** 浏览页 *//*
 	private String url;                    
-    /** 客户端头信息 */
+    *//** 客户端头信息 *//*
 	private String useragent;                    
-    /** 操作系统 */
+    *//** 操作系统 *//*
 	private String os;                    
-    /** 浏览器 */
+    *//** 浏览器 *//*
 	private String browser;                    
-    /** 屏幕大小 */
+    *//** 屏幕大小 *//*
 	private String screenSize;                    
-    /** 页面大小 */
+    *//** 页面大小 *//*
 	private String pageSize;                    
-    /** 引用页 */
+    *//** 引用页 *//*
 	private String referer;                    
-    /** 在Iframe中 */
+    *//** 在Iframe中 *//*
 	private Integer iframe;                    
-    /** 首次访问时间 */
+    *//** 首次访问时间 *//*
 	private Timestamp firstTime;                    
-    /** 当天首次访问时间 */
+    *//** 当天首次访问时间 *//*
 	private Timestamp todayTime;                    
-    /** 客户端请求时间 */
+    *//** 客户端请求时间 *//*
 	private Timestamp requestTime;                    
-    /** 创建时间 */
+    *//** 创建时间 *//*
 	private Timestamp createTime;                    
 	
 	@Id	
@@ -203,3 +203,4 @@ public class AdaAccessLog extends AbstractEntity<Integer> {
 	
 	
 }
+*/

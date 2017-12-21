@@ -29,6 +29,7 @@ import cn.com.jiand.mvc.framework.utils.Dates;
 import com.ada.app.bean.BaseStat;
 import com.ada.app.bean.BaseStatBean;
 import com.ada.app.bean.DomainAreaStat;
+import com.ada.app.bean.DomainStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
 import com.ada.app.dao.AdaDomainDao;
@@ -134,6 +135,7 @@ public class IndexController {
 				Map map = new HashMap();
 				map.put("data_list", data_list);
 				map.put("dataType", dataType);
+				map.put("siteStat", siteStat);
 				JSONObject json  = new JSONObject(map);
 				model.addAttribute("tbodydata", json);
 			}else if("domainAd".equals(dataType)){
@@ -142,6 +144,7 @@ public class IndexController {
 				Map map2 = new HashMap();
 				map2.put("data_list", data_list);
 				map2.put("dataType", dataType);
+				map2.put("siteStat", siteStat);
 				JSONObject json  = new JSONObject(map2);
 				model.addAttribute("tbodydata", json);
 			}else if("domainNotAd".equals(dataType)){
@@ -150,6 +153,7 @@ public class IndexController {
 				Map map2 = new HashMap();
 				map2.put("data_list", data_list);
 				map2.put("dataType", dataType);
+				map2.put("siteStat", siteStat);
 				JSONObject json  = new JSONObject(map2);
 				model.addAttribute("tbodydata", json);
 			}
@@ -178,12 +182,10 @@ public class IndexController {
 		/** 获取当前站点统计信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();
 		Date today = Dates.todayStart();
-		
+		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
+		json.put("siteStat", siteStat);
 		if(dataType!=null){
-			AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
-			json.put("siteStat", siteStat);
-			json.put("sumip", siteStat.getIp());
-			json.put("sumpv", siteStat.getPv());
+			
 			if("domain".equals(dataType)){/** 获取域名统计信息 **/
 				Map map = getDomainStat_list(today,firstTd,ipTop);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("DomainStat_list");
@@ -197,17 +199,23 @@ public class IndexController {
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
 				json.put("data_list", data_list);
 			}else if("domainRegion".equals(dataType)){/**获取域名地域统计信息**/
-				Map map = getDomainRegion(today,Integer.valueOf(domainId),null);
+				Map map = getDomainRegion(today,Integer.valueOf(domainId),null,ipTop);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+				AdaDomainStat domainStat = (AdaDomainStat) map.get("domainStat");
 				json.put("data_list", data_list);
+				json.put("domainStat", domainStat);
 			}else if("domainRegionAd".equals(dataType)){/** 获取域名地域广告入口统计信息 **/
-				Map map = getDomainRegionAd_data(today,Integer.valueOf(domainId),null);
+				Map map = getDomainRegionAd_data(today,Integer.valueOf(domainId),null,ipTop);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+				AdaDomainAdStat adaDomainAdStat = (AdaDomainAdStat) map.get("domainAdStat");
 				json.put("data_list", data_list);
+				json.put("domainAdStat", adaDomainAdStat);
 			}else if("domainRegionNotAd".equals(dataType)){/** 获取域名地域非广告入口统计信息 **/
-				Map map = getDomainRegionNotAd_data(today,Integer.valueOf(domainId),null);
+				Map map = getDomainRegionNotAd_data(today,Integer.valueOf(domainId),null,ipTop);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+				AdaDomainNotadStat adaDomainNotadStat = (AdaDomainNotadStat) map.get("domainNotAdStat");
 				json.put("data_list", data_list);
+				json.put("domainNotAdStat", adaDomainNotadStat);
 			}
 		}
 		json.put("dataType", dataType);
@@ -230,14 +238,14 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "dashboard_domainTime")
 	public String dashboard_domainTime(HttpServletRequest request,HttpServletResponse response, Model model,
-			String domainId,String domain){
+			String domainId,String domain,String dataType){
 		if(domainId!=null && !"".equals(domainId)){
 			JSONObject json = domainTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1);
 			
 			model.addAttribute("json", json);
 		}
 		model.addAttribute("domainId", domainId);
-		model.addAttribute("dataType", "domain");
+		model.addAttribute("dataType", dataType);
 		model.addAttribute("domain", domain);
 		return "dashboard_domainTime";
 	}
@@ -1127,7 +1135,10 @@ public class IndexController {
 		return map;
 	}
 	/** 地域统计信息  **/
-	protected Map getDomainRegion(Date date,Integer domainId,String city){
+	protected Map getDomainRegion(Date date,Integer domainId,String city,int top){
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();
+		AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
 	
 		List<List<Object>> region_list = new ArrayList<List<Object>>();
 		List<String[]> IPs = new ArrayList();//先取出IP数 
@@ -1140,14 +1151,14 @@ public class IndexController {
 			}
 			for(String cityName:regionList){
 				Integer IP = statService.statRegionIP(domainId, cityName, date);
-				 if(IP!=null && IP>50){
+				 if(IP!=null){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }
 			}
 		}else{
 			for(String cityName:regiondata){
 				Integer IP = statService.statRegionIP(domainId, cityName, date);
-				 if(IP!=null && IP>50){
+				 if(IP!=null){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }
 			}
@@ -1162,7 +1173,7 @@ public class IndexController {
 				}
 	     });
 		
-		for (int i=0;i<IPs.size();i++) {
+		for (int i=0;i<IPs.size()&&i<top;i++) {
 			String regionName = IPs.get(i)[0];
 			DomainAreaStat region = statService.statDomainRegion(regionName, domainId, date);
 			List<Object> list = getList(region);
@@ -1174,10 +1185,14 @@ public class IndexController {
 	
 		Map map = new HashMap();
 		map.put("data_list", region_list);
+		map.put("domainStat", domainStat);
 		return map;
 	}
 	/** 地域广告入口统计数据 **/
-	protected Map getDomainRegionAd_data(Date date,Integer domainId,String city){
+	protected Map getDomainRegionAd_data(Date date,Integer domainId,String city,int top){
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();
+		AdaDomainAdStat domainAdStat = this.statService.statDomainAd(adaSite.getId(), domainId, date);
 		List<List<Object>> regionAd_list = new ArrayList<List<Object>>();
 		List<String[]> IPs = new ArrayList();//先取出IP数 
 		Set<String> regiondata = statService.getCityList(domainId, date);
@@ -1189,14 +1204,14 @@ public class IndexController {
 			}
 			for(String cityName:regionList){
 				Integer IP = statService.statRegionAdIP(domainId, cityName, date);
-				 if(IP!=null && IP>50){
+				 if(IP!=null){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }
 			}
 		}else{
 			for(String cityName:regiondata){
 				Integer IP = statService.statRegionAdIP(domainId, cityName, date);
-				 if(IP!=null && IP>50){
+				 if(IP!=null){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }
 			}
@@ -1211,7 +1226,7 @@ public class IndexController {
 				}
 	     });
 		
-		for (int i=0;i<IPs.size();i++) {
+		for (int i=0;i<IPs.size()&&i<top;i++) {
 			String regionName = IPs.get(i)[0];
 			DomainAreaStat regionAd = statService.statDomainRegionAd(regionName, domainId, date);
 			List<Object> list = getList(regionAd);
@@ -1223,10 +1238,14 @@ public class IndexController {
 	
 		Map map = new HashMap();
 		map.put("data_list", regionAd_list);
+		map.put("domainAdStat", domainAdStat);
 		return map;
 	}
 	/** 地域非广告入口统计数据 **/
-	protected Map getDomainRegionNotAd_data(Date date,Integer domainId,String city) {
+	protected Map getDomainRegionNotAd_data(Date date,Integer domainId,String city,int top) {
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();
+		AdaDomainNotadStat statDomainNotAd = this.statService.statDomainNotAd(adaSite.getId(), domainId, date);
 		List<List<Object>> regionNotAd_list = new ArrayList<List<Object>>();
 		List<String[]> IPs = new ArrayList();//先取出IP数 
 		Set<String> regiondata = statService.getCityList(domainId, date);
@@ -1238,14 +1257,14 @@ public class IndexController {
 			}
 			for(String cityName:regionList){
 				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
-				 if(IP!=null && IP>50){
+				 if(IP!=null){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }
 			}
 		}else{
 			for(String cityName:regiondata){
 				Integer IP = statService.statRegionNotAdIP(domainId, cityName, date);
-				 if(IP!=null && IP>50){
+				 if(IP!=null){
 					 IPs.add(new String[]{cityName,String.valueOf(IP)});
 				 }
 			}
@@ -1260,7 +1279,7 @@ public class IndexController {
 					return integer2.compareTo(integer);
 				}
 	     });
-		for (int i=0;i<IPs.size();i++) {
+		for (int i=0;i<IPs.size()&&i<top;i++) {
 			String regionName = IPs.get(i)[0];
 			DomainAreaStat regionNotAd = statService.statDomainRegionNotAd(regionName, domainId, date);
 			List<Object> list = getList(regionNotAd);
@@ -1271,6 +1290,7 @@ public class IndexController {
 		
 		Map map = new HashMap();
 		map.put("data_list", regionNotAd_list);
+		map.put("domainNotAdStat", statDomainNotAd);
 		return map;
 	}
 	/** 域名广告入口统计数据 **/
