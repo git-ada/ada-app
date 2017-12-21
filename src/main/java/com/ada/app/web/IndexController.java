@@ -117,7 +117,13 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "dashboard")
 	public String now(HttpServletRequest request,HttpServletResponse response, Model model,
-			String dataType) {
+			String dataType,String firstTd,String top) {
+		int iptop = 50;
+		if(top!=null && !"".equals(top)){
+			iptop = Integer.valueOf(top).intValue();
+		}
+		model.addAttribute("ipTop", iptop);
+		model.addAttribute("search", firstTd);
 		
 		/** 从sessions中获取站点信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();//
@@ -130,7 +136,7 @@ public class IndexController {
 			if("domain".equals(dataType)){
 				
 				/** 获取站点下域名统计信息 **/
-				Map sumMap = getDomainStat_list(today,"",50);
+				Map sumMap = getDomainStat_list(today,firstTd,iptop);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				Map map = new HashMap();
 				map.put("data_list", data_list);
@@ -139,7 +145,7 @@ public class IndexController {
 				JSONObject json  = new JSONObject(map);
 				model.addAttribute("tbodydata", json);
 			}else if("domainAd".equals(dataType)){
-				Map map = getDomainAdData(today,"",50);
+				Map map = getDomainAdData(today,firstTd,iptop);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
 				Map map2 = new HashMap();
 				map2.put("data_list", data_list);
@@ -148,7 +154,7 @@ public class IndexController {
 				JSONObject json  = new JSONObject(map2);
 				model.addAttribute("tbodydata", json);
 			}else if("domainNotAd".equals(dataType)){
-				Map map = getDomainNotAdData(today,"",50);
+				Map map = getDomainNotAdData(today,firstTd,iptop);
 				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
 				Map map2 = new HashMap();
 				map2.put("data_list", data_list);

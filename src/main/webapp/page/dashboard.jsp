@@ -248,24 +248,24 @@ table.dataTable{
 	            	<div class="portlet-input input-inline " >
 	                    <div class="input-icon right">
 	                        <i id="searchImg" class="icon-magnifier" style="cursor: auto;"></i>
-	                        <input id="search" type="text"  class="form-control input-circle" name="firstTd" style="font-size: 12px;" placeholder="搜索域名..."> </div>
+	                        <input id="search" type="text" value="${search}"  class="form-control input-circle" name="firstTd" style="font-size: 12px;" placeholder="搜索域名..."> </div>
 	                </div>
 	                <div class="btn-group">
 	                    <a href="" class="btn dark btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
-	                    	<span id="top" > TOP 50 &nbsp;</span> 
+	                    	<span id="top" > TOP ${ipTop} &nbsp;</span> 
 	                        <span class="fa fa-angle-down"> </span>
 	                    </a>
 	                    <ul class="dropdown-menu pull-right" id="topul">
-	                        <li class="active" onclick="changeTop(this,50)">
+	                        <li onclick="changeTop(this,50)" <c:if test="${ipTop==50}">class="active"</c:if>>
 	                            <a ><span style="color: #333;"> TOP 50 &nbsp;</span></a>
 	                        </li>
-	                        <li onclick="changeTop(this,100)">
+	                        <li onclick="changeTop(this,100)" <c:if test="${ipTop==100}">class="active"</c:if>>
 	                            <a ><span style="color: #333;"> TOP 100 </span></a>
 	                        </li>
-	                        <li  onclick="changeTop(this,200)">
+	                        <li  onclick="changeTop(this,200)" <c:if test="${ipTop==200}">class="active"</c:if>>
 	                            <a ><span style="color: #333;"> TOP 200 </span></a>
 	                        </li>
-	                        <li onclick="changeTop(this,500)">
+	                        <li onclick="changeTop(this,500)" <c:if test="${ipTop==500}">class="active"</c:if>>
 	                            <a ><span style="color: #333;"> TOP 500 </span></a>
 	                        </li>
 	                    </ul>
@@ -356,12 +356,12 @@ table.dataTable{
 <script type="text/javascript">
 var dataType = '${dataType}';//页面数据类型
 var domainId = "";//域名ID
-var search = "";//搜索
+var search = '${search}';//搜索
 var stClick = false;
 var cClick = false;
 var sClick = false;
 var mClick = false;
-var ipTop = 50;// 总ip TOP
+var ipTop = '${ipTop}';// 总ip TOP
  
 
 var t;
@@ -391,8 +391,18 @@ var initTable1 = function () {
 }
 /**--------------预加载-------------------- **/
 	jQuery(document).ready(function() {
+		console.log("进入预加载");
+		if(search==null || search==""){//修改搜索框样式
+    		jQuery("#searchImg").attr("class","icon-magnifier");
+    		jQuery("#searchImg").css("cursor","auto");
+    	}else{
+    		jQuery("#searchImg").attr("class","icon-close");
+    		jQuery("#searchImg").css("cursor","pointer");
+    		jQuery("#searchImg").attr("onclick","clearSearch()");
+    	}
 		var tbodydata = '${tbodydata}';
 		var json = eval('(' + tbodydata + ')');
+		
 		loadTbody(json,1);
 		
 	    initTable1();
@@ -494,7 +504,7 @@ var initTable1 = function () {
 			var firstTh = "域名";
 			/** 数据列表 **/
 			var dataList = json.data_list;
-			 
+			
 			if(dataType=="domainRegion"){
 				firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
 			}else if(dataType=="domainRegionAd"){
@@ -786,7 +796,6 @@ var initTable1 = function () {
 				  }
 				}
 			}
-			
 			if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh){
 				if(num==1){
 					jQuery("#tbody").empty();
@@ -901,11 +910,12 @@ function graphicLoading(obj) {
 //打开菜单
 function openMenu(a,event){
 	
+	var backUrl = "${pageContext.request.contextPath}/dashboard.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop;
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
 	 jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
-	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"')");
-	jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"&dataType="+dataType+"')");
+	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"','"+backUrl+"')");
+	jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"&dataType="+dataType+"','"+backUrl+"')");
 	if(dataType=="domain"){
 		jQuery("#region").attr("onclick","changeDataType('domainRegion',"+id+")");
 	}else if(dataType=="domainAd"){

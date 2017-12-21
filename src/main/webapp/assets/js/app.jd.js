@@ -33,10 +33,10 @@ $(document).ready(function(){
  * 跳转页面
  */
 var gotoPage = function(url,backurl){
+	
 	if(backurl !=null && backurl != undefined){
 		browsingHistory[browsingHistory.length-1] = backurl;
 	}
-	
 	/** 首次记录 **/
 	if(browsingHistory.length==0){
 		browsingHistory.push(url);
@@ -56,6 +56,7 @@ var gotoPage = function(url,backurl){
 		 * 忽略重复的请求记录
 		 */
 	}
+	
 
 	Layout.loadAjaxOnly(url);
 };
@@ -83,7 +84,11 @@ var gotoHistoryPage = function(step){
 		console.log("gotoHistoryPage->"+url);
 	
 		Layout.loadAjaxOnly(url);
-		currentPageNo = offset;
+		//currentPageNo = offset;
+		if(url.indexOf("/dashboard.jhtm")>=0){
+			browsingHistory.push(url);
+			currentPageNo+=1;
+		}
 };
 
 /**
