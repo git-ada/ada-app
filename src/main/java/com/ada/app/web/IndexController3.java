@@ -141,7 +141,7 @@ public class IndexController3 {
 			json.put("message", "已是最新统计数据 !");
 			return json;
 		}
-		Date yestoday = Dates.todayStart();
+		String yestoday = Dates.today();
 		
 		List<AdaSiteStat> siteList = statDao.findBySiteIdLoadHistryData(adaSite.getId(), yestoday,(pageNo-1)*pageSize,pageSize); 
 		if((siteList==null || siteList.size()<1)){
@@ -197,13 +197,16 @@ public class IndexController3 {
 		
 		/** 获取当前站点默认历史统计信息 **/
 		Date date = Dates.yestoday();
+//		SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd");
+//		Date date = dfs.parse(dfs.format(yestoday));
 	
 		//默认加载昨天的历史数据
 		if(dataType!=null){
 			if("domain".equals(dataType)){
 				AdaSiteStat siteStat = statService.statSite(adaSite.getId(), date);
 				/** 获取站点下域名统计信息 **/
-				Map sumMap = getDomainStat_list(date);
+//				Map sumMap = getDomainStat_list(date);
+				Map sumMap = getDomainStat_histryList(date);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				Map map = new HashMap();
 				map.put("data_list", data_list);

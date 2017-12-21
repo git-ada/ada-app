@@ -180,7 +180,7 @@ table.dataTable{
             	<c:if test="${dataType=='domainAd'}">广告入口统计</c:if> 
             	<c:if test="${dataType=='domainNotAd'}">非广告入口统计</c:if>  
             </span>
-            <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
+            <span class="caption-helper" id="lasttime">历史数据更新时间 ${lasttime}</span>
         </div>
         <div class="inputs">
             <div class="actions" style="float: left;">
@@ -970,7 +970,7 @@ var initTable1 = function () {
 					jQuery("#tbodyhistry").append(table);
 					jQuery(".DTFC_LeftBodyWrapper #tbodyhistry").empty();
 					jQuery(".DTFC_LeftBodyWrapper #tbodyhistry").append(lefttable+menu);
-					jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
+					jQuery("#lasttime").html("历史数据更新时间  "+json.lasttime);
 					
 					clickDate = json.lasttime;
 				}
