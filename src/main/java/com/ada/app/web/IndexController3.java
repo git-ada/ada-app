@@ -1334,11 +1334,21 @@ public class IndexController3 {
 		log.info("----start getDomainStat_histryList()-----");
 		 Long startTime3 = System.currentTimeMillis();
 		/** 从sessions中获取站点信息 **/
-		AdaSite adaSite = Sessions.getCurrentSite();
+		log.info("----start Sessions.getCurrentSite()-----");
+		 Long startTime5 = System.currentTimeMillis();
+		 AdaSite adaSite = Sessions.getCurrentSite();
+		 Long endTime5 = System.currentTimeMillis();
+		 Long cost5 = endTime5 - startTime5;
+		 log.info("----end   Sessions.getCurrentSite()-----"+cost5+"ms");
 		 /** 域名列表信息 **/
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
 		 
+		 log.info("----start findBySiteId()-----");
+		 Long startTime4 = System.currentTimeMillis();
 		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
+		 Long endTime4 = System.currentTimeMillis();
+		 Long cost4 = endTime4 - startTime4;
+		 log.info("----end   findBySiteId()-----"+cost4+"ms");
 		 
 		 Integer domainSumIP = 0;/** ip总数 **/
 		 Integer domainSumPV = 0;/** PV总数 **/
@@ -1367,17 +1377,12 @@ public class IndexController3 {
 		 Long cost = endTime - startTime;
 		 log.info("----end Collections.sort-----"+cost+"ms");
 		 
+		 log.info("----start findByDateLoadData()-----");
+		 Long startTime2 = System.currentTimeMillis();
 		 for(int i=0;i<domainIps.size();i++){
 			Integer domainId = domainIps.get(i)[0];
 //			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
-			log.info("----start findByDateLoadData()-----");
-			
-			 Long startTime2 = System.currentTimeMillis();
 			AdaDomainStat domainStat = domainStatDao.findByDateLoadData(adaSite.getId(), domainId, date);
-			
-			Long endTime2 = System.currentTimeMillis();
-			Long cost2 = endTime2 - startTime2;
-		    log.info("----end findByDateLoadData()----"+cost2+"ms");
 		    
 			List<Object> list = getList(domainStat);
 			list.add(domainId);
@@ -1393,6 +1398,9 @@ public class IndexController3 {
 			domainSumPV+=domainStat.getPv();
 			DomainStat_list.add(list);
 		}
+		Long endTime2 = System.currentTimeMillis();
+	    Long cost2 = endTime2 - startTime2;
+	    log.info("----end findByDateLoadData()----"+cost2+"ms");
 		 
 		 Map map = new HashMap();
 		
