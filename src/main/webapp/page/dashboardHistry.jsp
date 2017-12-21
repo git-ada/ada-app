@@ -122,36 +122,45 @@ table.dataTable{
     border-collapse: separate;
     border-spacing: 0;
 }
+<!--  -->
+.portlet.light .portlet-body {
+    padding-top: 0px;
+}
+.portlet.bordered>.portlet-title{
+	padding-right:0px;
+	padding-bottom:0px;
+	margin-bottom: 0px;
+	min-height: 35px;
+}
+.portlet.light>.portlet-title>.actions {
+    padding: 6px 0 0px;
+    height: 35px;
+    
+}
+.portlet.light {
+    padding: 0px 10px 2px;
+    background-color: #fff;
+}
+
+.portlet-title {
+    padding-left: 10px !important;
+}
+
 
 </style>
-
-<!-- 
-<div class="page-bar">
-    <ul class="page-breadcrumb" style="width: 100%">
-        <li>
-            <i class="icon-home"></i>
-            	首页
-            <i class="fa fa-angle-right"></i>
-        </li>
-         <li>
-            <span>实时数据</span>
-        </li>
-    </ul>
-</div>
- -->
 
 <div class="row" style="margin-bottom: 15px;">
 	<div class="col-lg-12 col-xs-12 col-sm-12">
       <!-- BEGIN PORTLET-->
       <div class="portlet light bordered">
           <div class="portlet-title">
-          <!-- -->
+          <!--  -->
                <div class="caption" style="margin-left: 0px;">
                    <i class=" icon-info font-green"></i>
                    <span class="caption-subject font-green bold uppercase">历史统计</span>
                </div>
            
-               <div class="actions" style="margin-right: 15px;">
+               <div class="actions" style="margin-right: 0px;">
                    <a href="javascript:graphicLoadinghistry(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                    <a href="javascript:graphicLoadinghistry(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
@@ -334,7 +343,6 @@ table.dataTable{
 				if (data!=null) {
 					var json = eval('(' + data + ')');
 					loadTbody(json,2);
-					//getClickDate();
 				}
 			},
 			error: function (data) {
@@ -385,8 +393,8 @@ table.dataTable{
 	   	      },
 	   	      color:['#2db7d2','#2492a8','blue','red'], 
 	   	      legend: {
-	   	    	  x : '5.5%',
-	   	    	  y : '85%', 
+	   	    	  //x : '5.5%',
+	   	    	  y : '86%', 
 	   	          itemWidth: 32, 
 				  itemHeight: 16,
 				  itemBorderRadius:0,
@@ -409,10 +417,12 @@ table.dataTable{
 	              }]
 	   	      },
 	   	      grid: {
-	   	    	  y:'5%',
-	   	    	  height:'75%',
-	   	          left: '3%',
-	   	          right: '4%',
+	   	    	  y:'6%',
+	   	    	  height:'73%',
+	   	          //left: '3%',
+	   	          //right: '4%',
+	   	          left: '0%',
+	   	          right: '2%',
 	   	          bottom: '0%',
 	   	          containLabel: true
 	   	      },
