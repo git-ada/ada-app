@@ -450,6 +450,7 @@ var initTable1 = function () {
 	     });  
 	    //给搜索框添加 键盘按键的离开事件
 	    jQuery("#search").keyup(function (){
+	    	isRefresh = false;
 	    	clearTimeout(t);
 	    	App.startPageLoading({animate: !0});//开启 加载 动画
 	    	search = jQuery(this).val();
@@ -462,6 +463,7 @@ var initTable1 = function () {
 	    		jQuery("#searchImg").attr("onclick","clearSearch()");
 	    	}
 	    	ajaxRefreshPage();
+	    	isRefresh = true;
 	    });
 	});
 
@@ -819,6 +821,7 @@ var initTable1 = function () {
 	 
 //单独查看
 function onlyOne(name){
+	isRefresh = false;
 	clearTimeout(t);
 	App.startPageLoading({animate: !0});//开启 加载 动画
 	search = name;
@@ -827,10 +830,12 @@ function onlyOne(name){
 	jQuery("#searchImg").css("cursor","pointer");
 	jQuery("#searchImg").attr("onclick","clearSearch()");
 	ajaxRefreshPage();
+	isRefresh = true;
 	
 }
 /** ------改变页面数据类型-------------**/
 function changeDataType(type,domain_Id){
+	isRefresh = false;
 	clearTimeout(t);
 	App.startPageLoading({animate: !0});//开启 加载 动画
 	if(type=="all"){
@@ -870,6 +875,7 @@ function changeDataType(type,domain_Id){
 	
 	
 	ajaxRefreshPage();
+	isRefresh = true;
 	
 }
 /** --------------分页查询 -------------**/
@@ -951,6 +957,7 @@ function PercentageMax(num, total){
 }
 /**------  改变top值  ------**/
 function changeTop(a,num){
+	isRefresh = false;
 	jQuery("#topul li").removeClass("active");
 	jQuery(a).addClass("active");
 	clearTimeout(t);
@@ -963,6 +970,7 @@ function changeTop(a,num){
 	
 	ipTop = num;
 	ajaxRefreshPage();
+	isRefresh = true;
 }
 /** 修改td样式 **/
 function changeDisplay(a,data){
@@ -1010,6 +1018,7 @@ function changeDisplay(a,data){
 }
 /** 清空搜索框 **/
 function clearSearch(){
+	isRefresh = false;
 	clearTimeout(t);
 	App.startPageLoading({animate: !0});//开启 加载 动画
 	search = "";
@@ -1018,6 +1027,7 @@ function clearSearch(){
 	jQuery("#searchImg").css("cursor","auto");
 	jQuery("#searchImg").attr("onclick","");
 	ajaxRefreshPage();
+	isRefresh = true;
 }
 </script>
 
