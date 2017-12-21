@@ -205,8 +205,8 @@ public class IndexController3 {
 			if("domain".equals(dataType)){
 				AdaSiteStat siteStat = statService.statSite(adaSite.getId(), date);
 				/** 获取站点下域名统计信息 **/
-//				Map sumMap = getDomainStat_list(date);
-				Map sumMap = getDomainStat_histryList(date);
+				Map sumMap = getDomainStat_list(date);
+//				Map sumMap = getDomainStat_histryList(date);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				Map map = new HashMap();
 				map.put("data_list", data_list);
