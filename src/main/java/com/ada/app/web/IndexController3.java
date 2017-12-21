@@ -1359,26 +1359,28 @@ public class IndexController3 {
 	     });
 		 
 		 
-	      for(int i=0;i<domainIps.size();i++){
-			   for(AdaDomainStat domainStat : domainStats){
-					Integer domainId = domainIps.get(i)[0];
-				    
-					List<Object> list = getList(domainStat);
-					list.add(domainId);
-					String domainstr = adaDomainDao.findById(domainStat.getDomainId()).getDomain();
-					list.add(domainstr);
-					if(domainstr.length()>18){
-						 list.add(domainstr.substring(0, 18));
-					}else{
-						 list.add(domainstr);
-					}
-					
-					domainSumIP+=domainStat.getIp();
-					domainSumPV+=domainStat.getPv();
-					DomainStat_list.add(list);
-				}
-		 }
+		 for(int i=0;i<domainIps.size();i++){
+			
+			Integer domainId = domainIps.get(i)[0];
+			AdaDomainStat domainStat = domainStatDao.findByDateLoadData(adaSite.getId(), domainId, date);
+		    
+			List<Object> list = getList(domainStat);
+			list.add(domainId);
+			String domainstr = adaDomainDao.findById(domainStat.getDomainId()).getDomain();
+			list.add(domainstr);
+			if(domainstr.length()>18){
+				 list.add(domainstr.substring(0, 18));
+			}else{
+				 list.add(domainstr);
+			}
+			
+			domainSumIP+=domainStat.getIp();
+			domainSumPV+=domainStat.getPv();
+			DomainStat_list.add(list);
+		}
+	    
 		 Map map = new HashMap();
+		
 		 map.put("DomainStat_list", DomainStat_list);
 		 //map.put("domainSumIP", domainSumIP);
 		 //map.put("domainSumPV", domainSumPV);
