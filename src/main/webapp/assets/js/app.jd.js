@@ -57,7 +57,7 @@ var gotoPage = function(url,backurl){
 		 */
 	}
 	
-
+	callLeavePageCallback();
 	Layout.loadAjaxOnly(url);
 };
 
@@ -68,7 +68,7 @@ var gotoPage = function(url,backurl){
  */
 var gotoHistoryPage = function(step){
 		var offset = currentPageNo + step;
-		console.log("gotoHistoryPage currentPageNo->"+currentPageNo+",step->"+step+",offset->"+offset);
+		//console.log("gotoHistoryPage currentPageNo->"+currentPageNo+",step->"+step+",offset->"+offset);
 		
 		if(offset < 1){
 			//无法退
@@ -81,14 +81,11 @@ var gotoHistoryPage = function(step){
 		}
 		
 		var url = browsingHistory[offset-1];
-		console.log("gotoHistoryPage->"+url);
+		//console.log("gotoHistoryPage->"+url);
 	
+		callLeavePageCallback();
 		Layout.loadAjaxOnly(url);
-		//currentPageNo = offset;
-		if(url.indexOf("/dashboard.jhtm")>=0){
-			browsingHistory.push(url);
-			currentPageNo+=1;
-		}
+		currentPageNo = offset;
 };
 
 /**
@@ -97,9 +94,28 @@ var gotoHistoryPage = function(step){
 var refreshPage = function(){
 	var url = browsingHistory[currentPageNo-1];
 	console.log("refreshPage url->"+url);
+	callLeavePageCallback();
 	Layout.loadAjaxOnly(url);
 };
 
+var leavePageCallback;
+
+var onLeavePage = function(callback){
+	leavePageCallback = callback;
+};
+
+/** 
+ * 回调离开页面
+ * **/
+var callLeavePageCallback = function(){
+	try {
+		if(leavePageCallback!=null && leavePageCallback!= undefined){
+			leavePageCallback();
+		}
+	} catch (e) {
+		console.log(e);
+	}
+}
 
 var handleValidation = function(formId) {
 	var form1 = $(formId);
