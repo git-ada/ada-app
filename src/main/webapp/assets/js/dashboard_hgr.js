@@ -53,6 +53,12 @@ var initTable1 = function () {
    		 	jQuery("#pauseOrplay i").addClass("icon-control-play");
 		}
 		var beginTime = parseInt(Date.parse(new Date()));
+		firstAppend();
+		initTable1();
+		
+		var endTime = parseInt(Date.parse(new Date()));
+		console.log("渲染table消耗时间endTime---------->"+(endTime-beginTime)+"毫秒");
+		
 		if(isRetrun == "true"){
 			console.log("是返回的");
 			//如果是返回  从session中获取数据
@@ -63,11 +69,6 @@ var initTable1 = function () {
 			var json = eval('(' + tbodydata + ')');
 			loadTbody(json,1);
 		}
-		initTable1();
-		var endTime = parseInt(Date.parse(new Date()));
-		console.log("渲染table消耗时间endTime---------->"+(endTime-beginTime)+"毫秒");
-		
-	    
 	     jQuery("#pauseOrplay").click(function(){
 	    	 if(jQuery("#pauseOrplay i").attr("class")=="icon-control-pause"){
 	    		 jQuery("#pauseOrplay i").removeClass("icon-control-pause");
@@ -475,12 +476,16 @@ function loadTbody(json,num){
 				
 			}
 			if(num==1){
-				jQuery("#tbody").empty();
-				jQuery("#tbody").append(table);
 				jQuery("#ip").html(json.siteStat.ip);
 				jQuery("#pv").html(json.siteStat.pv);
 				jQuery("#adIP").html(json.siteStat.adIP);
 				jQuery("#adPv").html(json.siteStat.adPv);
+				jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
+				jQuery("#tbody").empty();
+				jQuery("#tbody").append(table);
+				jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
+				jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable);
+				jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
 			}else if(num==2 && timestamp==json.timestamp){
 				jQuery("#ip").html(json.siteStat.ip);
 				jQuery("#pv").html(json.siteStat.pv);
@@ -719,4 +724,43 @@ function clearSearch(){
 	isRefresh = "true";
 	jQuery("#pauseOrplay i").removeClass("icon-control-play");
 	jQuery("#pauseOrplay i").addClass("icon-control-pause");
+}
+
+function firstAppend(){
+	var str = "<tr>" +
+				"<td></td>" +
+				"<td></td>" +
+				"<td></td>" +
+				"<td></td>" +
+				"<td></td>" +
+				"<td></td>" +
+				"<td></td>" +
+				"<td></td>" +
+				//停留
+				"<td></td>" +
+				"<td class='displaynone'></td>" +
+				"<td class='displaynone'></td>" +
+				"<td class='displaynone'></td>" +
+				"<td class='displaynone'></td>" +
+				//点击
+				"<td></td>" +
+				"<td class='displaynone'></td>" +
+				"<td class='displaynone'></td>" +
+				"<td class='displaynone'></td>" +
+				"<td class='displaynone'></td>" +
+				//滚动
+				"<td></td>" +
+				"<td class='displaynone'></td>" +
+				"<td class='displaynone'></td>" +
+				"<td class='displaynone'></td>" +
+				"<td class='displaynone'></td>" +
+				//移动
+				"<td></td>" +
+				"<td class='displaynone'></td>" +
+				"<td class='displaynone'></td>" +
+				"<td class='displaynone'></td>" +
+				"<td class='displaynone'></td>" +
+				"</tr>";
+	jQuery("#tbody").append(str);
+	
 }

@@ -8,8 +8,8 @@
 <li class="nav-item"><a href="${pageContext.request.contextPath}/dashboard.jhtm?dataType=domainNotAd" class="ajaxify nav-link" ><i class="icon-bar-chart"></i><span class="title">非广告入口</span></a></li> --%>
 
 
-<li class="nav-item"><a href="${pageContext.request.contextPath}/ada-site-stat/list.jhtm" class="ajaxify nav-link" ><i class="icon-graph"></i><span class="title">站点统计</span></a></li>
-<li class="nav-item"><a href="${pageContext.request.contextPath}/ada-domain-stat/stat.jhtm" class="ajaxify nav-link" ><i class="icon-bar-chart"></i><span class="title">域名统计</span></a></li>
+<%-- <li class="nav-item"><a href="${pageContext.request.contextPath}/ada-site-stat/list.jhtm" class="ajaxify nav-link" ><i class="icon-graph"></i><span class="title">站点统计</span></a></li>
+<li class="nav-item"><a href="${pageContext.request.contextPath}/ada-domain-stat/stat.jhtm" class="ajaxify nav-link" ><i class="icon-bar-chart"></i><span class="title">域名统计</span></a></li> --%>
 
 <%-- <li class="nav-item"><a href="${pageContext.request.contextPath}/ada-channel-stat/stat.jhtm" class="ajaxify nav-link" ><i class="icon-bar-chart"></i><span class="title">渠道统计</span></a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/ada-channel/list.jhtm" class="ajaxify nav-link" ><i class="icon-share"></i><span class="title">渠道管理</span></a></li> --%>

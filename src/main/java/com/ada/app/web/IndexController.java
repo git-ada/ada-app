@@ -147,6 +147,7 @@ public class IndexController {
 					map.put("data_list", data_list);
 					map.put("dataType", dataType);
 					map.put("siteStat", siteStat);
+					map.put("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 					JSONObject json  = new JSONObject(map);
 					model.addAttribute("tbodydata", json);
 				}else if("domainAd".equals(dataType)){
@@ -156,6 +157,7 @@ public class IndexController {
 					map2.put("data_list", data_list);
 					map2.put("dataType", dataType);
 					map2.put("siteStat", siteStat);
+					map2.put("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 					JSONObject json  = new JSONObject(map2);
 					model.addAttribute("tbodydata", json);
 				}else if("domainNotAd".equals(dataType)){
@@ -165,6 +167,7 @@ public class IndexController {
 					map2.put("data_list", data_list);
 					map2.put("dataType", dataType);
 					map2.put("siteStat", siteStat);
+					map2.put("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 					JSONObject json  = new JSONObject(map2);
 					model.addAttribute("tbodydata", json);
 				}
@@ -174,7 +177,7 @@ public class IndexController {
 		
 		
 		
-		 model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		 //model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		 model.addAttribute("dataType", dataType);
 		return "dashboard";
 	}
