@@ -1,3 +1,4 @@
+
 package com.ada.app.web;
 
 import java.io.PrintWriter;
@@ -61,8 +62,8 @@ public class IndexController3 {
 	private final static Log log = LogFactory.getLog(IndexController3.class);
 	@Autowired
 	private AdaSiteDao siteDao;
-	@Autowired
-	private AdaSiteStatDao adaSiteStatDao;
+//	@Autowired
+//	private AdaSiteStatDao adaSiteStatDao;
 	@Autowired
 	private StatService statService;
 	@Autowired
@@ -621,7 +622,7 @@ public class IndexController3 {
 				json.put("message", "已是最新统计数据！");
 				return json;
 			}
-			List<AdaSiteStat> list = this.adaSiteStatDao.findBySiteIdOrderByDate(siteId,(pageNo-1)*30);
+			List<AdaSiteStat> list = this.statDao.findBySiteIdOrderByDate(siteId,(pageNo-1)*30);
 			
 			if(null==list || list.isEmpty()){
 				json.put("success", false);

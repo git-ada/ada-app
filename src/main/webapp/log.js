@@ -26,7 +26,6 @@ adaPageIn();
 /** 打开页面处理 初始化  **/
 function adaPageIn(){
 	try{
-		
 		/** 记录进入页面时间  **/
 		adaPageInTime = new Date();
 
@@ -67,11 +66,11 @@ function adaPageIn(){
 	}
 }
 
+
 /** 初始化入口信息 **/
 function adaInitEntrance(){
 	/** 从cookei中加载入口类型 **/
 	adaEntranceType = adaGetCookie2(adaEntranceTypeKey);
-	console.log(adaEntranceType);
 	/** 从cookie中加载入口页面**/
 	adaEntrancePage = adaGetCookie2(adaEntrancePageKey);
 	if(adaEntrancePage==null){
@@ -569,19 +568,15 @@ function adaPutLog1() {
 		}
 		
 		var url = adaLogServer + "/l1";
-		console.log("aaa"+adaEntranceType);
 		var xxx = adaFormat(adaEntranceType);
-		console.log("bbb"+xxx);
 		
 		var body = "u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&a="+adaAdId+"&e="+adaFormat(adaEntranceType)+"&ep="+encodeURIComponent(adaEntrancePage)+"&v="+adaLogVersion+"&p="+encodeURIComponent(window.location.href)+"&r="+pageReferrer+"&o="+adaFirstTime+"&f="+f+"&os="+adaIsOS()+"&br="+adaIsBrowser()+"&ss="+screenSize+"&ps="+pageSize+"&if="+iSiframe+"&ua="+userAgent+"&t="+Date.parse(new Date());		
-		console.log(body);
 		var httprequest = adagetHttpRequest();
 		httprequest.open("POST", url, true);
 		httprequest.onreadystatechange =   function () {
 			if (httprequest.readyState == 4) {
 				if (httprequest.status == 200) {
 				   var ret = httprequest.responseText;
-				   console.log(ret);
 				   if(ret != null && ret!= "undefined" && ret != "" && ret != "ok"){
 						 try {
 							   var jet = JSON.parse(ret);
@@ -609,6 +604,16 @@ function adaPutLog1() {
 									   adaSetCookie(adaEntranceTypeKey,adaEntranceType,adaGetTodayExpires());
 								   }
 							   }
+							   
+							   /** 凌晨跨天,重新计算一次 **/
+							   var serverTime = new Date(jet.o);
+							   var todayStart = new Date(serverTime.getFullYear(),serverTime.getMonth(),serverTime.getDate());
+							   var t = todayStart.getTime()+86401000;
+							   var time = t-adaPageInTime.getTime();
+							   console.log(time);
+								window.setTimeout(function(){
+									adaPageIn();
+								},time);
 						} catch (e) {
 						}
 				   }
@@ -669,13 +674,11 @@ function adaPostRequest(url,body,onreadystatechange){
 		xmlHttp = adagetHttpRequest();
 		xmlHttp.open("POST", url, true);
 		if(onreadystatechange!=null){
-			console.log("xx");
 			xmlHttp.onreadystatechange = onreadystatechange; 
 		}
 		xmlHttp.setRequestHeader("Content-Type",  "application/x-www-form-urlencoded;");  
 		xmlHttp.send(body);  
 	} catch (e) {
-		console.log(e);
 	}
 }
 

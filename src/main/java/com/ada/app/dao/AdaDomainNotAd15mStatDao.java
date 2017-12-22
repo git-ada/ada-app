@@ -144,10 +144,11 @@ public interface AdaDomainNotAd15mStatDao extends EntityJpaDao<AdaDomainNotad15m
 	/**
 	 * 通过域名ID查询并根据开始时间排序
 	 */
-	@Query(value = "select * from ada_domain_notad_15m_stat obj where obj.domainId=?  order by obj.endTime desc limit ?,?",nativeQuery=true)
+	@Query(value = "select * from ada_domain_notad_15m_stat obj where obj.domainId=? order by obj.endTime desc limit ?,?",nativeQuery=true)
 	public List<AdaDomainNotad15mStat> findByDomainIdOrderByStartTime(Integer domainId,int pageStart,int pageSize);
 	
 	@Query(value = "select * from ada_domain_notad_15m_stat obj where obj.domainId=? and date=? order by obj.endTime desc limit ?,? ",nativeQuery=true)
 	public List<AdaDomainNotad15mStat> findByDomainIdOrderByStartTimeHistry(Integer domainId,String clickDate,int pageStart,int pageSize);
+
 	
 }

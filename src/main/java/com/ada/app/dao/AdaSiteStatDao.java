@@ -87,4 +87,5 @@ public interface AdaSiteStatDao extends EntityJpaDao<AdaSiteStat, Integer> {
 
 
 
+
 }

@@ -21,6 +21,7 @@ public interface AdaDomainStatDao extends EntityJpaDao<AdaDomainStat, Integer> {
     @Query(value="select * from ada_domain_ad_stat where siteId=? and domainId=? order by createTime desc limit 1",nativeQuery=true)
     public AdaDomainStat findByDate(Integer siteId,Integer domainId);
     
+
     /**
      * 获取全站的历史域名列表数据
      * @param siteId
@@ -69,6 +70,7 @@ public interface AdaDomainStatDao extends EntityJpaDao<AdaDomainStat, Integer> {
     		"olduserip,oldip,loginip,uv  " +
     		"from ada_domain_stat where siteId=?  and domainId = ? and date = ?",nativeQuery=true)
     public AdaDomainStat findByDateLoadDatas(Integer siteId,Integer domainId,Date date);
+
     
     /** 
      *通过ID查询
