@@ -36,7 +36,7 @@ $(document).ready(function(){
 var gotoPage = function(url,backurl){
 	
 	if(backurl !=null && backurl != undefined){
-		browsingHistory[browsingHistory.length-1] = backurl;
+		browsingHistory[currentPageNo-1] = backurl;
 	}
 	/** 首次记录 **/
 	if(browsingHistory.length==0){
