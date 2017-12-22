@@ -1352,7 +1352,7 @@ public class IndexController3 {
 			for(AdaRegionStat regionStat : regionStats){
 				List<Object> list = getList(regionStat);
 				
-				String fullname = regionStat.getRegions().getFullname();
+				String fullname = "test";//regionStat.getRegions().getFullname();
 				list.add(fullname);
 			    region_list.add(list);
 			}
