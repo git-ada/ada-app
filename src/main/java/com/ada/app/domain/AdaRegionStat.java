@@ -309,9 +309,9 @@ public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
 
 	private AdaRegion region;
     
-	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaRegion.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "regionId", insertable = false, updatable = false)
-	@NotFound(action=NotFoundAction.IGNORE)
+//	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaRegion.class, fetch = FetchType.LAZY)
+//	@JoinColumn(name = "regionId", insertable = false, updatable = false)
+//	@NotFound(action=NotFoundAction.IGNORE)
 	public AdaRegion getRegion() {
 		return region;
 	}
