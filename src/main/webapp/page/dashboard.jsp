@@ -362,7 +362,6 @@ var isRefresh = '${isRefresh}';
 var isRetrun = '${isRetrun}';
 var tbodydata = '${tbodydata}';
 var webPath = '${pageContext.request.contextPath}';
-console.log("刚进入页面--->"+isRefresh);
 </script>
 <script src="${pageContext.request.contextPath}/assets/js/dashboard_hgr.js" type="text/javascript" charset="utf-8"></script>
 <!-- END PAGE SCRIPTS -->

@@ -57,7 +57,6 @@ var initTable1 = function () {
 			console.log("是返回的");
 			//如果是返回  从session中获取数据
 			var json = JSON.parse(sessionStorage.getItem("json"));
-			console.log("离开时的数据--->"+sessionStorage.getItem("json"));
 			loadTbody(json,1);
 		}else{
 			console.log("不是返回的");
