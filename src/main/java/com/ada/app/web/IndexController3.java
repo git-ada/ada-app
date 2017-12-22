@@ -1306,7 +1306,7 @@ public class IndexController3 {
 		 AdaSite adaSite = Sessions.getCurrentSite();
 		 /** 域名列表信息 **/
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
-		 System.out.println("date:--> "+date);
+		 //System.out.println("date:--> "+date);
 		 List<AdaDomainStat> domainStats = domainStatDao.findByDateLoadData(adaSite.getId(), date);
 		 log.info("--------------- start domainStats--------------------");
 		 Long startTime = System.currentTimeMillis();
@@ -1339,15 +1339,16 @@ public class IndexController3 {
 		 return map;
 	}
 	
-	/** 域名统计历史信息 **/
+	
+	/** 域名广告统计历史信息 **/
 	protected Map getDomainAdStat_histryList(String date){
 		/** 从sessions中获取站点信息 **/
 		 AdaSite adaSite = Sessions.getCurrentSite();
 		 /** 域名列表信息 **/
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
 		 System.out.println("date:--> "+date);
-		 List<AdaDomainStat> domainStats = domainStatDao.findByDateLoadData(adaSite.getId(), date);
-		 log.info("--------------- start domainStats--------------------");
+		 List<AdaDomainStat> domainStats = domainStatDao.findByDateLoadAdData(adaSite.getId(), date);
+		 log.info("--------------- start domainStats Ad--------------------");
 		 Long startTime = System.currentTimeMillis();
 		 
 		 if(domainStats!=null && domainStats.size()>0){
@@ -1370,7 +1371,46 @@ public class IndexController3 {
 		 
 		 Long endTime = System.currentTimeMillis();
 		 Long cost = endTime - startTime;
-		 log.info("--------------- end domainStats------------------耗时："+cost/1000+"s");
+		 log.info("--------------- end domainStats Ad------------------耗时："+cost/1000+"s");
+		 
+		 Map map = new HashMap();
+		 map.put("DomainStat_list", DomainStat_list);
+		 
+		 return map;
+	}
+	
+	/** 域名非广告统计历史信息 **/
+	protected Map getDomainNotAdStat_histryList(String date){
+		/** 从sessions中获取站点信息 **/
+		 AdaSite adaSite = Sessions.getCurrentSite();
+		 /** 域名列表信息 **/
+		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
+		 System.out.println("date:--> "+date);
+		 List<AdaDomainStat> domainStats = domainStatDao.findByDateLoadNotAdData(adaSite.getId(), date);
+		 log.info("--------------- start domainStats NotAd--------------------");
+		 Long startTime = System.currentTimeMillis();
+		 
+		 if(domainStats!=null && domainStats.size()>0){
+			 for(AdaDomainStat domainStat : domainStats){
+				 List<Object> list = new ArrayList();
+				 list=getList(domainStat);
+				 list.add(domainStat.getDomainId());
+				 list.add(domainStat.getDomainName());
+				 //System.out.println(domainStat.getDomainName());
+				 String domain = domainStat.getDomain().getDomain();
+				 if(domain.length()>18){
+					 list.add(domain.substring(0, 18));
+				 }else{
+					 list.add(domain);
+				 }
+				 DomainStat_list.add(list);
+				 
+			 }
+		 }
+		 
+		 Long endTime = System.currentTimeMillis();
+		 Long cost = endTime - startTime;
+		 log.info("--------------- end domainStats NotAd------------------耗时："+cost/1000+"s");
 		 
 		 Map map = new HashMap();
 		 map.put("DomainStat_list", DomainStat_list);

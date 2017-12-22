@@ -187,11 +187,39 @@ table.dataTable{
             <span class="caption-helper" id="lasttime">历史数据更新时间 ${lasttime}</span>
         </div>
         <div class="inputs">
-            <div class="actions" style="float: left;">
+            <div class="actions" style="float: left;" >
+            	<div id="ifsearch" style="float: left;">
+	            	<div class="portlet-input input-inline " >
+	                    <div class="input-icon right">
+	                        <i class="icon-magnifier"></i>
+	                        <input id="search" type="text" class="form-control input-circle" name="firstTd" style="font-size: 12px;" placeholder="搜索域名..."> </div>
+	                </div>
+	                <div class="btn-group">
+	                    <a href="" class="btn dark btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
+	                    	<span id="top" > TOP 50 &nbsp;</span> 
+	                        <span class="fa fa-angle-down"> </span>
+	                    </a>
+	                    <ul class="dropdown-menu pull-right" id="topul">
+	                        <li class="active" onclick="changeTop(this,50)">
+	                            <a ><span style="color: #333;"> TOP 50 &nbsp;</span></a>
+	                        </li>
+	                        <li onclick="changeTop(this,100)">
+	                            <a ><span style="color: #333;"> TOP 100 </span></a>
+	                        </li>
+	                        <li  onclick="changeTop(this,200)">
+	                            <a ><span style="color: #333;"> TOP 200 </span></a>
+	                        </li>
+	                        <li onclick="changeTop(this,500)">
+	                            <a ><span style="color: #333;"> TOP 500 </span></a>
+	                        </li>
+	                    </ul>
+	                </div>
+                </div>&nbsp;
 				<a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
 				<a class="btn btn-circle btn-icon-only btn-default fullscreen"  id="fullscreenOractual"><i class="icon-size-fullscreen"></i></a>
 			</div>
         </div>
+        
 	</div>
 	
 	<!-- 渠道和域名数据列表                           ---------------------------------------------------------------- -->
