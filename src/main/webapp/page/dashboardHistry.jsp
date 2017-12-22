@@ -148,8 +148,6 @@ table.dataTable{
 }
 
 
-
-
 </style>
 
 <div class="portlet light bordered">
@@ -158,7 +156,7 @@ table.dataTable{
          <div class="caption">
              <!-- <i class=" icon-info font-green"></i> -->
              <span class="caption-subject bold font-dark uppercase ">历史统计</span>
-             <span class="caption-helper" >历史趋势</span>
+             <span class="caption-helper" >站点历史走势</span>
          </div>
      
          <div class="actions" style="margin-right: 0px;">

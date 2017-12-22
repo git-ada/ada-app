@@ -69,12 +69,15 @@ public interface AdaRegionStatDao extends EntityJpaDao<AdaRegionStat, Integer> {
 	public List<AdaRegionStat> findByCreateTime(Timestamp createTime);
 
 	
-	@Query(value="select d.*,r.fullname as region from ada_region_stat d left join ada_region r on d.regionId=r.id  " +
+	@Query(value="select d.*  from ada_region_stat d left join ada_region r on d.regionId=r.id  " +
 			" where d.siteId=?  and d.date=? and d.ip>50 order by ip desc ",nativeQuery=true)
 	public List<AdaRegionStat> loadDomainRegion(Integer siteId,Date date);
 	
 	@Query(value="select ip from ada_region_stat d,ada_region r where d.siteId=? and  d.regionId=r.id and  d.domainId=?  and r.fullname=? and d.date=?",nativeQuery=true)
 	public Integer loadRegionIP(Integer siteId,Integer domainId, String cityName, Date date);
+	
+	@Query(value="select r.fullname from ada_region_stat d,ada_region r where d.siteId=? and  d.regionId=r.id and  d.domainId=? and d.date=?",nativeQuery=true)
+	public String loadRegionCityName(Integer siteId,Integer domainId, Date date);
 	
 	@Query(value="select r.fullname from ada_region_stat d,ada_region r where d.siteId=? and d.regionId=r.id and  d.domainId=? and d.date=?",nativeQuery=true)
 	public Set<String> loadRegionData(Integer siteId,Integer domainId,Date date);

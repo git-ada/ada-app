@@ -307,17 +307,17 @@ public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
 		this.createTime = createTime;
 	}
 
-	private AdaRegion regions;
-
-	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaRegion.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "regionId", insertable = false, updatable = false)
-	@NotFound(action=NotFoundAction.IGNORE)
-	public AdaRegion getRegions() {
-		return regions;
-	}
-	public void setRegions(AdaRegion regions) {
-		this.regions = regions;
-	}
+//	private AdaRegion regions;
+//
+//	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaRegion.class, fetch = FetchType.LAZY)
+//	@JoinColumn(name = "regionId", insertable = false, updatable = false)
+//	@NotFound(action=NotFoundAction.IGNORE)
+//	public AdaRegion getRegions() {
+//		return regions;
+//	}
+//	public void setRegions(AdaRegion regions) {
+//		this.regions = regions;
+//	}
     
 //	private String fullname;
 //	@Transient
