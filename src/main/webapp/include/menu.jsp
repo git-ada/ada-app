@@ -18,12 +18,4 @@
 <li class="nav-item"><a href="${pageContext.request.contextPath}/site-jscode.jhtm" class="ajaxify nav-link" ><i class="icon-layers"></i><span class="title">统计代码</span></a></li>
 
 
-<!-- 
 
-<li class="nav-item"><a href="${pageContext.request.contextPath}/hgr/dashboard.jhtm?dataType=domain" class="ajaxify nav-link" ><i class="icon-home"></i><span class="title">全站统计</span></a></li>
-
-<<<<<<< HEAD
- -->
-=======
- -->
->>>>>>> refs/heads/zx5.0
