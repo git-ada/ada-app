@@ -1,5 +1,6 @@
 package com.ada.app.domain;
 
+import java.beans.Transient;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -84,6 +85,8 @@ public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
 	private Integer loginip;
 	/** UV*/
 	private Integer uv;
+	
+
 	
 	public AdaRegionStat() {
 		super();
@@ -304,17 +307,18 @@ public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
 		this.createTime = createTime;
 	}
 
-	private AdaDomain domain;
-
-	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaDomain.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "domainId", insertable = false, updatable = false)
+	private AdaRegion region;
+    
+	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaRegion.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "regionId", insertable = false, updatable = false)
 	@NotFound(action=NotFoundAction.IGNORE)
-	public AdaDomain getDomain() {
-		return domain;
+	@javax.persistence.Transient
+	public AdaRegion getRegion() {
+		return region;
 	}
 
-	public void setDomain(AdaDomain domain) {
-		this.domain = domain;
+	public void setRegion(AdaRegion domain) {
+		this.region = region;
 	}
 
 	public Integer getStaytimeip1() {

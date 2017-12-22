@@ -1306,16 +1306,16 @@ public class IndexController3 {
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
 		 System.out.println("date:--> "+date);
 		 List<AdaDomainStat> domainStats = domainStatDao.findByDateLoadData(adaSite.getId(), date);
-		 log.info("--------------- start --------------------");
+		 log.info("--------------- start domainStats--------------------");
 		 Long startTime = System.currentTimeMillis();
-			
+		 
 		 if(domainStats!=null && domainStats.size()>0){
 			 for(AdaDomainStat domainStat : domainStats){
 				 List<Object> list = new ArrayList();
 				 list=getList(domainStat);
 				 list.add(domainStat.getDomainId());
 				 list.add(domainStat.getDomainName());
-				 
+				 //System.out.println(domainStat.getDomainName());
 				 String domain = domainStat.getDomain().getDomain();
 				 if(domain.length()>18){
 					 list.add(domain.substring(0, 18));
@@ -1329,7 +1329,7 @@ public class IndexController3 {
 		 
 		 Long endTime = System.currentTimeMillis();
 		 Long cost = endTime - startTime;
-		 log.info("--------------- end ------------------耗时："+cost+"ms");
+		 log.info("--------------- end domainStats------------------耗时："+cost/1000+"s");
 		 
 		 Map map = new HashMap();
 		 map.put("DomainStat_list", DomainStat_list);
@@ -1339,50 +1339,30 @@ public class IndexController3 {
 	
 	/** 地域统计信息  **/
 	protected Map getDomainRegion(Date date,Integer domainId){
+//		String date2 = new SimpleDateFormat("yyyy-MM-dd").format(date);
 		AdaSite adaSite = Sessions.getCurrentSite();
 		List<List<Object>> region_list = new ArrayList<List<Object>>();
-		
-//		Set<String> regionData = statService.getCityList(domainId, date);
-		Set<String> regionData = regioinStatDao.loadRegionData(adaSite.getId(),domainId, date);
-        
-		List<String[]> IPs = new ArrayList();//先取出IP数 
-		for(String cityName:regionData){
-//			 Integer IP = statService.statRegionIP(domainId, cityName, date);
-			 Integer IP = regioinStatDao.loadRegionIP(adaSite.getId(),domainId, cityName, date);
-			 if(IP!=null && IP>0){
-				 IPs.add(new String[]{cityName,String.valueOf(IP)});
-			 }
-		}
-		
-		/** 根据ip数排序 **/
-		 Collections.sort(IPs,new Comparator<String[]>(){
-				public int compare(String[] int1, String[] int2) {
-					Integer integer = Integer.valueOf(int1[1]) ;
-					Integer integer2 = Integer.valueOf(int2[1]);
-					return integer2.compareTo(integer);
-				}
-	     });
-		
-		Integer SumIP = 0;/** ip总数 **/
-		Integer SumPV = 0;/** PV总数 **/
-		for (int i=0;i<IPs.size();i++) {
-			String regionName = IPs.get(i)[0];
-//			DomainAreaStat region = statService.statDomainRegion(regionName, domainId, date);
-			AdaRegionStat region = regioinStatDao.loadDomainRegion(adaSite.getId(),domainId,regionName, date);
-			
-			List<Object> list = getList(region);
-			list.add(regionName);
-		    Integer ip = region.getIp();
-		    SumIP += ip;
-		    SumPV += region.getPv();
-		    region_list.add(list);
-			
-		}
-	
 		Map map = new HashMap();
+		
+		List<AdaRegionStat> regionStats = regioinStatDao.loadDomainRegion(adaSite.getId(), date);
+		log.info("--------------- start regionStats--------------------");
+		Long startTime = System.currentTimeMillis();
+		
+		if(regionStats!=null && regionStats.size()>0){
+			for(AdaRegionStat regionStat : regionStats){
+				List<Object> list = getList(regionStat);
+				
+				Integer fullname = regionStat.getRegion().getFullname();
+				list.add(fullname);
+			    region_list.add(list);
+			}
+		}
+		
+		Long endTime = System.currentTimeMillis();
+		Long cost = endTime - startTime;
+		log.info("--------------- end regionStats------------------耗时："+cost/1000+"s");
 		map.put("data_list", region_list);
-		map.put("sumip", SumIP);
-		map.put("sumpv", SumPV);
+		
 		return map;
 	}
 	/** 地域广告入口统计数据 **/
