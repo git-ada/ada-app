@@ -319,16 +319,16 @@ public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
 	public void setRegion(AdaRegion domain) {
 		this.region = region;
 	}
-	private String fullName;
+	private String fullname;
 	
-	@Transient
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
+//	@Transient
+//	public String getFullname() {
+//		return fullname;
+//	}
+//
+//	public void setFullname(String fullname) {
+//		this.fullname = fullname;
+//	}
 	
 	
 
