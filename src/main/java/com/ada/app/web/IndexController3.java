@@ -1352,7 +1352,7 @@ public class IndexController3 {
 			for(AdaRegionStat regionStat : regionStats){
 				List<Object> list = getList(regionStat);
 				
-				Integer fullname = regionStat.getRegion().getFullname();
+				String fullname = regionStat.getRegion().getFullname();
 				list.add(fullname);
 			    region_list.add(list);
 			}
@@ -1365,6 +1365,7 @@ public class IndexController3 {
 		
 		return map;
 	}
+	
 	/** 地域广告入口统计数据 **/
 	protected Map getDomainRegionAd_data(Date date,Integer domainId){
 		List<List<Object>> regionAd_list = new ArrayList<List<Object>>();
