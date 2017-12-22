@@ -1,4 +1,4 @@
-/*package com.ada.app.service.impl;
+package com.ada.app.service.impl;
 
 import org.springframework.stereotype.Service;
 
@@ -11,4 +11,3 @@ import com.ada.app.domain.AdaAccessLog;
 public class AdaAccessLogServiceImpl extends EntityServiceImpl<AdaAccessLog, AdaAccessLogDao> implements AdaAccessLogService {
 
 }
-*/

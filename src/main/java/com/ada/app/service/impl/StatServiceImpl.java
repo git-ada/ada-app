@@ -47,27 +47,38 @@ public class StatServiceImpl implements StatService{
 	public AdaSiteStat statSite(Integer site, Date date) {
 		Jedis jedis = getJedis(date);
 		Integer sitePV = 0;
+		Integer siteUV = 0;
+		Integer siteAdPV = 0;
+		Integer siteAdUV = 0;
+		Integer siteNotAdPV = 0;
+		Integer siteNotAdUV = 0;
+		Integer siteNotAdIP = 0;
+		
 		try {
 			//取出站点PV
 			String _SitePV = jedis.get(RedisKeys.SitePV.getKey()+site+"");
 			if(_SitePV != null) sitePV = Integer.valueOf(_SitePV);
 			//取出站点IPSet集合
 			int siteIP = jedis.scard(RedisKeys.SiteIP.getKey()+site+"").intValue();
-			Integer siteuv = 0;//站点UV
-			String siteUV = jedis.get(RedisKeys.SiteUV.getKey()+site+"");
-			if(siteUV != null) siteuv = Integer.valueOf(siteUV);
+			//取出站点UV
+			String _siteUV = jedis.get(RedisKeys.SiteUV.getKey()+site+"");
+			if(_siteUV != null) siteUV = Integer.valueOf(_siteUV);
+			//取出站点AdPV
+			String _siteAdPV = jedis.get(RedisKeys.AdPV.getKey()+site+"");
+			if(_siteAdPV != null) siteAdPV = Integer.valueOf(_siteAdPV);
+			//取出站点AdIPSet集合
+			int siteAdIP = jedis.scard(RedisKeys.AdIP.getKey()+site+"").intValue();
+			//取出站点AdUV
+			String _siteAdUV = jedis.get(RedisKeys.AdUV.getKey()+site+"");
+			if(_siteAdUV != null) siteAdUV = Integer.valueOf(_siteAdUV);
+			//取出站点NotAdUV
+			siteNotAdPV = sitePV - siteAdPV;
+			//取出站点NotAdIPSet集合
+			siteNotAdIP = siteIP - siteAdIP;
+			//取出站点NotAdUV
+			siteNotAdUV = siteUV - siteAdUV;
 			
-			//站点广告入口ip
-			int AdIP = jedis.scard(RedisKeys.AdIP.getKey()+site+"").intValue();
-			Integer adpv = 0;//站点广告入口pv
-			Integer aduv = 0;//站点广告入口uv
-			String adPV = jedis.get(RedisKeys.AdPV.getKey()+site+"");
-			if(adPV != null) adpv = Integer.valueOf(adPV);
-			
-			String adUV= jedis.get(RedisKeys.AdUV.getKey()+site+"");
-			if(adUV != null) aduv = Integer.valueOf(adUV);
-			
-			return new AdaSiteStat(site, siteIP, sitePV, date,siteuv,AdIP,adpv,aduv);
+			return new AdaSiteStat(site, siteIP, sitePV, siteUV, siteAdIP, siteAdPV, siteAdUV, siteNotAdIP, siteNotAdPV, siteNotAdUV, date);
 		} finally{
 			returnResource(date,jedis);
 		}

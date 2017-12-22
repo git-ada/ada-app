@@ -41,7 +41,7 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <a href="javascript:gotoPage('${pageContext.request.contextPath}/dashboardHistry.jhtm?dataType=${dataType}');"> <i class="icon-action-undo"></i></a>
+                  <a href="javascript:gotoPage('${pageContext.request.contextPath}/dashboardHistry.jhtm?dataType=domain');"> <i class="icon-action-undo"></i></a>
                   <i class=" icon-info font-green"></i>
                   <span class="caption-subject font-green bold uppercase">IP&PV&UV</span>
               </div>
@@ -207,7 +207,7 @@
 			if(pageNo==0)pageNo=1;
 			//ajax读取 上一月的数据
 			jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajaxdashboard_domainTime3.do?pageNo=" + pageNo+"&domainId="+${domainId},
+				url : "${pageContext.request.contextPath}/ajaxdashboard_domainTime3_histry.do?pageNo=" + pageNo+"&domainId="+${domainId},
 				success : function(data) {
 					var json = eval('(' + data + ')');
 					if (json.success) {

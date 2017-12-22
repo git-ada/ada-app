@@ -123,44 +123,57 @@ table.dataTable{
     border-spacing: 0;
 }
 
+<!--  -->
+.portlet.light .portlet-body {
+    padding-top: 5px;
+}
+.portlet.bordered>.portlet-title{
+	padding-right:0px;
+	padding-bottom:0px;
+	margin-bottom: 0px;
+	min-height: 35px;
+}
+.portlet.light>.portlet-title>.actions {
+    padding: 6px 0 0px;
+    height: 35px;
+    
+    
+}
+.portlet.light {
+    padding: 0px 10px 2px;
+    background-color: #fff;
+}
+
+.portlet-title {
+    padding-left: 10px !important;
+}
+
+
 </style>
 
-<!-- 
-<div class="page-bar">
-    <ul class="page-breadcrumb" style="width: 100%">
-        <li>
-            <i class="icon-home"></i>
-            	首页
-            <i class="fa fa-angle-right"></i>
-        </li>
-         <li>
-            <span>实时数据</span>
-        </li>
-    </ul>
-</div>
- -->
-
-<div class="row" style="margin-bottom: 15px;">
-	<div class="col-lg-12 col-xs-12 col-sm-12">
-      <!-- BEGIN PORTLET-->
-      <div class="portlet light bordered">
-          <div class="portlet-title">
-          <!-- -->
-               <div class="caption" style="margin-left: 0px;">
-                   <i class=" icon-info font-green"></i>
-                   <span class="caption-subject font-green bold uppercase">历史统计</span>
-               </div>
-           
-               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoadinghistry(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoadinghistry(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
-               </div>
-          </div>
-          <div class="portlet-body">
-              <div id="ad_chart_1" class="chart" style="height: 150px;"> </div>
-          </div>
-      </div>
-  </div>
+<div class="portlet light bordered">
+    <div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;padding-left: 0px !important;">
+    <!--  -->
+         <div class="caption">
+             <!-- <i class=" icon-info font-green"></i> -->
+             <span class="caption-subject bold font-dark uppercase ">历史统计</span>
+             <span class="caption-helper" >站点历史走势</span>
+         </div>
+     
+         <div class="actions" style="margin-right: 0px;">
+        
+             <a href="javascript:graphicLoadinghistry(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+             <a href="javascript:graphicLoadinghistry(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+         </div>
+    </div>
+    <div class="portlet-body">
+       <div id="ad_chart_1" class="chart" style="height: 250px;"></div>
+       <!--
+        <a href="javascript:graphicLoading(-1)" data-value="${lastMonth}" id="backoff" title="" class="tubiao-btn-left"><i class="fa fa-chevron-left"></i> </a> 
+       <a href="javascript:graphicLoading(1)" data-value="${nextMonth}" id="forward" title="" class="tubiao-btn-right"> <i class="fa fa-chevron-right"></i></a>
+        -->
+	      
+   </div>
 </div>
 
 <div class="portlet light portlet-fit bordered">
@@ -171,7 +184,7 @@ table.dataTable{
             	<c:if test="${dataType=='domainAd'}">广告入口统计</c:if> 
             	<c:if test="${dataType=='domainNotAd'}">非广告入口统计</c:if>  
             </span>
-            <span class="caption-helper" id="lasttime">最后一次更新时间 ${lasttime}</span>
+            <span class="caption-helper" id="lasttime">历史数据更新时间 ${lasttime}</span>
         </div>
         <div class="inputs">
             <div class="actions" style="float: left;">
@@ -235,18 +248,30 @@ table.dataTable{
 			<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
 
 			     <c:if test="${dataType=='domain'}">
-			     	<li>
+			     <li>
 			       <a href="javascript:;" id="oneTime">分时统计1</a>
 			     </li>
+			     <li>
+			       <a href="javascript:;" id="oneTime2">分时统计2</a>
+			     </li>
+			     <li>
+			       <a href="javascript:;" id="oneTime3">分时统计3</a>
+			     </li>
+			     <li>
+			         <a href="javascript:;" id="domainRegion">地域统计</a>
+			     </li>
+			     <!-- 
 			     	<li>
 			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_histry.jhtm?domainId=${item[23]}&domain=${item[24]}&clickDate=${lasttime}')">分时统计2</a>
 			     </li>
 			     <li>
 			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3_histry.jhtm?domainId=${item[23]}&domain=${item[24]}&clickDate=${lasttime}')">分时统计3</a>
 			     </li>
+			      
 				     <li>
 				         <a href="javascript:;" onclick="changeDataType('domainRegion',${item[23]})">地域统计</a>
 				     </li>
+				     -->
 			     </c:if>
 			     <c:if test="${dataType=='domainAd'}">
 			     	<li>
@@ -273,10 +298,7 @@ table.dataTable{
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     var clickDate = "";
-     function getClickDate(){
-    	 var clickDate = ${lasttime};
-    	 return clickDate;
-     }
+    
     /** 图表拉动 **/
 	function graphicLoadinghistry(obj) {
 		var pageNo = 1;
@@ -302,7 +324,7 @@ table.dataTable{
 						jQuery("a[a-type=lastPage]").attr("page-data",json.lastPage);
 						jQuery("a[a-type=nextPage]").attr("page-data",json.nextPage);
 						
-						//histryChart("ad_chart_1", json.ad_chart_1,json.notad_chart_1);
+						histryChart("ad_chart_1", json.ad_chart_1,json.notad_chart_1);
 					    
 					} else {
 						toastr.success(json.message);
@@ -321,12 +343,11 @@ table.dataTable{
 			success : function(data) {
 				if (data!=null) {
 					var json = eval('(' + data + ')');
-					loadTbody(json,2);
-					getClickDate();
+					loadHistryDataTbody(json,2);
 				}
 			},
 			error: function (data) {
-				alert("数据加载异常!!!");
+				//alert("数据加载异常!!!");
 			}
 		});
 	}
@@ -339,10 +360,12 @@ table.dataTable{
 		var d4 = [];
 		var d5 = [];
 		var d6 = '';
+		var d7 = [];
 		$.each(data1, function (index, item) {
 	        d1.push(item.date);
 	        d2.push(item.adip);
 	        d3.push(item.pv);
+	        d7.push(item.uv);
 	    });
 		$.each(data2, function (index, item) {
 	        d4.push(item.notadip);
@@ -351,8 +374,11 @@ table.dataTable{
 		var myChart = echarts.init(document.getElementById(divid));
 		myChart.on('click', function (params) {
 			console.log("date: "+params.name);
-			//byClickLoadTableData(params.name);
-			console.log("--请求完成--");
+			console.log("----byClickLoadTableData 开始----");
+			var t1 = new Date();
+			byClickLoadTableData(params.name);
+			var t2 = new Date()- t1;
+			console.log("----byClickLoadTableData 结束----"+ t2);
 		});
 		myChart.setOption({
 	   	      tooltip : {
@@ -369,33 +395,40 @@ table.dataTable{
 	   	              type : 'shadow'      
 	   	          }
 	   	      },
-	   	      color:['#2db7d2','#2492a8','red'], 
+	   	      color:['#2db7d2','#2492a8','blue','red'], 
 	   	      legend: {
-	   	    	  x : '5.5%',
-	   	    	  y : '85%', 
+	   	    	  //x : '5.5%',
+	   	    	  //y : '86%', 
 	   	          itemWidth: 32, 
 				  itemHeight: 16,
 				  itemBorderRadius:0,
 	   	          data:[{
-	                  name:'广告IP',
+	                  name:'IP(广告)',
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'非广告IP',
+	                  name:'IP(非广告)',
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'总PV数',
+	                  name:'UV',
+	                  icon : 'line',
+	                  textStyle:{}
+	              },{
+	                  name:'PV',
 	                  icon : 'line',
 	                  textStyle:{}
 	              }]
 	   	      },
 	   	      grid: {
-	   	    	  y:'5%',
-	   	    	  height:'75%',
-	   	          left: '3%',
-	   	          right: '4%',
-	   	          bottom: '0%',
+	   	    	  //y:'6%',
+	   	    	  height:'80%',
+	   	          //left: '3%',
+	   	          //right: '4%',
+	   	          //top: '5%',
+	   	          left: '0%',
+	   	          right: '2%',
+	   	          bottom: '8%',
 	   	          containLabel: true
 	   	      },
 	   	      xAxis : [
@@ -405,7 +438,8 @@ table.dataTable{
 	   	            	  show: true
 	   	              },
 		   	          axisLabel: {
-		   	              interval: 1 
+		   	              interval: 1 ,
+		   	              rotate:20//倾斜度 -90 至 90 默认为0  
 		   	          },
 	   	              data : d1
 	   	          }
@@ -413,7 +447,7 @@ table.dataTable{
 	   	      yAxis : [
 		   	       {
 		   	            type: 'value',
-		   	            name: 'IP统计',
+		   	            name: 'IP',
 			   	        splitLine:{   
 		  	           		show: false
 		  	           	},
@@ -423,7 +457,7 @@ table.dataTable{
 		   	        },
 		   	        {
 		   	            type: 'value',
-		   	            name: '总PV数',
+		   	            name: 'PV/UV',
 		   	            
 			   	        splitLine:{     
 		 	           		show: false
@@ -435,44 +469,71 @@ table.dataTable{
 	   	      ],
 	   	      series : [
 	   	          {
-	   	              name:'广告IP',
+	   	              name:'IP(广告)',
 	   	              type:'bar',
-	   	        	  stack: 'IP统计',
+	   	        	  stack: 'IP',
 	   	              data:d2
 	   	          },{
-	   	              name:'非广告IP',
+	   	              name:'IP(非广告)',
 	   	              type:'bar',
-	   	        	  stack: 'IP统计',
+	   	        	  stack: 'IP',
 	   	              data:d4
 	   	          },
 	   	          {
-	   	              name:'总PV数',
+	   	              name:'UV',
 	   	              type:'line',
 	   	              yAxisIndex: 1,
-	   	         	  stack: '总PV数',
+	   	         	  stack: 'UV',
+	   	              data:d7
+	   	          },
+	   	          {
+	   	              name:'PV',
+	   	              type:'line',
+	   	              yAxisIndex: 1,
+	   	         	  stack: 'PV',
 	   	              data:d3
 	   	          }
 	   	      ]
 	   	});
 	}
 
-
 var dataType = '${dataType}';//页面数据类型
+var clickDate1 = '${lasttime}';//页面数据类型
 var domainId = "";//域名ID
 var stClick = false;
 var cClick = false;
 var sClick = false;
 var mClick = false;
+
+function loadAreaHistryData() {
+	jQuery.ajax({
+		url : "${pageContext.request.contextPath}/clickLoadHistryData.do?dataType="+'domain'+"&clickDate="+clickDate ,
+		success : function(data) {
+			if (data!=null) {
+				var json = eval('(' + data + ')');
+				loadHistryDataTbody(json,2);
+			}
+		},
+		error: function (data) {
+			//alert("地域数据加载异常!!!");
+		}
+	});
+}
+
 //打开菜单
 function openMenu(a,event){
 	
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
-	 //jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_one_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_one_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	jQuery("#oneTime2").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	jQuery("#oneTime3").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	
 	//jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"')");
 	//jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"')");
 	if(dataType=="domain"){
-		jQuery("#region").attr("onclick","changeDataType('domainRegion',"+id+")");
+		jQuery("#oneTime4").attr("onclick","changeDataType('${pageContext.request.contextPath}/clickLoadAreaHistryData.do?domainId="+id+"&dataType="+'domainRegion'+"&clickDate="+clickDate+"')");
+		//jQuery("#oneTime4").attr("onclick","loadAreaHistryData('${pageContext.request.contextPath}/clickLoadAreaHistryData.do?domainId="+id+"&dataType="+'domainRegion'+"&clickDate="+clickDate+"')");
 	}else if(dataType==""){
 		jQuery("#region").attr("onclick","changeDataType('domainRegionAd',"+id+")");
 	}else if(dataType==""){
@@ -596,14 +657,17 @@ var initTable1 = function () {
 }
 /**--------------预加载-------------------- **/
 	jQuery(document).ready(function() {
-		//alert("进来了！！！");
+		//console.log("历史页面进来了！！！");
 		var tbodydata = '${tbodydata}';
 		var json = eval('(' + tbodydata + ')');
-		loadTbody(json,1);
-		
+		console.log("----js开始渲染tbody----");
+		var t1 = new Date();
+		loadHistryDataTbody(json,1);
+		var t2 = new Date() - t1;
+		console.log("----js结束渲染tbody----耗时："+t2);
 		var histryData = '${histryJson}';
 		var json2 = eval('(' + histryData + ')');
-		//histryChart("ad_chart_1", json2.ad_chart_1,json2.notad_chart_1);
+		histryChart("ad_chart_1", json2.ad_chart_1,json2.notad_chart_1);
 		
 	    initTable1();
 	     jQuery("#pauseOrplay").click(function(){
@@ -650,12 +714,14 @@ var initTable1 = function () {
 	     });  
 	});
 	/**改变页面数据类型**/
-	function changeDataType(type,domainId){
+	function changeDataType(type){
+		//alert("------------");
 		App.startPageLoading({animate: !0});//开启 加载 动画
-		dataType = type;
-		ajaxRefreshPage(type,domainId);
+		//dataType = type;
+		ajaxRefreshPages(type);
 		
 	}
+	
 	 function graphicLoading(obj) {
 		var pageNo = 1;
 
@@ -692,38 +758,39 @@ var initTable1 = function () {
 		}
 	} 
 	 
-	 var ajaxTime = 2000;
+	 //var ajaxTime = 2000;
 	 //第一次异步刷新
-	 //t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
-	  /**
-	 function ajaxRefreshPage(type,domainId){
+	 //t = window.setTimeout("ajaxRefreshPages('"+dataType+"')",ajaxTime); 
+	 
+	 function ajaxRefreshPages(type){
 		 jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajaxRefreshHistryData.do?dataType="+dataType+"&domainId="+domainId,
+				//url : "${pageContext.request.contextPath}/ajaxRefreshHistryData.do?dataType="+dataType+"&domainId="+domainId,
+				url : type,		
 				success : function(data) {
-					
 					if (data!=null) {
 						var json = eval('(' + data + ')');
-						loadTbody(json,2);
+						loadHistryDataTbody(json,2);
 					
 					}
-					clearTimeout(t);
-					if(browsingHistory[browsingHistory.length-1].indexOf("/dashboardHistry.jhtm")>=0 && isRefresh){
-						ajaxTime=2000;
-						t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
-					}
+					//clearTimeout(t);
+					//if(browsingHistory[browsingHistory.length-1].indexOf("/dashboardHistry.jhtm")>=0 && isRefresh){
+						//ajaxTime=2000;
+						//t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
+					//}
 					App.stopPageLoading();//关闭 加载动画
 				},
 				error: function (data) {
 					App.stopPageLoading();//关闭 加载动画
-					clearTimeout(t);
-					ajaxTime=ajaxTime*2;
-					t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
+					//clearTimeout(t);
+					//ajaxTime=ajaxTime*2;
+					//t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
 				}
 			});
 	 }
-	  **/
+	 
 	 /** js渲染tbody **/
-	 function loadTbody(json,num){
+	 function loadHistryDataTbody(json,num){
+		 //console.log("----js渲染tbody----");
 		 domainId = json.domainId;//域名ID
 			var table = "";
 			var lefttable = "";
@@ -731,9 +798,10 @@ var initTable1 = function () {
 			var firstTh = "域名";
 			var SUMIP = "";
 			var SUMPV = "";
+			dataType = json.dataType;
 			/** 数据列表 **/
 			var dataList = json.data_list;
-			 
+			 //alert(json.dataType);
 			if(dataType=="domain"){
 				firstTh = "域名";
 				SUMIP = "全站独立IP数";
@@ -746,10 +814,10 @@ var initTable1 = function () {
 				SUMIP = "非广告入口独立IP数";
 				SUMPV = "非广告入口访问量";
 				firstTh = "域名";
-			}else if(dataType=="domainRegion"){
+			}else if(json.dataType=="domainRegion"){
 				SUMIP = "地域独立IP数";
 				SUMPV = "地域访问量";
-				firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
+				firstTh = "地域  <a style='color: #333;' onclick='loadAreaHistryData()'><i class='icon-action-undo'></i></a>";
 			}else if(dataType=="domainRegionAd"){
 				SUMIP = "地域广告入口独立IP数";
 				SUMPV = "地域广告入口访问量";
@@ -776,7 +844,7 @@ var initTable1 = function () {
 			    	if(!mClick) mtDisplay = "displaynone";
 			    }
 			if(dataList!=null && dataList.length>0){
-				console.log("历史域名数据条数------>"+dataList.length);
+				//console.log("历史域名数据条数------>"+dataList.length);
 				for(var i=0;i<dataList.length;i++){
 					var item = dataList[i];
 					var firstTd = "";
@@ -815,7 +883,6 @@ var initTable1 = function () {
 				    }else if(dataType=="domainRegionNotAd"){
 				    	firstTd = "<td style='min-width: 140px;'  >"+item[23]+"</td>";
 				    }
-				   
 				    
 				    var sumST = item[7]+item[8]+item[9]+item[10];
 				    var sumC = item[11]+item[12]+item[13]+item[14];
@@ -892,13 +959,15 @@ var initTable1 = function () {
 				}
 			}
 			
-			if(browsingHistory[browsingHistory.length-1].indexOf("/dashboardHistry.jhtm")>=0 && dataType==json.dataType && isRefresh){
+			if(browsingHistory[browsingHistory.length-1].indexOf("/dashboardHistry.jhtm")>=0  && isRefresh){
 				if(num==1){
-					//alert(table+menu);
+					//alert("num==1");
+					//alert(table+menu);alert("num==2");
 					jQuery("#tbodyhistry").empty();
 					jQuery("#tbodyhistry").append(table);
 					//jQuery("#menu").append(menu);
 				}else if(num==2){
+					//alert("num==2");
 					//jQuery("#SUMIP").html(SUMIP);
 					//jQuery("#SUMPV").html(SUMPV);
 					//jQuery("#ip").html(json.sumip);
@@ -908,7 +977,9 @@ var initTable1 = function () {
 					jQuery("#tbodyhistry").append(table);
 					jQuery(".DTFC_LeftBodyWrapper #tbodyhistry").empty();
 					jQuery(".DTFC_LeftBodyWrapper #tbodyhistry").append(lefttable+menu);
-					jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
+					jQuery("#lasttime").html("历史数据更新时间  "+json.lasttime);
+
+
 					
 					clickDate = json.lasttime;
 				}

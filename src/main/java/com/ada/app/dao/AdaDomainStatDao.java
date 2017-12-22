@@ -21,11 +21,56 @@ public interface AdaDomainStatDao extends EntityJpaDao<AdaDomainStat, Integer> {
     @Query(value="select * from ada_domain_ad_stat where siteId=? and domainId=? order by createTime desc limit 1",nativeQuery=true)
     public AdaDomainStat findByDate(Integer siteId,Integer domainId);
     
-    @Query(value="select ip from ada_domain_stat where domainId = ? and date = ?",nativeQuery=true)
-    public Integer findByDateLoadIp(Integer domainId,Date date);
+
+    /**
+     * 获取全站的历史域名列表数据
+     * @param siteId
+     * @param date
+     * @return
+     */
+    @Query(value="select " +
+    		"dt.id,dt.siteId,dt.domainId,dt.ip,dt.pv,dt.clickip1,dt.clickip2,dt.clickip3,dt.clickip4,dt.targetpageip,dt.date," +
+    		"dt.createTime,dt.staytimeip1,dt.staytimeip2,dt.staytimeip3,dt.staytimeip4,dt.scrollip1,dt.scrollip2,dt.scrollip3,dt.scrollip4," +
+    		"dt.moveip1,dt.moveip2,dt.moveip3,dt.moveip4,dt.olduserip,dt.oldip,dt.loginip,dt.uv ,d.domain as domainName  " +
+    		"from ada_domain_stat dt left join ada_domain d  " +
+    		"on dt.domainId=d.id WHERE dt.siteId = ? and dt.date = ? and dt.ip>50 order by dt.ip desc",nativeQuery=true)
+    public List<AdaDomainStat> findByDateLoadData(Integer siteId,String date);
     
-    @Query(value="select * from ada_domain_stat where siteId=? and  domainId = ? and date = ?",nativeQuery=true)
-    public AdaDomainStat findByDateLoadData(Integer siteId,Integer domainId,Date date);
+    /**
+     * 获取全站广告的历史域名列表数据
+     * @param siteId
+     * @param date
+     * @return
+     */
+    @Query(value="select " +
+    		"dt.id,dt.siteId,dt.domainId,dt.ip,dt.pv,dt.clickip1,dt.clickip2,dt.clickip3,dt.clickip4,dt.targetpageip,dt.date," +
+    		"dt.createTime,dt.staytimeip1,dt.staytimeip2,dt.staytimeip3,dt.staytimeip4,dt.scrollip1,dt.scrollip2,dt.scrollip3,dt.scrollip4," +
+    		"dt.moveip1,dt.moveip2,dt.moveip3,dt.moveip4,dt.olduserip,dt.oldip,dt.loginip,dt.uv ,d.domain as domainName  " +
+    		"from ada_domain_stat dt left join ada_domain d  " +
+    		"on dt.domainId=d.id WHERE dt.siteId = ? and dt.date = ? and dt.ip>50 order by dt.ip desc",nativeQuery=true)
+    public List<AdaDomainStat> findByDateLoadAdData(Integer siteId,String date);
+    
+    
+    /**
+     * 获取全站非广告的历史域名列表数据
+     * @param siteId
+     * @param date
+     * @return
+     */
+    @Query(value="select " +
+    		"dt.id,dt.siteId,dt.domainId,dt.ip,dt.pv,dt.clickip1,dt.clickip2,dt.clickip3,dt.clickip4,dt.targetpageip,dt.date," +
+    		"dt.createTime,dt.staytimeip1,dt.staytimeip2,dt.staytimeip3,dt.staytimeip4,dt.scrollip1,dt.scrollip2,dt.scrollip3,dt.scrollip4," +
+    		"dt.moveip1,dt.moveip2,dt.moveip3,dt.moveip4,dt.olduserip,dt.oldip,dt.loginip,dt.uv ,d.domain as domainName  " +
+    		"from ada_domain_stat dt left join ada_domain d  " +
+    		"on dt.domainId=d.id WHERE dt.siteId = ? and dt.date = ? and dt.ip>50 order by dt.ip desc",nativeQuery=true)
+    public List<AdaDomainStat> findByDateLoadNotAdData(Integer siteId,String date);
+    
+    @Query(value="select id,siteId,domainId,ip,pv,clickip1,clickip2,clickip3,clickip4,targetpageip,date,createTime," +
+    		"staytimeip1,staytimeip2,staytimeip3,staytimeip4,scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4," +
+    		"olduserip,oldip,loginip,uv  " +
+    		"from ada_domain_stat where siteId=?  and domainId = ? and date = ?",nativeQuery=true)
+    public AdaDomainStat findByDateLoadDatas(Integer siteId,Integer domainId,Date date);
+
     
     /** 
      *通过ID查询

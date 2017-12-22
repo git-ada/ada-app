@@ -9,6 +9,7 @@ public enum RedisKeys {
 	
 	SitePV("站点PV","SitePV_",""),
 	SiteIP("站点IP","SiteIP_",""),
+
 	AdIP("广告IP","AdIP_",""),
 	AdPV("广告PV","AdPV_",""),
 	AdUV("广告UV","AdUV_",""),
@@ -58,6 +59,7 @@ public enum RedisKeys {
 	DomainScroll2IP("","DomainScroll2IP_",""),
 	DomainScroll3IP("","DomainScroll3IP_",""),
 	DomainScroll4IP("","DomainScroll4IP_",""),
+
 	
 	SiteOldUserIP("站点老用户数","SiteOldUserIP_",""),
 	ChannelOldUserIP("渠道老用户数","ChannelOldUserIP_",""),

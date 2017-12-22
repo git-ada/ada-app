@@ -3,10 +3,17 @@ package com.ada.app.domain;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import cn.com.jiand.mvc.framework.domain.AbstractEntity;
 
@@ -343,5 +350,13 @@ public class AdaDomainNotadStat extends AbstractEntity<Integer> implements BaseS
 		this.createTime = createTime;
 	}
 	
-	
+//	private AdaDomain domain;
+//
+//	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaDomain.class, fetch = FetchType.LAZY)
+//	@JoinColumn(name = "domainId", insertable = false, updatable = false)
+//	@NotFound(action=NotFoundAction.IGNORE)
+//	public AdaDomain getDomain() {
+//		return domain;
+//	}
+
 }

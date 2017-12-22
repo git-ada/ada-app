@@ -1,5 +1,6 @@
 package com.ada.app.domain;
 
+import java.beans.Transient;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -11,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -25,14 +25,16 @@ import cn.com.jiand.mvc.framework.domain.AbstractEntity;
  * @author Wanghl.cn By Code Generator
  */
 @Entity
-@Table(name = "ada_domain_stat")
-public class AdaDomainStat extends AbstractEntity<Integer> implements BaseStat{
+@Table(name = "ada_region_stat")
+public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
     /** ID */
 	private Integer id;                    
     /** 站点ID */
 	private Integer siteId;                    
     /** 渠道ID */
-	private Integer domainId;
+	private Integer domainId;   
+	/** 地域ID */
+	private Integer regionId;        
     /** IP */
 	private Integer ip;                    
     /** PV */
@@ -84,20 +86,19 @@ public class AdaDomainStat extends AbstractEntity<Integer> implements BaseStat{
 	/** UV*/
 	private Integer uv;
 	
-	private String domainName;
+
 	
-	
-	
-	public AdaDomainStat() {
+	public AdaRegionStat() {
 		super();
 	}
 
-	public AdaDomainStat(Integer siteId, Integer domainId, Integer ip,
+	public AdaRegionStat(Integer siteId, Integer domainId,Integer regionId, Integer ip,
 			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
 			Integer clickip4, Integer targetpageip, Date date) {
 		super();
 		this.siteId = siteId;
 		this.domainId = domainId;
+		this.regionId = regionId;
 		this.ip = ip;
 		this.pv = pv;
 		this.clickip1 = clickip1;
@@ -108,7 +109,7 @@ public class AdaDomainStat extends AbstractEntity<Integer> implements BaseStat{
 		this.date = date;
 	}
 
-	public AdaDomainStat(Integer siteId, Integer domainId, Integer ip,
+	public AdaRegionStat(Integer siteId, Integer domainId,Integer regionId, Integer ip,
 			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
 			Integer clickip4, Integer targetpageip, Date date,
 			Integer staytimeip1, Integer staytimeip2, Integer staytimeip3,
@@ -116,6 +117,7 @@ public class AdaDomainStat extends AbstractEntity<Integer> implements BaseStat{
 		super();
 		this.siteId = siteId;
 		this.domainId = domainId;
+		this.regionId = regionId;
 		this.ip = ip;
 		this.pv = pv;
 		this.clickip1 = clickip1;
@@ -130,7 +132,15 @@ public class AdaDomainStat extends AbstractEntity<Integer> implements BaseStat{
 		this.staytimeip4 = staytimeip4;
 	}
 
-	public AdaDomainStat(Integer siteId, Integer domainId, Integer ip,
+	public Integer getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(Integer regionId) {
+		this.regionId = regionId;
+	}
+
+	public AdaRegionStat(Integer siteId, Integer domainId, Integer ip,
 			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
 			Integer clickip4, Integer targetpageip, Date date,
 			Integer staytimeip1, Integer staytimeip2, Integer staytimeip3,
@@ -162,7 +172,7 @@ public class AdaDomainStat extends AbstractEntity<Integer> implements BaseStat{
 		this.moveip4 = moveip4;
 	}
 
-	public AdaDomainStat(Integer siteId, Integer domainId, Integer ip,
+	public AdaRegionStat(Integer siteId, Integer domainId, Integer ip,
 			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
 			Integer clickip4, Integer targetpageip, Date date,
 			Integer staytimeip1, Integer staytimeip2, Integer staytimeip3,
@@ -297,18 +307,28 @@ public class AdaDomainStat extends AbstractEntity<Integer> implements BaseStat{
 		this.createTime = createTime;
 	}
 
-	private AdaDomain domain;
-
-	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaDomain.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "domainId", insertable = false, updatable = false)
-	@NotFound(action=NotFoundAction.IGNORE)
-	public AdaDomain getDomain() {
-		return domain;
-	}
-
-	public void setDomain(AdaDomain domain) {
-		this.domain = domain;
-	}
+//	private AdaRegion regions;
+//
+//	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaRegion.class, fetch = FetchType.LAZY)
+//	@JoinColumn(name = "regionId", insertable = false, updatable = false)
+//	@NotFound(action=NotFoundAction.IGNORE)
+//	public AdaRegion getRegions() {
+//		return regions;
+//	}
+//	public void setRegions(AdaRegion regions) {
+//		this.regions = regions;
+//	}
+    
+//	private String fullname;
+//	@Transient
+//	public String getFullname() {
+//		return fullname;
+//	}
+//	public void setFullname(String fullname) {
+//		this.fullname = fullname;
+//	}
+	
+	
 
 	public Integer getStaytimeip1() {
 		return staytimeip1;
@@ -438,13 +458,6 @@ public class AdaDomainStat extends AbstractEntity<Integer> implements BaseStat{
 		this.uv = uv;
 	}
 
-	@Transient
-	public String getDomainName() {
-		return domainName;
-	}
-
-	public void setDomainName(String domainName) {
-		this.domainName = domainName;
-	}
+	
 	
 }

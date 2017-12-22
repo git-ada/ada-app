@@ -1,6 +1,7 @@
 package com.ada.app.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.math.BigDecimal;
@@ -9,8 +10,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import cn.com.jiand.mvc.framework.dao.jpa.EntityJpaDao;
 
+import com.ada.app.bean.AdaDomainNotadTotalStat;
 import com.ada.app.domain.AdaDomainAdStat;
 import com.ada.app.domain.AdaDomainNotadStat;
+import com.ada.app.domain.AdaSiteStat;
 
 /**
  * 域名非广告入口统计 JPA Dao
@@ -22,10 +25,8 @@ public interface AdaDomainNotAdStatDao extends EntityJpaDao<AdaDomainNotadStat, 
      *通过ID查询
      */
     public AdaDomainNotadStat findById(Integer id);
-    
     @Query(value="select * from ada_domain_notad_stat where siteId=? and domainId=? order by createTime desc limit 1",nativeQuery=true)
     public AdaDomainNotadStat findLast(Integer siteId,Integer domainId);
-    
     
     @Query(value="select * from ada_domain_notad_stat where siteId=? and domainId=? and date=? order by createTime desc limit 1",nativeQuery=true)
     public AdaDomainNotadStat findLastInDate(Integer siteId,Integer domainId,Timestamp date);

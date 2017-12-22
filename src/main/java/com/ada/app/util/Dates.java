@@ -625,6 +625,11 @@ public class Dates {
 		   }
 		return sb.toString();
 	}
+	
+	public static void main(String[] args) {
+		//getbeforeTime2("2017-12-18",1);
+	}
+	
 	/**
 	 * 获取当前时间的前几分钟时间(HH:mm)
 	 * @param dateStr HH:mm 时：分
@@ -653,10 +658,6 @@ public class Dates {
 		return strh+":"+ strm;
 	}
 
-	public static void main(String[] args) {
-		Date current = parse("2012-12-31");
-		System.out.println(format(current));
-		System.out.println(format(addDay(current)));
-	}
+
 
 }

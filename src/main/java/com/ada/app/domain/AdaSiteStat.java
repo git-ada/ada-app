@@ -45,8 +45,9 @@ public class AdaSiteStat extends AbstractEntity<Integer> {
 	private Date date;                    
     /** 创建时间 */
 	private Timestamp createTime;
-	
-	
+
+
+
 	public AdaSiteStat(Integer ip, Integer pv, Integer adIP,
 			Integer adPv, Integer notAdIp, Integer notAdPv, Date date) {
 		super();
@@ -137,6 +138,8 @@ public class AdaSiteStat extends AbstractEntity<Integer> {
 	public void setNotAdUv(Integer notAdUv) {
 		this.notAdUv = notAdUv;
 	}
+
+
 
 	public AdaSiteStat(Integer siteId, Integer ip, Integer pv, Date date,Integer uv,Integer adIP,Integer adPv,Integer aduv) {
 		super();
