@@ -117,13 +117,14 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "dashboard")
 	public String now(HttpServletRequest request,HttpServletResponse response, Model model,
-			String dataType,String firstTd,String top) {
+			String dataType,String firstTd,String top,String isRefresh) {
 		int iptop = 50;
 		if(top!=null && !"".equals(top)){
 			iptop = Integer.valueOf(top).intValue();
 		}
 		model.addAttribute("ipTop", iptop);
 		model.addAttribute("search", firstTd);
+		model.addAttribute("isRefresh", isRefresh);
 		
 		/** 从sessions中获取站点信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();//

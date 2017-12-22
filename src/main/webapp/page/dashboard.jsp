@@ -329,7 +329,7 @@ table.dataTable{
 
 <div id="menu">
          <%-- <c:forEach var="item" items="${tbodydata.data_list}" varStatus="number"> --%>
-		<div id="context-menu" style="z-index: 999;position:absolute;">
+		<div id="context-menu" style="z-index: 99999;position:absolute;">
 			<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
 				 <%-- <li>
 			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${item[23]}&domain=${item[24]}')">分时统计3</a>
@@ -363,12 +363,15 @@ var sClick = false;
 var mClick = false;
 var ipTop = '${ipTop}';// 总ip TOP
 var timestamp = "";//时间戳
-
-var t;
-var isRefresh = true;
+var ajaxTime = 2000;//异步刷新时间
+var t;//setTimeout返回的值
+var isRefresh = '${isRefresh}';
 var oTable;
-var oTable2;
 var table;
+
+
+
+
 //渲染table
 var initTable1 = function () {
      table = $('#scrolltable');
@@ -391,7 +394,9 @@ var initTable1 = function () {
 }
 /**--------------预加载-------------------- **/
 	jQuery(document).ready(function() {
-		console.log("进入预加载");
+		onLeavePage(function (){
+			isRefresh = "false";
+		});
 		if(search==null || search==""){//修改搜索框样式
     		jQuery("#searchImg").attr("class","icon-magnifier");
     		jQuery("#searchImg").css("cursor","auto");
@@ -400,6 +405,13 @@ var initTable1 = function () {
     		jQuery("#searchImg").css("cursor","pointer");
     		jQuery("#searchImg").attr("onclick","clearSearch()");
     	}
+		if(isRefresh=="true"){//修改暂停按钮样式
+			jQuery("#pauseOrplay i").removeClass("icon-control-play");
+   		 	jQuery("#pauseOrplay i").addClass("icon-control-pause");
+		}else{
+			jQuery("#pauseOrplay i").removeClass("icon-control-pause");
+   		 	jQuery("#pauseOrplay i").addClass("icon-control-play");
+		}
 		var tbodydata = '${tbodydata}';
 		var json = eval('(' + tbodydata + ')');
 		
@@ -411,12 +423,13 @@ var initTable1 = function () {
 	    		 jQuery("#pauseOrplay i").removeClass("icon-control-pause");
 	    		 jQuery("#pauseOrplay i").addClass("icon-control-play");
 	    		 clearTimeout(t);
-	    		 isRefresh = false;
+	    		 isRefresh = "false";
 	    	 }else if(jQuery("#pauseOrplay i").attr("class")=="icon-control-play"){
 	    		 jQuery("#pauseOrplay i").removeClass("icon-control-play");
 	    		 jQuery("#pauseOrplay i").addClass("icon-control-pause");
 				 ajaxRefreshPage();
-				 isRefresh = true;
+				 isRefresh = "true";
+				 
 	    	 }
 	     });
 	    
@@ -450,7 +463,7 @@ var initTable1 = function () {
 	     });  
 	    //给搜索框添加 键盘按键的离开事件
 	    jQuery("#search").keyup(function (){
-	    	isRefresh = false;
+	    	isRefresh = "false";
 	    	clearTimeout(t);
 	    	App.startPageLoading({animate: !0});//开启 加载 动画
 	    	search = jQuery(this).val();
@@ -463,14 +476,22 @@ var initTable1 = function () {
 	    		jQuery("#searchImg").attr("onclick","clearSearch()");
 	    	}
 	    	ajaxRefreshPage();
-	    	isRefresh = true;
+	    	isRefresh = "true";
+	    	jQuery("#pauseOrplay i").removeClass("icon-control-play");
+   		 	jQuery("#pauseOrplay i").addClass("icon-control-pause");
 	    });
+	    
+	    if(isRefresh=="true"){
+	      //第一次异步刷新
+	   	  t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
+	    }
+	    
+	   console.log("预加载完成-----》");
 	});
 
 	 
-	 var ajaxTime = 2000;
-	 //第一次异步刷新
-	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
+	 
+	
 	  
 	 function ajaxRefreshPage(){
 		 timestamp = Date.parse(new Date());
@@ -485,7 +506,8 @@ var initTable1 = function () {
 					
 					}
 					clearTimeout(t);
-					if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && isRefresh){
+					/** browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && **/
+					if(isRefresh=="true"){
 						ajaxTime=2000;
 						t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
 					}
@@ -499,9 +521,9 @@ var initTable1 = function () {
 				}
 			});
 	 }
-/** js渲染tbody **/
+/** js渲染tbody  browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 &&  **/
 function loadTbody(json,num){
-	 if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh ){
+	 if(dataType==json.dataType ){
 		// domainId = json.domainId;//域名ID
 			var table = "";
 			var lefttable = "";
@@ -823,7 +845,7 @@ function loadTbody(json,num){
 	 
 //单独查看
 function onlyOne(name){
-	isRefresh = false;
+	isRefresh = "false";
 	clearTimeout(t);
 	App.startPageLoading({animate: !0});//开启 加载 动画
 	search = name;
@@ -832,12 +854,14 @@ function onlyOne(name){
 	jQuery("#searchImg").css("cursor","pointer");
 	jQuery("#searchImg").attr("onclick","clearSearch()");
 	ajaxRefreshPage();
-	isRefresh = true;
+	isRefresh = "true";
+	jQuery("#pauseOrplay i").removeClass("icon-control-play");
+	jQuery("#pauseOrplay i").addClass("icon-control-pause");
 	
 }
 /** ------改变页面数据类型-------------**/
 function changeDataType(type,domain_Id){
-	isRefresh = false;
+	isRefresh = "false";
 	clearTimeout(t);
 	App.startPageLoading({animate: !0});//开启 加载 动画
 	if(type=="all"){
@@ -877,7 +901,9 @@ function changeDataType(type,domain_Id){
 	
 	
 	ajaxRefreshPage();
-	isRefresh = true;
+	isRefresh = "true";
+	jQuery("#pauseOrplay i").removeClass("icon-control-play");
+	jQuery("#pauseOrplay i").addClass("icon-control-pause");
 	
 }
 /** --------------分页查询 -------------**/
@@ -918,7 +944,7 @@ function graphicLoading(obj) {
 //打开菜单
 function openMenu(a,event){
 	
-	var backUrl = "${pageContext.request.contextPath}/dashboard.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop;
+	var backUrl = "${pageContext.request.contextPath}/dashboard.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop+"&isRefresh="+isRefresh;
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
 	 jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
@@ -959,7 +985,7 @@ function PercentageMax(num, total){
 }
 /**------  改变top值  ------**/
 function changeTop(a,num){
-	isRefresh = false;
+	isRefresh = "false";
 	clearTimeout(t);
 	jQuery("#topul li").removeClass("active");
 	jQuery(a).addClass("active");
@@ -973,7 +999,9 @@ function changeTop(a,num){
 	
 	ipTop = num;
 	ajaxRefreshPage();
-	isRefresh = true;
+	isRefresh = "true";
+	jQuery("#pauseOrplay i").removeClass("icon-control-play");
+	jQuery("#pauseOrplay i").addClass("icon-control-pause");
 }
 /** 修改td样式 **/
 function changeDisplay(a,data){
@@ -1021,7 +1049,7 @@ function changeDisplay(a,data){
 }
 /** 清空搜索框 **/
 function clearSearch(){
-	isRefresh = false;
+	isRefresh = "false";
 	clearTimeout(t);
 	App.startPageLoading({animate: !0});//开启 加载 动画
 	search = "";
@@ -1030,7 +1058,9 @@ function clearSearch(){
 	jQuery("#searchImg").css("cursor","auto");
 	jQuery("#searchImg").attr("onclick","");
 	ajaxRefreshPage();
-	isRefresh = true;
+	isRefresh = "true";
+	jQuery("#pauseOrplay i").removeClass("icon-control-play");
+	jQuery("#pauseOrplay i").addClass("icon-control-pause");
 }
 </script>
 
