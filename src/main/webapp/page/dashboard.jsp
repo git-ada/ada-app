@@ -368,7 +368,8 @@ var t;//setTimeout返回的值
 var isRefresh = '${isRefresh}';
 var oTable;
 var table;
-
+var sessionData = "";//每一次更新的数据放在session中
+var isRetrun = '${isRetrun}';
 
 
 
@@ -413,10 +414,18 @@ var initTable1 = function () {
 			jQuery("#pauseOrplay i").removeClass("icon-control-pause");
    		 	jQuery("#pauseOrplay i").addClass("icon-control-play");
 		}
-		var tbodydata = '${tbodydata}';
-		var json = eval('(' + tbodydata + ')');
+		if(isRetrun == "true"){
+			console.log("是返回的");
+			//如果是返回  从session中获取数据
+			var json = JSON.parse(sessionStorage.getItem("json"));
+			loadTbody(json,1);
+		}else{
+			console.log("不是返回的");
+			var tbodydata = '${tbodydata}';
+			var json = eval('(' + tbodydata + ')');
+			loadTbody(json,1);
+		}
 		
-		loadTbody(json,1);
 		
 	    initTable1();
 	     jQuery("#pauseOrplay").click(function(){
@@ -822,8 +831,8 @@ function loadTbody(json,num){
 					lefttable+=tr2;
 				  }
 				}
+				
 			}
-			
 			if(num==1){
 				jQuery("#tbody").empty();
 				jQuery("#tbody").append(table);
@@ -839,6 +848,9 @@ function loadTbody(json,num){
 				jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable);
 				jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
 			}
+			
+			sessionData = JSON.stringify(json);//将json对象转换为 json字符串
+			sessionStorage.setItem("json", sessionData);//将json字符串保存到session中
 			
 			
 		}
@@ -945,7 +957,7 @@ function graphicLoading(obj) {
 //打开菜单
 function openMenu(a,event){
 	
-	var backUrl = "${pageContext.request.contextPath}/dashboard.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop+"&isRefresh="+isRefresh;
+	var backUrl = "${pageContext.request.contextPath}/dashboard.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop+"&isRefresh="+isRefresh+"&isRetrun=true";
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
 	 jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
