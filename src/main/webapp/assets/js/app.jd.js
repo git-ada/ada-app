@@ -25,7 +25,8 @@ $(document).ready(function(){
 			/**
 			 * 忽略重复的请求记录
 			 */
-		}  
+		}
+		callLeavePageCallback();
   });
 });
 

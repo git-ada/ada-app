@@ -394,7 +394,8 @@ var initTable1 = function () {
 }
 /**--------------预加载-------------------- **/
 	jQuery(document).ready(function() {
-		onLeavePage(function (){
+		onLeavePage(function (){//离开页面时的回调方法
+			clearTimeout(t);
 			isRefresh = "false";
 		});
 		if(search==null || search==""){//修改搜索框样式
