@@ -302,7 +302,7 @@ table.dataTable{
 						jQuery("a[a-type=lastPage]").attr("page-data",json.lastPage);
 						jQuery("a[a-type=nextPage]").attr("page-data",json.nextPage);
 						
-						histryChart("ad_chart_1", json.ad_chart_1,json.notad_chart_1);
+						//histryChart("ad_chart_1", json.ad_chart_1,json.notad_chart_1);
 					    
 					} else {
 						toastr.success(json.message);
@@ -351,8 +351,8 @@ table.dataTable{
 		var myChart = echarts.init(document.getElementById(divid));
 		myChart.on('click', function (params) {
 			console.log("date: "+params.name);
-			byClickLoadTableData(params.name);
-			console.log("请求完成--");
+			//byClickLoadTableData(params.name);
+			console.log("--请求完成--");
 		});
 		myChart.setOption({
 	   	      tooltip : {
@@ -468,7 +468,7 @@ function openMenu(a,event){
 	
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
-	 jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_one_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	 //jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime_one_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
 	//jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"')");
 	//jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"')");
 	if(dataType=="domain"){
@@ -603,7 +603,7 @@ var initTable1 = function () {
 		
 		var histryData = '${histryJson}';
 		var json2 = eval('(' + histryData + ')');
-		histryChart("ad_chart_1", json2.ad_chart_1,json2.notad_chart_1);
+		//histryChart("ad_chart_1", json2.ad_chart_1,json2.notad_chart_1);
 		
 	    initTable1();
 	     jQuery("#pauseOrplay").click(function(){
