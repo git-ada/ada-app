@@ -32,10 +32,11 @@ $(document).ready(function(){
 /**
  * 跳转页面
  */
-var gotoPage = function(url){
+var gotoPage = function(url,backurl){
 	
-	console.log("gotoPage->"+url);
-	
+	if(backurl !=null && backurl != undefined){
+		browsingHistory[browsingHistory.length-1] = backurl;
+	}
 	/** 首次记录 **/
 	if(browsingHistory.length==0){
 		browsingHistory.push(url);
@@ -55,7 +56,8 @@ var gotoPage = function(url){
 		 * 忽略重复的请求记录
 		 */
 	}
-
+	
+	callLeavePageCallback();
 	Layout.loadAjaxOnly(url);
 };
 
@@ -66,7 +68,7 @@ var gotoPage = function(url){
  */
 var gotoHistoryPage = function(step){
 		var offset = currentPageNo + step;
-		console.log("gotoHistoryPage currentPageNo->"+currentPageNo+",step->"+step+",offset->"+offset);
+		//console.log("gotoHistoryPage currentPageNo->"+currentPageNo+",step->"+step+",offset->"+offset);
 		
 		if(offset < 1){
 			//无法退
@@ -79,8 +81,9 @@ var gotoHistoryPage = function(step){
 		}
 		
 		var url = browsingHistory[offset-1];
-		console.log("gotoHistoryPage->"+url);
+		//console.log("gotoHistoryPage->"+url);
 	
+		callLeavePageCallback();
 		Layout.loadAjaxOnly(url);
 		currentPageNo = offset;
 };
@@ -91,9 +94,28 @@ var gotoHistoryPage = function(step){
 var refreshPage = function(){
 	var url = browsingHistory[currentPageNo-1];
 	console.log("refreshPage url->"+url);
+	callLeavePageCallback();
 	Layout.loadAjaxOnly(url);
 };
 
+var leavePageCallback;
+
+var onLeavePage = function(callback){
+	leavePageCallback = callback;
+};
+
+/** 
+ * 回调离开页面
+ * **/
+var callLeavePageCallback = function(){
+	try {
+		if(leavePageCallback!=null && leavePageCallback!= undefined){
+			leavePageCallback();
+		}
+	} catch (e) {
+		console.log(e);
+	}
+}
 
 var handleValidation = function(formId) {
 	var form1 = $(formId);

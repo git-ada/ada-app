@@ -91,7 +91,7 @@ thead th {
     padding-left:  0px !important;
     border-bottom: none !important;
 }
-.dataTables_scrollBody tbody td {
+ tbody td {
     padding: 0px 0px !important;
     text-align: left;
     line-height: 35.2px;
@@ -173,9 +173,7 @@ table.dataTable{
 				<div class="number">
 					<span data-counter="counterup" data-value="${siteStat.ip}" id="ip">${siteStat.ip}</span>(个)
 				</div>
-				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMIP">全站独立IP数</div></c:if>
-				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMIP">广告入口独立IP数</div></c:if>
-				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMIP">非广告入口独立IP数</div></c:if>
+				<div class="desc" id="SUMIP">全站独立IP数</div>
 			</div>
 		</div>
 	</div>
@@ -189,9 +187,7 @@ table.dataTable{
 				<div class="number">
 					<span data-counter="counterup" data-value="${siteStat.pv}" id="pv">${siteStat.pv}</span>(页)
 				</div>
-				<c:if test="${dataType=='domain'}"><div class="desc" id="SUMPV">全站访问量</div></c:if>
-				<c:if test="${dataType=='domainAd'}"><div class="desc" id="SUMPV">广告入口访问量</div></c:if>
-				<c:if test="${dataType=='domainNotAd'}"><div class="desc" id="SUMPV">非广告入口访问量</div></c:if>
+					<div class="desc" id="SUMPV">全站访问量</div>
 			</div>
 		</div>
 	</div>
@@ -232,13 +228,13 @@ table.dataTable{
             <div class="btn-group btn-group-devided" data-toggle="buttons">
             	<div class="tabbable-line">
 	            	<ul class="nav nav-tabs ">
-		                <li class="active">
+		                <li <c:if test="${dataType=='domain'}">class="active"</c:if>>
 		                    <a href="#tab_15_1" data-toggle="tab" aria-expanded="true" onclick="changeDataType('all')">全站统计</a>
 		                </li>
-		                <li class="">
+		                <li <c:if test="${dataType=='domainAd'}">class="active"</c:if>>
 		                    <a href="#tab_15_2" data-toggle="tab" aria-expanded="false" onclick="changeDataType('Ad')">广告入口统计</a>
 		                </li>
-		                <li class="">
+		                <li <c:if test="${dataType=='domainNotAd'}">class="active"</c:if>>
 		                    <a href="#tab_15_3" data-toggle="tab" aria-expanded="false" onclick="changeDataType('NotAd')">非广告入口统计</a>
 		                </li>
 	           		 </ul>
@@ -249,33 +245,32 @@ table.dataTable{
         </div>
         <div class="inputs">
             <div class="actions" style="float: left;" >
-            	<div id="ifsearch" style="float: left;">
 	            	<div class="portlet-input input-inline " >
 	                    <div class="input-icon right">
-	                        <i class="icon-magnifier"></i>
-	                        <input id="search" type="text" class="form-control input-circle" name="firstTd" style="font-size: 12px;" placeholder="搜索域名..."> </div>
+	                        <i id="searchImg" class="icon-magnifier" style="cursor: auto;"></i>
+	                        <input id="search" type="text" value="${search}"  class="form-control input-circle" name="firstTd" style="font-size: 12px;" placeholder="搜索域名..."> </div>
 	                </div>
 	                <div class="btn-group">
 	                    <a href="" class="btn dark btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
-	                    	<span id="top" > TOP 50 &nbsp;</span> 
+	                    	<span id="top" > TOP ${ipTop} &nbsp;</span> 
 	                        <span class="fa fa-angle-down"> </span>
 	                    </a>
 	                    <ul class="dropdown-menu pull-right" id="topul">
-	                        <li class="active" onclick="changeTop(this,50)">
+	                        <li onclick="changeTop(this,50)" <c:if test="${ipTop==50}">class="active"</c:if>>
 	                            <a ><span style="color: #333;"> TOP 50 &nbsp;</span></a>
 	                        </li>
-	                        <li onclick="changeTop(this,100)">
+	                        <li onclick="changeTop(this,100)" <c:if test="${ipTop==100}">class="active"</c:if>>
 	                            <a ><span style="color: #333;"> TOP 100 </span></a>
 	                        </li>
-	                        <li  onclick="changeTop(this,200)">
+	                        <li  onclick="changeTop(this,200)" <c:if test="${ipTop==200}">class="active"</c:if>>
 	                            <a ><span style="color: #333;"> TOP 200 </span></a>
 	                        </li>
-	                        <li onclick="changeTop(this,500)">
+	                        <li onclick="changeTop(this,500)" <c:if test="${ipTop==500}">class="active"</c:if>>
 	                            <a ><span style="color: #333;"> TOP 500 </span></a>
 	                        </li>
 	                    </ul>
 	                </div>
-                </div>&nbsp;
+                &nbsp;
 				<a class="btn btn-circle btn-icon-only btn-default pause" id="pauseOrplay"><i class="icon-control-pause" ></i></a>
 				<a class="btn btn-circle btn-icon-only btn-default fullscreen"  id="fullscreenOractual"><i class="icon-size-fullscreen"></i></a>
 			</div>
@@ -361,13 +356,13 @@ table.dataTable{
 <script type="text/javascript">
 var dataType = '${dataType}';//页面数据类型
 var domainId = "";//域名ID
-var search = "";//搜索
+var search = '${search}';//搜索
 var stClick = false;
 var cClick = false;
 var sClick = false;
 var mClick = false;
-var ipTop = 50;// 总ip TOP
- 
+var ipTop = '${ipTop}';// 总ip TOP
+var timestamp = "";//时间戳
 
 var t;
 var isRefresh = true;
@@ -396,8 +391,18 @@ var initTable1 = function () {
 }
 /**--------------预加载-------------------- **/
 	jQuery(document).ready(function() {
+		console.log("进入预加载");
+		if(search==null || search==""){//修改搜索框样式
+    		jQuery("#searchImg").attr("class","icon-magnifier");
+    		jQuery("#searchImg").css("cursor","auto");
+    	}else{
+    		jQuery("#searchImg").attr("class","icon-close");
+    		jQuery("#searchImg").css("cursor","pointer");
+    		jQuery("#searchImg").attr("onclick","clearSearch()");
+    	}
 		var tbodydata = '${tbodydata}';
 		var json = eval('(' + tbodydata + ')');
+		
 		loadTbody(json,1);
 		
 	    initTable1();
@@ -421,8 +426,8 @@ var initTable1 = function () {
 	    		 jQuery(".dataTables_scrollBody").css("height",document.documentElement.clientHeight-100);
 	    		 jQuery(".DTFC_ScrollWrapper").css("height",document.documentElement.clientHeight-60);
 	    		 
-	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-125);
-	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-125);
+	    		 jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-118);
+	    		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-118);
 	    		 
 	    		 //jQuery(".dataTables_scrollHeadInner").css("width","4000px");
 	    		 //jQuery(".dataTables_scrollHeadInner table").css("width","100%");
@@ -445,10 +450,20 @@ var initTable1 = function () {
 	     });  
 	    //给搜索框添加 键盘按键的离开事件
 	    jQuery("#search").keyup(function (){
+	    	isRefresh = false;
 	    	clearTimeout(t);
 	    	App.startPageLoading({animate: !0});//开启 加载 动画
 	    	search = jQuery(this).val();
+	    	if(search==null || search==""){
+	    		jQuery("#searchImg").attr("class","icon-magnifier");
+	    		jQuery("#searchImg").css("cursor","auto");
+	    	}else{
+	    		jQuery("#searchImg").attr("class","icon-close");
+	    		jQuery("#searchImg").css("cursor","pointer");
+	    		jQuery("#searchImg").attr("onclick","clearSearch()");
+	    	}
 	    	ajaxRefreshPage();
+	    	isRefresh = true;
 	    });
 	});
 
@@ -458,9 +473,10 @@ var initTable1 = function () {
 	 t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
 	  
 	 function ajaxRefreshPage(){
+		 timestamp = Date.parse(new Date());
 		 jQuery.ajax({
 			 	type:"post",
-				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId+"&firstTd="+search+"&top="+ipTop,
+				url : "${pageContext.request.contextPath}/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId+"&firstTd="+search+"&top="+ipTop+"&timestamp="+timestamp,
 				success : function(data) {
 					
 					if (data!=null) {
@@ -483,15 +499,16 @@ var initTable1 = function () {
 				}
 			});
 	 }
-	 /** js渲染tbody **/
-	 function loadTbody(json,num){
-		 domainId = json.domainId;//域名ID
+/** js渲染tbody **/
+function loadTbody(json,num){
+	 if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh ){
+		// domainId = json.domainId;//域名ID
 			var table = "";
 			var lefttable = "";
 			var firstTh = "域名";
 			/** 数据列表 **/
 			var dataList = json.data_list;
-			 
+			
 			if(dataType=="domainRegion"){
 				firstTh = "地域  <a style='color: #333;' onclick='changeDataType(\"domain\")'><i class='icon-action-undo'></i></a>";
 			}else if(dataType=="domainRegionAd"){
@@ -516,24 +533,57 @@ var initTable1 = function () {
 		    	if(!mClick) mtDisplay = "displaynone";
 		    }
 			if(dataList!=null && dataList.length>0){
-				//console.log("数据条数------>"+dataList.length);
+				/* console.log("数据条数------>"+dataList.length); */
+				var sumip = 1;
+			    var sumpv = 1;
+			    var sumuv = 1;
+			    if(dataType=="domain"){
+			    	sumip = json.siteStat.ip>0 ? json.siteStat.ip : 1;
+			    	sumpv = json.siteStat.pv>0 ? json.siteStat.pv : 1;
+			    	sumuv = json.siteStat.uv>0 ? json.siteStat.uv : 1;
+			    }else if(dataType=="domainAd"){
+			    	sumip = json.siteStat.adIP>0 ? json.siteStat.adIP : 1;
+			    	sumpv = json.siteStat.adPv>0 ? json.siteStat.adPv : 1;
+			    	sumuv = json.siteStat.aduv>0 ? json.siteStat.aduv : 1;
+			    }else if(dataType=="domainNotAd"){
+			    	sumip = json.siteStat.ip-json.siteStat.adIP>0 ? json.siteStat.ip-json.siteStat.adIP : 1;
+			    	sumpv = json.siteStat.pv-json.siteStat.adPv>0 ? json.siteStat.pv-json.siteStat.adPv : 1;
+			    	sumuv = json.siteStat.uv-json.siteStat.aduv>0 ? json.siteStat.uv-json.siteStat.aduv : 1;
+			    }else if(dataType=="domainRegion"){
+			    	sumip = json.domainStat.ip>0? json.domainStat.ip : 1;
+			    	sumpv = json.domainStat.pv>0? json.domainStat.pv : 1;
+			    	sumuv = json.domainStat.uv>0? json.domainStat.uv : 1;
+			    }else if(dataType=="domainRegionAd"){
+			    	sumip = json.domainAdStat.ip>0? json.domainAdStat.ip : 1;
+			    	sumpv = json.domainAdStat.pv>0? json.domainAdStat.pv : 1;
+			    	sumuv = json.domainAdStat.uv>0? json.domainAdStat.uv : 1;
+			    }else if(dataType=="domainRegionNotAd"){
+			    	sumip = json.domainNotAdStat.ip>0? json.domainNotAdStat.ip : 1;
+			    	sumpv = json.domainNotAdStat.pv>0? json.domainNotAdStat.pv : 1;
+			    	sumuv = json.domainNotAdStat.uv>0? json.domainNotAdStat.uv : 1;
+			    }
+			    
+			    //console.log("sumip----------->",sumip);
+			    //console.log("sumpv----------->",sumpv);
+			    //console.log("sumuv----------->",sumuv);
+			    
 				for(var i=0;i<dataList.length;i++){
 					var item = dataList[i];
 					var firstTd = "";
 					var tr = "";
 				    var tr2 = "";
 				    if(dataType=="domain"){
-				    	firstTd ="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></td>";
+				    	firstTd ="<td title='"+item[24]+"'><span class='tdonly'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></span></td>";
 				    }else if(dataType=="domainAd"){
-				    	firstTd ="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></td>";
+				    	firstTd ="<td title='"+item[24]+"'><span class='tdonly'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></span></td>";
 				    }else if(dataType=="domainNotAd"){
-				    	firstTd ="<td style='min-width: 140px;'  title='"+item[24]+"'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></td>";
+				    	firstTd ="<td title='"+item[24]+"'><span class='tdonly'><a style='text-decoration:underline;color: #333;' href='javascript:void(0);' data-target='#context-menu' data-toggle='dropdown' onclick='openMenu(this)' id='"+item[23]+"' domain='"+item[24]+"'>"+item[25]+"</a></span></td>";
 				    }else if(dataType=="domainRegion"){
-				    	firstTd ="<td style='min-width: 140px;'  >"+item[23]+"</td>";
+				    	firstTd ="<td><span class='tdonly'>"+item[23]+"</span></td>";
 				    }else if(dataType=="domainRegionAd"){
-				    	firstTd ="<td style='min-width: 140px;'  >"+item[23]+"</td>";
+				    	firstTd ="<td><span class='tdonly'>"+item[23]+"</span></td>";
 				    }else if(dataType=="domainRegionNotAd"){
-				    	firstTd ="<td style='min-width: 140px;'  >"+item[23]+"</td>";
+				    	firstTd ="<td><span class='tdonly'>"+item[23]+"</span></td>";
 				    }
 				    
 				    var sumST = item[7]+item[8]+item[9]+item[10];
@@ -542,7 +592,9 @@ var initTable1 = function () {
 				    var sumM = item[19]+item[20]+item[21]+item[22];
 				    var IP = item[0];
 				    if(IP<=0)IP = 1;
-				    
+				    var ipTd = "";//ip
+				    var pvTd = "";//pv
+				    var uvTd = "";//uv
 				    var olduserTd = "";//老用户
 				    var oldipTd = "";//老ip
 				    var loginTd = "";//登录用户
@@ -567,7 +619,24 @@ var initTable1 = function () {
 				    var m2Td = "";//2区间
 				    var m3Td = "";//3区间
 				    var m4Td = "";//4区间
-				    
+				    if(Percentagemin(item[0],sumip)<1){
+				    	ipTd = "<td title='"+Percentage(item[0],sumip)+"'><span class='tdonly'>"+item[0]+"</span></td>";
+				    }else{
+				    	ipTd = "<td title='"+Percentage(item[0],sumip)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[0],sumip)+" '>"+
+					  	"<span class='only'> "+item[0]+" </span></div></div></td>";
+				    }
+				    if(Percentagemin(item[1],sumpv)<1){
+				    	pvTd = "<td title='"+Percentage(item[1],sumpv)+"'><span class='tdonly'>"+item[1]+"</span></td>";
+				    }else{
+				    	pvTd = "<td title='"+Percentage(item[1],sumpv)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[1],sumpv)+" '>"+
+					  	"<span class='only'> "+item[1]+" </span></div></div></td>";
+				    }
+				    if(Percentagemin(item[2],sumuv)<1){
+				    	uvTd = "<td title='"+Percentage(item[2],sumuv)+"'><span class='tdonly'>"+item[2]+"</span></td>";
+				    }else{
+				    	uvTd = "<td title='"+Percentage(item[2],sumuv)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[2],sumuv)+" '>"+
+					  	"<span class='only'> "+item[2]+" </span></div></div></td>";
+				    }
 				    
 				    if(Percentagemin(item[3],IP)<1){
 				    	olduserTd = "<td title='"+Percentage(item[3],IP)+"'><span class='tdonly'>"+item[3]+"</span></td>";
@@ -714,10 +783,9 @@ var initTable1 = function () {
 					  	"<span class='only'> "+item[22]+" </span></div></div></td>";
 				    }
 				    
-			  		tr+="<tr num='"+i+"' style='heigth:35.2px;'>" + firstTd+
-					  "<td>"+IP+"</td>"+
-					  "<td><span class='tdonly'>"+item[1]+"</span></td>"+
-					  "<td><span class='tdonly'>"+item[2]+"</span></td>"+ olduserTd+oldipTd+loginTd+targetTd+
+			  		tr+="<tr num='"+i+"'>" + firstTd+
+			  		  ipTd+pvTd+uvTd+ 
+					  olduserTd+oldipTd+loginTd+targetTd+
 					  sumSTTd+st1Td+st2Td+st3Td+st4Td+
 					  sumCTd+c1Td+c2Td+c3Td+c4Td+
 					  sumSTd+s1Td+s2Td+s3Td+s4Td+
@@ -726,77 +794,82 @@ var initTable1 = function () {
 					  table+=tr;
 				  if(num==2){
 					  tr2+="<tr>"+firstTd+
-					  "<td style='min-width: 70px'>"+IP+"</td>"+
+					  ipTd+
 						"</tr>";
 					lefttable+=tr2;
 				  }
 				}
 			}
 			
-			if(browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && dataType==json.dataType && isRefresh){
-				if(num==1){
-					jQuery("#tbody").empty();
-					jQuery("#tbody").append(table);
-				}else if(num==2){
-					jQuery("#ip").html(json.siteStat.ip);
-					jQuery("#pv").html(json.siteStat.pv);
-					jQuery("#adIP").html(json.siteStat.adIP);
-					jQuery("#adPv").html(json.siteStat.adPv);
-					jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
-					jQuery("#tbody").empty();
-					jQuery("#tbody").append(table);
-					jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
-					jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable);
-					jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
-				}
-				
-				
+			if(num==1){
+				jQuery("#tbody").empty();
+				jQuery("#tbody").append(table);
+			}else if(num==2 && timestamp==json.timestamp){
+				jQuery("#ip").html(json.siteStat.ip);
+				jQuery("#pv").html(json.siteStat.pv);
+				jQuery("#adIP").html(json.siteStat.adIP);
+				jQuery("#adPv").html(json.siteStat.adPv);
+				jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
+				jQuery("#tbody").empty();
+				jQuery("#tbody").append(table);
+				jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
+				jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable);
+				jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
 			}
-	 }
+			
+			
+		}
+}
 	 
 //单独查看
 function onlyOne(name){
+	isRefresh = false;
 	clearTimeout(t);
 	App.startPageLoading({animate: !0});//开启 加载 动画
 	search = name;
 	jQuery("#search").val(name);
+	jQuery("#searchImg").attr("class","icon-close");
+	jQuery("#searchImg").css("cursor","pointer");
+	jQuery("#searchImg").attr("onclick","clearSearch()");
 	ajaxRefreshPage();
+	isRefresh = true;
 	
 }
 /** ------改变页面数据类型-------------**/
 function changeDataType(type,domain_Id){
+	isRefresh = false;
 	clearTimeout(t);
 	App.startPageLoading({animate: !0});//开启 加载 动画
 	if(type=="all"){
 		if(dataType.indexOf("domainRegion")>=0){
 			dataType = "domainRegion";
-			jQuery("#ifsearch").hide();
+			jQuery("#search").attr("disabled","disabled");
 		}else{
 			dataType = "domain";
-			jQuery("#ifsearch").show();
+			jQuery("#search").attr("disabled",false);
 		}
 	}else if(type=="Ad"){
 		if(dataType.indexOf("domainRegion")>=0){
 			dataType = "domainRegionAd";
-			jQuery("#ifsearch").hide();
+			jQuery("#search").attr("disabled","disabled");
 		}else{
 			dataType = "domainAd";
-			jQuery("#ifsearch").show();
+			jQuery("#search").attr("disabled",false);
 		}
 	}else if(type=="NotAd"){
 		if(dataType.indexOf("domainRegion")>=0){
 			dataType = "domainRegionNotAd";
-			jQuery("#ifsearch").hide();
+			jQuery("#search").attr("disabled","disabled");
 		}else{
 			dataType = "domainNotAd";
-			jQuery("#ifsearch").show();
+			jQuery("#search").attr("disabled",false);
 		}
 	}else{
 		if(type.indexOf("domainRegion")>=0){
 			domainId = domain_Id;
-			jQuery("#ifsearch").hide();
+			jQuery("#search").attr("disabled","disabled");
 		}else if(type.indexOf("domain")>=0){
-			jQuery("#ifsearch").show();
+			jQuery("#search").attr("disabled",false);
 		}
 		
 		dataType = type;
@@ -804,6 +877,7 @@ function changeDataType(type,domain_Id){
 	
 	
 	ajaxRefreshPage();
+	isRefresh = true;
 	
 }
 /** --------------分页查询 -------------**/
@@ -844,16 +918,17 @@ function graphicLoading(obj) {
 //打开菜单
 function openMenu(a,event){
 	
+	var backUrl = "${pageContext.request.contextPath}/dashboard.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop;
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
 	 jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
-	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"')");
-	jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"')");
+	jQuery("#oneTime").attr("onclick","gotoPage('${pageContext.request.contextPath}/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"','"+backUrl+"')");
+	jQuery("#AdVSNotAd").attr("onclick","gotoPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"&dataType="+dataType+"','"+backUrl+"')");
 	if(dataType=="domain"){
 		jQuery("#region").attr("onclick","changeDataType('domainRegion',"+id+")");
-	}else if(dataType==""){
+	}else if(dataType=="domainAd"){
 		jQuery("#region").attr("onclick","changeDataType('domainRegionAd',"+id+")");
-	}else if(dataType==""){
+	}else if(dataType=="domainNotAd"){
 		jQuery("#region").attr("onclick","changeDataType('domainRegionNotAd',"+id+")");
 	} 
 	
@@ -884,9 +959,11 @@ function PercentageMax(num, total){
 }
 /**------  改变top值  ------**/
 function changeTop(a,num){
+	isRefresh = false;
+	clearTimeout(t);
 	jQuery("#topul li").removeClass("active");
 	jQuery(a).addClass("active");
-	clearTimeout(t);
+	
 	App.startPageLoading({animate: !0});//开启 加载 动画
 	if(num==50){
 		jQuery("#top").html(" TOP "+num +"&nbsp;&nbsp;");
@@ -896,6 +973,7 @@ function changeTop(a,num){
 	
 	ipTop = num;
 	ajaxRefreshPage();
+	isRefresh = true;
 }
 /** 修改td样式 **/
 function changeDisplay(a,data){
@@ -940,6 +1018,19 @@ function changeDisplay(a,data){
 			  });  
 	  }
 	 
+}
+/** 清空搜索框 **/
+function clearSearch(){
+	isRefresh = false;
+	clearTimeout(t);
+	App.startPageLoading({animate: !0});//开启 加载 动画
+	search = "";
+	jQuery("#search").val("");
+	jQuery("#searchImg").attr("class","icon-magnifier");
+	jQuery("#searchImg").css("cursor","auto");
+	jQuery("#searchImg").attr("onclick","");
+	ajaxRefreshPage();
+	isRefresh = true;
 }
 </script>
 

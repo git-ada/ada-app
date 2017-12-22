@@ -42,7 +42,7 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <a style="color: #333;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard.jhtm?dataType=${dataType}')"> <i class="icon-action-undo"></i></a>
+                  <a style="color: #333;" onclick="gotoHistoryPage(-1)"> <i class="icon-action-undo"></i></a>
                   <span class="caption-subject font-dark bold uppercase">基本数据</span>
                   <span class="caption-helper"></span>
               </div>
@@ -178,6 +178,13 @@
 	
 //window.setTimeout('refre()',300000); 
 var dataType = '${dataType}';//页面数据类型
+var amchart_1;
+var amchart_2;
+var amchart_3;
+var amchart_4;
+var amchart_5;
+var amchart_6;
+
 
 function refre(){
 	
@@ -185,6 +192,7 @@ function refre(){
 }
 	
 	 function graphicLoading(obj) {
+		 App.startPageLoading({animate: !0});//开启 加载 动画
 		var pageNo = 1;
 
 		if (obj == 1) { //表示前一段时间的数据
@@ -211,28 +219,52 @@ function refre(){
 						 jQuery("a[a-type=lastPage]").attr("page-data",json.lastPage);
 						 jQuery("a[a-type=nextPage]").attr("page-data",json.nextPage);
 						    
-				    	chart_1("chart_1",json.chart_1);
-				    	chart_2("chart_2",json.chart_2);
-				    	chart_3("chart_3",json.chart_3);
-				    	chart_4("chart_4",json.chart_4);
-				    	chart_5("chart_5",json.chart_5);
-				    	chart_6("chart_6",json.chart_6);
+				    	//chart_1("chart_1",json.chart_1);
+				    	//chart_2("chart_2",json.chart_2);
+				    	//chart_3("chart_3",json.chart_3);
+				    	//chart_4("chart_4",json.chart_4);
+				    	//chart_5("chart_5",json.chart_5);
+				    	//chart_6("chart_6",json.chart_6);
+				    	amchart_1.dataProvider = json.chart_1;//设置数据
+				    	amchart_2.dataProvider = json.chart_2;
+				    	amchart_3.dataProvider = json.chart_3;
+				    	amchart_4.dataProvider = json.chart_4;
+				    	amchart_5.dataProvider = json.chart_5;
+				    	amchart_6.dataProvider = json.chart_6;
+				    	amchart_1.write();
+				    	amchart_1.validateNow();
+				    	amchart_1.validateData();
+				    	amchart_2.write();
+				    	amchart_2.validateNow();
+				    	amchart_2.validateData();
+				    	amchart_3.write();
+				    	amchart_3.validateNow();
+				    	amchart_3.validateData();
+				    	amchart_4.write();
+				    	amchart_4.validateNow();
+				    	amchart_4.validateData();
+				    	amchart_5.write();
+				    	amchart_5.validateNow();
+				    	amchart_5.validateData();
+				    	amchart_6.write();
+				    	amchart_6.validateNow();
+				    	amchart_6.validateData();
 					   
 					} else {
 						toastr.success(json.message);
 					}
+					App.stopPageLoading();//关闭 加载动画
 				}
 			});
 		}
 	} 
 	 
 	 function chart_1(divid,json) {
-			var e = AmCharts.makeChart(divid, {
+			 amchart_1 =   AmCharts.makeChart(divid, {
 				type: "serial",
 				fontSize: 12,
 				fontFamily: "Microsoft YaHei",
 				dataDateFormat: "HH:mm:ss",
-				dataProvider: e,
 				addClassNames: !0,
 				startDuration: 1,
 				color: "#6c7b88",
@@ -319,12 +351,11 @@ function refre(){
 		}
 	 
 	 function chart_2(divid,json) {
-			var e = AmCharts.makeChart(divid, {
+			 amchart_2 = AmCharts.makeChart(divid, {
 				type: "serial",
 				fontSize: 12,
 				fontFamily: "Microsoft YaHei",
 				dataDateFormat: "HH:mm:ss",
-				dataProvider: e,
 				addClassNames: !0,
 				startDuration: 1,
 				color: "#6c7b88",
@@ -439,12 +470,11 @@ function refre(){
 			});
 		}
 	 function chart_3(divid,json) {
-			var e = AmCharts.makeChart(divid, {
+			 amchart_3 = AmCharts.makeChart(divid, {
 				type: "serial",
 				fontSize: 12,
 				fontFamily: "Microsoft YaHei",
 				dataDateFormat: "HH:mm:ss",
-				dataProvider: e,
 				addClassNames: !0,
 				startDuration: 1,
 				color: "#6c7b88",
@@ -560,12 +590,11 @@ function refre(){
 		}
 	 
 	 function chart_4(divid,json) {
-			var e = AmCharts.makeChart(divid, {
+			 amchart_4 = AmCharts.makeChart(divid, {
 				type: "serial",
 				fontSize: 12,
 				fontFamily: "Microsoft YaHei",
 				dataDateFormat: "HH:mm:ss",
-				dataProvider: e,
 				addClassNames: !0,
 				startDuration: 1,
 				color: "#6c7b88",
@@ -683,12 +712,11 @@ function refre(){
 	 
 	 
 	 function chart_5(divid,json) {
-			var e = AmCharts.makeChart(divid, {
+			 amchart_5 = AmCharts.makeChart(divid, {
 				type: "serial",
 				fontSize: 12,
 				fontFamily: "Microsoft YaHei",
 				dataDateFormat: "HH:mm:ss",
-				dataProvider: e,
 				addClassNames: !0,
 				startDuration: 1,
 				color: "#6c7b88",
@@ -804,12 +832,11 @@ function refre(){
 		}
 	  
 	 function chart_6(divid,json) {
-			var e = AmCharts.makeChart(divid, {
+			 amchart_6 = AmCharts.makeChart(divid, {
 				type: "serial",
 				fontSize: 12,
 				fontFamily: "Microsoft YaHei",
 				dataDateFormat: "HH:mm:ss",
-				dataProvider: e,
 				addClassNames: !0,
 				startDuration: 1,
 				color: "#6c7b88",
@@ -934,7 +961,6 @@ function refre(){
 	    	chart_4("chart_4",chartdata.chart_4);
 	    	chart_5("chart_5",chartdata.chart_5);
 	    	chart_6("chart_6",chartdata.chart_6);
-		    
 		    jQuery("a[a-type=lastPage]").attr("page-data",chartdata.lastPage);
 		    jQuery("a[a-type=nextPage]").attr("page-data",chartdata.nextPage);
 		});
