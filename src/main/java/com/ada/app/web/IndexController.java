@@ -126,16 +126,17 @@ public class IndexController {
 		model.addAttribute("search", firstTd);
 		model.addAttribute("isRefresh", isRefresh);
 		model.addAttribute("isRetrun", isRetrun);
-		/** 从sessions中获取站点信息 **/
-		AdaSite adaSite = Sessions.getCurrentSite();//
 		
-		/** 获取当前站点统计信息 **/
-		Date today = Dates.todayStart();
-		AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
-		model.addAttribute("siteStat", siteStat);
 		if(isRetrun.equals("true")){
 			
 		}else{
+			/** 从sessions中获取站点信息 **/
+			AdaSite adaSite = Sessions.getCurrentSite();//
+			
+			/** 获取当前站点统计信息 **/
+			Date today = Dates.todayStart();
+			AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
+			model.addAttribute("siteStat", siteStat);
 			if(dataType!=null){
 				if("domain".equals(dataType)){
 					

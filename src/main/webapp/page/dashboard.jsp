@@ -839,6 +839,10 @@ function loadTbody(json,num){
 			if(num==1){
 				jQuery("#tbody").empty();
 				jQuery("#tbody").append(table);
+				jQuery("#ip").html(json.siteStat.ip);
+				jQuery("#pv").html(json.siteStat.pv);
+				jQuery("#adIP").html(json.siteStat.adIP);
+				jQuery("#adPv").html(json.siteStat.adPv);
 			}else if(num==2 && timestamp==json.timestamp){
 				jQuery("#ip").html(json.siteStat.ip);
 				jQuery("#pv").html(json.siteStat.pv);
