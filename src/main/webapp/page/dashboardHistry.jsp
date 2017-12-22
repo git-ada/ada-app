@@ -124,7 +124,7 @@ table.dataTable{
 }
 <!--  -->
 .portlet.light .portlet-body {
-    padding-top: 0px;
+    padding-top: 5px;
 }
 .portlet.bordered>.portlet-title{
 	padding-right:0px;
@@ -152,27 +152,29 @@ table.dataTable{
 
 </style>
 
-<div class="row" style="margin-bottom: 15px;">
-	<div class="col-lg-12 col-xs-12 col-sm-12">
-      <!-- BEGIN PORTLET-->
-      <div class="portlet light bordered">
-          <div class="portlet-title">
-          <!--  -->
-               <div class="caption" style="margin-left: 0px;">
-                   <i class=" icon-info font-green"></i>
-                   <span class="caption-subject font-green bold uppercase">历史统计</span>
-               </div>
-           
-               <div class="actions" style="margin-right: 0px;">
-                   <a href="javascript:graphicLoadinghistry(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoadinghistry(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
-               </div>
-          </div>
-          <div class="portlet-body">
-              <div id="ad_chart_1" class="chart" style="height: 150px;"> </div>
-          </div>
-      </div>
-  </div>
+<div class="portlet light bordered">
+    <div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;padding-left: 0px !important;">
+    <!--  -->
+         <div class="caption">
+             <!-- <i class=" icon-info font-green"></i> -->
+             <span class="caption-subject bold font-dark uppercase ">历史统计</span>
+             <span class="caption-helper" >历史趋势</span>
+         </div>
+     
+         <div class="actions" style="margin-right: 0px;">
+        
+             <a href="javascript:graphicLoadinghistry(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+             <a href="javascript:graphicLoadinghistry(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+         </div>
+    </div>
+    <div class="portlet-body">
+       <div id="ad_chart_1" class="chart" style="height: 250px;"></div>
+       <!--
+        <a href="javascript:graphicLoading(-1)" data-value="${lastMonth}" id="backoff" title="" class="tubiao-btn-left"><i class="fa fa-chevron-left"></i> </a> 
+       <a href="javascript:graphicLoading(1)" data-value="${nextMonth}" id="forward" title="" class="tubiao-btn-right"> <i class="fa fa-chevron-right"></i></a>
+        -->
+	      
+   </div>
 </div>
 
 <div class="portlet light portlet-fit bordered">
@@ -397,16 +399,16 @@ table.dataTable{
 	   	      color:['#2db7d2','#2492a8','blue','red'], 
 	   	      legend: {
 	   	    	  //x : '5.5%',
-	   	    	  y : '86%', 
+	   	    	  //y : '86%', 
 	   	          itemWidth: 32, 
 				  itemHeight: 16,
 				  itemBorderRadius:0,
 	   	          data:[{
-	                  name:'广告IP',
+	                  name:'IP(广告)',
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
-	                  name:'非广告IP',
+	                  name:'IP(非广告)',
 	                  icon : 'bar',
 	                  textStyle:{ borderRadius:0 }
 	              },{
@@ -420,13 +422,14 @@ table.dataTable{
 	              }]
 	   	      },
 	   	      grid: {
-	   	    	  y:'6%',
-	   	    	  height:'73%',
+	   	    	  //y:'6%',
+	   	    	  height:'80%',
 	   	          //left: '3%',
 	   	          //right: '4%',
+	   	          //top: '5%',
 	   	          left: '0%',
 	   	          right: '2%',
-	   	          bottom: '0%',
+	   	          bottom: '8%',
 	   	          containLabel: true
 	   	      },
 	   	      xAxis : [
@@ -437,7 +440,7 @@ table.dataTable{
 	   	              },
 		   	          axisLabel: {
 		   	              interval: 1 ,
-		   	              rotate:20,//倾斜度 -90 至 90 默认为0  
+		   	              rotate:20//倾斜度 -90 至 90 默认为0  
 		   	          },
 	   	              data : d1
 	   	          }
@@ -445,7 +448,7 @@ table.dataTable{
 	   	      yAxis : [
 		   	       {
 		   	            type: 'value',
-		   	            name: 'IP统计',
+		   	            name: 'IP',
 			   	        splitLine:{   
 		  	           		show: false
 		  	           	},
@@ -455,7 +458,7 @@ table.dataTable{
 		   	        },
 		   	        {
 		   	            type: 'value',
-		   	            name: 'PV',
+		   	            name: 'PV/UV',
 		   	            
 			   	        splitLine:{     
 		 	           		show: false
@@ -467,14 +470,14 @@ table.dataTable{
 	   	      ],
 	   	      series : [
 	   	          {
-	   	              name:'广告IP',
+	   	              name:'IP(广告)',
 	   	              type:'bar',
-	   	        	  stack: 'IP统计',
+	   	        	  stack: 'IP',
 	   	              data:d2
 	   	          },{
-	   	              name:'非广告IP',
+	   	              name:'IP(非广告)',
 	   	              type:'bar',
-	   	        	  stack: 'IP统计',
+	   	        	  stack: 'IP',
 	   	              data:d4
 	   	          },
 	   	          {
@@ -494,7 +497,6 @@ table.dataTable{
 	   	      ]
 	   	});
 	}
-
 
 var dataType = '${dataType}';//页面数据类型
 var clickDate1 = '${lasttime}';//页面数据类型
@@ -656,7 +658,7 @@ var initTable1 = function () {
 }
 /**--------------预加载-------------------- **/
 	jQuery(document).ready(function() {
-		console.log("历史页面进来了！！！");
+		//console.log("历史页面进来了！！！");
 		var tbodydata = '${tbodydata}';
 		var json = eval('(' + tbodydata + ')');
 		console.log("----js开始渲染tbody----");
@@ -789,7 +791,7 @@ var initTable1 = function () {
 	 
 	 /** js渲染tbody **/
 	 function loadHistryDataTbody(json,num){
-		 console.log("----js渲染tbody----");
+		 //console.log("----js渲染tbody----");
 		 domainId = json.domainId;//域名ID
 			var table = "";
 			var lefttable = "";
