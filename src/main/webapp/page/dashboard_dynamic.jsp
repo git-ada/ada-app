@@ -176,7 +176,7 @@
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	
-window.setTimeout('graphicLoading()',3000); 
+window.setTimeout('graphicLoading()',5000); 
 var dataType = '${dataType}';//页面数据类型
 var amchart_1;
 var amchart_2;
@@ -194,13 +194,14 @@ var pageData = "";
 					if (json.success) {
 						
 						var ajaxdata = JSON.stringify(json.chart_1);
+						console.log("异步加载数据:---->"+ajaxdata);
 						var newData = pageData.slice(0,pageData.length-1)+","+ajaxdata.slice(1,ajaxdata.length-1)+"]";
 						pageData = newData;
 				    	amchart_1.dataProvider = JSON.parse(newData);//设置数据
 				    	amchart_1.write();
 				    	amchart_1.validateNow();
 				    	amchart_1.validateData();
-				    	window.setTimeout('graphicLoading()',1000); 
+				    	window.setTimeout('graphicLoading()',5000); 
 					} else {
 						console.log("异步加载出错!");
 					}

@@ -645,8 +645,13 @@ public class IndexController {
 					chart_6.add(json_item_6);
 				}
 			}
+			Collections.reverse(chart_1);
+			Collections.reverse(chart_2);
+			Collections.reverse(chart_3);
+			Collections.reverse(chart_4);
+			Collections.reverse(chart_5);
+			Collections.reverse(chart_6);
 			for(int i=list.size()-1;i>=0;i--){
-				/** 广告入口数据  **/
 				BaseStatBean item = new BaseStatBean();
 				BeanUtils.copyProperties(list.get(i), item);
 				

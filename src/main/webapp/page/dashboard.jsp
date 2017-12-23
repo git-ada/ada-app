@@ -337,9 +337,9 @@ table.dataTable{
 			     <li>
 			       <a href="javascript:;" id="onlyOne"><i class="icon-magnifier"></i>单独查看</a>
 			     </li>
-			     <li>
+			    <!--  <li>
 			       <a href="javascript:;" id="dynamic">实时动态</a>
-			     </li>
+			     </li> -->
 			     <li>
 			       <a href="javascript:;" id="oneTime">分时统计</a>
 			     </li>
