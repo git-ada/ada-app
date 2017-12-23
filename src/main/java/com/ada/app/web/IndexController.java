@@ -285,6 +285,19 @@ public class IndexController {
 		model.addAttribute("domain", domain);
 		return "dashboard_domainTime_one";
 	}
+	/**
+	 * 实时数据 动态图
+	 * @return
+	 */
+	@RequestMapping("dashboard_dynamic")
+	public String dashboard_dynamic(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId){
+		
+		JSONObject json = dynamic_chart(Integer.valueOf(domainId));
+		model.addAttribute("json", json);
+		model.addAttribute("domainId", domainId);
+		return "dashboard_dynamic";
+	}
 	
 	@RequestMapping(value = "dashboard_domainTime3")
 	public String dashboard_domainTime3(HttpServletRequest request,HttpServletResponse response, Model model,
@@ -320,6 +333,19 @@ public class IndexController {
 		model.addAttribute("domain", domain);
 		
 		return "dashboard_channelList";
+	}
+	@RequestMapping("ajax_dashboard_dynamic")
+	public void ajax_dashboard_dynamic(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId){
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(this.dynamic_chart(Integer.valueOf(domainId)));
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -475,6 +501,28 @@ public class IndexController {
 			log.error("查询失败,msg->"+e.getMessage(),e);
 		}
 		
+		return json;
+	}
+	/**
+	 * 实时数据 动态图数据
+	 * @return
+	 */
+	protected JSONObject dynamic_chart(Integer domainId){
+		JSONObject json=new JSONObject();
+		JSONArray chart_1=new JSONArray();// IP、PV、UV
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();//
+		Date today = Dates.todayStart();
+		AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, today);
+		JSONObject json_adChart_1=new JSONObject();
+		json_adChart_1.put("date", new SimpleDateFormat("HH:mm:ss").format(new Date()));
+		json_adChart_1.put("ip", domainStat.getIp());
+		json_adChart_1.put("pv", domainStat.getPv());
+		json_adChart_1.put("uv", domainStat.getUv());
+	
+		chart_1.add(json_adChart_1);
+		json.put("success", true);
+		json.put("chart_1", chart_1);
 		return json;
 	}
 	

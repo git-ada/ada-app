@@ -466,12 +466,11 @@ function loadTbody(json,num){
 					  sumMTd+m1Td+m2Td+m3Td+m4Td+
 					  "</tr>";
 					  table+=tr;
-				  if(num==2){
+					  
 					  tr2+="<tr>"+firstTd+
 					  ipTd+
 						"</tr>";
 					lefttable+=tr2;
-				  }
 				}
 				
 			}
@@ -615,6 +614,7 @@ function openMenu(a,event){
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
 	 jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
+	 jQuery("#dynamic").attr("onclick","gotoPage('"+webPath+"/dashboard_dynamic.jhtm?domainId="+id+"','"+backUrl+"')");
 	jQuery("#oneTime").attr("onclick","gotoPage('"+webPath+"/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"','"+backUrl+"')");
 	jQuery("#AdVSNotAd").attr("onclick","gotoPage('"+webPath+"/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"&dataType="+dataType+"','"+backUrl+"')");
 	if(dataType=="domain"){
