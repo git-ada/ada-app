@@ -636,7 +636,7 @@ function loadHistryDataTbody(json,num){
 		}
 		//alert("---dataList2---");
 		if(num==1){
-			//alert("num==1");
+			alert("num==1");
 			jQuery("#tbodyhistry").empty();
 			jQuery("#tbodyhistry").append(table);
 			//jQuery("#ip").html(json.siteStat.ip);
@@ -645,7 +645,7 @@ function loadHistryDataTbody(json,num){
 			//jQuery("#adPv").html(json.siteStat.adPv);
 //		}else if(num==2 && timestamp==json.timestamp){
 		}else {
-			//alert("num==2");
+			alert("num==2");
 			//jQuery("#ip").html(json.siteStat.ip);
 			//jQuery("#pv").html(json.siteStat.pv);
 			//jQuery("#adIP").html(json.siteStat.adIP);

@@ -182,9 +182,9 @@ public class HistryController {
 	 */
 	@RequestMapping(value = "dashboardHistry")
 	public String defaultHistry(HttpServletRequest request,HttpServletResponse response, Model model,
-			String dataType,String firstTd,String top,String isRefresh,String isRetrun) throws Exception {
+			String dataType,String doamin,String top,String isRefresh,String isRetrun) throws Exception {
 //		model.addAttribute("ipTop", top);
-		model.addAttribute("search", firstTd);
+		model.addAttribute("search", doamin);
 		model.addAttribute("isRefresh", isRefresh);
 		model.addAttribute("isRetrun", isRetrun);
 		/** 从sessions中获取站点信息 **/ 
@@ -205,21 +205,20 @@ public class HistryController {
 		
 		Integer ipTop = 50;
 		//默认加载昨天的历史数据
+		AdaSiteStat siteStat = statDao.findBySiteIdAndDate(adaSite.getId(), date);
+		model.addAttribute("siteStat", siteStat);
 		if(dataType!=null){
 			if("domain".equals(dataType)){
-//				AdaSiteStat siteStat = statService.statSite(adaSite.getId(), date);
 				/** 获取站点下域名统计信息 **/
-//				Map sumMap = getDomainStat_list(date);
-				Map sumMap = getDefaultDomainStat_histryList(date,ipTop);
+//				Map sumMap = getDefaultDomainStat_histryList(date,ipTop);
+				Map sumMap = getDomainStat_histryList(date,ipTop,doamin);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				Map map = new HashMap();
 				map.put("data_list", data_list);
 				map.put("dataType", dataType);
+				map.put("siteStat", siteStat);
 				JSONObject json  = new JSONObject(map);
 				model.addAttribute("tbodydata", json);
-				//System.out.println("历史 json : "+json);
-				//model.addAttribute("sumip", siteStat.getIp());
-				//model.addAttribute("sumpv", siteStat.getPv());
 			}
 				
 		}
@@ -231,11 +230,6 @@ public class HistryController {
 			model.addAttribute("histryJson", json);
 		}
 		c.clear();
-		
-//		model.addAttribute("domainId", domainId);
-//		model.addAttribute("dataType", "domain");
-//		model.addAttribute("domain", domain);
-		
 		return "dashboardHistry";
 	}
 	
@@ -1293,7 +1287,6 @@ public class HistryController {
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
 		 //System.out.println("date:--> "+date);
 		 if(!"".equals(serachDomain) && serachDomain != null ){
-			 //System.out.println("------单独查看----"+ serachDomain);
 			 AdaDomainStat domainStats = domainStatDao.onlyOneQuerryDomain(adaSite.getId(), date ,serachDomain);
 			 if(domainStats != null){
 				 List<Object> list = new ArrayList();
@@ -1313,6 +1306,7 @@ public class HistryController {
 			 return map;
 		 }else{
 			 List<AdaDomainStat> domainStats = domainStatDao.findByDateLoadData(adaSite.getId(), date ,ipTop);
+			 System.out.println(domainStats.size());
 			 if(domainStats!=null && domainStats.size()>0){
 				 for(AdaDomainStat domainStat : domainStats){
 					 List<Object> list = new ArrayList();
