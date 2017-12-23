@@ -727,40 +727,9 @@ function clearSearch(){
 }
 
 function firstAppend(){
-	var str = "<tr>" +
-				"<td></td>" +
-				"<td></td>" +
-				"<td></td>" +
-				"<td></td>" +
-				"<td></td>" +
-				"<td></td>" +
-				"<td></td>" +
-				"<td></td>" +
-				//停留
-				"<td></td>" +
-				"<td class='displaynone'></td>" +
-				"<td class='displaynone'></td>" +
-				"<td class='displaynone'></td>" +
-				"<td class='displaynone'></td>" +
-				//点击
-				"<td></td>" +
-				"<td class='displaynone'></td>" +
-				"<td class='displaynone'></td>" +
-				"<td class='displaynone'></td>" +
-				"<td class='displaynone'></td>" +
-				//滚动
-				"<td></td>" +
-				"<td class='displaynone'></td>" +
-				"<td class='displaynone'></td>" +
-				"<td class='displaynone'></td>" +
-				"<td class='displaynone'></td>" +
-				//移动
-				"<td></td>" +
-				"<td class='displaynone'></td>" +
-				"<td class='displaynone'></td>" +
-				"<td class='displaynone'></td>" +
-				"<td class='displaynone'></td>" +
-				"</tr>";
+	var str = "<tr></tr>" +
+				
+				"";
 	jQuery("#tbody").append(str);
 	
 }
