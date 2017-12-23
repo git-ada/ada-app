@@ -55,8 +55,7 @@ var initTable1 = function () {
 		var beginTime = parseInt(Date.parse(new Date()));
 		firstAppend();
 		initTable1();
-		jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-295);
-		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-295);
+		
 		var endTime = parseInt(Date.parse(new Date()));
 		console.log("渲染table消耗时间endTime---------->"+(endTime-beginTime)+"毫秒");
 		
@@ -728,7 +727,47 @@ function clearSearch(){
 }
 
 function firstAppend(){
-	var str = "<tr></tr>" ;
-	jQuery("#tbody").append(str);
+	var str = "";
+	for(var i=0;i<15;i++){
+		var tr = "<tr>" +
+		"<td></td>" +
+		"<td></td>" +
+		"<td></td>" +
+		"<td></td>" +
+		"<td></td>" +
+		"<td></td>" +
+		"<td></td>" +
+		"<td></td>" +
+		//停留
+		"<td></td>" +
+		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +
+		//点击
+		"<td></td>" +
+		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +
+		//滚动
+		"<td></td>" +
+		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +
+		//移动
+		"<td></td>" +
+		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +
+		"</tr>";
+		
+		str +=tr;
+	}
+	
+jQuery("#tbody").append(str);
+	
 	
 }

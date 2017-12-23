@@ -362,6 +362,7 @@ var isRefresh = '${isRefresh}';
 var isRetrun = '${isRetrun}';
 var tbodydata = '${tbodydata}';
 var webPath = '${pageContext.request.contextPath}';
+var jstimestamp = Date.parse(new Date());
 </script>
-<script src="${pageContext.request.contextPath}/assets/js/dashboard_hgr.js" type="text/javascript" charset="utf-8"></script>
+<script  type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/assets/js/dashboard_hgr.js?jstimestamp=<%=new Date()%>"></script>
 <!-- END PAGE SCRIPTS -->
