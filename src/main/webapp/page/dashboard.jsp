@@ -199,9 +199,9 @@ table.dataTable{
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${siteStat.adIP}" id="adIP">${siteStat.adIP}</span>
+					<span data-counter="counterup" data-value="${siteStat.adIP}" id="adIP">${siteStat.adIP}</span>(个)
 				</div>
-				<div class="desc">广告入口独立IP数</div>
+				<div class="desc">广告入口独立IP数<span id="adIpFormat"></span></div>
 			</div>
 		</div>
 	</div>
@@ -213,9 +213,9 @@ table.dataTable{
 			</div>
 			<div class="details">
 				<div class="number">
-					<span data-counter="counterup" data-value="${siteStat.adPv}" id="adPv">${siteStat.adPv}</span>
+					<span data-counter="counterup" data-value="${siteStat.adPv}" id="adPv">${siteStat.adPv}</span>(页)
 				</div>
-				<div class="desc">广告入口访问量</div>
+				<div class="desc">广告入口访问量<span id="adPvFormat"></span></div>
 			</div>
 		</div>
 	</div>

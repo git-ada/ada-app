@@ -478,8 +478,10 @@ function loadTbody(json,num){
 			if(num==1){
 				jQuery("#ip").html(fromInt(json.siteStat.ip));
 				jQuery("#pv").html(fromInt(json.siteStat.pv));
-				jQuery("#adIP").html(fromInt(json.siteStat.adIP)+"(占"+Percentage(json.siteStat.adIP,json.siteStat.ip)+")");
-				jQuery("#adPv").html(fromInt(json.siteStat.adPv)+"(占"+Percentage(json.siteStat.adPv,json.siteStat.pv)+")");
+				jQuery("#adIP").html(fromInt(json.siteStat.adIP));
+				jQuery("#adPv").html(fromInt(json.siteStat.adPv));
+				jQuery("#adIpFormat").html("(占"+Percentage(json.siteStat.adIP,json.siteStat.ip)+")");
+				jQuery("#adPvFormat").html("(占"+Percentage(json.siteStat.adPv,json.siteStat.pv)+")");
 				jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
 				jQuery("#tbody").empty();
 				jQuery("#tbody").append(table);
@@ -489,8 +491,10 @@ function loadTbody(json,num){
 			}else if(num==2 && timestamp==json.timestamp){
 				jQuery("#ip").html(fromInt(json.siteStat.ip));
 				jQuery("#pv").html(fromInt(json.siteStat.pv));
-				jQuery("#adIP").html(fromInt(json.siteStat.adIP)+"(占"+Percentage(json.siteStat.adIP,json.siteStat.ip)+")");
-				jQuery("#adPv").html(fromInt(json.siteStat.adPv)+"(占"+Percentage(json.siteStat.adPv,json.siteStat.pv)+")");
+				jQuery("#adIP").html(fromInt(json.siteStat.adIP));
+				jQuery("#adPv").html(fromInt(json.siteStat.adPv));
+				jQuery("#adIpFormat").html("(占"+Percentage(json.siteStat.adIP,json.siteStat.ip)+")");
+				jQuery("#adPvFormat").html("(占"+Percentage(json.siteStat.adPv,json.siteStat.pv)+")");
 				jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
 				jQuery("#tbody").empty();
 				jQuery("#tbody").append(table);
