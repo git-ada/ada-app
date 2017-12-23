@@ -41,6 +41,12 @@ public interface AdaSiteStatDao extends EntityJpaDao<AdaSiteStat, Integer> {
      */
 	public List<AdaSiteStat> findByCreateTime(Timestamp createTime);
 
+	/** 
+     *通过站点ID查询
+     */
+	@Query(value="select *  from ada_site_stat  where siteId=? and  date = ?",nativeQuery=true)
+	public AdaSiteStat findBySiteIdAndDate(Integer siteId, String date);
+	
 	@Query(value="select " +
 			"t.date as date," +
 			"if(s.id is null,t.id,s.id) as id," +
@@ -74,7 +80,7 @@ public interface AdaSiteStatDao extends EntityJpaDao<AdaSiteStat, Integer> {
 			"from calendar t left join ada_site_stat s on t.date = s.date and s.siteId =? where t.date <? order by t.date desc limit ?,?",nativeQuery=true)
     public List<AdaSiteStat> findBySiteIdLoadHistryData(Integer siteId, String date, int pageStart, int pageSize);
 
-
+    
 
 
 
