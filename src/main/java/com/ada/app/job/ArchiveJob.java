@@ -15,7 +15,7 @@ public class ArchiveJob {
 	@Autowired
 	private ArchiveService archiveService;
 
-	@Scheduled(cron="0 10 1 * * ?")
+	@Scheduled(cron="0 25 11 * * ?")
 	public void excute(){
 		log.info("开始执行归档作业");
 		Long startTime = System.currentTimeMillis();
