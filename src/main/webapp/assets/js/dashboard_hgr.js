@@ -55,7 +55,8 @@ var initTable1 = function () {
 		var beginTime = parseInt(Date.parse(new Date()));
 		firstAppend();
 		initTable1();
-		
+		jQuery(".DTFC_LeftBodyWrapper").css("height",document.documentElement.clientHeight-295);
+		 jQuery(".DTFC_LeftBodyLiner").css("height",document.documentElement.clientHeight-295);
 		var endTime = parseInt(Date.parse(new Date()));
 		console.log("渲染table消耗时间endTime---------->"+(endTime-beginTime)+"毫秒");
 		
@@ -727,22 +728,7 @@ function clearSearch(){
 }
 
 function firstAppend(){
-	var str = "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-			  "<tr></tr>" +
-				"";
+	var str = "<tr></tr>" ;
 	jQuery("#tbody").append(str);
 	
 }
