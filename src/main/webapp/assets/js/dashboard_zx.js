@@ -10,6 +10,23 @@ var oTable;
 var table;
 var sessionData = "";//每一次更新的数据放在session中
 
+
+function LoadTableDataYesteday(clickDate){
+	jQuery.ajax({
+		url : webPath + "/clickLoadHistryData.do?dataType=domain&clickDate="+clickDate,
+		success : function(data) {
+			if (data!=null) {
+				var json = eval('(' + data + ')');
+				loadHistryDataTbody(json,2);
+				//alert("--------点击图表加载数据完成-------");
+			}
+		},
+		error: function (data) {
+			//alert("数据加载异常!!!");
+		}
+	});
+}
+
 /** 
  *点击图表区域获取x轴时间作为参数以加载下面的域名列表 
  **/
@@ -643,6 +660,7 @@ function loadHistryDataTbody(json,num){
 			//jQuery("#pv").html(json.siteStat.pv);
 			//jQuery("#adIP").html(json.siteStat.adIP);
 			//jQuery("#adPv").html(json.siteStat.adPv);
+			
 //		}else if(num==2 && timestamp==json.timestamp){
 		}else {
 			//alert("num==2");
@@ -771,7 +789,7 @@ function openMenu(a,event){
 	var backUrl = webPath+"/dashboardHistry.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop+"&isRefresh="+isRefresh+"&isRetrun=true";
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
-	alert(domain);
+
 	jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
 	jQuery("#oneTime").attr("onclick","gotoPage('"+webPath+"/dashboard_domainTime_one_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
 	jQuery("#AdVSNotAd").attr("onclick","gotoPage('"+webPath+"/dashboard_domainTime_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");

@@ -297,6 +297,7 @@ public class HistryController {
 		System.out.println("dataType: --->"+dataType);
 		AdaSiteStat siteStat = statDao.findBySiteIdAndDate(adaSite.getId(), date);
 		json.put("siteStat", siteStat);
+		System.out.println("date: ---> "+clickDate);
 		
 		if(dataType!=null){
 			if("domain".equals(dataType)){/** 获取域名统计信息 **/

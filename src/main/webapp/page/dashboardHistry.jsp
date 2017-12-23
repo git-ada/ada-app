@@ -311,7 +311,7 @@ table.dataTable{
 	var isRetrun = '${isRetrun}';
 	var tbodydata = '${tbodydata}';
 	var webPath = '${pageContext.request.contextPath}';
-	var clickDate = "";  
+	var clickDate = '${lasttime}';  
 	
 </script>
 <script src="${pageContext.request.contextPath}/assets/js/dashboard_zx.js" type="text/javascript" charset="utf-8"></script>
