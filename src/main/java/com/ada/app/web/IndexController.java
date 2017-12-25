@@ -601,10 +601,10 @@ public class IndexController {
 						pv = pv - allOldPv>0 ? pv - allOldPv : 0;
 				//根据平均数  预计 一个小时的数据
 				Integer Fpv = com.ada.app.util.Dates.getHourData(pv);
-						Fpv = Fpv - pv>0 ? Fpv-pv : 0;
 				json_item.put("date", Fdata);
 				json_item.put("pv", pv);
 				json_item.put("Fpv", Fpv);
+				json_item.put("clpv", Fpv - pv>0 ? Fpv-pv : 0);
 				json_item.put("alpha", 0.2);
 				json_item.put("color", "red");
 				json_item.put("dashLengthColumn", 5);

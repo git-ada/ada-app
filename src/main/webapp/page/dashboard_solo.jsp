@@ -238,13 +238,13 @@ var pageData = "";
 					    "valueField": "pv"
 					 },{
 						"alphaField": "alpha",
-					    "balloonText": "<span style='font-size:12px;'>[[title]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
+					    "balloonText": "<span style='font-size:12px;'>[[title]]:<br><span style='font-size:20px;'>[[Fpv]]</span> [[additional]]</span>",
 					    "fillAlphas": 1,
 					    "title": "预测pv",
 					    "type": "column",
 					    "lineColor": "red",
 					    colorField: "color",
-					    "valueField": "Fpv",
+					    "valueField": "clpv",
 					    "dashLengthField": "dashLengthColumn"
 		            }
 					 ],
