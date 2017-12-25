@@ -588,22 +588,25 @@ public class IndexController {
 				//最后一条数据 从redis中 获取最新数据
 				AdaSite adaSite = Sessions.getCurrentSite();
 				Date today = Dates.todayStart();
-				Timestamp data = Dates.todayStart();
 				AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, today);
 				JSONObject json_item=new JSONObject();
-				AdaDomainAdStat oldad = adaDomainAdStatDao.findLastInDate(adaSite.getId(), domainId,data);//广告入口老数据
-				AdaDomainNotadStat oldnotad = adaDomainNotAdStatDao.findLastInDate(adaSite.getId(), domainId,data);//非广告入口数据
-				Integer allOldPv = oldad.getPv()+oldnotad.getPv();//总的老pv 
+				AdaDomainAdStat oldad = adaDomainAdStatDao.findLast(adaSite.getId(), domainId);//广告入口老数据
+				AdaDomainNotadStat oldnotad = adaDomainNotAdStatDao.findLast(adaSite.getId(), domainId);//非广告入口数据
+				Integer allOldPv = 0;//总的老pv 
+				if(oldad!=null && oldnotad!=null){
+					allOldPv = oldad.getPv()+oldnotad.getPv();
+				}
 				String Fdata = com.ada.app.util.Dates.getAfterTime();//获取下个整点 时间
 				Integer pv = domainStat.getPv();
 						pv = pv - allOldPv>0 ? pv - allOldPv : 0;
 				//根据平均数  预计 一个小时的数据
 				Integer Fpv = com.ada.app.util.Dates.getHourData(pv);
-				
+						Fpv = Fpv - pv>0 ? Fpv-pv : 0;
 				json_item.put("date", Fdata);
 				json_item.put("pv", pv);
 				json_item.put("Fpv", Fpv);
 				json_item.put("alpha", 0.2);
+				json_item.put("color", "red");
 				json_item.put("dashLengthColumn", 5);
 				chart_1.add(json_item);
 			}

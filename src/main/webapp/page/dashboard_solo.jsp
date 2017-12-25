@@ -234,6 +234,7 @@ var pageData = "";
 					    "title": "pv",
 					    "type": "column",
 					    "lineColor": "rgb(103, 183, 220)",
+					    colorField: "color",
 					    "valueField": "pv"
 					 },{
 						"alphaField": "alpha",
@@ -241,7 +242,8 @@ var pageData = "";
 					    "fillAlphas": 1,
 					    "title": "预测pv",
 					    "type": "column",
-					    "lineColor": "rgb(103, 183, 220)",
+					    "lineColor": "red",
+					    colorField: "color",
 					    "valueField": "Fpv",
 					    "dashLengthField": "dashLengthColumn"
 		            }
