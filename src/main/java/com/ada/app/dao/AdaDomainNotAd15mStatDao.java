@@ -10,6 +10,7 @@ import cn.com.jiand.mvc.framework.dao.jpa.EntityJpaDao;
 
 import com.ada.app.domain.AdaDomainAd15mStat;
 import com.ada.app.domain.AdaDomainNotad15mStat;
+import com.ada.app.domain.AdaSiteStat;
 
 /**
  * 域名非广告入口15分钟统计 JPA Dao
@@ -150,6 +151,13 @@ public interface AdaDomainNotAd15mStatDao extends EntityJpaDao<AdaDomainNotad15m
 
 	@Query(value = "select * from ada_domain_notad_15m_stat obj where obj.domainId=? and date=? order by obj.endTime desc limit ?,? ",nativeQuery=true)
 	public List<AdaDomainNotad15mStat> findByDomainIdOrderByStartTimeHistry(Integer domainId,String clickDate,int pageStart,int pageSize);
+	
+
+
+	
+	
+	
+	
 
 
 	
