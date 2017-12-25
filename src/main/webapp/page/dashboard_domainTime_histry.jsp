@@ -66,7 +66,7 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <a href="javascript:gotoPage('${pageContext.request.contextPath}/dashboardHistry.jhtm?dataType=${dataType}&clickDate=${lasttime});"> <i class="icon-action-undo"></i></a>
+                  <a href="javascript:gotoPage('${pageContext.request.contextPath}/dashboardHistry.jhtm?dataType=${dataType}&clickDate=${lasttime}');"> <i class="icon-action-undo"></i></a>
                   <i class=" icon-info font-green"></i>
                   <span class="caption-subject font-green bold uppercase">基本数据</span>
                           <!-- caption-subject font-dark bold uppercase -->
