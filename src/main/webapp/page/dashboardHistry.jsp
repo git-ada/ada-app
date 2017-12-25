@@ -209,8 +209,8 @@ table.dataTable{
 	                        <span class="fa fa-angle-down"> </span>
 	                    </a>
 	                    <ul class="dropdown-menu pull-right" id="topul">
-	                        <li onclick="changeTop(this,2)" <c:if test="${ipTop==2}">class="active"</c:if>>
-	                            <a ><span style="color: #333;"> TOP 2 &nbsp;</span></a>
+	                        <li onclick="changeTop(this,50)" <c:if test="${ipTop==2}">class="active"</c:if>>
+	                            <a ><span style="color: #333;"> TOP 50 &nbsp;</span></a>
 	                        </li>
 	                        <li onclick="changeTop(this,100)" <c:if test="${ipTop==100}">class="active"</c:if>>
 	                            <a ><span style="color: #333;"> TOP 100 </span></a>
