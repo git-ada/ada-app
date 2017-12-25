@@ -1,6 +1,7 @@
 package com.ada.app.web;
 
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,8 +33,10 @@ import com.ada.app.bean.DomainAreaStat;
 import com.ada.app.bean.DomainStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
+import com.ada.app.dao.AdaDomainAdStatDao;
 import com.ada.app.dao.AdaDomainDao;
 import com.ada.app.dao.AdaDomainNotAd15mStatDao;
+import com.ada.app.dao.AdaDomainNotAdStatDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaSiteStatDao;
 import com.ada.app.domain.AdaChannel;
@@ -86,6 +89,10 @@ public class IndexController {
 	private AdaDomainAd15mStatDao ad15mStatDao;
 	@Autowired
 	private AdaDomainNotAd15mStatDao notAd15mStatDao;
+	@Autowired
+	private AdaDomainAdStatDao adaDomainAdStatDao;
+	@Autowired
+	private AdaDomainNotAdStatDao adaDomainNotAdStatDao;
 	private final static int Interval_time = 15;//域名分时统计的时间 间隔（单位：分钟）
 	private final static int domainTime_PageSize = 24;//域名分时统计 图表数据 每一页的数据条数
 	@RequestMapping(value = "index")
@@ -581,11 +588,15 @@ public class IndexController {
 				//最后一条数据 从redis中 获取最新数据
 				AdaSite adaSite = Sessions.getCurrentSite();
 				Date today = Dates.todayStart();
+				Timestamp data = Dates.todayStart();
 				AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, today);
 				JSONObject json_item=new JSONObject();
+				AdaDomainAdStat oldad = adaDomainAdStatDao.findLastInDate(adaSite.getId(), domainId,data);//广告入口老数据
+				AdaDomainNotadStat oldnotad = adaDomainNotAdStatDao.findLastInDate(adaSite.getId(), domainId,data);//非广告入口数据
+				Integer allOldPv = oldad.getPv()+oldnotad.getPv();//总的老pv 
 				String Fdata = com.ada.app.util.Dates.getAfterTime();//获取下个整点 时间
 				Integer pv = domainStat.getPv();
-						pv = pv - list.get(0).getPv()>0 ? pv - list.get(0).getPv() : 0;
+						pv = pv - allOldPv>0 ? pv - allOldPv : 0;
 				//根据平均数  预计 一个小时的数据
 				Integer Fpv = com.ada.app.util.Dates.getHourData(pv);
 				
