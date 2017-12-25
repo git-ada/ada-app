@@ -1,6 +1,7 @@
 package com.ada.app.web;
 
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,8 +33,10 @@ import com.ada.app.bean.DomainAreaStat;
 import com.ada.app.bean.DomainStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
+import com.ada.app.dao.AdaDomainAdStatDao;
 import com.ada.app.dao.AdaDomainDao;
 import com.ada.app.dao.AdaDomainNotAd15mStatDao;
+import com.ada.app.dao.AdaDomainNotAdStatDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaSiteStatDao;
 import com.ada.app.domain.AdaChannel;
@@ -86,6 +89,10 @@ public class IndexController {
 	private AdaDomainAd15mStatDao ad15mStatDao;
 	@Autowired
 	private AdaDomainNotAd15mStatDao notAd15mStatDao;
+	@Autowired
+	private AdaDomainAdStatDao adaDomainAdStatDao;
+	@Autowired
+	private AdaDomainNotAdStatDao adaDomainNotAdStatDao;
 	private final static int Interval_time = 15;//域名分时统计的时间 间隔（单位：分钟）
 	private final static int domainTime_PageSize = 24;//域名分时统计 图表数据 每一页的数据条数
 	@RequestMapping(value = "index")
@@ -285,6 +292,36 @@ public class IndexController {
 		model.addAttribute("domain", domain);
 		return "dashboard_domainTime_one";
 	}
+	/**
+	 * 实时数据 动态图
+	 * @return
+	 */
+	@RequestMapping("dashboard_dynamic")
+	public String dashboard_dynamic(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId){
+		if(domainId!=null && !"".equals(domainId)){
+			JSONObject json = dynamic_chart(Integer.valueOf(domainId));
+			model.addAttribute("json", json);
+		}
+		
+		model.addAttribute("domainId", domainId);
+		return "dashboard_dynamic";
+	}
+	/**
+	 * 实时数据  单独查看
+	 * @param domainId 域名id
+	 */
+	@RequestMapping("dashboard_solo")
+	public String dashboard_solo(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId,String domain){
+		if(domainId!=null && !"".equals(domainId)){
+			JSONObject json = solo_chart(Integer.valueOf(domainId),23,1);
+			model.addAttribute("json", json);
+		}
+		model.addAttribute("domainId", domainId);
+		model.addAttribute("domain", domain);
+		return "dashboard_solo";
+	}
 	
 	@RequestMapping(value = "dashboard_domainTime3")
 	public String dashboard_domainTime3(HttpServletRequest request,HttpServletResponse response, Model model,
@@ -321,7 +358,33 @@ public class IndexController {
 		
 		return "dashboard_channelList";
 	}
+	@RequestMapping("ajax_dashboard_dynamic")
+	public void ajax_dashboard_dynamic(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId){
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(this.dynamic_chart(Integer.valueOf(domainId)));
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping("ajax_dashboard_solo")
+	public void ajax_dashboard_solo(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId){
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(this.solo_chart(Integer.valueOf(domainId),23,1));
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	
+	}
 	
 	@RequestMapping("ajaxLoadData")
 	public void ajaxLoadData(HttpServletRequest request,HttpServletResponse response ,Model model){
@@ -477,6 +540,83 @@ public class IndexController {
 		
 		return json;
 	}
+	/**
+	 * 实时数据 动态图数据
+	 * @return
+	 */
+	protected JSONObject dynamic_chart(Integer domainId){
+		JSONObject json=new JSONObject();
+		JSONArray chart_1=new JSONArray();// IP、PV、UV
+		/** 从sessions中获取站点信息 **/
+		AdaSite adaSite = Sessions.getCurrentSite();//
+		Date today = Dates.todayStart();
+		AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, today);
+		JSONObject json_adChart_1=new JSONObject();
+		json_adChart_1.put("date", new SimpleDateFormat("HH:mm:ss").format(new Date()));
+		json_adChart_1.put("ip", domainStat.getIp());
+		json_adChart_1.put("pv", domainStat.getPv());
+		json_adChart_1.put("uv", domainStat.getUv());
+	
+		chart_1.add(json_adChart_1);
+		json.put("success", true);
+		json.put("chart_1", chart_1);
+		return json;
+	}
+	/**
+	 * 实时数据  单独查看 图表数据
+	 * @param domainId
+	 * @return
+	 */
+	protected JSONObject solo_chart(Integer domainId,int pageSize,int pageNo){
+		JSONObject json=new JSONObject();
+		JSONArray chart_1=new JSONArray();// 
+		if(domainId!=null && domainId>0){
+			
+			List<AdaDomainAd15mStat> list = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+			if(list!=null && list.size()>0){
+				for(int i=list.size()-1;i>=0;i--){
+					BaseStatBean item = new BaseStatBean();
+					BeanUtils.copyProperties(list.get(i), item);
+					String date = new SimpleDateFormat("HH:mm").format(item.getEndTime());
+					JSONObject json_item_1=new JSONObject();
+					json_item_1.put("date", date);//时间
+					json_item_1.put("pv", item.getPv());//pv
+					json_item_1.put("clpv", 0);// Forecast 预测pv
+					chart_1.add(json_item_1);
+				}
+				
+				//最后一条数据 从redis中 获取最新数据
+				AdaSite adaSite = Sessions.getCurrentSite();
+				Date today = Dates.todayStart();
+				AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, today);
+				JSONObject json_item=new JSONObject();
+				AdaDomainAdStat oldad = adaDomainAdStatDao.findLast(adaSite.getId(), domainId);//广告入口老数据
+				AdaDomainNotadStat oldnotad = adaDomainNotAdStatDao.findLast(adaSite.getId(), domainId);//非广告入口数据
+				Integer allOldPv = 0;//总的老pv 
+				if(oldad!=null && oldnotad!=null){
+					allOldPv = oldad.getPv()+oldnotad.getPv();
+				}
+				String Fdata = com.ada.app.util.Dates.getAfterTime();//获取下个整点 时间
+				Integer pv = domainStat.getPv();
+						pv = pv - allOldPv>0 ? pv - allOldPv : 0;
+				//根据平均数  预计 一个小时的数据
+				Integer Fpv = com.ada.app.util.Dates.getHourData(pv);
+				json_item.put("date", Fdata);
+				json_item.put("pv", pv);
+				json_item.put("Fpv", Fpv);
+				json_item.put("clpv", Fpv - pv>0 ? Fpv-pv : 0);
+				json_item.put("alpha", 0.2);
+				json_item.put("color", "red");
+				json_item.put("dashLengthColumn", 5);
+				chart_1.add(json_item);
+			}
+			
+		}
+		
+		json.put("success", true);
+		json.put("chart_1", chart_1);
+		return json;
+	}
 	
 	protected JSONObject domainTimechartList_one(Integer domainId,int pageSize,int len,Integer pageNo,String dataType){
 		
@@ -597,8 +737,13 @@ public class IndexController {
 					chart_6.add(json_item_6);
 				}
 			}
+			Collections.reverse(chart_1);
+			Collections.reverse(chart_2);
+			Collections.reverse(chart_3);
+			Collections.reverse(chart_4);
+			Collections.reverse(chart_5);
+			Collections.reverse(chart_6);
 			for(int i=list.size()-1;i>=0;i--){
-				/** 广告入口数据  **/
 				BaseStatBean item = new BaseStatBean();
 				BeanUtils.copyProperties(list.get(i), item);
 				

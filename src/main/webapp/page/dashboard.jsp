@@ -201,7 +201,7 @@ table.dataTable{
 				<div class="number">
 					<span data-counter="counterup" data-value="${siteStat.adIP}" id="adIP">${siteStat.adIP}</span>(个)
 				</div>
-				<div class="desc">广告入口独立IP数</div>
+				<div class="desc">广告入口独立IP数<span id="adIpFormat"></span></div>
 			</div>
 		</div>
 	</div>
@@ -215,7 +215,7 @@ table.dataTable{
 				<div class="number">
 					<span data-counter="counterup" data-value="${siteStat.adPv}" id="adPv">${siteStat.adPv}</span>(页)
 				</div>
-				<div class="desc">广告入口访问量</div>
+				<div class="desc">广告入口访问量<span id="adPvFormat"></span></div>
 			</div>
 		</div>
 	</div>
@@ -337,6 +337,14 @@ table.dataTable{
 			     <li>
 			       <a href="javascript:;" id="onlyOne"><i class="icon-magnifier"></i>单独查看</a>
 			     </li>
+			    <!--  <li>
+			       <a href="javascript:;" id="dynamic">实时动态</a>
+			     </li> -->
+			     
+			     <li>
+			       <a href="javascript:;" id="solo">单指标实时动态</a>
+			     </li>
+			     
 			     <li>
 			       <a href="javascript:;" id="oneTime">分时统计</a>
 			     </li>

@@ -294,167 +294,167 @@ function loadTbody(json,num){
 				    var m4Td = "";//4区间
 
 				    if(Percentagemin(item[0],sumip)<1){
-				    	ipTd = "<td title='"+Percentage(item[0],sumip)+"'><span class='tdonly'>"+item[0]+"</span></td>";
+				    	ipTd = "<td title='"+Percentage(item[0],sumip)+"'><span class='tdonly'>"+fromInt(item[0])+"</span></td>";
 				    }else{
 				    	ipTd = "<td title='"+Percentage(item[0],sumip)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[0],sumip)+" '>"+
-					  	"<span class='only'> "+item[0]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[0])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[1],sumpv)<1){
-				    	pvTd = "<td title='"+Percentage(item[1],sumpv)+"'><span class='tdonly'>"+item[1]+"</span></td>";
+				    	pvTd = "<td title='"+Percentage(item[1],sumpv)+"'><span class='tdonly'>"+fromInt(item[1])+"</span></td>";
 				    }else{
 				    	pvTd = "<td title='"+Percentage(item[1],sumpv)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[1],sumpv)+" '>"+
-					  	"<span class='only'> "+item[1]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[1])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[2],sumuv)<1){
-				    	uvTd = "<td title='"+Percentage(item[2],sumuv)+"'><span class='tdonly'>"+item[2]+"</span></td>";
+				    	uvTd = "<td title='"+Percentage(item[2],sumuv)+"'><span class='tdonly'>"+fromInt(item[2])+"</span></td>";
 				    }else{
 				    	uvTd = "<td title='"+Percentage(item[2],sumuv)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[2],sumuv)+" '>"+
-					  	"<span class='only'> "+item[2]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[2])+" </span></div></div></td>";
 				    }
 				    
 				    if(Percentagemin(item[3],IP)<1){
-				    	olduserTd = "<td title='"+Percentage(item[3],IP)+"'><span class='tdonly'>"+item[3]+"</span></td>";
+				    	olduserTd = "<td title='"+Percentage(item[3],IP)+"'><span class='tdonly'>"+fromInt(item[3])+"</span></td>";
 				    }else{
 				    	olduserTd = "<td title='"+Percentage(item[3],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[3],IP)+" '>"+
-					  	"<span class='only'> "+item[3]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[3])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[4],IP)<1){
-				    	oldipTd = "<td title='"+Percentage(item[4],IP)+"'><span class='tdonly'>"+item[4]+"</span></td>";
+				    	oldipTd = "<td title='"+Percentage(item[4],IP)+"'><span class='tdonly'>"+fromInt(item[4])+"</span></td>";
 				    }else{
 				    	oldipTd = "<td title='"+Percentage(item[4],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[4],IP)+" '>"+
-					  	"<span class='only'> "+item[4]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[4])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[5],IP)<1){
-				    	loginTd = "<td title='"+Percentage(item[5],IP)+"'><span class='tdonly'>"+item[5]+"</span></td>";
+				    	loginTd = "<td title='"+Percentage(item[5],IP)+"'><span class='tdonly'>"+fromInt(item[5])+"</span></td>";
 				    }else{
 				    	loginTd = "<td title='"+Percentage(item[5],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[5],IP)+" '>"+
-					  	"<span class='only'> "+item[5]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[5])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[6],IP)<1){
-				    	targetTd = "<td title='"+Percentage(item[6],IP)+"'><span class='tdonly'>"+item[6]+"</span></td>";
+				    	targetTd = "<td title='"+Percentage(item[6],IP)+"'><span class='tdonly'>"+fromInt(item[6])+"</span></td>";
 				    }else{
 				    	targetTd = "<td title='"+Percentage(item[6],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[6],IP)+" '>"+
-					  	"<span class='only'> "+item[6]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[6])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(sumST,IP)<1){
-				    	sumSTTd = "<td  title='"+Percentage(sumST,IP)+"'><span class='tdonly'>"+sumST+"</span></td>";
+				    	sumSTTd = "<td  title='"+Percentage(sumST,IP)+"'><span class='tdonly'>"+fromInt(sumST)+"</span></td>";
 				    }else{
 				    	sumSTTd = "<td title='"+Percentage(sumST,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumST,IP)+" '>"+
-					  	"<span class='only'> "+sumST+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(sumST)+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[7],IP)<1){
-				    	st1Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[7],IP)+"'><span class='tdonly'>"+item[7]+"</span></td>";
+				    	st1Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[7],IP)+"'><span class='tdonly'>"+fromInt(item[7])+"</span></td>";
 				    }else{
 				    	st1Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[7],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[7],IP)+" '>"+
-					  	"<span class='only'> "+item[7]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[7])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[8],IP)<1){
-				    	st2Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[8],IP)+"'><span class='tdonly'>"+item[8]+"</span></td>";
+				    	st2Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[8],IP)+"'><span class='tdonly'>"+fromInt(item[8])+"</span></td>";
 				    }else{
 				    	st2Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[8],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[8],IP)+" '>"+
-					  	"<span class='only'> "+item[8]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[8])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[9],IP)<1){
-				    	st3Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[9],IP)+"'><span class='tdonly'>"+item[9]+"</span></td>";
+				    	st3Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[9],IP)+"'><span class='tdonly'>"+fromInt(item[9])+"</span></td>";
 				    }else{
 				    	st3Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[9],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[9],IP)+" '>"+
-					  	"<span class='only'> "+item[9]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[9])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[10],IP)<1){
-				    	st4Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[10],IP)+"'><span class='tdonly'>"+item[10]+"</span></td>";
+				    	st4Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[10],IP)+"'><span class='tdonly'>"+fromInt(item[10])+"</span></td>";
 				    }else{
 				    	st4Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[10],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[10],IP)+" '>"+
-					  	"<span class='only'> "+item[10]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[10])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(sumC,IP)<1){
-				    	sumCTd = "<td class='onlytd' title='"+Percentage(sumC,IP)+"'><span class='tdonly'>"+sumC+"</span></td>";
+				    	sumCTd = "<td class='onlytd' title='"+Percentage(sumC,IP)+"'><span class='tdonly'>"+fromInt(sumC)+"</span></td>";
 				    }else{
 				    	sumCTd = "<td title='"+Percentage(sumC,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumC,IP)+" '>"+
-					  	"<span class='only'> "+sumC+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(sumC)+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[11],IP)<1){
-				    	c1Td = "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[11],IP)+"'><span class='tdonly'>"+item[11]+"</span></td>";
+				    	c1Td = "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[11],IP)+"'><span class='tdonly'>"+fromInt(item[11])+"</span></td>";
 				    }else{
 				    	c1Td = "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[11],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[11],IP)+" '>"+
-					  	"<span class='only'> "+item[11]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[11])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[12],IP)<1){
-				    	c2Td = "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[12],IP)+"'><span class='tdonly'>"+item[12]+"</span></td>";
+				    	c2Td = "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[12],IP)+"'><span class='tdonly'>"+fromInt(item[12])+"</span></td>";
 				    }else{
 				    	c2Td = "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[12],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[12],IP)+" '>"+
-					  	"<span class='only'> "+item[12]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[12])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[13],IP)<1){
-				    	c3Td = "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[13],IP)+"'><span class='tdonly'>"+item[13]+"</span></td>";
+				    	c3Td = "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[13],IP)+"'><span class='tdonly'>"+fromInt(item[13])+"</span></td>";
 				    }else{
 				    	c3Td = "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[13],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[13],IP)+" '>"+
-					  	"<span class='only'> "+item[13]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[13])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[14],IP)<1){
-				    	c4Td = "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[14],IP)+"'><span class='tdonly'>"+item[14]+"</span></td>";
+				    	c4Td = "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[14],IP)+"'><span class='tdonly'>"+fromInt(item[14])+"</span></td>";
 				    }else{
 				    	c4Td = "<td class='"+cDisplay+"' event='c' title='"+Percentage(item[14],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[14],IP)+" '>"+
-					  	"<span class='only'> "+item[14]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[14])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(sumS,IP)<1){
-				    	sumSTd = "<td class='onlytd' title='"+Percentage(sumS,IP)+"'><span class='tdonly'>"+sumS+"</span></td>";
+				    	sumSTd = "<td class='onlytd' title='"+Percentage(sumS,IP)+"'><span class='tdonly'>"+fromInt(sumS)+"</span></td>";
 				    }else{
 				    	sumSTd = "<td title='"+Percentage(sumS,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumS,IP)+" '>"+
-					  	"<span class='only'> "+sumS+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(sumS)+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[15],IP)<1){
-				    	s1Td = "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[15],IP)+"'><span class='tdonly'>"+item[15]+"</span></td>";
+				    	s1Td = "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[15],IP)+"'><span class='tdonly'>"+fromInt(item[15])+"</span></td>";
 				    }else{
 				    	s1Td = "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[15],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[15],IP)+" '>"+
-					  	"<span class='only'> "+item[15]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[15])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[16],IP)<1){
-				    	s2Td = "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[16],IP)+"'><span class='tdonly'>"+item[16]+"</span></td>";
+				    	s2Td = "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[16],IP)+"'><span class='tdonly'>"+fromInt(item[16])+"</span></td>";
 				    }else{
 				    	s2Td = "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[16],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[16],IP)+" '>"+
-					  	"<span class='only'> "+item[16]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[16])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[17],IP)<1){
-				    	s3Td = "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[17],IP)+"'><span class='tdonly'>"+item[17]+"</span></td>";
+				    	s3Td = "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[17],IP)+"'><span class='tdonly'>"+fromInt(item[17])+"</span></td>";
 				    }else{
 				    	s3Td = "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[17],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[17],IP)+" '>"+
-					  	"<span class='only'> "+item[17]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[17])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[18],IP)<1){
-				    	s4Td = "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[18],IP)+"'><span class='tdonly'>"+item[18]+"</span></td>";
+				    	s4Td = "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[18],IP)+"'><span class='tdonly'>"+fromInt(item[18])+"</span></td>";
 				    }else{
 				    	s4Td = "<td class='"+sDisplay+"' event='s' title='"+Percentage(item[18],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[18],IP)+" '>"+
-					  	"<span class='only'> "+item[18]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[18])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(sumM,IP)<1){
-				    	sumMTd = "<td class='onlytd' title='"+Percentage(sumM,IP)+"'><span class='tdonly'>"+sumM+"</span></td>";
+				    	sumMTd = "<td class='onlytd' title='"+Percentage(sumM,IP)+"'><span class='tdonly'>"+fromInt(sumM)+"</span></td>";
 				    }else{
 				    	sumMTd = "<td title='"+Percentage(sumM,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumM,IP)+" '>"+
-					  	"<span class='only'> "+sumM+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(sumM)+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[19],IP)<1){
-				    	m1Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[19],IP)+"'><span class='tdonly'>"+item[19]+"</span></td>";
+				    	m1Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[19],IP)+"'><span class='tdonly'>"+fromInt(item[19])+"</span></td>";
 				    }else{
 				    	m1Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[19],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[19],IP)+" '>"+
-					  	"<span class='only'> "+item[19]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[19])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[20],IP)<1){
-				    	m2Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[20],IP)+"'><span class='tdonly'>"+item[20]+"</span></td>";
+				    	m2Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[20],IP)+"'><span class='tdonly'>"+fromInt(item[20])+"</span></td>";
 				    }else{
 				    	m2Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[20],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[20],IP)+" '>"+
-					  	"<span class='only'> "+item[20]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[20])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[21],IP)<1){
-				    	m3Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[21],IP)+"'><span class='tdonly'>"+item[21]+"</span></td>";
+				    	m3Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[21],IP)+"'><span class='tdonly'>"+fromInt(item[21])+"</span></td>";
 				    }else{
 				    	m3Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[21],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[21],IP)+" '>"+
-					  	"<span class='only'> "+item[21]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[21])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[22],IP)<1){
-				    	m4Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[22],IP)+"'><span class='tdonly'>"+item[22]+"</span></td>";
+				    	m4Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[22],IP)+"'><span class='tdonly'>"+fromInt(item[22])+"</span></td>";
 				    }else{
 				    	m4Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[22],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[22],IP)+" '>"+
-					  	"<span class='only'> "+item[22]+" </span></div></div></td>";
+					  	"<span class='only'> "+fromInt(item[22])+" </span></div></div></td>";
 				    }
 				    
 			  		tr+="<tr num='"+i+"'>" + firstTd+
@@ -466,20 +466,21 @@ function loadTbody(json,num){
 					  sumMTd+m1Td+m2Td+m3Td+m4Td+
 					  "</tr>";
 					  table+=tr;
-				  if(num==2){
+					  
 					  tr2+="<tr>"+firstTd+
 					  ipTd+
 						"</tr>";
 					lefttable+=tr2;
-				  }
 				}
 				
 			}
 			if(num==1){
-				jQuery("#ip").html(json.siteStat.ip);
-				jQuery("#pv").html(json.siteStat.pv);
-				jQuery("#adIP").html(json.siteStat.adIP);
-				jQuery("#adPv").html(json.siteStat.adPv);
+				jQuery("#ip").html(fromInt(json.siteStat.ip));
+				jQuery("#pv").html(fromInt(json.siteStat.pv));
+				jQuery("#adIP").html(fromInt(json.siteStat.adIP));
+				jQuery("#adPv").html(fromInt(json.siteStat.adPv));
+				jQuery("#adIpFormat").html("(占"+Percentage(json.siteStat.adIP,json.siteStat.ip)+")");
+				jQuery("#adPvFormat").html("(占"+Percentage(json.siteStat.adPv,json.siteStat.pv)+")");
 				jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
 				jQuery("#tbody").empty();
 				jQuery("#tbody").append(table);
@@ -487,10 +488,12 @@ function loadTbody(json,num){
 				jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable);
 				jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
 			}else if(num==2 && timestamp==json.timestamp){
-				jQuery("#ip").html(json.siteStat.ip);
-				jQuery("#pv").html(json.siteStat.pv);
-				jQuery("#adIP").html(json.siteStat.adIP);
-				jQuery("#adPv").html(json.siteStat.adPv);
+				jQuery("#ip").html(fromInt(json.siteStat.ip));
+				jQuery("#pv").html(fromInt(json.siteStat.pv));
+				jQuery("#adIP").html(fromInt(json.siteStat.adIP));
+				jQuery("#adPv").html(fromInt(json.siteStat.adPv));
+				jQuery("#adIpFormat").html("(占"+Percentage(json.siteStat.adIP,json.siteStat.ip)+")");
+				jQuery("#adPvFormat").html("(占"+Percentage(json.siteStat.adPv,json.siteStat.pv)+")");
 				jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
 				jQuery("#tbody").empty();
 				jQuery("#tbody").append(table);
@@ -610,7 +613,9 @@ function openMenu(a,event){
 	var backUrl = webPath+"/dashboard.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop+"&isRefresh="+isRefresh+"&isRetrun=true";
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
-	 jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
+	jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
+	jQuery("#dynamic").attr("onclick","gotoPage('"+webPath+"/dashboard_dynamic.jhtm?domainId="+id+"','"+backUrl+"')");
+	jQuery("#solo").attr("onclick","gotoPage('"+webPath+"/dashboard_solo.jhtm?domainId="+id+"&domain="+domain+"','"+backUrl+"')");
 	jQuery("#oneTime").attr("onclick","gotoPage('"+webPath+"/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"','"+backUrl+"')");
 	jQuery("#AdVSNotAd").attr("onclick","gotoPage('"+webPath+"/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"&dataType="+dataType+"','"+backUrl+"')");
 	if(dataType=="domain"){
@@ -635,14 +640,17 @@ function openMenu(a,event){
 }
 //百分比
 function Percentagemin(num, total){
+	if(total==0) total=1;
 	return Math.round(num / total * 10000) / 100.00;
 }
 //百分比
 function Percentage(num, total) { 
+	if(total==0) total=1;
    return (Math.round(num / total * 10000) / 100.00 + "%");// 小数点后两位百分比
 }
 //百分比 （超过100 按100算）
 function PercentageMax(num, total){
+	if(total==0) total=1;
 	var p = Math.round(num / total * 10000) / 100.00 >100 ? 100 : Math.round(num / total * 10000) / 100.00;
 	return (p+"%");
 }
@@ -730,7 +738,7 @@ function firstAppend(){
 	var str = "";
 	for(var i=0;i<15;i++){
 		var tr = "<tr>" +
-		"<td></td>" +
+		"<td ><span class='tdonly'></span></td>" +
 		"<td></td>" +
 		"<td></td>" +
 		"<td></td>" +
@@ -767,7 +775,13 @@ function firstAppend(){
 		str +=tr;
 	}
 	
-jQuery("#tbody").append(str);
+	jQuery("#tbody").append(str);
 	
-	
+}
+//万分符
+function fromInt(n){
+	var str=""+n;
+	var re=/(?=(?!(\b))(\d{4})+$)/g;
+	str=str.replace(re,",");
+	return str;
 }
