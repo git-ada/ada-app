@@ -203,7 +203,7 @@ public class HistryController {
 			Date now = new Date();
 			c.setTime(now);
 			int day=c.get(Calendar.DATE); 
-			c.set(Calendar.DATE,day-1); 
+			c.set(Calendar.DATE,day-12); 
 			date =new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()); 
 		}
 		
@@ -224,6 +224,7 @@ public class HistryController {
 				Map map = new HashMap();
 				map.put("data_list", data_list);
 				map.put("dataType", dataType);
+				map.put("lasttime", date);
 				map.put("siteStat", siteStat);
 				JSONObject json  = new JSONObject(map);
 				model.addAttribute("tbodydata", json);
@@ -235,6 +236,7 @@ public class HistryController {
 				Map map = new HashMap();
 				map.put("data_list", data_list);
 				map.put("dataType", dataType);
+				map.put("lasttime", date);
 				map.put("siteStat", siteStat);
 				JSONObject json  = new JSONObject(map);
 				model.addAttribute("tbodydata", json);
@@ -246,6 +248,7 @@ public class HistryController {
 				Map map = new HashMap();
 				map.put("data_list", data_list);
 				map.put("dataType", dataType);
+				map.put("lasttime", date);
 				map.put("siteStat", siteStat);
 				JSONObject json  = new JSONObject(map);
 				model.addAttribute("tbodydata", json);
