@@ -203,7 +203,7 @@ public class HistryController {
 			Date now = new Date();
 			c.setTime(now);
 			int day=c.get(Calendar.DATE); 
-			c.set(Calendar.DATE,day-12); 
+			c.set(Calendar.DATE,day-1); 
 			date =new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()); 
 		}
 		
