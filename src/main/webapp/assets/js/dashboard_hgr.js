@@ -613,8 +613,9 @@ function openMenu(a,event){
 	var backUrl = webPath+"/dashboard.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop+"&isRefresh="+isRefresh+"&isRetrun=true";
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
-	 jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
-	 jQuery("#dynamic").attr("onclick","gotoPage('"+webPath+"/dashboard_dynamic.jhtm?domainId="+id+"','"+backUrl+"')");
+	jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
+	jQuery("#dynamic").attr("onclick","gotoPage('"+webPath+"/dashboard_dynamic.jhtm?domainId="+id+"','"+backUrl+"')");
+	jQuery("#solo").attr("onclick","gotoPage('"+webPath+"/dashboard_solo.jhtm?domainId="+id+"&domain="+domain+"','"+backUrl+"')");
 	jQuery("#oneTime").attr("onclick","gotoPage('"+webPath+"/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"','"+backUrl+"')");
 	jQuery("#AdVSNotAd").attr("onclick","gotoPage('"+webPath+"/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"&dataType="+dataType+"','"+backUrl+"')");
 	if(dataType=="domain"){
