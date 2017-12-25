@@ -657,6 +657,40 @@ public class Dates {
 		}
 		return strh+":"+ strm;
 	}
+	/**
+	 * 获取下一个整点 时间
+	 * @return
+	 */
+	public static String getAfterTime(){
+		Calendar can = Calendar.getInstance();
+		can.setTime(new Date());
+		//can.add(Calendar.MINUTE, 60);
+		can.add(Calendar.HOUR_OF_DAY, 1);
+		int h = can.get(Calendar.HOUR_OF_DAY);
+		String strh = String.valueOf(h);
+		if(h>=0 && h<=9){
+			strh="0"+strh;
+		}
+		
+		return strh+":00";
+	}
+	/**
+	 * 根据平均数  预计 一个小时的数据
+	 * @return
+	 */
+	public static int getHourData(Integer total){
+	
+		Calendar can = Calendar.getInstance();
+		can.setTime(new Date());
+		int mm = can.get(Calendar.MINUTE);
+		int ss = can.get(Calendar.SECOND);
+		int sum = mm*60+ss;
+		sum = sum>0 ? sum : 1;
+		
+		
+		
+		return total*3600/sum;
+	}
 
 
 
