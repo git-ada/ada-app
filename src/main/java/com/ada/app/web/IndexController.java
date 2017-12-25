@@ -581,7 +581,7 @@ public class IndexController {
 					JSONObject json_item_1=new JSONObject();
 					json_item_1.put("date", date);//时间
 					json_item_1.put("pv", item.getPv());//pv
-					json_item_1.put("Fpv", 0);// Forecast 预测pv
+					json_item_1.put("clpv", 0);// Forecast 预测pv
 					chart_1.add(json_item_1);
 				}
 				
