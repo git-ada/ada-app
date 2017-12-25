@@ -182,8 +182,8 @@ public class HistryController {
 	 */
 	@RequestMapping(value = "dashboardHistry")
 	public String defaultHistry(HttpServletRequest request,HttpServletResponse response, Model model,
-			String dataType,String doamin,String top,String isRefresh,String isRetrun) throws Exception {
-//		model.addAttribute("ipTop", top);
+			String dataType,String doamin,String clickDate,String top,String isRefresh,String isRetrun) throws Exception {
+		model.addAttribute("ipTop", top);
 		model.addAttribute("search", doamin);
 		model.addAttribute("isRefresh", isRefresh);
 		model.addAttribute("isRetrun", isRetrun);
@@ -195,15 +195,23 @@ public class HistryController {
 //		System.out.println(yestoday+"----------");
 //		SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd");
 //		String date = dfs.format(yestoday);
-		
+		String date = "";
 		Calendar c = Calendar.getInstance(); 
-		Date now = new Date();
-		c.setTime(now);
-		int day=c.get(Calendar.DATE); 
-		c.set(Calendar.DATE,day-1); 
-		String date =new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()); 
+		if(!"".equals(clickDate) && clickDate !=null){
+			date =  clickDate;
+		}else{
+			Date now = new Date();
+			c.setTime(now);
+			int day=c.get(Calendar.DATE); 
+			c.set(Calendar.DATE,day-1); 
+			date =new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()); 
+		}
 		
 		Integer ipTop = 50;
+		if(!"".equals(top) && top != null){
+			ipTop = Integer.valueOf(top);
+		}
+		
 		//默认加载昨天的历史数据
 		AdaSiteStat siteStat = statDao.findBySiteIdAndDate(adaSite.getId(), date);
 		model.addAttribute("siteStat", siteStat);
@@ -212,6 +220,28 @@ public class HistryController {
 				/** 获取站点下域名统计信息 **/
 //				Map sumMap = getDefaultDomainStat_histryList(date,ipTop);
 				Map sumMap = getDomainStat_histryList(date,ipTop,doamin);
+				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+				Map map = new HashMap();
+				map.put("data_list", data_list);
+				map.put("dataType", dataType);
+				map.put("siteStat", siteStat);
+				JSONObject json  = new JSONObject(map);
+				model.addAttribute("tbodydata", json);
+			}else if("domainAd".equals(dataType)){
+				/** 获取站点下域名统计信息 **/
+//				Map sumMap = getDefaultDomainStat_histryList(date,ipTop);
+				Map sumMap = getDomainAdStat_histryList(date,ipTop,doamin);
+				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+				Map map = new HashMap();
+				map.put("data_list", data_list);
+				map.put("dataType", dataType);
+				map.put("siteStat", siteStat);
+				JSONObject json  = new JSONObject(map);
+				model.addAttribute("tbodydata", json);
+			}else if("domainNotAd".equals(dataType)){
+				/** 获取站点下域名统计信息 **/
+//				Map sumMap = getDefaultDomainStat_histryList(date,ipTop);
+				Map sumMap = getDomainNotAdStat_histryList(date,ipTop,doamin);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				Map map = new HashMap();
 				map.put("data_list", data_list);
@@ -234,7 +264,7 @@ public class HistryController {
 	}
 	
 	/**
-	 * 历史数据页面 点击图表获取全部域名列表数据
+	 * 历史数据页面 点击图表获取域名列表数据
 	 * @param request
 	 * @param response
 	 * @param model
@@ -243,21 +273,49 @@ public class HistryController {
 	 */
 	@RequestMapping(value = "clickLoadHistryData")
 	public void ajaxdashboard_domainTime3(HttpServletRequest request,HttpServletResponse response ,Model model,
-			String dataType,String clickDate){
-		Integer  ipTop = 50;
+			String dataType,String clickDate,String top){
+		Integer ipTop = 50;
+		if(!"".equals(top) && top != null){
+			ipTop = Integer.valueOf(top);
+		}
+		JSONObject json  = null;
 		/** 从sessions中获取站点信息 **/ 
 		AdaSite adaSite = Sessions.getCurrentSite();
-		/** 点击图表获取站点下域名历史统计信息 **/
-		Map sumMap = getDefaultDomainStat_histryList(clickDate, ipTop);
-		List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
-		Map map = new HashMap();
-		map.put("data_list", data_list);
-		map.put("dataType", dataType);
-		map.put("lasttime", clickDate);
-		JSONObject json  = new JSONObject(map);
 		AdaSiteStat siteStat = statDao.findBySiteIdAndDate(adaSite.getId(), clickDate);
-		json.put("siteStat", siteStat);
-		//System.out.println("json: -->"+json);
+		if(dataType!=null){
+			if("domain".equals(dataType)){
+				/** 点击图表获取站点下域名历史统计信息 **/
+				Map sumMap = getDefaultDomainStat_histryList(clickDate, ipTop);
+				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+				Map map = new HashMap();
+				map.put("data_list", data_list);
+				map.put("dataType", dataType);
+				map.put("lasttime", clickDate);
+				json = new JSONObject(map);
+				json.put("siteStat", siteStat);
+			}else if("domainAd".equals(dataType)){
+				/** 点击图表获取站点下域名历史统计信息 **/
+				Map sumMap = getDomainAdStat_histryList(clickDate, ipTop,"");
+				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+				Map map = new HashMap();
+				map.put("data_list", data_list);
+				map.put("dataType", dataType);
+				map.put("lasttime", clickDate);
+				json = new JSONObject(map);
+				json.put("siteStat", siteStat);
+			}else if("domainNotAd".equals(dataType)){
+				/** 点击图表获取站点下域名历史统计信息 **/
+				Map sumMap = getDomainNotAdStat_histryList(clickDate, ipTop,"");
+				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+				Map map = new HashMap();
+				map.put("data_list", data_list);
+				map.put("dataType", dataType);
+				map.put("lasttime", clickDate);
+				json = new JSONObject(map);
+				json.put("siteStat", siteStat);
+			}
+		}
+		
 		try {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
@@ -508,11 +566,13 @@ public class HistryController {
 		model.addAttribute("domainId", domainId);
 		model.addAttribute("dataType", "domain");
 		model.addAttribute("domain", domain);
+		model.addAttribute("lasttime", clickDate);
+		model.addAttribute("dataType", dataType);
 		return "dashboard_domainTime_one_histry";
 	}
 	@RequestMapping(value = "dashboard_domainTime_histry")
 	public String dashboard_domainTime_histry(HttpServletRequest request,HttpServletResponse response, Model model,
-			String domainId,String domain,String clickDate){
+			String domainId,String domain,String clickDate,String dataType){
 		//System.out.println(clickDate);
 		if(domainId!=null && !"".equals(domainId)){
 			JSONObject json = domainTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1,clickDate);
@@ -522,11 +582,13 @@ public class HistryController {
 		model.addAttribute("domainId", domainId);
 		model.addAttribute("dataType", "domain");
 		model.addAttribute("domain", domain);
+		model.addAttribute("lasttime", clickDate);
+		model.addAttribute("dataType", dataType);
 		return "dashboard_domainTime_histry";
 	}
 	@RequestMapping(value = "dashboard_domainTime3_histry")
 	public String dashboard_domainTime3_histry(HttpServletRequest request,HttpServletResponse response, Model model,
-			String domainId,String domain,String clickDate){
+			String domainId,String domain,String clickDate,String dataType){
 		//System.out.println(clickDate);
 		if(domainId!=null && !"".equals(domainId)){
 			JSONObject json = domainTimechartList(Integer.valueOf(domainId),domainTime_PageSize,Interval_time,1,clickDate);
@@ -536,6 +598,8 @@ public class HistryController {
 		model.addAttribute("domainId", domainId);
 		model.addAttribute("dataType", "domain");
 		model.addAttribute("domain", domain);
+		model.addAttribute("lasttime", clickDate);
+		model.addAttribute("dataType", dataType);
 		return "dashboard_domainTime3_histry";
 	}
 	
@@ -1369,13 +1433,12 @@ public class HistryController {
 	protected Map getDomainAdStat_histryList(String date, Integer ipTop,String serachDomain){
 		/** 从sessions中获取站点信息 **/
 		//System.out.println("------广告统计   Ad----"+ serachDomain);
-		serachDomain= null;
 		 AdaSite adaSite = Sessions.getCurrentSite();
 		 /** 域名列表信息 **/
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
 		 //System.out.println("date:--> "+date);
 		 if(!"".equals(serachDomain) && serachDomain != null ){
-			// System.out.println("------单独查看   Ad----"+ serachDomain);
+			 //System.out.println("------单独查看   Ad----"+ serachDomain);
 			 AdaDomainStat domainStats = domainStatDao.onlyOneQuerryDomainAd(adaSite.getId(), date ,serachDomain);
 			 if(domainStats != null){
 				 List<Object> list = new ArrayList();

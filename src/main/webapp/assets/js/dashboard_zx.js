@@ -10,7 +10,7 @@ var oTable;
 var table;
 var sessionData = "";//每一次更新的数据放在session中
 
-
+/**
 function LoadTableDataYesteday(clickDate){
 	jQuery.ajax({
 		url : webPath + "/clickLoadHistryData.do?dataType=domain&clickDate="+clickDate,
@@ -25,14 +25,15 @@ function LoadTableDataYesteday(clickDate){
 			//alert("数据加载异常!!!");
 		}
 	});
-}
+}**/
 
 /** 
  *点击图表区域获取x轴时间作为参数以加载下面的域名列表 
  **/
 function byClickLoadTableData(clickDate){
+	//alert("dataType: --> "+dataType);
 	jQuery.ajax({
-		url : webPath + "/clickLoadHistryData.do?dataType=domain&clickDate="+clickDate,
+		url : webPath + "/clickLoadHistryData.do?dataType="+dataType+"&clickDate="+clickDate+"&top="+ipTop,
 		success : function(data) {
 			if (data!=null) {
 				var json = eval('(' + data + ')');
