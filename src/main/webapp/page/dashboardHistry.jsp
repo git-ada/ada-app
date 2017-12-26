@@ -286,9 +286,12 @@ table.dataTable{
 			     <li>
 			       <a href="javascript:;" id="oneTime">分时统计</a>
 			     </li>
-			     <li>
+			     <!-- 
+			      <li>
 			       <a href="javascript:;" id="oneTime3">分时统计2</a>
 			     </li>
+			      -->
+			    
 			     	<li>
 			       <a href="javascript:;" id="AdVSNotAd">广告与非广告对比</a>
 			     </li>
@@ -312,6 +315,7 @@ table.dataTable{
 	var tbodydata = '${tbodydata}';
 	var webPath = '${pageContext.request.contextPath}';
 	var clickDate = '${lasttime}';  
+	var XClickDate = ''; 
 	
 </script>
 <script src="${pageContext.request.contextPath}/assets/js/dashboard_zx.js" type="text/javascript" charset="utf-8"></script>
