@@ -341,9 +341,9 @@ table.dataTable{
 			       <a href="javascript:;" id="dynamic">实时动态</a>
 			     </li> -->
 			     
-			     <li>
+			     <!-- <li>
 			       <a href="javascript:;" id="solo">单指标实时动态</a>
-			     </li>
+			     </li> -->
 			     
 			     <li>
 			       <a href="javascript:;" id="oneTime">分时统计</a>
