@@ -42,7 +42,7 @@
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
-                  <a style="color: #333;" onclick="gotoPage('${pageContext.request.contextPath}/dashboardHistry.jhtm?dataType=${dataType}')"> <i class="icon-action-undo"></i></a>
+                  <a style="color: #333;" onclick="gotoPage('${pageContext.request.contextPath}/dashboardHistry.jhtm?dataType=${dataType}&clickDate=${lasttime}')"> <i class="icon-action-undo"></i></a>
                   <span class="caption-subject font-dark bold uppercase">基本数据</span>
                   <span class="caption-helper"></span>
               </div>
@@ -178,6 +178,8 @@
 	
 //window.setTimeout('refre()',300000); 
 var dataType = '${dataType}';//页面数据类型
+var clickDate = '${lasttime}';
+//alert(dataType +"---->"+clickDate+"----");
 
 function refre(){
 	
