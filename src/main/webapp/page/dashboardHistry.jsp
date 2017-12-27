@@ -448,9 +448,13 @@ table.dataTable{
 	/** 通过点击日期前进或后退按钮，加载历史数据 **/
 	function loadNextTime(num){
 		var now = jQuery("#selectTime").val();
-		clickDate = getDateStr(num,getDate(now));
-		ajaxRefreshPage();
-		jQuery("#selectTime").val(''+clickDate+'');
+		if(num == 1 && now == getDateStr(-1, new Date())){
+			//console.log("不能再走了！！！");
+		}else{
+			clickDate = getDateStr(num,getDate(now));
+			ajaxRefreshPage();
+			jQuery("#selectTime").val(''+clickDate+'');
+		}
 	}
 	
 	
