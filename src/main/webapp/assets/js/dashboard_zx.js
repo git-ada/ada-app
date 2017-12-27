@@ -315,8 +315,6 @@ var initTable1 = function () {
 	});
 	
 	 function ajaxRefreshPage(){
-		 //selectTime = jQuery("#selectTime").val();
-		 //alert(selectTime);
 		 timestamp = Date.parse(new Date());
 		 jQuery.ajax({
 			 	type:"post",

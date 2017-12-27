@@ -24,7 +24,10 @@ import com.ada.app.dao.AdaDomainDao;
 import com.ada.app.dao.AdaDomainNotAd15mStatDao;
 import com.ada.app.dao.AdaDomainNotAdStatDao;
 import com.ada.app.dao.AdaDomainStatDao;
+import com.ada.app.dao.AdaRegionAdStatDao;
 import com.ada.app.dao.AdaRegionDao;
+import com.ada.app.dao.AdaRegionNotAdStatDao;
+import com.ada.app.dao.AdaRegionStatDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaSiteStatDao;
 import com.ada.app.domain.AdaChannel;
@@ -37,6 +40,7 @@ import com.ada.app.domain.AdaDomainNotadStat;
 import com.ada.app.domain.AdaDomainStat;
 import com.ada.app.domain.AdaRegion;
 import com.ada.app.domain.AdaRegionAdStat;
+import com.ada.app.domain.AdaRegionNotAdStat;
 import com.ada.app.domain.AdaRegionStat;
 import com.ada.app.domain.AdaSite;
 import com.ada.app.domain.AdaSiteStat;
@@ -85,6 +89,13 @@ public class ArchiveService {
 	@Autowired
 	private AdaDomainNotAdStatDao adaDomainNotAdStatDao;
 	
+	@Autowired
+	private AdaRegionStatDao  adaRegionStatDao;
+	@Autowired
+	private AdaRegionAdStatDao  adaRegionAdStatDao;
+	@Autowired
+	private AdaRegionNotAdStatDao  adaRegionNotAdStatDao;
+	
 	private Calendar calendar = Calendar.getInstance();
 	private SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 	
@@ -131,12 +142,6 @@ public class ArchiveService {
 						adaDomainStatDao.save(domainStat);
 					    log.info("域名 "+domain.getId()+":"+domain.getDomain()+" 归档成功");
 					}
-//					for(AdaRegion region:regions){
-//						AdaRegionStat statRegion = statService.statRegion(region.getFullname(), domain.getId(), yestoday);
-//						AdaRegionAdStat statRegionAd = statService.statRegionAd(region.getFullname(), domain.getId(), yestoday);
-//						
-//						
-//					}
 				} catch (Exception e) {
 					log.error("域名 "+domain.getId()+":"+domain.getDomain()+" 归档失败,Msg->"+e.getMessage(),e);
 				}
@@ -206,7 +211,29 @@ public class ArchiveService {
 		}
 		calendar.clear();
 	}
-
+	
+	/**
+	 * 归档全部地域数据
+	 */
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
+	public void archiveRegion() {
+		Date yestoday = Dates.yestoday();
+		List<AdaSite> sites = adaSiteDao.findAll();
+		List<AdaRegion> regions = adaRegionDao.findAll();
+		for(AdaSite site:sites){
+			List<AdaDomain> domains = adaDomainDao.findBySiteId(site.getId());
+			for(AdaDomain domain:domains){
+				for(AdaRegion region:regions){
+					try {
+						archiveAllRegion(domain,region,yestoday);
+					} catch (Exception e) {
+						log.error("地域 "+region.getId()+":"+region.getFullname()+" 归档失败,Msg->"+e.getMessage(),e);
+						continue;
+					}
+				}
+			}
+		}
+	}
 	
 	/**
 	 * 归档广告与非广告数据,每15分钟执行一次  
@@ -230,6 +257,43 @@ public class ArchiveService {
 				}
 				
 			}
+		}
+	}
+	
+	
+	public void archiveAllRegion(AdaDomain domain,AdaRegion region,Date yestoday) {
+		Integer siteId = domain.getSiteId();
+		Integer domainId = domain.getId();
+		AdaRegionStat statRegion = statService.statRegion(region.getFullname(), domain.getId(), yestoday);
+		AdaRegionAdStat statRegionAd = statService.statRegionAd(region.getFullname(), domain.getId(), yestoday);
+		AdaRegionNotAdStat statRegionNotAd = reduct(statRegion, statRegionAd, AdaRegionNotAdStat.class);
+		
+		statRegion.setSiteId(siteId);
+		statRegion.setDomainId(domainId);
+		statRegion.setDomainId(region.getId());
+		statRegion.setDate(yestoday);
+		statRegion.setCreateTime(Dates.now());
+		
+		statRegionAd.setSiteId(siteId);
+		statRegionAd.setDomainId(domainId);
+		statRegionAd.setDomainId(region.getId());
+		statRegionAd.setDate(yestoday);
+		statRegionAd.setCreateTime(Dates.now());
+		
+		statRegionNotAd.setSiteId(siteId);
+		statRegionNotAd.setDomainId(domainId);
+		statRegionNotAd.setDomainId(region.getId());
+		statRegionNotAd.setDate(yestoday);
+		statRegionNotAd.setCreateTime(Dates.now());
+		
+		if(statRegion.getIp()>0){
+			adaRegionStatDao.save(statRegion);
+		}
+		if(statRegionAd.getIp()>0){
+			adaRegionAdStatDao.save(statRegionAd);
+		}
+		if(statRegionNotAd.getIp()>0){
+			adaRegionNotAdStatDao.save(statRegionNotAd);
 		}
 	}
 	

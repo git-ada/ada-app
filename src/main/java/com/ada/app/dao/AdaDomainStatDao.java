@@ -20,6 +20,9 @@ public interface AdaDomainStatDao extends EntityJpaDao<AdaDomainStat, Integer> {
 	
     @Query(value="select * from ada_domain_ad_stat where siteId=? and domainId=? order by createTime desc limit 1",nativeQuery=true)
     public AdaDomainStat findByDate(Integer siteId,Integer domainId);
+    
+    @Query(value="select * from ada_domain_stat where siteId=? and domainId=? and date=?",nativeQuery=true)
+    public AdaDomainStat findByIdHistry(Integer SiteId,Integer domainId,String date);
 
     /**
      * 获取全站的历史域名列表数据
