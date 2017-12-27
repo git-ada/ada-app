@@ -181,11 +181,7 @@ public class AdaRegionNotAdStat extends AbstractEntity<Integer> implements BaseS
 		this.staytimeip4 = staytimeip4;
 	}
 
-	public String getRegionId() {
-		return region;
-	}
-
-	public void setRegion(String regionId) {
+	public void setRegion(String region) {
 		this.region = region;
 	}
 

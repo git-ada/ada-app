@@ -68,8 +68,7 @@ public interface AdaRegionAdStatDao extends EntityJpaDao<AdaRegionAdStat, Intege
      */
 	public List<AdaRegionAdStat> findByCreateTime(Timestamp createTime);
 	
-	@Query(value="select d.*  from ada_region_ad_stat d left join ada_region r on d.regionId=r.id  " +
-			" where d.siteId=? and d.domainId=?    and d.date=? and d.ip>50 order by ip desc limit ?",nativeQuery=true)
+	@Query(value="select d.*  from ada_region_ad_stat d where d.siteId=? and d.domainId=?    and d.date=? and d.ip>50 order by ip desc limit ?",nativeQuery=true)
 	public List<AdaRegionAdStat> loadDomainRegionAd(Integer siteId,Integer domainId,String date,Integer top);
 
 	
