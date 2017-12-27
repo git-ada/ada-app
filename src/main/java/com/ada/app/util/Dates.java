@@ -691,7 +691,49 @@ public class Dates {
 		
 		return total*3600/sum;
 	}
-
-
+	/**
+	 * 获取昨天的日期
+	 * @param today yyyy-MM-dd
+	 * @return
+	 */
+	public static String getYestDate(String today){
+		 SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
+		try {
+			date = sdf.parse(today);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//取时间
+		   Calendar calendar = Calendar.getInstance();
+		   calendar.setTime(date);
+		   calendar.add(calendar.DATE,-1);//把日期往后增加一天.整数往后推,负数往前移动
+		   date=calendar.getTime(); //这个时间就是日期往后推一天的结果 
+		   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		   String dateString = formatter.format(date);
+		return dateString;
+	}
+	/**
+	 * 获取明天的日期
+	 * @param today yyyy-MM-dd
+	 * @return
+	 */
+	public static String getTomorrowDate(String today){
+		 SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
+		try {
+			date = sdf.parse(today);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//取时间
+		   Calendar calendar = Calendar.getInstance();
+		   calendar.setTime(date);
+		   calendar.add(calendar.DATE,1);//把日期往后增加一天.整数往后推,负数往前移动
+		   date=calendar.getTime(); //这个时间就是日期往后推一天的结果 
+		   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		   String dateString = formatter.format(date);
+		return dateString;
+	}
 
 }

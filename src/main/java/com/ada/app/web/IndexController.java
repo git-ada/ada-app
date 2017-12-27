@@ -93,7 +93,7 @@ public class IndexController {
 	private AdaDomainAdStatDao adaDomainAdStatDao;
 	@Autowired
 	private AdaDomainNotAdStatDao adaDomainNotAdStatDao;
-	private final static int Interval_time = 15;//域名分时统计的时间 间隔（单位：分钟）
+	private final static int Interval_time = 60;//域名分时统计的时间 间隔（单位：分钟）
 	private final static int domainTime_PageSize = 24;//域名分时统计 图表数据 每一页的数据条数
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request,HttpServletResponse response, Model model) {
@@ -281,12 +281,15 @@ public class IndexController {
 	 */
 	@RequestMapping("domainTimechartList_one")
 	public String dashboard_domainAdTime(HttpServletRequest request,HttpServletResponse response, Model model,
-			String domainId,String dataType,String domain){
-		
+			String domainId,String dataType,String domain,String search_date){
+		if(search_date==null || "".equals(search_date)){
+			search_date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		}
 		if(dataType!=null && domainId!=null){
-			JSONObject json = domainTimechartList_one(Integer.valueOf(domainId),45,Interval_time,1,dataType);
+			JSONObject json = domainTimechartList_one(Integer.valueOf(domainId),search_date,dataType);
 			model.addAttribute("json", json);
 		}
+		model.addAttribute("search_date", search_date);
 		model.addAttribute("dataType", dataType);
 		model.addAttribute("domainId", domainId);
 		model.addAttribute("domain", domain);
@@ -411,21 +414,27 @@ public class IndexController {
 	 */
 	@RequestMapping("ajaxdashboard_domainTime")
 	public void ajaxdashboard_domainTime(HttpServletRequest request,HttpServletResponse response ,Model model,
-			String pageNo,String domainId,String dataType){
+			String pageNo,String domainId,String dataType,String search_date){
 		
-		Integer pageno = Integer.valueOf(pageNo);
-		Integer domainid = Integer.valueOf(domainId);
+		Integer domainid = 0;
+		if(domainId!=null && !"".equals(domainId)){
+			domainid = Integer.valueOf(domainId);
+		}
 		try {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			if(dataType!=null && !"".equals(dataType)){
 				if("domain".equals(dataType)){
-					out.print(this.domainTimechartList_one(domainid,45,Interval_time,pageno,dataType));
+					out.print(this.domainTimechartList_one(domainid,search_date,dataType));
 				}else if("domainAd".equals(dataType)){
-					out.print(this.domainTimechartList_one(domainid,45,Interval_time,pageno,dataType));
+					out.print(this.domainTimechartList_one(domainid,search_date,dataType));
 				}else if("domainNotAd".equals(dataType)){
-					out.print(this.domainTimechartList_one(domainid,45,Interval_time,pageno,dataType));
+					out.print(this.domainTimechartList_one(domainid,search_date,dataType));
 				}else if("AdAndNotAd".equals(dataType)){
+					Integer pageno = 0;
+					if(pageNo!=null && !"".equals(pageNo)){
+						pageno = Integer.valueOf(pageNo);
+					}
 					out.print(this.domainTimechartList(domainid,domainTime_PageSize,Interval_time,pageno));
 				}
 			}
@@ -618,10 +627,14 @@ public class IndexController {
 		return json;
 	}
 	
-	protected JSONObject domainTimechartList_one(Integer domainId,int pageSize,int len,Integer pageNo,String dataType){
+	protected JSONObject domainTimechartList_one(Integer domainId,String search_date,String dataType){
 		
 		JSONObject json=new JSONObject();
-		if(pageNo== null || pageNo<1 || dataType==null){
+		json.put("search_date", search_date);
+		json.put("nextPage", com.ada.app.util.Dates.getTomorrowDate(search_date)); 
+		json.put("lastPage", com.ada.app.util.Dates.getYestDate(search_date));
+		json.put("dataType", dataType);
+		if(dataType==null){
 			json.put("success", false);
 			json.put("message", "已是最新统计数据！");
 			return json;
@@ -630,12 +643,13 @@ public class IndexController {
 		
 		try {
 			if("domain".equals(dataType)){
-				List<AdaDomainAd15mStat> adlist = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
-				List<AdaDomainNotad15mStat> notAdlist = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+				List<AdaDomainAd15mStat> adlist = ad15mStatDao.findByDomainIdAndDate(domainId,search_date);
+				List<AdaDomainNotad15mStat> notAdlist = notAd15mStatDao.findByDomainIdAndDate(domainId,search_date);
 				for(int i=0;i<adlist.size();i++){
 					BaseStatBean item = new BaseStatBean();
 					AdaDomainAd15mStat ad = adlist.get(i);
 					AdaDomainNotad15mStat notAd =  notAdlist.get(i);
+					item.setStartTime(ad.getStartTime());
 					item.setEndTime(ad.getEndTime());
 					item.setIp(ad.getIp()+notAd.getIp());
 					item.setPv(ad.getPv()+notAd.getPv());
@@ -663,30 +677,22 @@ public class IndexController {
 					list.add(item);
 				}
 			}else if("domainAd".equals(dataType)){
-				list = ad15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+				list = ad15mStatDao.findByDomainIdAndDate(domainId,search_date);
 			}else if("domainNotAd".equals(dataType)){
-				list = notAd15mStatDao.findByDomainIdOrderByStartTime(domainId,(pageNo-1)*pageSize,pageSize);
+				list = notAd15mStatDao.findByDomainIdAndDate(domainId,search_date);
 			}
 			
-			if((list==null || list.size()<1)){
-				json.put("success", false);
-				json.put("message", "暂无统计数据！");
-				return json;
-			}
-			
-			JSONArray chart_1=new JSONArray();// IP、PV、UV
-			JSONArray chart_2=new JSONArray();//老用户数、老ip、登陆用户数、进入目标页
-			JSONArray chart_3=new JSONArray();//用户停留时长5-30、31-120、121-300、300+秒
-			JSONArray chart_4=new JSONArray();//鼠标点击次数1-2、3-5、6-10、10+
-			JSONArray chart_5=new JSONArray();//鼠标滚动次数1-2、3-5、6-10、10+
-			JSONArray chart_6=new JSONArray();//鼠标移动次数1-2、3-5、6-10、10+
-			
-			if(list.size()<pageSize){//数据条数不足时 补充条数
-				for(int i=0;i<pageSize-list.size();i++){
-					BaseStatBean item = new BaseStatBean();
-					BeanUtils.copyProperties(list.get(list.size()-1), item);
-					String date = new SimpleDateFormat("HH:mm").format(item.getEndTime());
-					String strdate = com.ada.app.util.Dates.getbeforeTime(date, len*(i+1));
+			if((list==null || list.size()<1)){//没有数据   人造24条空数据
+				JSONArray chart_1=new JSONArray();// IP、PV、UV
+				JSONArray chart_2=new JSONArray();//老用户数、老ip、登陆用户数、进入目标页
+				JSONArray chart_3=new JSONArray();//用户停留时长5-30、31-120、121-300、300+秒
+				JSONArray chart_4=new JSONArray();//鼠标点击次数1-2、3-5、6-10、10+
+				JSONArray chart_5=new JSONArray();//鼠标滚动次数1-2、3-5、6-10、10+
+				JSONArray chart_6=new JSONArray();//鼠标移动次数1-2、3-5、6-10、10+
+				
+				for(int i=0;i<24;i++){//前面的数据
+					String Bdate = new SimpleDateFormat("HH:mm").format(com.ada.app.util.Dates.todayStart());
+					String strdate = com.ada.app.util.Dates.getbeforeTime(Bdate, 60*(i+1));
 					JSONObject json_item_1=new JSONObject();
 					JSONObject json_item_2=new JSONObject();
 					JSONObject json_item_3=new JSONObject();
@@ -736,6 +742,84 @@ public class IndexController {
 					chart_5.add(json_item_5);
 					chart_6.add(json_item_6);
 				}
+				Collections.reverse(chart_1);
+				Collections.reverse(chart_2);
+				Collections.reverse(chart_3);
+				Collections.reverse(chart_4);
+				Collections.reverse(chart_5);
+				Collections.reverse(chart_6);
+				json.put("chart_1", chart_1);
+				json.put("chart_2", chart_2);
+				json.put("chart_3", chart_3);
+				json.put("chart_4", chart_4);
+				json.put("chart_5", chart_5);
+				json.put("chart_6", chart_6);
+				json.put("success", true);
+				json.put("message", "暂无统计数据！");
+				return json;
+			}
+			
+			JSONArray chart_1=new JSONArray();// IP、PV、UV
+			JSONArray chart_2=new JSONArray();//老用户数、老ip、登陆用户数、进入目标页
+			JSONArray chart_3=new JSONArray();//用户停留时长5-30、31-120、121-300、300+秒
+			JSONArray chart_4=new JSONArray();//鼠标点击次数1-2、3-5、6-10、10+
+			JSONArray chart_5=new JSONArray();//鼠标滚动次数1-2、3-5、6-10、10+
+			JSONArray chart_6=new JSONArray();//鼠标移动次数1-2、3-5、6-10、10+
+			BaseStatBean beforeItem = new BaseStatBean();
+			BeanUtils.copyProperties(list.get(list.size()-1), beforeItem);
+			Integer beforeNum = Integer.valueOf(new SimpleDateFormat("HH").format(beforeItem.getStartTime()));
+			
+			for(int i=0;i<beforeNum;i++){//前面的数据
+				String Bdate = new SimpleDateFormat("HH:mm").format(beforeItem.getStartTime());
+				String strdate = com.ada.app.util.Dates.getbeforeTime(Bdate, 60*(i+1));
+				JSONObject json_item_1=new JSONObject();
+				JSONObject json_item_2=new JSONObject();
+				JSONObject json_item_3=new JSONObject();
+				JSONObject json_item_4=new JSONObject();
+				JSONObject json_item_5=new JSONObject();
+				JSONObject json_item_6=new JSONObject();
+				
+				json_item_1.put("date",strdate);
+				json_item_1.put("ip", 0);
+				json_item_1.put("pv", 0);
+				json_item_1.put("uv", 0);
+				
+				json_item_2.put("date", strdate);
+				json_item_2.put("olduser", 0);// 老用户数
+				json_item_2.put("oldip", 0); // 老IP数
+				json_item_2.put("loginip", 0);//登陆用户数
+				json_item_2.put("targetpageip", 0);//进入目标页
+
+				json_item_3.put("date", strdate);
+				json_item_3.put("st1", 0);
+				json_item_3.put("st2", 0);
+				json_item_3.put("st3", 0);
+				json_item_3.put("st4", 0);
+				
+				json_item_4.put("date", strdate);
+				json_item_4.put("c1", 0);
+				json_item_4.put("c2", 0);
+				json_item_4.put("c3", 0);
+				json_item_4.put("c4", 0);
+				
+				json_item_5.put("date", strdate);
+				json_item_5.put("s1", 0);
+				json_item_5.put("s2", 0);
+				json_item_5.put("s3", 0);
+				json_item_5.put("s4", 0);
+				
+				json_item_6.put("date", strdate);
+				json_item_6.put("m1", 0);
+				json_item_6.put("m2", 0);
+				json_item_6.put("m3", 0);
+				json_item_6.put("m4", 0);
+				
+				chart_1.add(json_item_1);
+				chart_2.add(json_item_2);
+				chart_3.add(json_item_3);
+				chart_4.add(json_item_4);
+				chart_5.add(json_item_5);
+				chart_6.add(json_item_6);
 			}
 			Collections.reverse(chart_1);
 			Collections.reverse(chart_2);
@@ -747,7 +831,7 @@ public class IndexController {
 				BaseStatBean item = new BaseStatBean();
 				BeanUtils.copyProperties(list.get(i), item);
 				
-				String date = new SimpleDateFormat("HH:mm").format(item.getEndTime());
+				String date = new SimpleDateFormat("HH:mm").format(item.getStartTime());
 				//第一个图表
 				JSONObject json_adChart_1=new JSONObject();
 				json_adChart_1.put("date", date);
@@ -828,10 +912,66 @@ public class IndexController {
 				chart_6.add(json_adChart_6);
 			}
 			
+			BaseStatBean afterItem = new BaseStatBean();
+			BeanUtils.copyProperties(list.get(0), afterItem);
+			Integer afterNum = 23 - Integer.valueOf(new SimpleDateFormat("HH").format(afterItem.getStartTime()));
+			
+			for(int i=0;i<afterNum;i++){//后面的数据
+			
+				String Bdate = new SimpleDateFormat("HH:mm").format(afterItem.getStartTime());
+				String strdate = com.ada.app.util.Dates.getbeforeTime(Bdate, -60*(i+1));
+				JSONObject json_item_1=new JSONObject();
+				JSONObject json_item_2=new JSONObject();
+				JSONObject json_item_3=new JSONObject();
+				JSONObject json_item_4=new JSONObject();
+				JSONObject json_item_5=new JSONObject();
+				JSONObject json_item_6=new JSONObject();
+				
+				json_item_1.put("date",strdate);
+				json_item_1.put("ip", 0);
+				json_item_1.put("pv", 0);
+				json_item_1.put("uv", 0);
+				
+				json_item_2.put("date", strdate);
+				json_item_2.put("olduser", 0);// 老用户数
+				json_item_2.put("oldip", 0); // 老IP数
+				json_item_2.put("loginip", 0);//登陆用户数
+				json_item_2.put("targetpageip", 0);//进入目标页
+
+				json_item_3.put("date", strdate);
+				json_item_3.put("st1", 0);
+				json_item_3.put("st2", 0);
+				json_item_3.put("st3", 0);
+				json_item_3.put("st4", 0);
+				
+				json_item_4.put("date", strdate);
+				json_item_4.put("c1", 0);
+				json_item_4.put("c2", 0);
+				json_item_4.put("c3", 0);
+				json_item_4.put("c4", 0);
+				
+				json_item_5.put("date", strdate);
+				json_item_5.put("s1", 0);
+				json_item_5.put("s2", 0);
+				json_item_5.put("s3", 0);
+				json_item_5.put("s4", 0);
+				
+				json_item_6.put("date", strdate);
+				json_item_6.put("m1", 0);
+				json_item_6.put("m2", 0);
+				json_item_6.put("m3", 0);
+				json_item_6.put("m4", 0);
+				
+				chart_1.add(json_item_1);
+				chart_2.add(json_item_2);
+				chart_3.add(json_item_3);
+				chart_4.add(json_item_4);
+				chart_5.add(json_item_5);
+				chart_6.add(json_item_6);
+			}
+			
 			json.put("success", true);
-			json.put("nextPage", pageNo-1);
-			json.put("lastPage", pageNo+1);
-			json.put("dataType", dataType);
+	
 			
 			json.put("chart_1", chart_1);
 			json.put("chart_2", chart_2);
