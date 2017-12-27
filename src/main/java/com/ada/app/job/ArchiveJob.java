@@ -26,7 +26,7 @@ public class ArchiveJob {
 		log.info("结束归档作业，用时"+cost+"ms");
 	}
 	
-	@Scheduled(cron="0/60 * * * * ?")
+//	@Scheduled(cron="0/60 * * * * ?")
 //	@Scheduled(cron="0 51 22 * * ?")
 	public void excute3(){
 		log.info("开始执行地域归档作业");

@@ -270,31 +270,31 @@ public class ArchiveService {
 		
 		statRegion.setSiteId(siteId);
 		statRegion.setDomainId(domainId);
-		statRegion.setDomainId(region.getId());
+		statRegion.setRegionId(region.getId());
 		statRegion.setDate(yestoday);
 		statRegion.setCreateTime(Dates.now());
 		
 		statRegionAd.setSiteId(siteId);
 		statRegionAd.setDomainId(domainId);
-		statRegionAd.setDomainId(region.getId());
+		statRegionAd.setRegionId(region.getId());
 		statRegionAd.setDate(yestoday);
 		statRegionAd.setCreateTime(Dates.now());
 		
 		statRegionNotAd.setSiteId(siteId);
 		statRegionNotAd.setDomainId(domainId);
-		statRegionNotAd.setDomainId(region.getId());
+		statRegionNotAd.setRegionId(region.getId());
 		statRegionNotAd.setDate(yestoday);
 		statRegionNotAd.setCreateTime(Dates.now());
 		
-		if(statRegion.getIp()>0){
+//		if(statRegion.getIp()>0){
 			adaRegionStatDao.save(statRegion);
-		}
-		if(statRegionAd.getIp()>0){
+//		}
+//		if(statRegionAd.getIp()>0){
 			adaRegionAdStatDao.save(statRegionAd);
-		}
-		if(statRegionNotAd.getIp()>0){
+//		}
+//		if(statRegionNotAd.getIp()>0){
 			adaRegionNotAdStatDao.save(statRegionNotAd);
-		}
+//		}
 	}
 	
 //	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)

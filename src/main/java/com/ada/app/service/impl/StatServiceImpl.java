@@ -1054,8 +1054,8 @@ public class StatServiceImpl implements StatService{
 				 String jmoveip4 = jedis.get(RedisKeys.DomainCityAdMouseMove4IP.getKey()+domainId+"_"+regionName+"");
 				 if(jmoveip4!=null)moveip4 = Integer.valueOf(jmoveip4);*/
 			}
-			return new AdaRegionAdStat(IP,PV,UV,olduserip,loginip,oldip,targetpageIP,clickip1,clickip2,clickip3,clickip4,staytimeip1,staytimeip2,
-					staytimeip3,staytimeip4,scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4);
+			return new AdaRegionAdStat(IP,PV, clickip1, clickip2, clickip3, clickip4, targetpageIP, staytimeip1, staytimeip2, staytimeip3,
+					staytimeip4, scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, olduserip, oldip, loginip, UV);
 		} finally{
 			returnResource(date,jedis);
 		}
@@ -1179,8 +1179,8 @@ public class StatServiceImpl implements StatService{
 				 String jmoveip4 = jedis.get(RedisKeys.DomainCityMouseMove4IP.getKey()+domainId+"_"+regionName+"");
 				 if(jmoveip4!=null)moveip4 = Integer.valueOf(jmoveip4);*/
 			}
-			return new AdaRegionStat(IP,PV,UV,olduserip,loginip,oldip,targetpageIP,clickip1,clickip2,clickip3,clickip4,staytimeip1,staytimeip2,
-					staytimeip3,staytimeip4,scrollip1,scrollip2,scrollip3,scrollip4,moveip1,moveip2,moveip3,moveip4);
+			return new AdaRegionStat(IP,PV, clickip1, clickip2, clickip3, clickip4, targetpageIP, staytimeip1, staytimeip2, staytimeip3, staytimeip4, 
+					scrollip1, scrollip2, scrollip3, scrollip4, moveip1, moveip2, moveip3, moveip4, olduserip, oldip, loginip, UV);
 		} finally{
 			returnResource(date,jedis);
 		}
