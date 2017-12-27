@@ -104,11 +104,8 @@ public class HistryController {
 	 * @param pageSize
 	 * @param len
 	 * @param pageNo
+	 * @throws Exception
 	 * @return
-	 * @throws SecurityException 
-	 * @throws NoSuchFieldException 
-	 * @throws IllegalAccessException 
-	 * @throws IllegalArgumentException 
 	 */
 	protected JSONObject siteChartHistryList(int pageSize,Integer pageNo) throws Exception{
 		/** 从sessions中获取站点信息 **/
@@ -135,7 +132,7 @@ public class HistryController {
 				/** //全站历史数据图表  **/
 				AdaSiteStat item = siteList.get(i);
 				String date = new SimpleDateFormat("yyyy-MM-dd").format(item.getDate());
-
+				
 				JSONObject json_adChart_1=new JSONObject();
 				json_adChart_1.put("date", date); // 统计日期
 				json_adChart_1.put("adip", item.getAdIP());

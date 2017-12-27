@@ -470,7 +470,7 @@ table.dataTable{
 			//表示被人客户端恶意修改参数
 			return;
 		}
-		alert("pageNo : "+pageNo);
+		//alert("pageNo : "+pageNo);
 		if (null == pageNo || "" == pageNo) {
 			toastr.success("暂无数据, 请稍后重试 !");
 			return;
