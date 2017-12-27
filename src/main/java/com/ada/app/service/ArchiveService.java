@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ada.app.bean.BaseStat;
+import com.ada.app.bean.DomainAreaStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaChannelStatDao;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
@@ -23,6 +24,7 @@ import com.ada.app.dao.AdaDomainDao;
 import com.ada.app.dao.AdaDomainNotAd15mStatDao;
 import com.ada.app.dao.AdaDomainNotAdStatDao;
 import com.ada.app.dao.AdaDomainStatDao;
+import com.ada.app.dao.AdaRegionDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaSiteStatDao;
 import com.ada.app.domain.AdaChannel;
@@ -33,6 +35,9 @@ import com.ada.app.domain.AdaDomainAdStat;
 import com.ada.app.domain.AdaDomainNotad15mStat;
 import com.ada.app.domain.AdaDomainNotadStat;
 import com.ada.app.domain.AdaDomainStat;
+import com.ada.app.domain.AdaRegion;
+import com.ada.app.domain.AdaRegionAdStat;
+import com.ada.app.domain.AdaRegionStat;
 import com.ada.app.domain.AdaSite;
 import com.ada.app.domain.AdaSiteStat;
 import com.ada.app.util.Dates;
@@ -62,6 +67,8 @@ public class ArchiveService {
 	
 	@Autowired
 	private AdaSiteDao adaSiteDao;
+	@Autowired
+	private AdaRegionDao adaRegionDao;
 	
 	@Autowired
 	private AdaDomainAd15mStatDao adaDomainAd15mStatDao;
@@ -89,6 +96,7 @@ public class ArchiveService {
 		Date yestoday = Dates.yestoday();
 		
 		List<AdaSite> sites = adaSiteDao.findAll();
+		List<AdaRegion> regions = adaRegionDao.findAll();
 		for(AdaSite site:sites){
 			try {
 				AdaSiteStat stat = statService.statSite(site.getId(), yestoday);
@@ -123,6 +131,12 @@ public class ArchiveService {
 						adaDomainStatDao.save(domainStat);
 					    log.info("域名 "+domain.getId()+":"+domain.getDomain()+" 归档成功");
 					}
+//					for(AdaRegion region:regions){
+//						AdaRegionStat statRegion = statService.statRegion(region.getFullname(), domain.getId(), yestoday);
+//						AdaRegionAdStat statRegionAd = statService.statRegionAd(region.getFullname(), domain.getId(), yestoday);
+//						
+//						
+//					}
 				} catch (Exception e) {
 					log.error("域名 "+domain.getId()+":"+domain.getDomain()+" 归档失败,Msg->"+e.getMessage(),e);
 				}

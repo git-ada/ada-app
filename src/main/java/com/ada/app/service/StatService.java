@@ -10,6 +10,8 @@ import com.ada.app.domain.AdaDomainAdStat;
 import com.ada.app.domain.AdaDomainNotad15mStat;
 import com.ada.app.domain.AdaDomainNotadStat;
 import com.ada.app.domain.AdaDomainStat;
+import com.ada.app.domain.AdaRegionAdStat;
+import com.ada.app.domain.AdaRegionStat;
 import com.ada.app.domain.AdaSiteStat;
 
 /**
@@ -119,6 +121,24 @@ public interface StatService {
 	 * @return
 	 */
 	public DomainAreaStat statDomainRegion(String regionName,Integer domainId,Date date);
+	
+	/**
+	 * 归档地域
+	 * @param regionName
+	 * @param domainId
+	 * @param date
+	 * @return
+	 */
+	public AdaRegionStat statRegion(String regionName, Integer domainId,Date date);
+	
+	/**
+	 * 归档地域广告
+	 * @param regionName
+	 * @param domainId
+	 * @param date
+	 * @return
+	 */
+	public AdaRegionAdStat statRegionAd(String regionName, Integer domainId,Date date);
 	
 	/**
 	 * 统计域名地域广告入口
