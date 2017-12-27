@@ -273,8 +273,10 @@ function graphicLoading(obj,a) {
 				var sessionData = sessionStorage.getItem(search_date);
 				console.log("sessionData--->"+sessionData);
 				if(sessionData!=null && sessionData!=""){//判断本地是否存有数据 如果有 则直接使用
+					console.log("直接用session中的数据");
 					refreshChart(JSON.parse(sessionData),num);
 				}else{//没有则从数据库中 查询数据
+					console.log("异步加载数据 并预加载三天的数据");
 					ajax_Refresh(search_date,num);//异步读取 数据
 					/** 预加载三天的数据 **/
 					var beforDate = getPreDay(search_date);
