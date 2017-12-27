@@ -457,5 +457,5 @@ table.dataTable{
 	
 	
 </script>
-<script src="${pageContext.request.contextPath}/assets/js/dashboard_zx.js" type="text/javascript" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/assets/js/dashboard_zx.js?time=<%=new Date() %>" type="text/javascript" charset="utf-8"></script>
 <!-- END PAGE SCRIPTS -->
