@@ -271,6 +271,7 @@ function graphicLoading(obj,a) {
 				ajax_Refresh(search_date,num);
 			}else{//如果不是 则从本地session 中取数据
 				var sessionData = sessionStorage.getItem(search_date);
+				console.log("sessionData--->"+sessionData);
 				if(sessionData!=null && sessionData!=""){//判断本地是否存有数据 如果有 则直接使用
 					refreshChart(JSON.parse(sessionData),num);
 				}else{//没有则从数据库中 查询数据
