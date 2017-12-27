@@ -274,20 +274,30 @@ function graphicLoading(obj,a) {
 				if(sessionData!=null && sessionData!=""){//判断本地是否存有数据 如果有 则直接使用
 					refreshChart(JSON.parse(sessionData),num);
 				}else{//没有则从数据库中 查询数据
-					//异步读取 数据
-					ajax_Refresh(search_date,num);
+					ajax_Refresh(search_date,num);//异步读取 数据
+					/** 预加载三天的数据 **/
+					var beforDate = getPreDay(search_date);
+					for(var i=0;i<3;i++){
+						ajax_Refresh(beforDate,num,0);
+						beforDate = getPreDay(beforDate);
+					}
+					
 				}
 			}
 			
 		}
 	} 
-function ajax_Refresh(search_date,num){
+function ajax_Refresh(search_date,num,isRefresh){
 	jQuery.ajax({
 		url : "${pageContext.request.contextPath}/ajaxdashboard_domainTime.do?pageNo=&domainId="+${domainId}+"&dataType="+dataType+"&search_date="+search_date,
 		success : function(data) {
 			var json = eval('(' + data + ')');
 			if (json.success) {
-				refreshChart(json,num);
+				if(isRefresh==0){//不刷新chart 只缓存数据
+					
+				}else{
+					refreshChart(json,num);
+				}
 				sessionStorage.setItem(search_date, JSON.stringify(json));//把数据存到session中
 			} else {
 				toastr.success(json.message);
@@ -1043,7 +1053,30 @@ function refreshChart(json,num){
 				}
 			});
 		}
+//获取某个日期的前一天的日期 yyyy-MM-dd
+ function getPreDay(s){
 
+     var y = parseInt(s.substr(0,4), 10);
+
+     var m = parseInt(s.substr(5,2), 10)-1;
+
+     var d = parseInt(s.substr(8,2), 10);
+
+     var dt = new Date(y, m, d-1);
+
+     y = dt.getFullYear();
+
+     m = dt.getMonth()+1;
+
+     d = dt.getDate();
+
+     m = m<10?m:"-"+m;
+
+     d = d<10?d:"-"+d;
+
+     return y + "" + m + "" + d;
+
+ }
 </script>
 
 <!-- END PAGE SCRIPTS -->
