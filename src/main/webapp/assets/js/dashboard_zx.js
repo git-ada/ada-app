@@ -10,6 +10,37 @@ var oTable;
 var table;
 var sessionData = "";//每一次更新的数据放在session中
 
+
+/** 获取前天、昨天、今天、明天、后天……的时间  **/
+function getDateStr(AddDayCount,date) {
+	date.setDate(date.getDate()+AddDayCount);//获取AddDayCount天后的日期
+    var y = date.getFullYear();
+    var m = date.getMonth()+1;//获取当前月份的日期
+    var d = date.getDate();
+    return y+"-"+m+"-"+d;
+}
+
+/** 字符串转日期格式  **/
+function getDate(strDate) {
+    var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');
+    return date;
+}
+
+/** 通过点击昨天/前天按钮，加载历史数据 **/
+function loadBeforeTime(num){
+	clickDate = getDateStr(num, new Date());
+	ajaxRefreshPage();
+	jQuery("#selectTime").val(''+clickDate+'');
+}
+
+/** 通过点击日期前进或后退按钮，加载历史数据 **/
+function loadNextTime(num){
+	var now = jQuery("#selectTime").val();
+	clickDate = getDateStr(num,getDate(now));
+	ajaxRefreshPage();
+	jQuery("#selectTime").val(''+clickDate+'');
+}
+
 /** 
  *点击图表区域获取x轴时间作为参数以加载下面的域名列表 
  **/
@@ -21,6 +52,7 @@ function byClickLoadTableData(clickDate){
 			if (data!=null) {
 				var json = eval('(' + data + ')');
 				loadTbody(json,2);
+				jQuery("#selectTime").val(''+clickDate+'');
 			}
 		},
 		error: function (data) {
@@ -52,6 +84,7 @@ function histryChart(divid, data1, data2){
 	myChart.on('click', function (params) {
 		//console.log("date: "+params.name);
 		byClickLoadTableData(params.name);
+		
 	});
 	myChart.setOption({
    	      tooltip : {
@@ -194,6 +227,7 @@ var initTable1 = function () {
 	jQuery(document).ready(function() {
 		var histryJson = eval('(' + histryData + ')');
 		histryChart("ad_chart_1", histryJson.ad_chart_1,histryJson.notad_chart_1);
+		jQuery("#selectTime").val(''+clickDate+'');
 		onLeavePage(function (){//离开页面时的回调方法
 			clearTimeout(t);
 			isRefresh = "false";
@@ -300,9 +334,17 @@ var initTable1 = function () {
 	    
 	   console.log("预加载完成-----》");
 	});
-
+	
+	$("#selectTime").bind("change", function() {
+		 selectTime = jQuery("#selectTime").val();
+		 clickDate = selectTime;
+		 //alert(clickDate);
+	     ajaxRefreshPage();
+	});
 	
 	 function ajaxRefreshPage(){
+		 //selectTime = jQuery("#selectTime").val();
+		 //alert(selectTime);
 		 timestamp = Date.parse(new Date());
 		 jQuery.ajax({
 			 	type:"post",
@@ -645,7 +687,7 @@ function loadTbody(json,num){
 				jQuery(".DTFC_LeftBodyWrapper #tbodyhistry").append(lefttable);
 				jQuery("#lasttime").html("历史数据更新时间  "+json.lasttime);
 			}else if(num==2 && timestamp==json.timestamp){
-				alert("num : -->"+num);
+//				alert("num : ==>"+num);
 //				jQuery("#ip").html(fromInt(json.siteStat.ip));
 //				jQuery("#pv").html(fromInt(json.siteStat.pv));
 //				jQuery("#adIP").html(fromInt(json.siteStat.adIP));

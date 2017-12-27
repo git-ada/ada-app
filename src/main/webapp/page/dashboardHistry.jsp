@@ -147,6 +147,22 @@ table.dataTable{
 .portlet-title {
     padding-left: 10px !important;
 }
+.input-medium {
+    width: 100px!important;
+}
+
+.input-group.input-medium{
+	display: inline;
+	float: left;
+}
+
+/**
+.fa-chevron-right::before {
+    width: 11.43px;
+	height: 16px;
+}
+**/
+
 
 
 </style>
@@ -159,9 +175,8 @@ table.dataTable{
              <span class="caption-subject bold font-dark uppercase ">历史统计</span>
              <span class="caption-helper" >站点历史走势</span>
          </div>
-     
+     	 
          <div class="actions" style="margin-right: 0px;">
-        
              <a href="javascript:graphicLoadinghistry(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
              <a href="javascript:graphicLoadinghistry(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
          </div>
@@ -194,8 +209,35 @@ table.dataTable{
 	           		 </ul>
 	            </div>
            </div>
-           <span class="caption-helper" id="lasttime">历史数据更新时间  ${lasttime}</span>
+           <!-- style="display: block;float: right;" 
+           <span class="caption-helper" id="lasttime">历史数据更新时间  ${lasttime}</span> 
+            <a href="javascript:graphicLoading(-1)" data-value="${lastMonth}" id="backoff" title="" class="tubiao-btn-left"><i class="fa fa-chevron-left"></i></a>
+		<a href="javascript:graphicLoading(1)" data-value="${nextMonth}" id="forward" title="" class="tubiao-btn-right"><i class="fa fa-chevron-right"></i></a>
+           -->
+           
+           <button type="button" onclick="loadBeforeTime(-1)"><span style="font-size: 14px;">昨天</span></button>
+           <button type="button" onclick="loadBeforeTime(-2)"><span style="font-size: 14px;">前天</span></button>
+           <!-- 
+           <a href="javascript:loadNextTime(-1)" title="" class="tubiao-btn-left"><i class="fa fa-chevron-left"></i></a>
+                
+                 -->
+           <a href="javascript:loadNextTime(-1);"  a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
         </div>
+        <div class="col-md-3 col-sm-12" style="margin-top: 10px;">
+       		<div class="input-group input-medium" >
+           		<input type="text" id="selectTime" class="form-control daterangepick" placeholder="日期" >
+                <input type="hidden" name="search_GTE_date" value="${search_GTE_date}">
+            </div>
+            <div class="input-group input-medium" style="left: 15px;top:3px; ">
+                <!-- 
+                                <a href="javascript:loadNextTime(1)"  title="" class="tubiao-btn-right"><i class="fa fa-chevron-right"></i></a>
+                
+                 -->
+                <a href="javascript:loadNextTime(1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                
+            </div>
+        </div>
+		
         <div class="inputs">
             <div class="actions" style="float: left;" >
 	            	<div class="portlet-input input-inline " >
@@ -306,6 +348,9 @@ table.dataTable{
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 
 <script type="text/javascript" >
+	//初始化时间器
+	//initatepicker();
+	domaininitatepicker();
     var histryData = '${histryJson}';
 	var dataType = '${dataType}';//页面数据类型
 	var search = '${search}';//搜索
@@ -316,6 +361,72 @@ table.dataTable{
 	var webPath = '${pageContext.request.contextPath}';
 	var clickDate = '${lasttime}';  
 	var XClickDate = ''; 
+	var selectTime = '';
+	
+	function domaininitatepicker(){
+		$('.datepick').datepicker({autoclose:true});
+		$('.datetimepick').datetimepicker({language:'zh-CN',defaultTime:false,autoclose:true});
+		
+		$(".daterangepick").each(function(){
+			var _startDate = $(this).next().val();
+			var _endDate = $(this).next().next().val();
+
+			if(_startDate==""){
+				_startDate = moment().subtract("days", 29);
+				_endDate = moment();
+			}
+			
+			var dp = $(this).daterangepicker({
+		        opens: App.isRTL() ? "left" : "right",
+		        dateLimit: {
+		            days: 92
+		        },
+		        autoclose:true,
+		        autoApply:true,
+		        autoUpdateInput:true,
+		        maxDate:moment().subtract("days", 1),
+		        
+		        startDate:_startDate,
+		        ranges: {
+		        	今天: [moment()],
+		           	 昨天: [moment().subtract("days", 1)],
+		            "前天": [moment().subtract("days", 2)],
+		            "大前天": [moment().subtract("days", 3)]
+		        },
+		        locale: {
+		        	format:"YYYY-MM-DD",
+		            separator: " - ",
+		            applyLabel: "应用",
+		            cancelLabel: '取消',
+		            fromLabel: "提交",
+		            toLabel: "To",
+		            customRangeLabel: "其他",
+		            daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
+		            monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+		            firstDay: 1
+		        },
+		        singleDatePicker: true
+		    }, function(start, end , label) {
+		      //console.log(start,end,label);
+		      //this.element.val(start.format("YYYY-MM-DD") + " -> " + end.format("YYYY-MM-DD"));
+		      var _startDate = this.element.next();
+		      //var _endDate = this.element.next().next();
+		      _startDate.val(start.format("YYYY-MM-DD"));
+		     // _endDate.val(end.format("YYYY-MM-DD"));
+		      
+		      //this.element.val(start.format("MM-DD") + " -> " + end.format("MM-DD"));
+		    });
+
+			if( $(this).next().val() == ""){
+				$(this).val("");
+			}
+		});
+	}
+	
+	
+	
+	
+	
 	
 </script>
 <script src="${pageContext.request.contextPath}/assets/js/dashboard_zx.js" type="text/javascript" charset="utf-8"></script>
