@@ -297,15 +297,15 @@ public class ArchiveService {
 		statRegionNotAd.setDate(yestoday);
 		statRegionNotAd.setCreateTime(Dates.now());
 		
-//		if(statRegion.getIp()>0){
+		if(statRegion.getIp()>0){
 			adaRegionStatDao.save(statRegion);
-//		}
-//		if(statRegionAd.getIp()>0){
+		}
+		if(statRegionAd.getIp()>0){
 			adaRegionAdStatDao.save(statRegionAd);
-//		}
-//		if(statRegionNotAd.getIp()>0){
+		}
+		if(statRegionNotAd.getIp()>0){
 			adaRegionNotAdStatDao.save(statRegionNotAd);
-//		}
+		}
 	}
 	
 //	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
