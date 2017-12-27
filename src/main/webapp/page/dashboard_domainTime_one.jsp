@@ -242,7 +242,7 @@ jQuery(document).ready(function() {
     jQuery("a[a-type=nextPage]").attr("page-data",chartdata.nextPage);
     
     jQuery("input[id^=date_chart]").change(function(){
-    	ajax_Refresh(jQuery(this).val(),jQuery(this).attr("num"));
+    	isTodayAndHave(jQuery(this).val(),jQuery(this).attr("num"))
     });
     
     console.log("domainTime_one 初始化完成！");
@@ -265,31 +265,35 @@ function graphicLoading(obj,a) {
 			App.stopPageLoading();//关闭 加载动画
 			return;
 		} else {//搜索日期不为空
-			var todayDate = new Date().format("yyyy-MM-dd");
-			if(search_date==todayDate){//判断日期是不是今天  如果是则从数据库查询最新数据
-				//异步读取 数据
-				ajax_Refresh(search_date,num);
-			}else{//如果不是 则从本地session 中取数据
-				var sessionData = sessionStorage.getItem(search_date);
-				console.log("sessionData--->"+sessionData);
-				if(sessionData!=null && sessionData!=""){//判断本地是否存有数据 如果有 则直接使用
-					console.log("直接用session中的数据");
-					refreshChart(JSON.parse(sessionData),num);
-				}else{//没有则从数据库中 查询数据
-					console.log("异步加载数据 并预加载三天的数据");
-					ajax_Refresh(search_date,num);//异步读取 数据
-					/** 预加载三天的数据 **/
-					var beforDate = getPreDay(search_date);
-					for(var i=0;i<3;i++){
-						ajax_Refresh(beforDate,num,0);
-						beforDate = getPreDay(beforDate);
-					}
-					
-				}
-			}
+			isTodayAndHave(search_date,num);
 			
 		}
 	} 
+//判断搜索日期是不是今天 以及 本地session中是否已有数据
+function isTodayAndHave(search_date,num){
+	var todayDate = new Date().format("yyyy-MM-dd");
+	if(search_date==todayDate){//判断日期是不是今天  如果是则从数据库查询最新数据
+		//异步读取 数据
+		ajax_Refresh(search_date,num);
+	}else{//如果不是 则从本地session 中取数据
+		var sessionData = sessionStorage.getItem(search_date);
+		console.log("sessionData--->"+sessionData);
+		if(sessionData!=null && sessionData!=""){//判断本地是否存有数据 如果有 则直接使用
+			console.log("直接用session中的数据");
+			refreshChart(JSON.parse(sessionData),num);
+		}else{//没有则从数据库中 查询数据
+			console.log("异步加载数据 并预加载三天的数据");
+			ajax_Refresh(search_date,num);//异步读取 数据
+			/** 预加载三天的数据 **/
+			var beforDate = getPreDay(search_date);
+			for(var i=0;i<3;i++){
+				ajax_Refresh(beforDate,num,0);
+				beforDate = getPreDay(beforDate);
+			}
+			
+		}
+	}
+}
 function ajax_Refresh(search_date,num,isRefresh){
 	jQuery.ajax({
 		url : "${pageContext.request.contextPath}/ajaxdashboard_domainTime.do?pageNo=&domainId="+${domainId}+"&dataType="+dataType+"&search_date="+search_date,
