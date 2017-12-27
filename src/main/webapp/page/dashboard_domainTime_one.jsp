@@ -202,6 +202,26 @@ var amchart_3;
 var amchart_4;
 var amchart_5;
 var amchart_6;
+Date.prototype.format = function(fmt) {//js  格式化日期 
+    var o = { 
+       "M+" : this.getMonth()+1,                 //月份 
+       "d+" : this.getDate(),                    //日 
+       "h+" : this.getHours(),                   //小时 
+       "m+" : this.getMinutes(),                 //分 
+       "s+" : this.getSeconds(),                 //秒 
+       "q+" : Math.floor((this.getMonth()+3)/3), //季度 
+       "S"  : this.getMilliseconds()             //毫秒 
+   }; 
+   if(/(y+)/.test(fmt)) {
+           fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
+   }
+    for(var k in o) {
+       if(new RegExp("("+ k +")").test(fmt)){
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+        }
+    }
+   return fmt; 
+} 
 /**---------预加载---------**/
 jQuery(document).ready(function() {
 	//初始化时间控件
@@ -224,7 +244,7 @@ jQuery(document).ready(function() {
     jQuery("input[id^=date_chart]").change(function(){
     	ajax_Refresh(jQuery(this).val(),jQuery(this).attr("num"));
     });
-
+    
     console.log("domainTime_one 初始化完成！");
 });	
 function graphicLoading(obj,a) {
@@ -233,6 +253,7 @@ function graphicLoading(obj,a) {
 		var num = jQuery(a).attr("num");
 		if (obj == -1) { //表示前一段时间的数据
 			search_date = jQuery(a).attr("page-data");
+			
 		} else if (obj == 1) { //表示后一段时间的数据
 			search_date = jQuery(a).attr("page-data");
 		} else {
@@ -243,9 +264,21 @@ function graphicLoading(obj,a) {
 			toastr.success("已经没有数据了！");
 			App.stopPageLoading();//关闭 加载动画
 			return;
-		} else {
-			//ajax读取 上一月的数据
-			ajax_Refresh(search_date,num);
+		} else {//搜索日期不为空
+			var todayDate = new Date().format("yyyy-MM-dd");
+			if(search_date==todayDate){//判断日期是不是今天  如果是则从数据库查询最新数据
+				//异步读取 数据
+				ajax_Refresh(search_date,num);
+			}else{//如果不是 则从本地session 中取数据
+				var sessionData = sessionStorage.getItem(search_date);
+				if(sessionData!=null && sessionData!=""){//判断本地是否存有数据 如果有 则直接使用
+					refreshChart(JSON.parse(sessionData),num);
+				}else{//没有则从数据库中 查询数据
+					//异步读取 数据
+					ajax_Refresh(search_date,num);
+				}
+			}
+			
 		}
 	} 
 function ajax_Refresh(search_date,num){
@@ -254,67 +287,71 @@ function ajax_Refresh(search_date,num){
 		success : function(data) {
 			var json = eval('(' + data + ')');
 			if (json.success) {
-		 		if(num==1){
-		 			jQuery("#date_chart1").val(json.search_date);
-		 			jQuery("#date_chart1").datepicker({
-		 		        rtl: App.isRTL(),
-		 		        orientation: "left",
-		 		        autoclose: true
-		 		    });
-		 			jQuery("a[num=1][a-type=lastPage]").attr("page-data",json.lastPage);
-					jQuery("a[num=1][a-type=nextPage]").attr("page-data",json.nextPage);
-		 			amchart_1.dataProvider = json.chart_1;//设置数据
-		 			amchart_1.write();
-			    	amchart_1.validateNow();
-			    	amchart_1.validateData();
-		 		}else if(num==2){
-		 			jQuery("#date_chart2").val(json.search_date);
-		 			jQuery("a[num=2][a-type=lastPage]").attr("page-data",json.lastPage);
-					jQuery("a[num=2][a-type=nextPage]").attr("page-data",json.nextPage);
-		 			amchart_2.dataProvider = json.chart_2;
-		 			amchart_2.write();
-			    	amchart_2.validateNow();
-			    	amchart_2.validateData();
-		 		}else if(num==3){
-		 			jQuery("#date_chart3").val(json.search_date);
-		 			jQuery("a[num=3][a-type=lastPage]").attr("page-data",json.lastPage);
-					jQuery("a[num=3][a-type=nextPage]").attr("page-data",json.nextPage);
-		 			amchart_3.dataProvider = json.chart_3;
-		 			amchart_3.write();
-			    	amchart_3.validateNow();
-			    	amchart_3.validateData();
-		 		}else if(num==4){
-		 			jQuery("#date_chart4").val(json.search_date);
-		 			jQuery("a[num=4][a-type=lastPage]").attr("page-data",json.lastPage);
-					jQuery("a[num=4][a-type=nextPage]").attr("page-data",json.nextPage);
-		 			amchart_4.dataProvider = json.chart_4;
-		 			amchart_4.write();
-			    	amchart_4.validateNow();
-			    	amchart_4.validateData();
-		 		}else if(num==5){
-		 			jQuery("#date_chart5").val(json.search_date);
-		 			jQuery("a[num=5][a-type=lastPage]").attr("page-data",json.lastPage);
-					jQuery("a[num=5][a-type=nextPage]").attr("page-data",json.nextPage);
-		 			amchart_5.dataProvider = json.chart_5;
-		 			amchart_5.write();
-			    	amchart_5.validateNow();
-			    	amchart_5.validateData();
-		 		}else if(num==6){
-		 			jQuery("#date_chart6").val(json.search_date);
-		 			jQuery("a[num=6][a-type=lastPage]").attr("page-data",json.lastPage);
-					jQuery("a[num=6][a-type=nextPage]").attr("page-data",json.nextPage);
-		 			amchart_6.dataProvider = json.chart_6;
-			    	amchart_6.write();
-			    	amchart_6.validateNow();
-			    	amchart_6.validateData();
-		 		}
-			   
+				refreshChart(json,num);
+				sessionStorage.setItem(search_date, JSON.stringify(json));//把数据存到session中
 			} else {
 				toastr.success(json.message);
 			}
 			App.stopPageLoading();//关闭 加载动画
+		},
+		error:function(data){
+			App.stopPageLoading();//关闭 加载动画
 		}
 	});
+}
+
+function refreshChart(json,num){
+		if(num==1){
+			jQuery("#date_chart1").val(json.search_date);
+			jQuery("a[num=1][a-type=lastPage]").attr("page-data",json.lastPage);
+			jQuery("a[num=1][a-type=nextPage]").attr("page-data",json.nextPage);
+			amchart_1.dataProvider = json.chart_1;//设置数据
+			amchart_1.write();
+    		amchart_1.validateNow();
+    		amchart_1.validateData();
+		}else if(num==2){
+			jQuery("#date_chart2").val(json.search_date);
+			jQuery("a[num=2][a-type=lastPage]").attr("page-data",json.lastPage);
+		jQuery("a[num=2][a-type=nextPage]").attr("page-data",json.nextPage);
+			amchart_2.dataProvider = json.chart_2;
+			amchart_2.write();
+    	amchart_2.validateNow();
+    	amchart_2.validateData();
+		}else if(num==3){
+			jQuery("#date_chart3").val(json.search_date);
+			jQuery("a[num=3][a-type=lastPage]").attr("page-data",json.lastPage);
+		jQuery("a[num=3][a-type=nextPage]").attr("page-data",json.nextPage);
+			amchart_3.dataProvider = json.chart_3;
+			amchart_3.write();
+    	amchart_3.validateNow();
+    	amchart_3.validateData();
+		}else if(num==4){
+			jQuery("#date_chart4").val(json.search_date);
+			jQuery("a[num=4][a-type=lastPage]").attr("page-data",json.lastPage);
+		jQuery("a[num=4][a-type=nextPage]").attr("page-data",json.nextPage);
+			amchart_4.dataProvider = json.chart_4;
+			amchart_4.write();
+    	amchart_4.validateNow();
+    	amchart_4.validateData();
+		}else if(num==5){
+			jQuery("#date_chart5").val(json.search_date);
+			jQuery("a[num=5][a-type=lastPage]").attr("page-data",json.lastPage);
+		jQuery("a[num=5][a-type=nextPage]").attr("page-data",json.nextPage);
+			amchart_5.dataProvider = json.chart_5;
+			amchart_5.write();
+    	amchart_5.validateNow();
+    	amchart_5.validateData();
+		}else if(num==6){
+			jQuery("#date_chart6").val(json.search_date);
+			jQuery("a[num=6][a-type=lastPage]").attr("page-data",json.lastPage);
+		jQuery("a[num=6][a-type=nextPage]").attr("page-data",json.nextPage);
+			amchart_6.dataProvider = json.chart_6;
+    	amchart_6.write();
+    	amchart_6.validateNow();
+    	amchart_6.validateData();
+		}
+		
+		App.stopPageLoading();//关闭 加载动画
 }
 	 function chart_1(divid,json) {
 			 amchart_1 =   AmCharts.makeChart(divid, {
@@ -1006,7 +1043,7 @@ function ajax_Refresh(search_date,num){
 				}
 			});
 		}
-	 
+
 </script>
 
 <!-- END PAGE SCRIPTS -->
