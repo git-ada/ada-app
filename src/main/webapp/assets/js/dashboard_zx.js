@@ -11,35 +11,7 @@ var table;
 var sessionData = "";//每一次更新的数据放在session中
 
 
-/** 获取前天、昨天、今天、明天、后天……的时间  **/
-function getDateStr(AddDayCount,date) {
-	date.setDate(date.getDate()+AddDayCount);//获取AddDayCount天后的日期
-    var y = date.getFullYear();
-    var m = date.getMonth()+1;//获取当前月份的日期
-    var d = date.getDate();
-    return y+"-"+m+"-"+d;
-}
 
-/** 字符串转日期格式  **/
-function getDate(strDate) {
-    var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');
-    return date;
-}
-
-/** 通过点击昨天/前天按钮，加载历史数据 **/
-function loadBeforeTime(num){
-	clickDate = getDateStr(num, new Date());
-	ajaxRefreshPage();
-	jQuery("#selectTime").val(''+clickDate+'');
-}
-
-/** 通过点击日期前进或后退按钮，加载历史数据 **/
-function loadNextTime(num){
-	var now = jQuery("#selectTime").val();
-	clickDate = getDateStr(num,getDate(now));
-	ajaxRefreshPage();
-	jQuery("#selectTime").val(''+clickDate+'');
-}
 
 /** 
  *点击图表区域获取x轴时间作为参数以加载下面的域名列表 
