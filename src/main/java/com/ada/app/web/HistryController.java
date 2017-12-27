@@ -1454,7 +1454,8 @@ public class HistryController {
 			for(AdaRegionStat regionStat : regionStats){
 				List<Object> list = getList(regionStat);
 				
-				String fullname =  regionStat.getRegions().getFullname(); 
+//				String fullname =  regionStat.getRegions().getFullname(); 
+				String fullname =  regionStat.getRegion();
 				list.add(fullname);
 			    region_list.add(list);
 			}
@@ -1480,7 +1481,8 @@ public class HistryController {
 			for(AdaRegionAdStat regionStat : regionAdStats){
 				List<Object> list = getList(regionStat);
 				
-				String fullname =  regionStat.getRegions().getFullname(); 
+//				String fullname =  regionStat.getRegions().getFullname(); 
+				String fullname =  regionStat.getRegion();
 				list.add(fullname);
 			    region_list.add(list);
 			}
@@ -1503,7 +1505,8 @@ public class HistryController {
 			for(AdaRegionNotAdStat regionStat : regionNotAdStats){
 				List<Object> list = getList(regionStat);
 				
-				String fullname =  regionStat.getRegions().getFullname(); 
+//				String fullname =  regionStat.getRegions().getFullname(); 
+				String fullname =  regionStat.getRegion();
 				list.add(fullname);
 			    region_list.add(list);
 			}

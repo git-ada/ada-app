@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -219,18 +220,28 @@ public class ArchiveService {
 	public void archiveRegion() {
 		Date yestoday = Dates.yestoday();
 		List<AdaSite> sites = adaSiteDao.findAll();
+		
 		List<AdaRegion> regions = adaRegionDao.findAll();
 		for(AdaSite site:sites){
 			List<AdaDomain> domains = adaDomainDao.findBySiteId(site.getId());
 			for(AdaDomain domain:domains){
-				for(AdaRegion region:regions){
+				Set<String> cityList = statService.getCityList(domain.getId(), yestoday);
+				for (String city : cityList) {  
 					try {
-						archiveAllRegion(domain,region,yestoday);
+						archiveAllRegion(domain,city,yestoday);
 					} catch (Exception e) {
-						log.error("地域 "+region.getId()+":"+region.getFullname()+" 归档失败,Msg->"+e.getMessage(),e);
+						log.error("地域 "+city+" 归档失败,Msg->"+e.getMessage(),e);
 						continue;
 					}
 				}
+//				for(AdaRegion region:regions){
+//					try {
+//						archiveAllRegion(domain,region,yestoday);
+//					} catch (Exception e) {
+//						log.error("地域 "+region.getId()+":"+region.getFullname()+" 归档失败,Msg->"+e.getMessage(),e);
+//						continue;
+//					}
+//				}
 			}
 		}
 	}
@@ -261,28 +272,28 @@ public class ArchiveService {
 	}
 	
 	
-	public void archiveAllRegion(AdaDomain domain,AdaRegion region,Date yestoday) {
+	public void archiveAllRegion(AdaDomain domain,String region,Date yestoday) {
 		Integer siteId = domain.getSiteId();
 		Integer domainId = domain.getId();
-		AdaRegionStat statRegion = statService.statRegion(region.getFullname(), domain.getId(), yestoday);
-		AdaRegionAdStat statRegionAd = statService.statRegionAd(region.getFullname(), domain.getId(), yestoday);
+		AdaRegionStat statRegion = statService.statRegion(region, domain.getId(), yestoday);
+		AdaRegionAdStat statRegionAd = statService.statRegionAd(region, domain.getId(), yestoday);
 		AdaRegionNotAdStat statRegionNotAd = reduct(statRegion, statRegionAd, AdaRegionNotAdStat.class);
 		
 		statRegion.setSiteId(siteId);
 		statRegion.setDomainId(domainId);
-		statRegion.setRegionId(region.getId());
+		statRegion.setRegion(region);
 		statRegion.setDate(yestoday);
 		statRegion.setCreateTime(Dates.now());
 		
 		statRegionAd.setSiteId(siteId);
 		statRegionAd.setDomainId(domainId);
-		statRegionAd.setRegionId(region.getId());
+		statRegionAd.setRegion(region);
 		statRegionAd.setDate(yestoday);
 		statRegionAd.setCreateTime(Dates.now());
 		
 		statRegionNotAd.setSiteId(siteId);
 		statRegionNotAd.setDomainId(domainId);
-		statRegionNotAd.setRegionId(region.getId());
+		statRegionNotAd.setRegion(region);
 		statRegionNotAd.setDate(yestoday);
 		statRegionNotAd.setCreateTime(Dates.now());
 		

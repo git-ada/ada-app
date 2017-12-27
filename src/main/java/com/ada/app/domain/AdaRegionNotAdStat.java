@@ -34,7 +34,8 @@ public class AdaRegionNotAdStat extends AbstractEntity<Integer> implements BaseS
     /** 渠道ID */
 	private Integer domainId;   
 	/** 地域ID */
-	private Integer regionId;        
+//	private Integer regionId;     
+	private String region;
     /** IP */
 	private Integer ip;                    
     /** PV */
@@ -86,19 +87,19 @@ public class AdaRegionNotAdStat extends AbstractEntity<Integer> implements BaseS
 	/** UV*/
 	private Integer uv;
 	
-	private AdaRegion regions;
-
-	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaRegion.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "regionId", insertable = false, updatable = false)
-	@NotFound(action=NotFoundAction.IGNORE)
-	public AdaRegion getRegions() {
-		return regions;
-	}
-	public void setRegions(AdaRegion regions) {
-		this.regions = regions;
-	}
+//	private AdaRegion regions;
+//
+//	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaRegion.class, fetch = FetchType.LAZY)
+//	@JoinColumn(name = "regionId", insertable = false, updatable = false)
+//	@NotFound(action=NotFoundAction.IGNORE)
+//	public AdaRegion getRegions() {
+//		return regions;
+//	}
+//	public void setRegions(AdaRegion regions) {
+//		this.regions = regions;
+//	}
 	
-	public AdaRegionNotAdStat(Integer siteId, Integer domainId, Integer regionId,
+	public AdaRegionNotAdStat(Integer siteId, Integer domainId, String region,
 			Integer ip, Integer pv, Integer clickip1, Integer clickip2,
 			Integer clickip3, Integer clickip4, Integer targetpageip,
 			Date date, Integer staytimeip1, Integer staytimeip2,
@@ -109,7 +110,7 @@ public class AdaRegionNotAdStat extends AbstractEntity<Integer> implements BaseS
 		super();
 		this.siteId = siteId;
 		this.domainId = domainId;
-		this.regionId = regionId;
+		this.region = region;
 		this.ip = ip;
 		this.pv = pv;
 		this.clickip1 = clickip1;
@@ -140,13 +141,13 @@ public class AdaRegionNotAdStat extends AbstractEntity<Integer> implements BaseS
 		super();
 	}
 
-	public AdaRegionNotAdStat(Integer siteId, Integer domainId,Integer regionId, Integer ip,
+	public AdaRegionNotAdStat(Integer siteId, Integer domainId,String region, Integer ip,
 			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
 			Integer clickip4, Integer targetpageip, Date date) {
 		super();
 		this.siteId = siteId;
 		this.domainId = domainId;
-		this.regionId = regionId;
+		this.region = region;
 		this.ip = ip;
 		this.pv = pv;
 		this.clickip1 = clickip1;
@@ -157,7 +158,7 @@ public class AdaRegionNotAdStat extends AbstractEntity<Integer> implements BaseS
 		this.date = date;
 	}
 
-	public AdaRegionNotAdStat(Integer siteId, Integer domainId,Integer regionId, Integer ip,
+	public AdaRegionNotAdStat(Integer siteId, Integer domainId,String region, Integer ip,
 			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
 			Integer clickip4, Integer targetpageip, Date date,
 			Integer staytimeip1, Integer staytimeip2, Integer staytimeip3,
@@ -165,7 +166,7 @@ public class AdaRegionNotAdStat extends AbstractEntity<Integer> implements BaseS
 		super();
 		this.siteId = siteId;
 		this.domainId = domainId;
-		this.regionId = regionId;
+		this.region = region;
 		this.ip = ip;
 		this.pv = pv;
 		this.clickip1 = clickip1;
@@ -180,12 +181,12 @@ public class AdaRegionNotAdStat extends AbstractEntity<Integer> implements BaseS
 		this.staytimeip4 = staytimeip4;
 	}
 
-	public Integer getRegionId() {
-		return regionId;
+	public String getRegionId() {
+		return region;
 	}
 
-	public void setRegionId(Integer regionId) {
-		this.regionId = regionId;
+	public void setRegion(String regionId) {
+		this.region = region;
 	}
 
 	public AdaRegionNotAdStat(Integer siteId, Integer domainId, Integer ip,
@@ -504,6 +505,10 @@ public class AdaRegionNotAdStat extends AbstractEntity<Integer> implements BaseS
 
 	public void setUv(Integer uv) {
 		this.uv = uv;
+	}
+
+	public String getRegion() {
+		return region;
 	}
 
 	
