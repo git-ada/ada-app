@@ -96,32 +96,8 @@ public class HistryController {
 	private AdaDomainAd15mStatDao ad15mStatDao;
 	@Autowired
 	private AdaDomainNotAd15mStatDao notAd15mStatDao;
-	private final static int Interval_time2 = 15*4*24;
 	private final static int Interval_time = 15;//域名分时统计的时间 间隔（单位：分钟）
 	private final static int domainTime_PageSize = 30;//域名分时统计 图表数据 每一页的数据条数
-	
-	/**
-	 *  获取站点列表历史数据
-	 * @param domainId 域名ID
-	 * @param pageSize  每一页的数据条数
-	 * @param len  统计的间隔时间
-	 * @param pageNo   第几页 
-	 * @return
-	 */
-	//@RequestMapping("loadHistrySiteData")
-	public void loadHistrySiteData(HttpServletRequest request,HttpServletResponse response ,Model model,
-			String pageNo){
-		Integer pageno = Integer.valueOf(pageNo);
-		try {
-			response.setContentType("text/html;charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.print(this.siteChartHistryList(domainTime_PageSize,pageno));
-			out.flush();
-			out.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	/**
 	 * 全站历史数据图表统计
@@ -137,7 +113,6 @@ public class HistryController {
 	protected JSONObject siteChartHistryList(int pageSize,Integer pageNo) throws Exception{
 		/** 从sessions中获取站点信息 **/
 		AdaSite adaSite = Sessions.getCurrentSite();//
-		
 		JSONObject json=new JSONObject();
 		
 		if(pageNo== null || pageNo<1){
@@ -230,7 +205,6 @@ public class HistryController {
 		if(dataType!=null){
 			if("domain".equals(dataType)){
 				/** 获取站点下域名统计信息 **/
-//				Map sumMap = getDefaultDomainStat_histryList(date,ipTop);
 				Map sumMap = getDomainStat_histryList(date,ipTop,doamin);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				Map map = new HashMap();
@@ -242,7 +216,6 @@ public class HistryController {
 				model.addAttribute("tbodydata", json);
 			}else if("domainAd".equals(dataType)){
 				/** 获取站点下域名统计信息 **/
-//				Map sumMap = getDefaultDomainStat_histryList(date,ipTop);
 				Map sumMap = getDomainAdStat_histryList(date,ipTop,doamin);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				Map map = new HashMap();
@@ -254,7 +227,6 @@ public class HistryController {
 				model.addAttribute("tbodydata", json);
 			}else if("domainNotAd".equals(dataType)){
 				/** 获取站点下域名统计信息 **/
-//				Map sumMap = getDefaultDomainStat_histryList(date,ipTop);
 				Map sumMap = getDomainNotAdStat_histryList(date,ipTop,doamin);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				Map map = new HashMap();
@@ -398,7 +370,7 @@ public class HistryController {
 		json.put("domainId", domainId);
 		json.put("lasttime",date);
 		json.put("timestamp", timestamp);
-		System.out.println("data_list_json:--->"+json);
+		//System.out.println("data_list_json:--->"+json);
 		try {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
@@ -476,9 +448,9 @@ public class HistryController {
 	
 	@RequestMapping("ajaxLoadDashboardHistry")
 	public void loadDashboardHistry(HttpServletRequest request,HttpServletResponse response ,Model model,
-			String pageNo,String domainId){
+			String pageNo){
 		Integer pageno = Integer.valueOf(pageNo);
-		Integer domainid = Integer.valueOf(domainId);
+//		System.out.println("pageno: -->"+pageno);
 		try {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();

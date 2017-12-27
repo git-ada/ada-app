@@ -177,8 +177,8 @@ table.dataTable{
          </div>
      	 
          <div class="actions" style="margin-right: 0px;">
-             <a href="javascript:graphicLoadinghistry(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-             <a href="javascript:graphicLoadinghistry(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+             <a href="javascript:graphicLoadingHistry(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+             <a href="javascript:graphicLoadingHistry(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
          </div>
     </div>
     <div class="portlet-body">
@@ -459,6 +459,41 @@ table.dataTable{
 		}
 	}
 	
+	function graphicLoadingHistry(obj) {
+		App.startPageLoading({animate: !0});//开启 加载 动画
+		var pageNo = 1;
+		if (obj == 1) { //表示前一段时间的数据
+			pageNo = jQuery("a[a-type=lastPage]").attr("page-data");
+		} else if (obj == -1) { //表示后一段时间的数据
+			pageNo = jQuery("a[a-type=nextPage]").attr("page-data");
+		} else {
+			//表示被人客户端恶意修改参数
+			return;
+		}
+		alert("pageNo : "+pageNo);
+		if (null == pageNo || "" == pageNo) {
+			toastr.success("暂无数据, 请稍后重试 !");
+			return;
+		} else {
+			if(pageNo==0)pageNo=1;
+			//ajax读取 上一月的数据
+			jQuery.ajax({
+				url : "${pageContext.request.contextPath}/ajaxLoadDashboardHistry.do?pageNo=" + pageNo,
+				success : function(data) {
+					var json = eval('(' + data + ')');
+					if (json.success) {
+						jQuery("a[a-type=lastPage]").attr("page-data",json.lastPage);
+						jQuery("a[a-type=nextPage]").attr("page-data",json.nextPage);
+						
+						histryChart("ad_chart_1", json.ad_chart_1,json.notad_chart_1);
+					} else {
+						toastr.success(json.message);
+					}
+					App.stopPageLoading();//关闭 加载动画
+				}
+			});
+		}
+	} 
 	
 	
 	
