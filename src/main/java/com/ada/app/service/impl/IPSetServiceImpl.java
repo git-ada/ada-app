@@ -59,14 +59,17 @@ public class IPSetServiceImpl implements IPSetService,InitializingBean {
 	@Override
 	public void batchAdd(Integer domianId,Set<String> ipSet){
 		Jedis jedis = getJedis();
+		int i = 0;
 		try {
 			if(ipSet !=null && ipSet.size()>0){
 				for (String ip : ipSet) {  
 					boolean exIpAddress = exists(domianId, ip);
 					if(!exIpAddress){
 						jedis.hset(RedisKeys.DomainIPMap.getKey()+domianId+"", ip, String.valueOf(System.currentTimeMillis()));
+						i ++;
 					}
 				} 
+				log.info("End "+ domianId +" archive ,new add  ip total: --> "+i );
 			} 
 		} finally{
 			returnResource(jedis);

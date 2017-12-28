@@ -254,12 +254,15 @@ public class ArchiveService {
 	public void archiveIpAddress() {
 		Date yestoday = Dates.yestoday();
 		List<AdaSite> sites = adaSiteDao.findAll();
+		int i = 0;
 		for(AdaSite site:sites){
 			List<AdaDomain> domains = adaDomainDao.findBySiteId(site.getId());
 			 for(AdaDomain domain:domains){
 				try {
+					log.info("域名  "+domain.getId()+" : "+domain.getDomain()+" ,startring archive task .");
 					Set<String> ipSet = statService.getYesterdayDomainIPSet(domain.getId(),yestoday);
 					iPSetService.batchAdd(domain.getId(),ipSet);
+					i ++;
 				} catch (Exception e) {
 					log.info("域名 "+domain.getId()+":"+domain.getDomain()+" 归档到 ipMap 失败,Msg->"+e.getMessage(),e);
 				}
