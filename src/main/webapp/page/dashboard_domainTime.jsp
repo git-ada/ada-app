@@ -41,10 +41,6 @@
 }
 **/
 
-
-
-
-
 </style>
  
  <div class="page-bar" style="border: none;">
@@ -72,9 +68,12 @@
                           <!-- caption-subject font-dark bold uppercase -->
                   <span class="caption-helper">广告入口</span>
               </div>
+              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="ad6" id="date_chartad6" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
                <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                   <a onclick="graphicLoading(1,this)" num="ad6" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a onclick="graphicLoading(-1,this)" num="ad6" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -93,9 +92,12 @@
                           <!-- caption-subject font-dark bold uppercase -->
                   <span class="caption-helper">非广告入口</span>
               </div>
+              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="notad6" id="date_chartnotad6" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
              <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                   <a onclick="graphicLoading(1,this)" num="notad6" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a onclick="graphicLoading(-1,this)" num="notad6" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -116,9 +118,12 @@
                   <span class="caption-subject font-green bold uppercase">用户分析</span>
                   <span class="caption-helper">广告入口</span>
               </div>
+              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="ad1" id="date_chartad1" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                   <a onclick="graphicLoading(1,this)" num="ad1" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a onclick="graphicLoading(-1,this)" num="ad1" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -136,9 +141,12 @@
                   <span class="caption-subject font-green bold uppercase">用户分析</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
+              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="notad1" id="date_chartnotad1" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                   <a onclick="graphicLoading(1,this)" num="notad1" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a onclick="graphicLoading(-1,this)" num="notad1" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -148,7 +156,7 @@
       <!-- END PORTLET-->
   </div>
 </div>
-<!-- 第三个图表 -->
+<!-- 第二个图表 -->
 <div class="row">
   <div class="col-lg-6 col-xs-12 col-sm-12">
       <!-- BEGIN PORTLET-->
@@ -159,9 +167,12 @@
                   <span class="caption-subject font-green bold uppercase">页面停留时长</span>
                   <span class="caption-helper">广告入口</span>
               </div>
+              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="ad2" id="date_chartad2" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                   <a onclick="graphicLoading(1,this)" num="ad2" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a onclick="graphicLoading(-1,this)" num="ad2" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -179,9 +190,12 @@
                   <span class="caption-subject font-green bold uppercase">页面停留时长</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
+              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="notad2" id="date_chartnotad2" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
               <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                   <a onclick="graphicLoading(1,this)" num="notad2" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                   <a onclick="graphicLoading(-1,this)" num="notad2" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
           </div>
           <div class="portlet-body">
@@ -201,9 +215,12 @@
                    <span class="caption-subject font-green bold uppercase">鼠标点击</span>
                    <span class="caption-helper">广告入口</span>
                </div>
+               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="ad3" id="date_chartad3" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
                <div class="actions" style="margin-right: 15px;">
-                <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                <a onclick="graphicLoading(1,this)" num="ad3" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                <a onclick="graphicLoading(-1,this)" num="ad3" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
             </div>
            </div>
            <div class="portlet-body">
@@ -219,9 +236,12 @@
                    <span class="caption-subject font-green bold uppercase">鼠标点击</span>
                    <span class="caption-helper">非广告入口</span>
                </div>
+               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="notad3" id="date_chartnotad3" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
                <div class="actions" style="margin-right: 15px;">
-                <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                <a onclick="graphicLoading(1,this)" num="notad3" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                <a onclick="graphicLoading(-1,this)" num="notad3" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
             </div>
            </div>
            <div class="portlet-body">
@@ -240,9 +260,12 @@
                    <span class="caption-subject font-green bold uppercase">鼠标滚动</span>
                    <span class="caption-helper">广告入口</span>
                </div>
+               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="ad4" id="date_chartad4" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
                <div class="actions" style="margin-right: 15px;">
-                <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                <a onclick="graphicLoading(1,this)" num="ad4" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                <a onclick="graphicLoading(-1,this)" num="ad4" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
             </div>
            </div>
            <div class="portlet-body">
@@ -258,9 +281,12 @@
                    <span class="caption-subject font-green bold uppercase">鼠标滚动</span>
                    <span class="caption-helper">非广告入口</span>
                </div>
+               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="notad4" id="date_chartnotad4" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
                <div class="actions" style="margin-right: 15px;">
-                <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                <a onclick="graphicLoading(1,this)" num="notad4" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                <a onclick="graphicLoading(-1,this)" num="notad4" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
             </div>
            </div>
            <div class="portlet-body">
@@ -279,9 +305,12 @@
                    <span class="caption-subject font-green bold uppercase">鼠标移动</span>
                    <span class="caption-helper">广告入口</span>
                </div>
+               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="ad5" id="date_chartad5" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
                <div class="actions" style="margin-right: 15px;">
-                <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                <a onclick="graphicLoading(1,this)" num="ad5" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                <a onclick="graphicLoading(-1,this)" num="ad5" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
             </div>
            </div>
            <div class="portlet-body">
@@ -297,9 +326,12 @@
                    <span class="caption-subject font-green bold uppercase">鼠标移动</span>
                    <span class="caption-helper">非广告入口</span>
                </div>
+               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="notad5" id="date_chartnotad5" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
                <div class="actions" style="margin-right: 15px;">
-                <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+                <a onclick="graphicLoading(1,this)" num="notad5" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+                <a onclick="graphicLoading(-1,this)" num="notad5" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
             </div>
            </div>
            <div class="portlet-body">
@@ -313,53 +345,160 @@
 <script src="${pageContext.request.contextPath}/assets/js/echarts.js" type="text/javascript" ></script>
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-	 function refre(){
-	 	 refreshPage('${pageContext.request.contextPath}/dashboard_domainTime.jhtm?domainId=${domainId}');
-	 }
-	 function graphicLoading(obj) {
-		var pageNo = 1;
+Date.prototype.format = function(fmt) {//js  格式化日期 
+    var o = { 
+       "M+" : this.getMonth()+1,                 //月份 
+       "d+" : this.getDate(),                    //日 
+       "h+" : this.getHours(),                   //小时 
+       "m+" : this.getMinutes(),                 //分 
+       "s+" : this.getSeconds(),                 //秒 
+       "q+" : Math.floor((this.getMonth()+3)/3), //季度 
+       "S"  : this.getMilliseconds()             //毫秒 
+   }; 
+   if(/(y+)/.test(fmt)) {
+           fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
+   }
+    for(var k in o) {
+       if(new RegExp("("+ k +")").test(fmt)){
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+        }
+    }
+   return fmt; 
+} 
+/**---------预加载---------**/
+jQuery(document).ready(function() {
+	//初始化时间控件
+	jQuery('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "left",
+        autoclose: true
+    });
+    var chartdata = ${json};
+    chart_1("ad_chart_1",chartdata.ad_chart_1);
+    chart_1("notad_chart_1",chartdata.notad_chart_1);
+    chart_6("ad_chart_6",chartdata.ad_chart_6);
+    chart_6("notad_chart_6",chartdata.notad_chart_6);
+    
+    chart_2("ada_ad-chart_2",chartdata.ad_chart_3);//stayeTime
+    chart_2("ada_notad-chart_2",chartdata.notad_chart_3);
+    chart_3("ada_ad-chart_3",chartdata.ad_chart_2);//click
+    chart_3("ada_notad-chart_3",chartdata.notad_chart_2);
+    chart_4("ada_ad-chart_4",chartdata.ad_chart_4);//soroll
+    chart_4("ada_notad-chart_4",chartdata.notad_chart_4);
+    chart_5("ada_ad-chart_5",chartdata.ad_chart_5);//move
+    chart_5("ada_notad-chart_5",chartdata.notad_chart_5);
+    
+    jQuery("a[a-type=lastPage]").attr("page-data",chartdata.lastPage);
+    jQuery("a[a-type=nextPage]").attr("page-data",chartdata.nextPage);
+    
+    jQuery("input[id^=date_chart]").change(function(){
+    	isTodayAndHave(jQuery(this).val(),jQuery(this).attr("num"))
+    });
+});
+
+	 function graphicLoading(obj,a) {
+		 App.startPageLoading({animate: !0});//开启 加载 动画
+		 var search_date = "";
+		 var num = jQuery(a).attr("num");
 		if (obj == 1) { //表示前一段时间的数据
-			pageNo = jQuery("a[a-type=lastPage]").attr("page-data");
+			search_date = jQuery(a).attr("page-data");
 		} else if (obj == -1) { //表示后一段时间的数据
-			pageNo = jQuery("a[a-type=nextPage]").attr("page-data");
+			search_date = jQuery(a).attr("page-data");
 		} else {
 			//表示被人客户端恶意修改参数
 			return;
 		}
-		if (null == pageNo || "" == pageNo) {
+		if (null == search_date || "" == search_date) {
 			toastr.success("已经没有数据了！");
+			App.stopPageLoading();//关闭 加载动画
 			return;
-		} else {
-			if(pageNo==0)pageNo=1;
-			//ajax读取 上一月的数据
-			jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajaxdashboard_domainTime.do?pageNo=" + pageNo+"&domainId="+${domainId}+"&dataType=AdAndNotAd",
-				success : function(data) {
-					var json = eval('(' + data + ')');
-					if (json.success) {
-						jQuery("a[a-type=lastPage]").attr("page-data",json.lastPage);
-						jQuery("a[a-type=nextPage]").attr("page-data",json.nextPage);
-						
-						chart_1("ad_chart_1",json.ad_chart_1);
-					    chart_1("notad_chart_1",json.notad_chart_1);
-					    chart_6("ad_chart_6",json.ad_chart_6);
-					    chart_6("notad_chart_6",json.notad_chart_6);
-					    
-					    chart_2("ada_ad-chart_2",json.ad_chart_3);//stayeTime
-					    chart_2("ada_notad-chart_2",json.notad_chart_3);
-					    chart_3("ada_ad-chart_3",json.ad_chart_2);//click
-					    chart_3("ada_notad-chart_3",json.notad_chart_2);
-					    chart_4("ada_ad-chart_4",json.ad_chart_4);//soroll
-					    chart_4("ada_notad-chart_4",json.notad_chart_4);
-					    chart_5("ada_ad-chart_5",json.ad_chart_5);//move
-					    chart_5("ada_notad-chart_5",json.notad_chart_5);
-					} else {
-						toastr.success(json.message);
-					}
-				}
-			});
+		} else {//搜索日期不为空
+			isTodayAndHave(search_date,num);
 		}
 	} 
+
+//判断搜索日期是不是今天 以及 本地session中是否已有数据
+function isTodayAndHave(search_date,num){
+	var todayDate = new Date().format("yyyy-MM-dd");
+	if(search_date==todayDate){//判断日期是不是今天  如果是则从数据库查询最新数据
+		//异步读取 数据
+		ajax_Refresh(search_date,num);
+	}else{//如果不是 则从本地session 中取数据
+		var sessionData = sessionStorage.getItem("domainTime"+search_date);
+		console.log("sessionData--->"+sessionData);
+		if(sessionData!=null && sessionData!=""){//判断本地是否存有数据 如果有 则直接使用
+			console.log("直接用session中的数据");
+			refreshChart(JSON.parse(sessionData),num);
+		}else{//没有则从数据库中 查询数据
+			console.log("异步加载数据 并预加载三天的数据");
+			ajax_Refresh(search_date,num);//异步读取 数据
+			/** 预加载三天的数据 **/
+			var beforDate = getPreDay(search_date);
+			for(var i=0;i<3;i++){
+				ajax_Refresh(beforDate,num,0);
+				beforDate = getPreDay(beforDate);
+			}
+			
+		}
+	}
+}
+//异步加载数据
+function ajax_Refresh(search_date,num,isRefresh){
+	jQuery.ajax({
+		url : "${pageContext.request.contextPath}/ajaxdashboard_domainTime.do?pageNo=&domainId="+${domainId}+"&dataType=AdAndNotAd&search_date="+search_date,
+		success : function(data) {
+			var json = eval('(' + data + ')');
+			if (json.success) {
+				if(isRefresh==0){//不刷新chart 只缓存数据
+					
+				}else{
+					refreshChart(json,num);
+				}
+				sessionStorage.setItem("domainTime"+search_date, JSON.stringify(json));//把数据存到session中
+			} else {
+				toastr.success(json.message);
+			}
+			App.stopPageLoading();//关闭 加载动画
+		},
+		error:function(data){
+			App.stopPageLoading();//关闭 加载动画
+		}
+	});
+}
+//更新chart
+function refreshChart(json,num){
+   
+    jQuery("#date_chart"+num).val(json.search_date);
+	jQuery("a[num="+num+"][a-type=lastPage]").attr("page-data",json.lastPage);
+	jQuery("a[num="+num+"][a-type=nextPage]").attr("page-data",json.nextPage);
+	if(num=="ad1"){
+		chart_1("ad_chart_1",json.ad_chart_1);
+	}else if(num=="notad1"){
+		 chart_1("notad_chart_1",json.notad_chart_1);
+	}else if(num=="ad2"){
+		chart_2("ada_ad-chart_2",json.ad_chart_3);//stayeTime
+	}else if(num=="notad2"){
+		chart_2("ada_notad-chart_2",json.notad_chart_3);
+	}else if(num=="ad3"){
+		 chart_3("ada_ad-chart_3",json.ad_chart_2);//click
+	}else if(num=="notad3"){
+		chart_3("ada_notad-chart_3",json.notad_chart_2);
+	}else if(num=="ad4"){
+		chart_4("ada_ad-chart_4",json.ad_chart_4);//soroll
+	}else if(num=="notad4"){
+		chart_4("ada_notad-chart_4",json.notad_chart_4);
+	}else if(num=="ad5"){
+		 chart_5("ada_ad-chart_5",json.ad_chart_5);//move
+	}else if(num=="notad5"){
+		chart_5("ada_notad-chart_5",json.notad_chart_5);
+	}else if(num=="ad6"){
+		 chart_6("ad_chart_6",json.ad_chart_6);
+	}else if(num=="notad6"){
+		chart_6("notad_chart_6",json.notad_chart_6);
+	}
+	
+	App.stopPageLoading();//关闭 加载动画
+}
 	
 	/**以下为 echarts 做法 line:352~827**/
 	/** 页面停留时间 **/
@@ -890,310 +1029,9 @@
 	   	      ]
 	   	  });
       }
-    
-     /**以下为 amcharts 做法, 但最终结果与 echarts 相同
-	 function chart_2(divid,json) {
-		 var e = AmCharts.makeChart(divid, {
-			    "type": "serial",
-				"theme": "none",
-				"fontFamily": "Microsoft YaHei",
-			    "legend": {
-			        "horizontalGap": 5,
-			        "maxColumns": 1,
-			        "position": "right",
-					"useGraphSettings": true,
-					"equalWidths": false,
-					"markerSize": 10
-			    },
-			    dataProvider: json,
-			    "valueAxes": [{
-			        "stackType": "regular",
-			        "axisAlpha": 0.3,
-			        "gridAlpha": 0
-			    }],
-			    "graphs": [{
-			       // "balloonText": "<b>[[title]]</b><br><span style='font-size:12px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "5~30s",
-			        "type": "column",
-					"color": "#000000",
-					"lineColor": "#08a3cc",
-			        "valueField": "st1",
-			        "sequencedAnimation": true, 
-			        "balloonText": "5~30s :[[value]]"
-			    }, {
-			       // "balloonText": "<b>[[title]]</b><br><span style='font-size:12px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "31~120s",
-			        "type": "column",
-			        "lineColor": "#e26a6a",
-					"color": "#000000",
-			        "valueField": "st2",
-			        "sequencedAnimation": true, 
-			        "balloonText": "31~120s :[[value]]"
-			    }, {
-			       // "balloonText": "<b>[[title]]</b><br><span style='font-size:12px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "121~300s",
-			        "type": "column",
-			        "lineColor": "blue",
-					"color": "#000000",
-			        "valueField": "st3",
-			        "sequencedAnimation": true, 
-			        "balloonText": "121~300s :[[value]]"
-			    }, {
-			        //"balloonText": "<b>[[title]]</b><br><span style='font-size:12px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "300+s",
-			        "type": "column",
-			        "lineColor": "green",
-					"color": "#000000",
-			        "valueField": "st4",
-			        "sequencedAnimation": true, 
-			        "balloonText": "300+s :[[value]]"
-			    }],
-			    "categoryField": "date",
-			    "categoryAxis": {
-			        "gridPosition": "start",
-			        "axisAlpha": 0,
-			        "gridAlpha": 0,
-			        //"axisColor": "blue",
-			        "position": "left"
-			    }
-			});
-	 }
-	 
-	 function chart_3(divid,json) {
-		 var e = AmCharts.makeChart(divid, {
-			    "type": "serial",
-				"theme": "none",
-				"fontFamily": "Microsoft YaHei",
-			    "legend": {
-			        "horizontalGap": 10,
-			        "maxColumns": 1,
-			        "position": "right",
-					"useGraphSettings": true,
-					"markerSize": 10
-			    },
-			    dataProvider: json,
-			    "valueAxes": [{
-			        "stackType": "regular",
-			        "axisAlpha": 0.3,
-			        "gridAlpha": 0
-			    }],
-			    "graphs": [{
-			        //"balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "1~2次",
-			        "type": "column",
-			        "lineColor": "#08a3cc",
-					"color": "#000000",
-			        "valueField": "c1",
-			        "balloonText": "1~2次 :[[value]]"
-			    }, {
-			       // "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "3~5次",
-			        "type": "column",
-			        "lineColor": "#e26a6a",
-					"color": "#000000",
-			        "valueField": "c2",
-			        "balloonText": "3~5次 :[[value]]"
-			    }, {
-			       // "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "6~10次",
-			        "type": "column",
-			        "lineColor": "blue",
-					"color": "#000000",
-			        "valueField": "c3",
-			        "balloonText": "6~10次 :[[value]]"
-			    }, {
-			       // "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "10+次",
-			        "type": "column",
-			        "lineColor": "green",
-					"color": "#000000",
-			        "valueField": "c4",
-			        "balloonText": "10+次 :[[value]]"
-			    }],
-			    "categoryField": "date",
-			    "categoryAxis": {
-			        "gridPosition": "start",
-			        "axisAlpha": 0,
-			        "gridAlpha": 0,
-			        "position": "left"
-			        
-			    }
-			});
-	 }
-	 
-	 function chart_4(divid,json) {
-		 var e = AmCharts.makeChart(divid, {
-			    "type": "serial",
-				"theme": "none",
-				"fontFamily": "Microsoft YaHei",
-			    "legend": {
-			        "horizontalGap": 10,
-			        "maxColumns": 1,
-			        "position": "right",
-					"useGraphSettings": true,
-					"markerSize": 10
-			    },
-			    dataProvider: json,
-			    "valueAxes": [{
-			        "stackType": "regular",
-			        "axisAlpha": 0.3,
-			        "gridAlpha": 0
-			    }],
-			    "graphs": [{
-			        //"balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "1~2次",
-			        "type": "column",
-			        "lineColor": "#08a3cc",
-					"color": "#000000",
-			        "valueField": "s1",
-			        "balloonText": "1~2次 :[[value]]"
-			    }, {
-			        //"balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "3~5次",
-			        "type": "column",
-			        "lineColor": "#e26a6a",
-					"color": "#000000",
-			        "valueField": "s2",
-			        "balloonText": "3~5次 :[[value]]"
-			    }, {
-			       // "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "6~10次",
-			        "type": "column",
-			        "lineColor": "blue",
-					"color": "#000000",
-			        "valueField": "s3",
-			        "balloonText": "6~10次 :[[value]]"
-			    }, {
-			        //"balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "10+次",
-			        "type": "column",
-			        "lineColor": "green",
-					"color": "#000000",
-			        "valueField": "s4",
-			        "balloonText": "10+次 :[[value]]"
-			    }],
-			    "categoryField": "date",
-			    "categoryAxis": {
-			        "gridPosition": "start",
-			        "axisAlpha": 0,
-			        "gridAlpha": 0,
-			        "position": "left"
-			    }
-			});
-	 }
-	 
-	 function chart_5(divid,json) {
-		 var e = AmCharts.makeChart(divid, {
-			    "type": "serial",
-				"theme": "none",
-				"fontFamily": "Microsoft YaHei",
-			    "legend": {
-			        "horizontalGap": 10,
-			        "maxColumns": 1,
-			        "position": "right",
-					"useGraphSettings": true,
-					"markerSize": 10
-			    },
-			    dataProvider: json,
-			    "valueAxes": [{
-			        "stackType": "regular",
-			        "axisAlpha": 0.3,
-			        "gridAlpha": 0
-			    }],
-			    "graphs": [{
-			        //"balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "1~2次",
-			        "type": "column",
-			        "lineColor": "#08a3cc",
-					"color": "#000000",
-			        "valueField": "m1",
-			        "balloonText": "1~2次 :[[value]]"
-			    }, {
-			        //"balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "3~5次",
-			        "type": "column",
-			        "lineColor": "#e26a6a",
-					"color": "#000000",
-			        "valueField": "m2",
-			        "balloonText": "3~5次 :[[value]]"
-			    }, {
-			        //"balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "6~10次",
-			        "type": "column",
-			        "lineColor": "blue",
-					"color": "#000000",
-			        "valueField": "m3",
-			        "balloonText": "6~10次 :[[value]]"
-			    }, {
-			        //"balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-			        "fillAlphas": 0.8,
-			        "labelText": "[[value]]",
-			        "lineAlpha": 0.3,
-			        "title": "10+次",
-			        "type": "column",
-			        "lineColor": "green",
-					"color": "#000000",
-			        "valueField": "m4",
-			        "balloonText": "10+次 :[[value]]"
-			    }],
-			    "categoryField": "date",
-			    "categoryAxis": {
-			        "gridPosition": "start",
-			        "axisAlpha": 0,
-			        "gridAlpha": 0,
-			        "position": "left"
-			    }
-			});
-	 }
-	 **/
 		
 	 function chart_1(divid,json) {
-			var e = AmCharts.makeChart(divid, {
+		 var e  = AmCharts.makeChart(divid, {
 				type: "serial",
 				fontSize: 12,
 				fontFamily: "Microsoft YaHei",
@@ -1313,7 +1151,7 @@
 			});
 		}
 	 function chart_6(divid,json) {
-			var e = AmCharts.makeChart(divid, {
+		 var e = AmCharts.makeChart(divid, {
 				type: "serial",
 				fontSize: 12,
 				fontFamily: "Microsoft YaHei",
@@ -1392,32 +1230,30 @@
 				
 			});
 		}
+//获取某个日期的前一天的日期 yyyy-MM-dd
+ function getPreDay(s){
 
-		jQuery(document).ready(function() {
-		    var chartdata = ${json};
-		    chart_1("ad_chart_1",chartdata.ad_chart_1);
-		    chart_1("notad_chart_1",chartdata.notad_chart_1);
-		    chart_6("ad_chart_6",chartdata.ad_chart_6);
-		    chart_6("notad_chart_6",chartdata.notad_chart_6);
-		    
-		    chart_2("ada_ad-chart_2",chartdata.ad_chart_3);//stayeTime
-		    chart_2("ada_notad-chart_2",chartdata.notad_chart_3);
-		    chart_3("ada_ad-chart_3",chartdata.ad_chart_2);//click
-		    chart_3("ada_notad-chart_3",chartdata.notad_chart_2);
-		    chart_4("ada_ad-chart_4",chartdata.ad_chart_4);//soroll
-		    chart_4("ada_notad-chart_4",chartdata.notad_chart_4);
-		    chart_5("ada_ad-chart_5",chartdata.ad_chart_5);//move
-		    chart_5("ada_notad-chart_5",chartdata.notad_chart_5);
-		    
-		    
-		    //chart2(chartdata.adstlist);
-            //chart2(chartdata.notadstlist);
-            /** 修改  chart3("ada_notad-chart_3",chartdata.adclist);
-		    chart3("ada_notad-chart_3",chartdata.notadclist);
-            **/
-		    jQuery("a[a-type=lastPage]").attr("page-data",chartdata.lastPage);
-		    jQuery("a[a-type=nextPage]").attr("page-data",chartdata.nextPage);
-		});
+     var y = parseInt(s.substr(0,4), 10);
+
+     var m = parseInt(s.substr(5,2), 10)-1;
+
+     var d = parseInt(s.substr(8,2), 10);
+
+     var dt = new Date(y, m, d-1);
+
+     y = dt.getFullYear();
+
+     m = dt.getMonth()+1;
+
+     d = dt.getDate();
+
+     m = m<10?m:"-"+m;
+
+     d = d<10?d:"-"+d;
+
+     return y + "" + m + "" + d;
+
+ }
 </script>
 
 <!-- END PAGE SCRIPTS -->
