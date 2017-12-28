@@ -783,13 +783,13 @@ function graphicLoading(obj) {
 //打开菜单
 function openMenu(a,event){
 	
-	var backUrl = webPath+"/dashboardHistry.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop+"&isRefresh="+isRefresh+"&isRetrun=true";
+	var backUrl = webPath+"/dashboardHistry.jhtm?dataType="+dataType+"&clickDate="+clickDate;
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
 
 	jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
-	jQuery("#oneTime").attr("onclick","gotoPage('"+webPath+"/dashboard_domainTime_one_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
-	jQuery("#AdVSNotAd").attr("onclick","gotoPage('"+webPath+"/dashboard_domainTime_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	jQuery("#oneTime").attr("onclick","gotoPage('"+webPath+"/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&search_date="+clickDate+"','"+backUrl+"')");
+	jQuery("#AdVSNotAd").attr("onclick","gotoPage('"+webPath+"/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"&dataType="+dataType+"&search_date="+clickDate+"','"+backUrl+"')");
 	//jQuery("#oneTime3").attr("onclick","gotoPage('"+webPath+"/dashboard_domainTime3_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
 	if(dataType=="domain"){
 		jQuery("#region").attr("onclick","changeDataType('domainRegion',"+id+")");
