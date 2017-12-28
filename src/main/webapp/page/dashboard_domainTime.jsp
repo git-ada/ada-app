@@ -27,6 +27,10 @@
 .portlet > .portlet-title::after {
     clear: left !important;
 }
+.portlet.light > .portlet-title {
+    min-height: 40px;
+    padding: 0;
+}
 /**
 .portlet > .portlet-body > .ada_ad-chart_2 > .amcharts-main-div > .amcharts-chart-div{
 	height:194px;
