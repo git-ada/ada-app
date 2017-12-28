@@ -79,8 +79,7 @@ public interface AdaSiteStatDao extends EntityJpaDao<AdaSiteStat, Integer> {
 			"if(s.createTime is null,now(),s.createTime) as createTime " +
 			"from calendar t left join ada_site_stat s on t.date = s.date and s.siteId =? where t.date <? order by t.date desc limit ?,?",nativeQuery=true)
     public List<AdaSiteStat> findBySiteIdLoadHistryData(Integer siteId, String date, int pageStart, int pageSize);
-
-    
+	
 
 
 

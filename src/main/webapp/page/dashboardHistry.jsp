@@ -177,8 +177,8 @@ table.dataTable{
          </div>
      	 
          <div class="actions" style="margin-right: 0px;">
-             <a href="javascript:graphicLoadinghistry(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-             <a href="javascript:graphicLoadinghistry(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
+             <a href="javascript:graphicLoadingHistry(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
+             <a href="javascript:graphicLoadingHistry(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
          </div>
     </div>
     <div class="portlet-body">
@@ -457,6 +457,75 @@ table.dataTable{
 		}
 	}
 	
+	/** 获取前天、昨天、今天、明天、后天……的时间  **/
+	function getDateStr(AddDayCount,date) {
+		date.setDate(date.getDate()+AddDayCount);//获取AddDayCount天后的日期
+	    var y = date.getFullYear();
+	    var m = date.getMonth()+1;//获取当前月份的日期
+	    var d = date.getDate();
+	    return y+"-"+m+"-"+d;
+	}
+
+	/** 字符串转日期格式  **/
+	function getDate(strDate) {
+	    var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');
+	    return date;
+	}
+
+	/** 通过点击昨天/前天按钮，加载历史数据 **/
+	function loadBeforeTime(num){
+		clickDate = getDateStr(num, new Date());
+		ajaxRefreshPage();
+		jQuery("#selectTime").val(''+clickDate+'');
+	}
+
+	/** 通过点击日期前进或后退按钮，加载历史数据 **/
+	function loadNextTime(num){
+		var now = jQuery("#selectTime").val();
+		if(num == 1 && now == getDateStr(-1, new Date())){
+			//console.log("不能再走了！！！");
+		}else{
+			clickDate = getDateStr(num,getDate(now));
+			ajaxRefreshPage();
+			jQuery("#selectTime").val(''+clickDate+'');
+		}
+	}
+	
+	function graphicLoadingHistry(obj) {
+		App.startPageLoading({animate: !0});//开启 加载 动画
+		var pageNo = 1;
+		if (obj == 1) { //表示前一段时间的数据
+			pageNo = jQuery("a[a-type=lastPage]").attr("page-data");
+		} else if (obj == -1) { //表示后一段时间的数据
+			pageNo = jQuery("a[a-type=nextPage]").attr("page-data");
+		} else {
+			//表示被人客户端恶意修改参数
+			return;
+		}
+		//alert("pageNo : "+pageNo);
+		if (null == pageNo || "" == pageNo) {
+			toastr.success("暂无数据, 请稍后重试 !");
+			return;
+		} else {
+			if(pageNo==0)pageNo=1;
+			//ajax读取 上一月的数据
+			jQuery.ajax({
+				url : "${pageContext.request.contextPath}/ajaxLoadDashboardHistry.do?pageNo=" + pageNo,
+				success : function(data) {
+					var json = eval('(' + data + ')');
+					if (json.success) {
+						jQuery("a[a-type=lastPage]").attr("page-data",json.lastPage);
+						jQuery("a[a-type=nextPage]").attr("page-data",json.nextPage);
+						
+						histryChart("ad_chart_1", json.ad_chart_1,json.notad_chart_1);
+					} else {
+						toastr.success(json.message);
+					}
+					App.stopPageLoading();//关闭 加载动画
+				}
+			});
+		}
+	} 
 	
 	
 	

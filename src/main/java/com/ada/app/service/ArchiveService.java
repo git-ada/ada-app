@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ada.app.bean.BaseStat;
+import com.ada.app.bean.DomainAreaStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaChannelStatDao;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
@@ -23,6 +25,10 @@ import com.ada.app.dao.AdaDomainDao;
 import com.ada.app.dao.AdaDomainNotAd15mStatDao;
 import com.ada.app.dao.AdaDomainNotAdStatDao;
 import com.ada.app.dao.AdaDomainStatDao;
+import com.ada.app.dao.AdaRegionAdStatDao;
+import com.ada.app.dao.AdaRegionDao;
+import com.ada.app.dao.AdaRegionNotAdStatDao;
+import com.ada.app.dao.AdaRegionStatDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaSiteStatDao;
 import com.ada.app.domain.AdaChannel;
@@ -33,6 +39,10 @@ import com.ada.app.domain.AdaDomainAdStat;
 import com.ada.app.domain.AdaDomainNotad15mStat;
 import com.ada.app.domain.AdaDomainNotadStat;
 import com.ada.app.domain.AdaDomainStat;
+import com.ada.app.domain.AdaRegion;
+import com.ada.app.domain.AdaRegionAdStat;
+import com.ada.app.domain.AdaRegionNotAdStat;
+import com.ada.app.domain.AdaRegionStat;
 import com.ada.app.domain.AdaSite;
 import com.ada.app.domain.AdaSiteStat;
 import com.ada.app.util.Dates;
@@ -62,6 +72,8 @@ public class ArchiveService {
 	
 	@Autowired
 	private AdaSiteDao adaSiteDao;
+	@Autowired
+	private AdaRegionDao adaRegionDao;
 	
 	@Autowired
 	private AdaDomainAd15mStatDao adaDomainAd15mStatDao;
@@ -78,6 +90,13 @@ public class ArchiveService {
 	@Autowired
 	private AdaDomainNotAdStatDao adaDomainNotAdStatDao;
 	
+	@Autowired
+	private AdaRegionStatDao  adaRegionStatDao;
+	@Autowired
+	private AdaRegionAdStatDao  adaRegionAdStatDao;
+	@Autowired
+	private AdaRegionNotAdStatDao  adaRegionNotAdStatDao;
+	
 	private Calendar calendar = Calendar.getInstance();
 	private SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 	
@@ -89,6 +108,7 @@ public class ArchiveService {
 		Date yestoday = Dates.yestoday();
 		
 		List<AdaSite> sites = adaSiteDao.findAll();
+		List<AdaRegion> regions = adaRegionDao.findAll();
 		for(AdaSite site:sites){
 			try {
 				AdaSiteStat stat = statService.statSite(site.getId(), yestoday);
@@ -192,7 +212,39 @@ public class ArchiveService {
 		}
 		calendar.clear();
 	}
-
+	
+	/**
+	 * 归档全部地域数据
+	 */
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
+	public void archiveRegion() {
+		Date yestoday = Dates.yestoday();
+		List<AdaSite> sites = adaSiteDao.findAll();
+//		List<AdaRegion> regions = adaRegionDao.findAll();
+		
+		for(AdaSite site:sites){
+			List<AdaDomain> domains = adaDomainDao.findBySiteId(site.getId());
+			for(AdaDomain domain:domains){
+				Set<String> cityList = statService.getCityList(domain.getId(), yestoday);
+				for (String city : cityList) {  
+					try {
+						archiveAllRegion(domain,city,yestoday);
+					} catch (Exception e) {
+						log.error("地域 "+city+" 归档失败,Msg->"+e.getMessage(),e);
+						continue;
+					}
+				}
+//				for(AdaRegion region:regions){
+//					try {
+//						archiveAllRegion(domain,region,yestoday);
+//					} catch (Exception e) {
+//						log.error("地域 "+region.getId()+":"+region.getFullname()+" 归档失败,Msg->"+e.getMessage(),e);
+//						continue;
+//					}
+//				}
+			}
+		}
+	}
 	
 	/**
 	 * 归档广告与非广告数据,每15分钟执行一次  
@@ -216,6 +268,43 @@ public class ArchiveService {
 				}
 				
 			}
+		}
+	}
+	
+	
+	public void archiveAllRegion(AdaDomain domain,String region,Date yestoday) {
+		Integer siteId = domain.getSiteId();
+		Integer domainId = domain.getId();
+		AdaRegionStat statRegion = statService.statRegion(region, domain.getId(), yestoday);
+		AdaRegionAdStat statRegionAd = statService.statRegionAd(region, domain.getId(), yestoday);
+		AdaRegionNotAdStat statRegionNotAd = reduct(statRegion, statRegionAd, AdaRegionNotAdStat.class);
+		
+		statRegion.setSiteId(siteId);
+		statRegion.setDomainId(domainId);
+		statRegion.setRegion(region);
+		statRegion.setDate(yestoday);
+		statRegion.setCreateTime(Dates.now());
+		
+		statRegionAd.setSiteId(siteId);
+		statRegionAd.setDomainId(domainId);
+		statRegionAd.setRegion(region);
+		statRegionAd.setDate(yestoday);
+		statRegionAd.setCreateTime(Dates.now());
+		
+		statRegionNotAd.setSiteId(siteId);
+		statRegionNotAd.setDomainId(domainId);
+		statRegionNotAd.setRegion(region);
+		statRegionNotAd.setDate(yestoday);
+		statRegionNotAd.setCreateTime(Dates.now());
+		
+		if(statRegion.getIp()>0){
+			adaRegionStatDao.save(statRegion);
+		}
+		if(statRegionAd.getIp()>0){
+			adaRegionAdStatDao.save(statRegionAd);
+		}
+		if(statRegionNotAd.getIp()>0){
+			adaRegionNotAdStatDao.save(statRegionNotAd);
 		}
 	}
 	

@@ -13,6 +13,7 @@ import cn.com.jiand.mvc.framework.dao.jpa.EntityJpaDao;
 import com.ada.app.bean.AdaDomainNotadTotalStat;
 import com.ada.app.domain.AdaDomainAdStat;
 import com.ada.app.domain.AdaDomainNotadStat;
+import com.ada.app.domain.AdaDomainStat;
 import com.ada.app.domain.AdaSiteStat;
 
 /**
@@ -27,6 +28,9 @@ public interface AdaDomainNotAdStatDao extends EntityJpaDao<AdaDomainNotadStat, 
     public AdaDomainNotadStat findById(Integer id);
     @Query(value="select * from ada_domain_notad_stat where siteId=? and domainId=? order by createTime desc limit 1",nativeQuery=true)
     public AdaDomainNotadStat findLast(Integer siteId,Integer domainId);
+    
+    @Query(value="select * from ada_domain_notad_stat where siteId=? and domainId=? and date=?",nativeQuery=true)
+    public AdaDomainNotadStat findByIdHistry(Integer SiteId,Integer domainId,String date);
     
     @Query(value="select * from ada_domain_notad_stat where siteId=? and domainId=? and date=? order by createTime desc limit 1",nativeQuery=true)
     public AdaDomainNotadStat findLastInDate(Integer siteId,Integer domainId,Timestamp date);

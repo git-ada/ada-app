@@ -199,6 +199,8 @@ var initTable1 = function () {
 	jQuery(document).ready(function() {
 		var histryJson = eval('(' + histryData + ')');
 		histryChart("ad_chart_1", histryJson.ad_chart_1,histryJson.notad_chart_1);
+		jQuery("a[a-type=lastPage]").attr("page-data",histryJson.lastPage);
+	    jQuery("a[a-type=nextPage]").attr("page-data",histryJson.nextPage);
 		jQuery("#selectTime").val(''+clickDate+'');
 		onLeavePage(function (){//离开页面时的回调方法
 			clearTimeout(t);
@@ -315,8 +317,6 @@ var initTable1 = function () {
 	});
 	
 	 function ajaxRefreshPage(){
-		 //selectTime = jQuery("#selectTime").val();
-		 //alert(selectTime);
 		 timestamp = Date.parse(new Date());
 		 jQuery.ajax({
 			 	type:"post",
@@ -763,7 +763,7 @@ function graphicLoading(obj) {
 	} else {
 		//ajax读取 上一月的数据
 		jQuery.ajax({
-			url : "${pageContext.request.contextPath}/ajaxLoadData.do?pageNo=" + pageNo,
+			url : "${pageContext.request.contextPath}/ajaxLoadDashboardHistry.do?pageNo=" + pageNo,
 			success : function(data) {
 				var json = eval('(' + data + ')');
 				if (json.success) {

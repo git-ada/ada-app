@@ -12,6 +12,7 @@ import cn.com.jiand.mvc.framework.dao.jpa.EntityJpaDao;
 import com.ada.app.bean.AdaDomainadTotalStat;
 import com.ada.app.domain.AdaDomainAd15mStat;
 import com.ada.app.domain.AdaDomainAdStat;
+import com.ada.app.domain.AdaDomainStat;
 import com.ada.app.domain.AdaSiteStat;
 
 /**
@@ -24,6 +25,9 @@ public interface AdaDomainAdStatDao extends EntityJpaDao<AdaDomainAdStat, Intege
      *通过ID查询
      */
     public AdaDomainAdStat findById(Integer id);
+    
+    @Query(value="select * from ada_domain_ad_stat where siteId=? and domainId=? and date=?",nativeQuery=true)
+    public AdaDomainAdStat findByIdHistry(Integer SiteId,Integer domainId,String date);
     
     @Query(value="select * from ada_domain_ad_stat where siteId=? and domainId=? order by createTime desc limit 1",nativeQuery=true)
     public AdaDomainAdStat findLast(Integer siteId,Integer domainId);

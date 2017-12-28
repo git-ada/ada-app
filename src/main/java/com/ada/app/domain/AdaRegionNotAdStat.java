@@ -25,8 +25,8 @@ import cn.com.jiand.mvc.framework.domain.AbstractEntity;
  * @author Wanghl.cn By Code Generator
  */
 @Entity
-@Table(name = "ada_region_stat")
-public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
+@Table(name = "ada_region_notad_stat")
+public class AdaRegionNotAdStat extends AbstractEntity<Integer> implements BaseStat{
     /** ID */
 	private Integer id;                    
     /** 站点ID */
@@ -34,7 +34,7 @@ public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
     /** 渠道ID */
 	private Integer domainId;   
 	/** 地域ID */
-//	private Integer regionId; 
+//	private Integer regionId;     
 	private String region;
     /** IP */
 	private Integer ip;                    
@@ -87,42 +87,19 @@ public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
 	/** UV*/
 	private Integer uv;
 	
+//	private AdaRegion regions;
+//
+//	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaRegion.class, fetch = FetchType.LAZY)
+//	@JoinColumn(name = "regionId", insertable = false, updatable = false)
+//	@NotFound(action=NotFoundAction.IGNORE)
+//	public AdaRegion getRegions() {
+//		return regions;
+//	}
+//	public void setRegions(AdaRegion regions) {
+//		this.regions = regions;
+//	}
 	
-	
-	public AdaRegionStat(Integer ip, Integer pv, Integer clickip1,
-			Integer clickip2, Integer clickip3, Integer clickip4,
-			Integer targetpageip, Integer staytimeip1, Integer staytimeip2,
-			Integer staytimeip3, Integer staytimeip4, Integer scrollip1,
-			Integer scrollip2, Integer scrollip3, Integer scrollip4,
-			Integer moveip1, Integer moveip2, Integer moveip3, Integer moveip4,
-			Integer olduserip, Integer oldip, Integer loginip, Integer uv) {
-		super();
-		this.ip = ip;
-		this.pv = pv;
-		this.clickip1 = clickip1;
-		this.clickip2 = clickip2;
-		this.clickip3 = clickip3;
-		this.clickip4 = clickip4;
-		this.targetpageip = targetpageip;
-		this.staytimeip1 = staytimeip1;
-		this.staytimeip2 = staytimeip2;
-		this.staytimeip3 = staytimeip3;
-		this.staytimeip4 = staytimeip4;
-		this.scrollip1 = scrollip1;
-		this.scrollip2 = scrollip2;
-		this.scrollip3 = scrollip3;
-		this.scrollip4 = scrollip4;
-		this.moveip1 = moveip1;
-		this.moveip2 = moveip2;
-		this.moveip3 = moveip3;
-		this.moveip4 = moveip4;
-		this.olduserip = olduserip;
-		this.oldip = oldip;
-		this.loginip = loginip;
-		this.uv = uv;
-	}
-
-	public AdaRegionStat(Integer siteId, Integer domainId, String region,
+	public AdaRegionNotAdStat(Integer siteId, Integer domainId, String region,
 			Integer ip, Integer pv, Integer clickip1, Integer clickip2,
 			Integer clickip3, Integer clickip4, Integer targetpageip,
 			Date date, Integer staytimeip1, Integer staytimeip2,
@@ -160,11 +137,11 @@ public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
 		this.uv = uv;
 	}
 
-	public AdaRegionStat() {
+	public AdaRegionNotAdStat() {
 		super();
 	}
 
-	public AdaRegionStat(Integer siteId, Integer domainId,String region, Integer ip,
+	public AdaRegionNotAdStat(Integer siteId, Integer domainId,String region, Integer ip,
 			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
 			Integer clickip4, Integer targetpageip, Date date) {
 		super();
@@ -181,7 +158,7 @@ public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
 		this.date = date;
 	}
 
-	public AdaRegionStat(Integer siteId, Integer domainId,String region, Integer ip,
+	public AdaRegionNotAdStat(Integer siteId, Integer domainId,String region, Integer ip,
 			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
 			Integer clickip4, Integer targetpageip, Date date,
 			Integer staytimeip1, Integer staytimeip2, Integer staytimeip3,
@@ -204,15 +181,11 @@ public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
 		this.staytimeip4 = staytimeip4;
 	}
 
-	public String getRegion() {
-		return region;
-	}
-
 	public void setRegion(String region) {
 		this.region = region;
 	}
 
-	public AdaRegionStat(Integer siteId, Integer domainId, Integer ip,
+	public AdaRegionNotAdStat(Integer siteId, Integer domainId, Integer ip,
 			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
 			Integer clickip4, Integer targetpageip, Date date,
 			Integer staytimeip1, Integer staytimeip2, Integer staytimeip3,
@@ -244,7 +217,7 @@ public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
 		this.moveip4 = moveip4;
 	}
 
-	public AdaRegionStat(Integer siteId, Integer domainId, Integer ip,
+	public AdaRegionNotAdStat(Integer siteId, Integer domainId, Integer ip,
 			Integer pv, Integer clickip1, Integer clickip2, Integer clickip3,
 			Integer clickip4, Integer targetpageip, Date date,
 			Integer staytimeip1, Integer staytimeip2, Integer staytimeip3,
@@ -528,6 +501,10 @@ public class AdaRegionStat extends AbstractEntity<Integer> implements BaseStat{
 
 	public void setUv(Integer uv) {
 		this.uv = uv;
+	}
+
+	public String getRegion() {
+		return region;
 	}
 
 	
