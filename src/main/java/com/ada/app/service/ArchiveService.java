@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ada.app.bean.BaseStat;
-import com.ada.app.bean.DomainAreaStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaChannelStatDao;
 import com.ada.app.dao.AdaDomainAd15mStatDao;
@@ -253,6 +252,14 @@ public class ArchiveService {
 	
 	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void archive15m() {
+		if(lastTime==null){
+			Calendar c = Calendar.getInstance();
+			c.set(Calendar.MINUTE, 0);
+			c.set(Calendar.SECOND, 0);
+			c.set(Calendar.MILLISECOND, 0);
+			lastTime = new Timestamp(c.getTimeInMillis());
+		}
+		
 		Timestamp startTime = lastTime;
 		Timestamp endTime = Dates.now();
 		lastTime =  endTime;
