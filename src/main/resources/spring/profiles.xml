@@ -25,5 +25,4 @@
 		<property name="verbose" value="true"></property>
 		<property name="houseKeepingTestSql" value="select now()"></property>
 	</bean>
-	<bean class="com.ada.app.job.ArchiveJob"></bean>
 </beans>

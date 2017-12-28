@@ -220,8 +220,8 @@ public class ArchiveService {
 	public void archiveRegion() {
 		Date yestoday = Dates.yestoday();
 		List<AdaSite> sites = adaSiteDao.findAll();
+//		List<AdaRegion> regions = adaRegionDao.findAll();
 		
-		List<AdaRegion> regions = adaRegionDao.findAll();
 		for(AdaSite site:sites){
 			List<AdaDomain> domains = adaDomainDao.findBySiteId(site.getId());
 			for(AdaDomain domain:domains){
