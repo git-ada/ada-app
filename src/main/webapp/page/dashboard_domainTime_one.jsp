@@ -329,43 +329,43 @@ function refreshChart(json,num){
 		}else if(num==2){
 			jQuery("#date_chart2").val(json.search_date);
 			jQuery("a[num=2][a-type=lastPage]").attr("page-data",json.lastPage);
-		jQuery("a[num=2][a-type=nextPage]").attr("page-data",json.nextPage);
+			jQuery("a[num=2][a-type=nextPage]").attr("page-data",json.nextPage);
 			amchart_2.dataProvider = json.chart_2;
 			amchart_2.write();
-    	amchart_2.validateNow();
-    	amchart_2.validateData();
+    		amchart_2.validateNow();
+    		amchart_2.validateData();
 		}else if(num==3){
 			jQuery("#date_chart3").val(json.search_date);
 			jQuery("a[num=3][a-type=lastPage]").attr("page-data",json.lastPage);
-		jQuery("a[num=3][a-type=nextPage]").attr("page-data",json.nextPage);
+			jQuery("a[num=3][a-type=nextPage]").attr("page-data",json.nextPage);
 			amchart_3.dataProvider = json.chart_3;
 			amchart_3.write();
-    	amchart_3.validateNow();
-    	amchart_3.validateData();
+    		amchart_3.validateNow();
+    		amchart_3.validateData();
 		}else if(num==4){
 			jQuery("#date_chart4").val(json.search_date);
 			jQuery("a[num=4][a-type=lastPage]").attr("page-data",json.lastPage);
-		jQuery("a[num=4][a-type=nextPage]").attr("page-data",json.nextPage);
+			jQuery("a[num=4][a-type=nextPage]").attr("page-data",json.nextPage);
 			amchart_4.dataProvider = json.chart_4;
 			amchart_4.write();
-    	amchart_4.validateNow();
-    	amchart_4.validateData();
+    		amchart_4.validateNow();
+    		amchart_4.validateData();
 		}else if(num==5){
 			jQuery("#date_chart5").val(json.search_date);
 			jQuery("a[num=5][a-type=lastPage]").attr("page-data",json.lastPage);
-		jQuery("a[num=5][a-type=nextPage]").attr("page-data",json.nextPage);
+			jQuery("a[num=5][a-type=nextPage]").attr("page-data",json.nextPage);
 			amchart_5.dataProvider = json.chart_5;
 			amchart_5.write();
-    	amchart_5.validateNow();
-    	amchart_5.validateData();
+    		amchart_5.validateNow();
+    		amchart_5.validateData();
 		}else if(num==6){
 			jQuery("#date_chart6").val(json.search_date);
 			jQuery("a[num=6][a-type=lastPage]").attr("page-data",json.lastPage);
-		jQuery("a[num=6][a-type=nextPage]").attr("page-data",json.nextPage);
+			jQuery("a[num=6][a-type=nextPage]").attr("page-data",json.nextPage);
 			amchart_6.dataProvider = json.chart_6;
-    	amchart_6.write();
-    	amchart_6.validateNow();
-    	amchart_6.validateData();
+    		amchart_6.write();
+    		amchart_6.validateNow();
+    		amchart_6.validateData();
 		}
 		
 		App.stopPageLoading();//关闭 加载动画
