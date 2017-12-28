@@ -166,5 +166,12 @@ public interface StatService {
 	 */
 	public Set<String> getCityList(Integer domainId,Date date);
 	
+	/**
+	 * 得到昨天IPSet集合
+	 * @param  domainId
+	 * @return IPSet
+	 */
+	public Set<String> getYesterdayDomainIPSet(Integer domainId,Date yestoday);
+	
 
 }

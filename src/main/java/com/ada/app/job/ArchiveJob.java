@@ -14,35 +14,55 @@ public class ArchiveJob {
 	
 	@Autowired
 	private ArchiveService archiveService;
-
+	
+	/**
+	 * 归档站点与域名
+	 */
 	@Scheduled(cron="0 30 4 * * ?")
 	public void excute(){
-		log.info("开始执行归档作业");
+		log.info("Starting excute Site and Domain archive task .");
 		Long startTime = System.currentTimeMillis();
 		archiveService.archive();
 		Long endTime = System.currentTimeMillis();
 		Long cost = endTime - startTime;
 		
-		log.info("结束归档作业，用时"+cost+"ms");
+		log.info("End Site and Domain archive task ,used "+cost+" ms .");
 	}
 	
+	/**
+	 * 归档地域、广告地域、非广告地域
+	 */
 	@Scheduled(cron="0 30 4 * * ?")
 	public void excute3(){
-		log.info("开始执行地域归档作业");
+		log.info("Starting excute region archive task .");
 		Long startTime = System.currentTimeMillis();
 		archiveService.archiveRegion();
 		Long endTime = System.currentTimeMillis();
 		Long cost = endTime - startTime;
 		
-		log.info("结束地域归档作业，用时"+cost+"ms");
+		log.info("End region archive task ,used "+cost+" ms .");
+	}
+	
+	/**
+	 * 归档昨日IPSet
+	 */
+	@Scheduled(cron="0 0 8 * * ?")
+	public void excute4(){
+		log.info("Starting excute IPSet archive task .");
+		Long startTime = System.currentTimeMillis();
+		archiveService.archiveIpAddress();
+		Long endTime = System.currentTimeMillis();
+		Long cost = endTime - startTime;
+		
+		log.info("End IPSet archive task ,used "+cost+" ms .");
 	}
 	
 	/**
 	 * 归档广告与非广告统计数据,每15分钟执行一次  
 	 */
-	@Scheduled(cron="5 0 */1 * * ?")   //每15分钟执行一次  
+	@Scheduled(cron="5 0 */1 * * ?")
 	public void excute2(){
-		log.info("开始执行广告、非广告、广告15m、非广告15m归档作业");
+		log.info("Starting excute Ad、NotAd、Ad15m、NotAd15m archive task .");
 		Long startTime = System.currentTimeMillis();
 //		archiveService.archiveDomainAdAndNotAd();
 		
@@ -50,7 +70,7 @@ public class ArchiveJob {
 		Long endTime = System.currentTimeMillis();
 		Long cost = endTime - startTime;
 		
-		log.info("结束广告、非广告、广告15m、非广告15m归档作业，用时"+cost+"ms");
+		log.info("End Ad、NotAd、Ad15m、NotAd15m archive task ,used "+cost+" ms .");
 	}
 
 }

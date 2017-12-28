@@ -1,6 +1,7 @@
 package com.ada.app.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -1245,6 +1246,22 @@ public class StatServiceImpl implements StatService{
 			IP = all-Ad;
 		}
 		return IP;
+	}
+	
+	/**
+	 * 获取昨日域名IPSet集合
+	 * @param domainId     域名ID
+	 * @param ipAddress    IP地址
+	 */
+	@Override
+	public Set<String> getYesterdayDomainIPSet(Integer domainId,Date yestoday){
+		Jedis jedis = getJedis(yestoday);
+		try{
+			Set<String> allip = jedis.smembers(RedisKeys.DomainIP.getKey()+domainId+"");
+			return allip;
+		} finally{
+			returnResource(yestoday,jedis);
+		}
 	}
 
 }

@@ -7,14 +7,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.ada.app.bean.BaseStat;
 import com.ada.app.dao.AdaChannelDao;
 import com.ada.app.dao.AdaChannelStatDao;
@@ -45,6 +43,7 @@ import com.ada.app.domain.AdaRegionStat;
 import com.ada.app.domain.AdaSite;
 import com.ada.app.domain.AdaSiteStat;
 import com.ada.app.util.Dates;
+import com.ada.app.service.IPSetService;
 
 @Service
 public class ArchiveService {
@@ -95,6 +94,9 @@ public class ArchiveService {
 	private AdaRegionAdStatDao  adaRegionAdStatDao;
 	@Autowired
 	private AdaRegionNotAdStatDao  adaRegionNotAdStatDao;
+	
+	@Autowired
+	private IPSetService iPSetService;
 	
 	private Calendar calendar = Calendar.getInstance();
 	private SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
@@ -242,6 +244,26 @@ public class ArchiveService {
 //					}
 //				}
 			}
+		}
+	}
+	
+	/**
+	 * 归档昨日ipSet集合到IPMap集合
+	 */
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
+	public void archiveIpAddress() {
+		Date yestoday = Dates.yestoday();
+		List<AdaSite> sites = adaSiteDao.findAll();
+		for(AdaSite site:sites){
+			List<AdaDomain> domains = adaDomainDao.findBySiteId(site.getId());
+			 for(AdaDomain domain:domains){
+				try {
+					Set<String> ipSet = statService.getYesterdayDomainIPSet(domain.getId(),yestoday);
+					iPSetService.batchAdd(domain.getId(),ipSet);
+				} catch (Exception e) {
+					log.info("域名 "+domain.getId()+":"+domain.getDomain()+" 归档到 ipMap 失败,Msg->"+e.getMessage(),e);
+				}
+			 }
 		}
 	}
 	
