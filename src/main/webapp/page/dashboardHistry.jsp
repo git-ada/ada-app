@@ -88,18 +88,18 @@ thead th {
     padding-left: 10px!important;
 }
 .portlet-title {
-    padding-left:  10px !important;
+    padding-left:  0px !important;
     border-bottom: none !important;
 }
-.dataTables_scrollBody tbody td {
+ tbody td {
     padding: 0px 0px !important;
     text-align: left;
     line-height: 35.2px;
 }
+
 .myprogress {
     border-radius: 4px;
     height: 35.2px;
-    
     margin-bottom: 0px !important;
 }
 .only {
@@ -114,6 +114,9 @@ thead th {
 }
 .tdonly{
 	padding-left:8px;
+	display: block;
+	height: 35.2px;
+	line-height: 35.2px;
 }
 
 table.dataTable{
@@ -122,6 +125,29 @@ table.dataTable{
     border-collapse: separate;
     border-spacing: 0;
 }
+.ifsearch{
+	display: none;
+}
+.nav-pills, .nav-tabs {
+    margin-bottom: 0px !important;
+}
+.portlet.light > .portlet-title > .inputs {
+    display: inline-block;
+    float: right;
+    padding-top: 12px !important;
+}
+.btn.btn-outline.dark {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border-color: #c2cad8;
+    color: #333;
+}
+.btn-group-sm > .btn, .btn-sm {
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 1.9 !important;
+    padding: 5px 10px;
+}
+
 
 <!--  -->
 .portlet.light .portlet-body {
