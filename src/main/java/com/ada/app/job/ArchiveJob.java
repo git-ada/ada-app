@@ -32,7 +32,8 @@ public class ArchiveJob {
 	/**
 	 * 归档地域、广告地域、非广告地域
 	 */
-	@Scheduled(cron="0 30 4 * * ?")
+//	@Scheduled(cron="0 30 4 * * ?")
+	@Scheduled(cron="0 0 11 * * ?")
 	public void excute3(){
 		log.info("Starting excute region archive task .");
 		Long startTime = System.currentTimeMillis();
@@ -46,7 +47,7 @@ public class ArchiveJob {
 	/**
 	 * 归档昨日IPSet
 	 */
-	@Scheduled(cron="0 0 8 * * ?")
+	@Scheduled(cron="0 0 11 * * ?")
 	public void excute4(){
 		log.info("Starting excute IPSet archive task .");
 		Long startTime = System.currentTimeMillis();
