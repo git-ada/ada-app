@@ -335,7 +335,7 @@ table.dataTable{
 			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${item[23]}&domain=${item[24]}')">分时统计3</a>
 			     </li> --%>
 			     <li>
-			       <a href="javascript:;" id="onlyOne"><i class="icon-magnifier"></i>单独查看</a>
+			       <a href="javascript:;" id="onlyOne"><i class="icon-magnifier"></i>&nbsp;&nbsp;单独查看</a>
 			     </li>
 			    <!--  <li>
 			       <a href="javascript:;" id="dynamic">实时动态</a>
@@ -346,13 +346,13 @@ table.dataTable{
 			     </li> -->
 			     
 			     <li>
-			       <a href="javascript:;" id="oneTime">分时统计</a>
+			       <a href="javascript:;" id="oneTime"><i class="icon-speedometer"></i>&nbsp;&nbsp;分时统计</a>
 			     </li>
 			     	<li>
-			       <a href="javascript:;" id="AdVSNotAd">广告与非广告对比</a>
+			       <a href="javascript:;" id="AdVSNotAd"><i class="icon-book-open"></i>&nbsp;&nbsp;广告与非广告对比</a>
 			     </li>
 			     <li>
-			         <a href="javascript:;" id="region">地域统计</a>
+			         <a href="javascript:;" id="region"><i class="icon-pointer"></i>&nbsp;&nbsp;地域统计</a>
 			     </li>
 			 </ul>
 		</div>
