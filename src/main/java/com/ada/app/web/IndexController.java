@@ -864,6 +864,7 @@ public class IndexController {
 				json_adChart_3.put("st2", item.getStaytimeip2());
 				json_adChart_3.put("st3", item.getStaytimeip3());
 				json_adChart_3.put("st4", item.getStaytimeip4());
+				json_adChart_3.put("ip", item.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_3.put("color", "#EF3F3F");
 					json_adChart_3.put("lcolor", "red");
@@ -877,6 +878,7 @@ public class IndexController {
 				json_adChart_4.put("c2", item.getClickip2());
 				json_adChart_4.put("c3", item.getClickip3());
 				json_adChart_4.put("c4", item.getClickip4());
+				json_adChart_4.put("ip", item.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_4.put("color", "#EF3F3F");
 					json_adChart_4.put("lcolor", "red");
@@ -891,6 +893,7 @@ public class IndexController {
 				json_adChart_5.put("s2", item.getScrollip2());
 				json_adChart_5.put("s3", item.getScrollip3());
 				json_adChart_5.put("s4", item.getScrollip4());
+				json_adChart_5.put("ip", item.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_5.put("color", "#EF3F3F");
 					json_adChart_5.put("lcolor", "red");
@@ -904,6 +907,7 @@ public class IndexController {
 				json_adChart_6.put("m2", item.getMoveip2());
 				json_adChart_6.put("m3", item.getMoveip3());
 				json_adChart_6.put("m4", item.getMoveip4());
+				json_adChart_6.put("ip", item.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_6.put("color", "#EF3F3F");
 					json_adChart_6.put("lcolor", "red");
@@ -1288,7 +1292,7 @@ public class IndexController {
 				json_adChart_1.put("oldip", item.getOldip()); // 老IP数
 				json_adChart_1.put("loginip", item.getLoginip());//登陆用户数
 				json_adChart_1.put("targetpageip", item.getTargetpageip());//进入目标页
-				json_adChart_1.put("ip", item.getIp());//进入目标页
+				json_adChart_1.put("ip", item.getIp());
 				if (i == 0) { // 判断如果是最后一单则需要加上颜色等特殊信息
 					json_adChart_1.put("color", "#EF3F3F");
 					json_adChart_1.put("lcolor", "red");

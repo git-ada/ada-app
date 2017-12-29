@@ -51,13 +51,15 @@
                   <span class="caption-subject font-dark bold uppercase">基本数据</span>
                   <span class="caption-helper"></span>
               </div>
-              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="1" id="date_chart1" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div> 
+             
                <div class="actions" style="margin-right: 15px;">
                    <a onclick="graphicLoading(1,this)" num="1" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                    <a onclick="graphicLoading(-1,this)" num="1" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
+               
+                <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="1" id="date_chart1" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div> 
           </div>
           <div class="portlet-body">
               <div id="chart_1" class="chart" style="height: 300px;"> </div>
@@ -74,13 +76,15 @@
                   <span class="caption-subject font-dark bold uppercase">用户分析</span>
                   <span class="caption-helper"></span>
               </div>
-              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="2" id="date_chart2" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div> 
+              
               <div class="actions" style="margin-right: 15px;">
                   <a onclick="graphicLoading(1,this)" num="2" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                   <a onclick="graphicLoading(-1,this)" num="2" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
               </div>
+              
+              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="2" id="date_chart2" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div> 
           </div>
           <div class="portlet-body">
               <div id="chart_2" class="chart" style="height: 300px;"> </div>
@@ -102,13 +106,15 @@
                   <span class="caption-subject font-dark bold uppercase">页面停留时长</span>
                   <span class="caption-helper"></span>
               </div>
-              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="3" id="date_chart3" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div> 
+              
               <div class="actions" style="margin-right: 15px;">
                   <a onclick="graphicLoading(1,this)" num="3" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                   <a onclick="graphicLoading(-1,this)" num="3" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
               </div>
+              
+              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="3" id="date_chart3" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div> 
           </div>
           <div class="portlet-body">
               <div id="chart_3" class="chart" style="height: 300px;"> </div>
@@ -125,13 +131,15 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标点击</span>
                   <span class="caption-helper"></span>
               </div>
-              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="4" id="date_chart4" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div> 
+              
               <div class="actions" style="margin-right: 15px;">
                   <a onclick="graphicLoading(1,this)" num="4" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                   <a onclick="graphicLoading(-1,this)" num="4" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
               </div>
+              
+              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="4" id="date_chart4" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div> 
           </div>
           <div class="portlet-body">
               <div id="chart_4" class="chart" style="height: 300px;"> </div>
@@ -152,13 +160,15 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标滚动</span>
                   <span class="caption-helper"></span>
               </div>
-              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="5" id="date_chart5" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div> 
+              
               <div class="actions" style="margin-right: 15px;">
                   <a onclick="graphicLoading(1,this)" num="5" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                   <a onclick="graphicLoading(-1,this)" num="5" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
               </div>
+              
+              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="5" id="date_chart5" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div> 
           </div>
           <div class="portlet-body">
               <div id="chart_5" class="chart" style="height: 300px;"> </div>
@@ -175,13 +185,15 @@
                   <span class="caption-subject font-dark bold uppercase">鼠标移动</span>
                   <span class="caption-helper"></span>
               </div>
-              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="6" id="date_chart6" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div> 
+              
               <div class="actions" style="margin-right: 15px;">
                   <a onclick="graphicLoading(1,this)" num="6" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                   <a onclick="graphicLoading(-1,this)" num="6" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
               </div>
+              
+              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="6" id="date_chart6" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div> 
           </div>
           <div class="portlet-body">
               <div id="chart_6" class="chart" style="height: 300px;"> </div>
@@ -191,6 +203,7 @@
   </div>
 </div>
 <!-- START PAGE SCRIPTS -->
+<script src="${pageContext.request.contextPath}/assets/js/echarts.js" type="text/javascript" ></script>
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	
@@ -228,6 +241,7 @@ jQuery(document).ready(function() {
 	jQuery('.date-picker').datepicker({
         rtl: App.isRTL(),
         orientation: "left",
+        endDate : new Date(),
         autoclose: true
     });
     var chartdata = ${json};
@@ -253,9 +267,17 @@ function graphicLoading(obj,a) {
 		var num = jQuery(a).attr("num");
 		if (obj == -1) { //表示前一段时间的数据
 			search_date = jQuery(a).attr("page-data");
+			var   a=new   Date(Date.parse(search_date .replace(/-/g,"/")));
+			var   curDate=new  Date();
+			if(a>=curDate){
+				App.stopPageLoading();//关闭 加载动画
+				return ;
+			}
 			
 		} else if (obj == 1) { //表示后一段时间的数据
+			
 			search_date = jQuery(a).attr("page-data");
+		
 		} else {
 			//表示被人客户端恶意修改参数
 			return;
@@ -277,12 +299,12 @@ function isTodayAndHave(search_date,num){
 		ajax_Refresh(search_date,num);
 	}else{//如果不是 则从本地session 中取数据
 		var sessionData = sessionStorage.getItem(search_date);
-		console.log("sessionData--->"+sessionData);
+		//console.log("sessionData--->"+sessionData);
 		if(sessionData!=null && sessionData!=""){//判断本地是否存有数据 如果有 则直接使用
-			console.log("直接用session中的数据");
+			//console.log("直接用session中的数据");
 			refreshChart(JSON.parse(sessionData),num);
 		}else{//没有则从数据库中 查询数据
-			console.log("异步加载数据 并预加载三天的数据");
+			//console.log("异步加载数据 并预加载三天的数据");
 			ajax_Refresh(search_date,num);//异步读取 数据
 			/** 预加载三天的数据 **/
 			var beforDate = getPreDay(search_date);
@@ -338,34 +360,41 @@ function refreshChart(json,num){
 			jQuery("#date_chart3").val(json.search_date);
 			jQuery("a[num=3][a-type=lastPage]").attr("page-data",json.lastPage);
 			jQuery("a[num=3][a-type=nextPage]").attr("page-data",json.nextPage);
-			amchart_3.dataProvider = json.chart_3;
+			/* amchart_3.dataProvider = json.chart_3;
 			amchart_3.write();
     		amchart_3.validateNow();
-    		amchart_3.validateData();
+    		amchart_3.validateData(); */
+			chart_3("chart_3",json.chart_3);
+			
 		}else if(num==4){
 			jQuery("#date_chart4").val(json.search_date);
 			jQuery("a[num=4][a-type=lastPage]").attr("page-data",json.lastPage);
 			jQuery("a[num=4][a-type=nextPage]").attr("page-data",json.nextPage);
-			amchart_4.dataProvider = json.chart_4;
+			/* amchart_4.dataProvider = json.chart_4;
 			amchart_4.write();
     		amchart_4.validateNow();
-    		amchart_4.validateData();
+    		amchart_4.validateData(); */
+			chart_4("chart_4",json.chart_4);
+			
 		}else if(num==5){
 			jQuery("#date_chart5").val(json.search_date);
 			jQuery("a[num=5][a-type=lastPage]").attr("page-data",json.lastPage);
 			jQuery("a[num=5][a-type=nextPage]").attr("page-data",json.nextPage);
-			amchart_5.dataProvider = json.chart_5;
+			/* amchart_5.dataProvider = json.chart_5;
 			amchart_5.write();
     		amchart_5.validateNow();
-    		amchart_5.validateData();
+    		amchart_5.validateData(); */
+			chart_5("chart_5",json.chart_5);
+			
 		}else if(num==6){
 			jQuery("#date_chart6").val(json.search_date);
 			jQuery("a[num=6][a-type=lastPage]").attr("page-data",json.lastPage);
 			jQuery("a[num=6][a-type=nextPage]").attr("page-data",json.nextPage);
-			amchart_6.dataProvider = json.chart_6;
+			/* amchart_6.dataProvider = json.chart_6;
     		amchart_6.write();
     		amchart_6.validateNow();
-    		amchart_6.validateData();
+    		amchart_6.validateData(); */
+			chart_6("chart_6",json.chart_6);
 		}
 		
 		App.stopPageLoading();//关闭 加载动画
@@ -580,7 +609,535 @@ function refreshChart(json,num){
 				}
 			});
 		}
-	 function chart_3(divid,json) {
+	 /** 页面停留时间 **/
+	    function chart_3(divid,data){
+	    	//X轴数据
+	    	var d1 = [];
+	    	//Y轴1区间数据
+	    	var d2 = [];
+	    	//Y轴2区间数据
+	    	var d3 = [];
+	    	//Y轴3区间数据
+	    	var d4 = [];
+	    	//Y轴4区间数据
+	    	var d5 = [];
+	    	var d6 = [];
+	    	$.each(data, function (index, item) {
+	    		//将数据推到坐标轴展示
+	            d1.push(item.date);
+	            d2.push(item.st1);
+	            d3.push(item.st2);
+	            d4.push(item.st3);
+	            d5.push(item.st4);
+	            d6.push(item.ip);
+	        });
+	    	var myChart = echarts.init(document.getElementById(divid));
+	    	myChart.setOption({
+		   	      tooltip : {
+		   	          trigger: 'axis',
+		   	       	  borderWidth: 1.5,
+		   	       	  backgroundColor: 'rgba(255,255,255,0.85)',//'White',
+		   	          borderColor: '#48C0D8',
+		   	          textStyle: {
+		   	        	  fontSize:12,
+		   	        	  fontFamily: "Microsoft YaHei",
+		   	        	  color: '#000033'
+		   	          },
+		   	          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+		   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow' 
+		   	          }
+		   	      },
+		   	      //color:['#48C0D8','#00E3E3','#00FFFF','#80FFFF'], //图例颜色 #48C0D8 #17C7E3
+		   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','red'], //图例颜色 #48C0D8 #17C7E3 #ef3f3f
+		   	      legend: {
+		   	    	  x : '5.5%',//图例x方向移动距离
+		   	    	  y : '85%', //图例y方向移动距离
+		   	    	  //默认横向布局，纵向布局值为'vertical'
+		   	          //orient:'vertical',
+		   	          itemWidth: 32,  // 图例高    
+					  itemHeight: 16, // 图例宽    
+					  itemGap: 25,    // 每个图例间的间隔
+					  itemBorderRadius:0,// 图例圆角
+		   	          data:[{
+		   	        	  //自定义图例
+		                  name:'5~30秒',
+		                  icon : 'bar',
+		                  //icon:'image://${pageContext.request.contextPath}/assets/img/.png', //自定义图标
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'31~120秒',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'121~300秒',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'5分钟以上',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'IP',
+		                  icon : 'line',
+		                  textStyle:{}
+		              }]
+		   	      },
+		   	      grid: {
+		   	    	  y:'5%',
+		   	    	  height:'75%',
+		   	          left: '3%',
+		   	          right: '4%',
+		   	          bottom: '0%',
+		   	          containLabel: true
+		   	      },
+		   	      xAxis : [
+		   	          {
+		   	              type : 'category',
+		   	              splitLine:{      //是否展示网格线
+		   	            	  show: true
+		   	              },
+			   	          axisLabel: {
+			   	              interval: 2 //interval 指间隔少类别画栅格
+			   	          },
+		   	              data : d1
+		   	          }
+		   	      ],
+		   	      yAxis : [
+		   	          {
+		   	              type : 'value',
+		   	           	  splitLine:{      //是否展示网格线
+		   	           		  show: false
+		   	           	  }
+		   	          }
+		   	      ],
+		   	      series : [
+		   	          {
+		   	              name:'5~30秒',
+		   	              type:'bar',
+		   	        	  stack: '页面停留时长',
+		   	              data:d2
+		   	          },
+		   	          {
+		   	              name:'31~120秒',
+		   	              type:'bar',
+		   	         	  stack: '页面停留时长',
+		   	              data:d3
+		   	          },
+		   	          {
+		   	              name:'121~300秒',
+		   	              type:'bar',
+		   	         	  stack: '页面停留时长',
+		   	              data:d4
+		   	          },
+		   	          {
+		   	              name:'5分钟以上',
+		   	              type:'bar',
+		   	         	  stack: '页面停留时长',
+		   	              data:d5
+		   	          },
+		   	          {
+		   	              name:'IP',
+		   	              type:'line',
+		   	         	  stack: 'ip',
+		   	              data:d6
+		   	          }
+		   	      ]
+		   	});
+	          
+	    }
+	    /** 鼠标点击 **/
+	    function chart_4(divid,data){
+	    	//X轴数据
+	    	var d1 = [];
+	    	//Y轴1区间数据
+	    	var d2 = [];
+	    	//Y轴2区间数据
+	    	var d3 = [];
+	    	//Y轴3区间数据
+	    	var d4 = [];
+	    	//Y轴4区间数据
+	    	var d5 = [];
+	    	var d6 = [];
+	    	$.each(data, function (index, item) {
+	    		//将数据推到坐标轴展示
+	            d1.push(item.date);
+	            d2.push(item.c1);
+	            d3.push(item.c2);
+	            d4.push(item.c3);
+	            d5.push(item.c4);
+	            d6.push(item.ip);
+	        });
+	    	var myChart = echarts.init(document.getElementById(divid));
+	    	myChart.setOption({
+	    		  tooltip : {
+		   	          trigger: 'axis',
+		   	       	  borderWidth: 1.5,
+		   	          backgroundColor: 'rgba(255,255,255,0.85)',//'White',
+		   	          borderColor: '#48C0D8',
+		   	          textStyle: {
+		   	        	  fontSize:12,
+		   	        	  fontFamily: "Microsoft YaHei",
+		   	        	  color: '#000033'
+		   	          },
+		   	          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+		   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+		   	          }
+		   	      },//#F04848
+		   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','red'], //图例颜色
+		   	      legend: {
+		   	    	  x : '5.5%',
+		   	    	  y : '85%',
+		   	          itemWidth: 32,         
+					  itemHeight: 16, 
+					  itemGap: 25,
+					  borderRadius:0,
+		   	          data:[{
+		                  name:'1~2次',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'3~5次',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'6~10次',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'10+次',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'IP',
+		                  icon : 'line',
+		                  textStyle:{  }
+		              }]
+		   	      },
+		   	      grid: {
+		   	    	  y:'5%',
+		   	    	  height:'75%',
+		   	          left: '3%',
+		   	          right: '4%',
+		   	          bottom: '3%',
+		   	          containLabel: true
+		   	      },
+		   	      xAxis : [
+		   	          {
+		   	              type : 'category',
+		   	              splitLine:{      //网格线
+		   	            	  show: true
+		   	              },
+			   	          axisLabel: {
+			   	              interval: 2
+			   	          },
+		   	              data : d1
+		   	          }
+		   	      ],
+		   	      yAxis : [
+		   	          {
+		   	              type : 'value',
+		   	              splitLine:{      //网格线
+		   	            	  show: false
+		   	              }
+		   	          }
+		   	      ],
+		   	      series : [
+		   	          {
+		   	              name:'1~2次',
+		   	              type:'bar',
+		   	        	  stack: '鼠标点击',
+		   	              data:d2
+		   	          },
+		   	          {
+		   	              name:'3~5次',
+		   	              type:'bar',
+		   	         	  stack: '鼠标点击',
+		   	              data:d3
+		   	          },
+		   	          {
+		   	              name:'6~10次',
+		   	              type:'bar',
+		   	         	  stack: '鼠标点击',
+		   	              data:d4
+		   	          },
+		   	          {
+		   	              name:'10+次',
+		   	              type:'bar',
+		   	         	  stack: '鼠标点击',
+		   	              data:d5
+		   	          },
+		   	          {
+		   	              name:'IP',
+		   	              type:'line',
+		   	         	  stack: 'ip',
+		   	              data:d6
+		   	          }
+		   	      ]
+		   	});
+		          
+		}
+	    /** 鼠标滚动 **/
+	    function chart_5(divid,data){
+	    	//X轴数据
+	    	var d1 = [];
+	    	//Y轴1区间数据
+	    	var d2 = [];
+	    	//Y轴2区间数据
+	    	var d3 = [];
+	    	//Y轴3区间数据
+	    	var d4 = [];
+	    	//Y轴4区间数据
+	    	var d5 = [];
+	    	var d6 = [];
+	    	$.each(data, function (index, item) {
+	    		//将数据推到坐标轴展示
+	            d1.push(item.date);
+	            d2.push(item.s1);
+	            d3.push(item.s2);
+	            d4.push(item.s3);
+	            d5.push(item.s4);
+	            d6.push(item.ip);
+	        });
+	    	var myChart = echarts.init(document.getElementById(divid));
+	    	myChart.setOption({
+	    		  tooltip : {
+		   	          trigger: 'axis',
+		   	       	  borderWidth: 1.5,
+		   	          backgroundColor: 'rgba(255,255,255,0.85)',//'White',
+		   	          borderColor: '#48C0D8',
+		   	          textStyle: {
+		   	        	  fontSize:12,
+		   	        	  fontFamily: "Microsoft YaHei",
+		   	        	  color: '#000033'
+		   	          },
+		   	          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+		   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow' 
+		   	          }
+		   	      },
+		   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','red'], //图例颜色
+		   	      legend: {
+		   	    	  x : '5.5%',
+		   	    	  y : '85%',
+		   	          itemWidth: 32,         
+					  itemHeight: 16, 
+					  itemGap: 25,
+					  borderRadius:0,
+		   	          data:[{
+		                  name:'1~2次',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'3~5次',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'6~10次',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'10+次',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'IP',
+		                  icon : 'line',
+		                  textStyle:{ }
+		              }]
+		   	      },
+		   	      grid: {
+		   	      	  y:'5%',
+		   	    	  height:'75%',
+		   	          left: '3%',
+		   	          right: '4%',
+		   	          bottom: '3%',
+		   	          containLabel: true
+		   	      },
+		   	      xAxis : [
+		   	          {
+		   	              type : 'category',
+		   	              splitLine:{      //网格线
+		   	            	  show: true
+		   	              },
+			   	          axisLabel: {
+			   	              interval: 2
+			   	          },
+		   	              data : d1
+		   	          }
+		   	      ],
+		   	      yAxis : [
+		   	          {
+		   	              type : 'value',
+		   	              splitLine:{      //网格线
+		   	            	  show: false
+		   	              }
+		   	          }
+		   	      ],
+		   	      series : [
+		   	          {
+		   	              name:'1~2次',
+		   	              type:'bar',
+		   	        	  stack: '鼠标滚动',
+		   	              data:d2
+		   	          },
+		   	          {
+		   	              name:'3~5次',
+		   	              type:'bar',
+		   	         	  stack: '鼠标滚动',
+		   	              data:d3
+		   	          },
+		   	          {
+		   	              name:'6~10次',
+		   	              type:'bar',
+		   	         	  stack: '鼠标滚动',
+		   	              data:d4
+		   	          },
+		   	          {
+		   	              name:'10+次',
+		   	              type:'bar',
+		   	         	  stack: '鼠标滚动',
+		   	              data:d5
+		   	          },
+		   	          {
+		   	              name:'IP',
+		   	              type:'line',
+		   	         	  stack: 'ip',
+		   	              data:d6
+		   	          }
+		   	      ]
+		   	});
+		          
+		}
+	    /** 鼠标移动 **/
+	    function chart_6(divid,data){
+	    	//X轴数据
+	    	var d1 = [];
+	    	//Y轴1区间数据
+	    	var d2 = [];
+	    	//Y轴2区间数据
+	    	var d3 = [];
+	    	//Y轴3区间数据
+	    	var d4 = [];
+	    	//Y轴4区间数据
+	    	var d5 = [];
+	    	var d6 = [];
+	    	$.each(data, function (index, item) {
+	    		//将数据推到坐标轴展示
+	            d1.push(item.date);
+	            d2.push(item.m1);
+	            d3.push(item.m2);
+	            d4.push(item.m3);
+	            d5.push(item.m4);
+	            d6.push(item.ip);
+	        });
+	    	var myChart = echarts.init(document.getElementById(divid));
+	    	myChart.setOption({
+	    		  tooltip : {
+		   	          trigger: 'axis',
+		   	       	  borderWidth: 1.5,
+		   	          backgroundColor: 'rgba(255,255,255,0.85)',//'White',
+		   	          borderColor: '#48C0D8',
+		   	          textStyle: {
+		   	        	  fontSize:12,
+		   	        	  fontFamily: "Microsoft YaHei",
+		   	        	  color: '#000033'
+		   	          },
+		   	          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+		   	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow' 
+		   	          }
+		   	      },
+		   	      color:['#81d4e4','#57c5db','#2db7d2','#2492a8','red'], //图例颜色
+		   	      legend: {
+		   	    	  x : '5.5%',
+		   	    	  y : '85%',
+		   	          itemWidth: 32,         
+					  itemHeight: 16, 
+					  itemGap: 25,
+					  borderRadius:0,
+		   	    	  data:[{
+		                  name:'1~2次',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'3~5次',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'6~10次',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'10+次',
+		                  icon : 'bar',
+		                  textStyle:{ borderRadius:0 }
+		              },{
+		                  name:'IP',
+		                  icon : 'line',
+		                  textStyle:{ }
+		              }]
+		   	      },
+		   	      grid: {
+		   	    	  y:'5%',
+		   	    	  height:'75%',
+		   	          left: '3%',
+		   	          right: '4%',
+		   	          bottom: '3%',
+		   	          containLabel: true
+		   	      },
+		   	      xAxis : [
+		   	          {
+		   	              type : 'category',
+		   	              splitLine:{      //网格线
+		   	            	  show: true
+		   	              },
+			   	          axisLabel: {
+			   	              interval: 2
+			   	          },
+		   	              data : d1
+		   	          }
+		   	      ],
+		   	      yAxis : [
+		   	          {
+		   	              type : 'value',
+		   	              splitLine:{      //网格线
+		   	            	  show: false
+		   	              }
+		   	          }
+		   	      ],
+		   	      series : [
+		   	          {
+		   	              name:'1~2次',
+		   	              type:'bar',
+		   	        	  stack: '鼠标移动',
+		   	              data:d2
+		   	          },
+		   	          {
+		   	              name:'3~5次',
+		   	              type:'bar',
+		   	         	  stack: '鼠标移动',
+		   	              data:d3
+		   	          },
+		   	          {
+		   	              name:'6~10次',
+		   	              type:'bar',
+		   	         	  stack: '鼠标移动',
+		   	              data:d4
+		   	          },
+		   	          {
+		   	              name:'10+次',
+		   	              type:'bar',
+		   	         	  stack: '鼠标移动',
+		   	              data:d5
+		   	          },
+		   	          {
+		   	              name:'IP',
+		   	              type:'line',
+		   	         	  stack: 'ip',
+		   	              data:d6
+		   	          }
+		   	      ]
+		   	  });
+	      }
+	 /* function chart_3(divid,json) {
 			 amchart_3 = AmCharts.makeChart(divid, {
 				type: "serial",
 				fontSize: 12,
@@ -1059,7 +1616,7 @@ function refreshChart(json,num){
 					}]
 				}
 			});
-		}
+		} */
 //获取某个日期的前一天的日期 yyyy-MM-dd
  function getPreDay(s){
 
@@ -1077,9 +1634,9 @@ function refreshChart(json,num){
 
      d = dt.getDate();
 
-     m = m<10?m:"-"+m;
+     m = m<10? "-0"+m : "-"+m;
 
-     d = d<10?d:"-"+d;
+     d = d<10? "-0"+d : "-"+d;
 
      return y + "" + m + "" + d;
 

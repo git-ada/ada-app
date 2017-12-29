@@ -72,13 +72,14 @@
                           <!-- caption-subject font-dark bold uppercase -->
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="ad6" id="date_chartad6" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div>
-               <div class="actions" style="margin-right: 15px;">
+                 <div class="actions" style="margin-right: 15px;">
                    <a onclick="graphicLoading(1,this)" num="ad6" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                    <a onclick="graphicLoading(-1,this)" num="ad6" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
+              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="ad6" id="date_chartad6" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
+            
           </div>
           <div class="portlet-body">
               <div id="ad_chart_6" class="chart" style="height: 300px;"> </div>
@@ -96,13 +97,15 @@
                           <!-- caption-subject font-dark bold uppercase -->
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="notad6" id="date_chartnotad6" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div>
+              
              <div class="actions" style="margin-right: 15px;">
                    <a onclick="graphicLoading(1,this)" num="notad6" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                    <a onclick="graphicLoading(-1,this)" num="notad6" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
+               
+               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="notad6" id="date_chartnotad6" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
           </div>
           <div class="portlet-body">
              <div id="notad_chart_6" class="chart" style="height: 300px;"> </div>
@@ -122,13 +125,15 @@
                   <span class="caption-subject font-green bold uppercase">用户分析</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="ad1" id="date_chartad1" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div>
+             
               <div class="actions" style="margin-right: 15px;">
                    <a onclick="graphicLoading(1,this)" num="ad1" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                    <a onclick="graphicLoading(-1,this)" num="ad1" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
+               
+                <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="ad1" id="date_chartad1" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
           </div>
           <div class="portlet-body">
               <div id="ad_chart_1" class="chart" style="height: 300px;"> </div>
@@ -145,13 +150,15 @@
                   <span class="caption-subject font-green bold uppercase">用户分析</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="notad1" id="date_chartnotad1" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div>
+              
               <div class="actions" style="margin-right: 15px;">
                    <a onclick="graphicLoading(1,this)" num="notad1" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                    <a onclick="graphicLoading(-1,this)" num="notad1" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
+               
+               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="notad1" id="date_chartnotad1" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
           </div>
           <div class="portlet-body">
              <div id="notad_chart_1" class="chart" style="height: 300px;"> </div>
@@ -171,13 +178,15 @@
                   <span class="caption-subject font-green bold uppercase">页面停留时长</span>
                   <span class="caption-helper">广告入口</span>
               </div>
-              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="ad2" id="date_chartad2" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div>
+              
               <div class="actions" style="margin-right: 15px;">
                    <a onclick="graphicLoading(1,this)" num="ad2" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                    <a onclick="graphicLoading(-1,this)" num="ad2" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
+               
+               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="ad2" id="date_chartad2" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
           </div>
           <div class="portlet-body">
               <div id="ada_ad-chart_2" class="ada_ad-chart_2" style="height: 300px;"> </div>
@@ -194,13 +203,15 @@
                   <span class="caption-subject font-green bold uppercase">页面停留时长</span>
                   <span class="caption-helper">非广告入口</span>
               </div>
-              <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="notad2" id="date_chartnotad2" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div>
+              
               <div class="actions" style="margin-right: 15px;">
                    <a onclick="graphicLoading(1,this)" num="notad2" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                    <a onclick="graphicLoading(-1,this)" num="notad2" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
                </div>
+               
+               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="notad2" id="date_chartnotad2" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
           </div>
           <div class="portlet-body">
              <div id="ada_notad-chart_2" class="chart" style="height: 300px;"> </div>
@@ -219,13 +230,15 @@
                    <span class="caption-subject font-green bold uppercase">鼠标点击</span>
                    <span class="caption-helper">广告入口</span>
                </div>
-               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="ad3" id="date_chartad3" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div>
+               
                <div class="actions" style="margin-right: 15px;">
                 <a onclick="graphicLoading(1,this)" num="ad3" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                 <a onclick="graphicLoading(-1,this)" num="ad3" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
             </div>
+            
+            <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="ad3" id="date_chartad3" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
            </div>
            <div class="portlet-body">
                <div id="ada_ad-chart_3" class="chart" style="height: 300px; padding: 0px; position: relative;"> </div>
@@ -240,13 +253,15 @@
                    <span class="caption-subject font-green bold uppercase">鼠标点击</span>
                    <span class="caption-helper">非广告入口</span>
                </div>
-               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="notad3" id="date_chartnotad3" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div>
+               
                <div class="actions" style="margin-right: 15px;">
                 <a onclick="graphicLoading(1,this)" num="notad3" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                 <a onclick="graphicLoading(-1,this)" num="notad3" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
             </div>
+            
+            <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="notad3" id="date_chartnotad3" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
            </div>
            <div class="portlet-body">
                <div id="ada_notad-chart_3" class="chart" style="height: 300px; padding: 0px; position: relative;"> </div>
@@ -264,13 +279,15 @@
                    <span class="caption-subject font-green bold uppercase">鼠标滚动</span>
                    <span class="caption-helper">广告入口</span>
                </div>
-               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="ad4" id="date_chartad4" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div>
+               
                <div class="actions" style="margin-right: 15px;">
                 <a onclick="graphicLoading(1,this)" num="ad4" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                 <a onclick="graphicLoading(-1,this)" num="ad4" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
             </div>
+            
+            <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="ad4" id="date_chartad4" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
            </div>
            <div class="portlet-body">
                <div id="ada_ad-chart_4" class="chart" style="height: 300px; padding: 0px; position: relative;"> </div>
@@ -285,13 +302,15 @@
                    <span class="caption-subject font-green bold uppercase">鼠标滚动</span>
                    <span class="caption-helper">非广告入口</span>
                </div>
-               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="notad4" id="date_chartnotad4" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div>
+               
                <div class="actions" style="margin-right: 15px;">
                 <a onclick="graphicLoading(1,this)" num="notad4" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                 <a onclick="graphicLoading(-1,this)" num="notad4" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
-            </div>
+           	 </div>
+            
+           	 <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="notad4" id="date_chartnotad4" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
            </div>
            <div class="portlet-body">
                <div id="ada_notad-chart_4" class="chart" style="height: 300px; padding: 0px; position: relative;"> </div>
@@ -309,13 +328,15 @@
                    <span class="caption-subject font-green bold uppercase">鼠标移动</span>
                    <span class="caption-helper">广告入口</span>
                </div>
-               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="ad5" id="date_chartad5" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div>
+              
                <div class="actions" style="margin-right: 15px;">
                 <a onclick="graphicLoading(1,this)" num="ad5" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                 <a onclick="graphicLoading(-1,this)" num="ad5" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
             </div>
+            
+             <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="ad5" id="date_chartad5" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
            </div>
            <div class="portlet-body">
                <div id="ada_ad-chart_5" class="chart" style="height: 300px; padding: 0px; position: relative;"> </div>
@@ -330,13 +351,15 @@
                    <span class="caption-subject font-green bold uppercase">鼠标移动</span>
                    <span class="caption-helper">非广告入口</span>
                </div>
-               <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
-              	<input num="notad5" id="date_chartnotad5" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
-              </div>
+               
                <div class="actions" style="margin-right: 15px;">
                 <a onclick="graphicLoading(1,this)" num="notad5" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
                 <a onclick="graphicLoading(-1,this)" num="notad5" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
             </div>
+            
+            <div class="mt-repeater-input actions" style="width: 100px;margin-right: 15px;margin-top: -4px;">
+              	<input num="notad5" id="date_chartnotad5" style="cursor: pointer;" class="input-group form-control form-control-inline date date-picker" size="16" type="text" value="${search_date}" name="date-input" data-date-format="yyyy-mm-dd" />
+              </div>
            </div>
            <div class="portlet-body">
                <div id="ada_notad-chart_5" class="chart" style="height: 300px; padding: 0px; position: relative;"> </div>
@@ -375,6 +398,7 @@ jQuery(document).ready(function() {
 	jQuery('.date-picker').datepicker({
         rtl: App.isRTL(),
         orientation: "left",
+        endDate : new Date(),
         autoclose: true
     });
     var chartdata = ${json};
@@ -406,6 +430,12 @@ jQuery(document).ready(function() {
 		 var num = jQuery(a).attr("num");
 		if (obj == 1) { //表示前一段时间的数据
 			search_date = jQuery(a).attr("page-data");
+			var   a=new   Date(Date.parse(search_date .replace(/-/g,"/")));
+			var   curDate=new  Date();
+			if(a>=curDate){
+				App.stopPageLoading();//关闭 加载动画
+				return ;
+			}
 		} else if (obj == -1) { //表示后一段时间的数据
 			search_date = jQuery(a).attr("page-data");
 		} else {
@@ -1251,9 +1281,9 @@ function refreshChart(json,num){
 
      d = dt.getDate();
 
-     m = m<10?m:"-"+m;
+     m = m<10? "-0"+m : "-"+m;
 
-     d = d<10?d:"-"+d;
+     d = d<10? "-0"+d : "-"+d;
 
      return y + "" + m + "" + d;
 
