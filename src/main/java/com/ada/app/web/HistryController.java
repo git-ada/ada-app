@@ -270,7 +270,8 @@ public class HistryController {
 		if(dataType!=null){
 			if("domain".equals(dataType)){
 				/** 点击图表获取站点下域名历史统计信息 **/
-				Map sumMap = getDefaultDomainStat_histryList(clickDate, ipTop);
+//				Map sumMap = getDefaultDomainStat_histryList(clickDate, ipTop);
+				Map sumMap = getDomainStat_histryList(clickDate, ipTop,"");
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				json.put("data_list", data_list);
 			}else if("domainAd".equals(dataType)){
@@ -562,7 +563,6 @@ public class HistryController {
 		}
 	}
 	
-	
 	/**
 	 * 获取图形列表的数据
 	 */
@@ -606,7 +606,6 @@ public class HistryController {
 		} catch (Exception e) {
 			log.error("查询失败,msg->"+e.getMessage(),e);
 		}
-		//System.out.println("json: "+json);
 		return json;
 	}
 	
@@ -1195,71 +1194,13 @@ public class HistryController {
 		return json;
 	}
 	
-	/** 域名统计信息 **/
-	protected Map getDomainStat_list(Date date){
-		/** 从sessions中获取站点信息 **/
-		AdaSite adaSite = Sessions.getCurrentSite();
-		 /** 域名列表信息 **/
-		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
-		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
-		 
-		 Integer domainSumIP = 0;/** ip总数 **/
-		 Integer domainSumPV = 0;/** PV总数 **/
-		 
-		 List<Integer[]> domainIps = new ArrayList();
-		 
-		 for(AdaDomain domain : domains){
-			 Integer domainIp = statService.statDomainIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
-				 domainIps.add(new Integer[]{domain.getId(),domainIp});
-			 }
-		 }
-		 
-		 /** 根据ip数排序 **/
-		 Collections.sort(domainIps,new Comparator<Integer[]>(){
-				public int compare(Integer[] int1, Integer[] int2) {
-					Integer integer = (Integer) int1[1];
-					Integer integer2 = (Integer) int2[1];
-					return integer2.compareTo(integer);
-				}
-	     });
-		 
-		 for(int i=0;i<domainIps.size();i++){
-			Integer domainId = domainIps.get(i)[0];
-			AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, date);
-			//Map map = getMap(domainStat);
-			List<Object> list = getList(domainStat);
-			list.add(domainId);
-			String domainstr = adaDomainDao.findById(domainStat.getDomainId()).getDomain();
-			list.add(domainstr);
-			if(domainstr.length()>18){
-				 list.add(domainstr.substring(0, 18));
-			}else{
-				 list.add(domainstr);
-			}
-			
-			domainSumIP+=domainStat.getIp();
-			domainSumPV+=domainStat.getPv();
-			DomainStat_list.add(list);
-		}
-		 
-		 Map map = new HashMap();
-		
-		 map.put("DomainStat_list", DomainStat_list);
-		 map.put("domainSumIP", domainSumIP);
-		 map.put("domainSumPV", domainSumPV);
-		 
-		 return map;
-	}
-	
-	
 	/** 域名统计历史信息 **/
 	protected Map getDomainStat_histryList(String date,Integer ipTop,String serachDomain){
 		 /** 从sessions中获取站点信息 **/
 		 AdaSite adaSite = Sessions.getCurrentSite();
 		 /** 域名列表信息 **/
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
-		 //System.out.println("date:--> "+date);
+		 
 		 if(!"".equals(serachDomain) && serachDomain != null ){
 			 AdaDomainStat domainStats = domainStatDao.onlyOneQuerryDomain(adaSite.getId(), date ,serachDomain);
 			 if(domainStats != null){
@@ -1287,7 +1228,7 @@ public class HistryController {
 					 list=getList(domainStat);
 					 list.add(domainStat.getDomainId());
 					 list.add(domainStat.getDomain().getDomain());
-					 //System.out.println(domainStat.getDomainName());
+					 
 					 String domain = domainStat.getDomain().getDomain();
 					 if(domain.length()>18){
 						 list.add(domain.substring(0, 18));
@@ -1307,12 +1248,10 @@ public class HistryController {
 	}
 	/** 默认域名统计历史信息 **/
 	protected Map getDefaultDomainStat_histryList(String date,Integer ipTop){
-		
 		/** 从sessions中获取站点信息 **/
 		 AdaSite adaSite = Sessions.getCurrentSite();
 		 /** 域名列表信息 **/
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
-		 //System.out.println("date:--> "+date);
 		 
 		 List<AdaDomainStat> domainStats = domainStatDao.findByDateLoadData(adaSite.getId(), date ,ipTop);
 		 if(domainStats!=null && domainStats.size()>0){
@@ -1321,7 +1260,7 @@ public class HistryController {
 				 list=getList(domainStat);
 				 list.add(domainStat.getDomainId());
 				 list.add(domainStat.getDomain().getDomain());
-				 //System.out.println(domainStat.getDomainName());
+				 
 				 String domain = domainStat.getDomain().getDomain();
 				 if(domain.length()>18){
 					 list.add(domain.substring(0, 18));
@@ -1329,25 +1268,20 @@ public class HistryController {
 					 list.add(domain);
 				 }
 				 DomainStat_list.add(list);
-				 
 			 }
 		 }
 		 Map map = new HashMap();
 		 map.put("DomainStat_list", DomainStat_list);
-		 
 		 return map;
 	}
 	
 	/** 域名广告统计历史信息 **/
 	protected Map getDomainAdStat_histryList(String date, Integer ipTop,String serachDomain){
 		/** 从sessions中获取站点信息 **/
-		//System.out.println("------广告统计   Ad----"+ serachDomain);
 		 AdaSite adaSite = Sessions.getCurrentSite();
 		 /** 域名列表信息 **/
 		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
-		 //System.out.println("date:--> "+date);
 		 if(!"".equals(serachDomain) && serachDomain != null ){
-			 //System.out.println("------单独查看   Ad----"+ serachDomain);
 			 AdaDomainStat domainStats = domainStatDao.onlyOneQuerryDomainAd(adaSite.getId(), date ,serachDomain);
 			 if(domainStats != null){
 				 List<Object> list = new ArrayList();
@@ -1372,7 +1306,7 @@ public class HistryController {
 					 list=getList(domainStat);
 					 list.add(domainStat.getDomainId());
 					 list.add(domainStat.getDomain().getDomain());
-					 //System.out.println(domainStat.getDomainName());
+					 
 					 String domain = domainStat.getDomain().getDomain();
 					 if(domain.length()>18){
 						 list.add(domain.substring(0, 18));
@@ -1380,12 +1314,10 @@ public class HistryController {
 						 list.add(domain);
 					 }
 					 DomainStat_list.add(list);
-					 
 				 }
 			 }
 			 Map map = new HashMap();
 			 map.put("DomainStat_list", DomainStat_list);
-			 
 			 return map;
 		 }
 	}
@@ -1409,7 +1341,6 @@ public class HistryController {
 					 list.add(serachDomain);
 				 }
 				 DomainStat_list.add(list);
-					 
 			 }
 			 Map map = new HashMap();
 			 map.put("DomainStat_list", DomainStat_list);
@@ -1422,7 +1353,7 @@ public class HistryController {
 					 list=getList(domainStat);
 					 list.add(domainStat.getDomainId());
 					 list.add(domainStat.getDomain().getDomain());
-					 //System.out.println(domainStat.getDomainName());
+					 
 					 String domain = domainStat.getDomain().getDomain();
 					 if(domain.length()>18){
 						 list.add(domain.substring(0, 18));
@@ -1430,12 +1361,10 @@ public class HistryController {
 						 list.add(domain);
 					 }
 					 DomainStat_list.add(list);
-					 
 				 }
 			 }
 			 Map map = new HashMap();
 			 map.put("DomainStat_list", DomainStat_list);
-			 
 			 return map;
 		 }
 	}
@@ -1447,23 +1376,16 @@ public class HistryController {
 		Map map = new HashMap();
 		AdaDomainStat domainStat = domainStatDao.findByIdHistry(adaSite.getId(), domainId, date);
 		List<AdaRegionStat> regionStats = regioinStatDao.loadDomainRegion(adaSite.getId(),domainId, date,top);
-//		log.info("--------------- start regionStats--------------------");
-//		Long startTime = System.currentTimeMillis();
 		
 		if(regionStats!=null && regionStats.size()>0){
 			for(AdaRegionStat regionStat : regionStats){
 				List<Object> list = getList(regionStat);
-				
 //				String fullname =  regionStat.getRegions().getFullname(); 
 				String fullname =  regionStat.getRegion();
 				list.add(fullname);
 			    region_list.add(list);
 			}
 		}
-		
-//		Long endTime = System.currentTimeMillis();
-//		Long cost = endTime - startTime;
-//		log.info("--------------- end regionStats------------------耗时："+cost/1000+"s");
 		map.put("data_list", region_list);
 		map.put("domainStat", domainStat);
 		return map;
@@ -1480,7 +1402,6 @@ public class HistryController {
 		if(regionAdStats!=null && regionAdStats.size()>0){
 			for(AdaRegionAdStat regionStat : regionAdStats){
 				List<Object> list = getList(regionStat);
-				
 //				String fullname =  regionStat.getRegions().getFullname(); 
 				String fullname =  regionStat.getRegion();
 				list.add(fullname);
@@ -1497,14 +1418,12 @@ public class HistryController {
 		AdaSite adaSite = Sessions.getCurrentSite();
 		List<List<Object>> region_list = new ArrayList<List<Object>>();
 		Map map = new HashMap();
-		
 		AdaDomainNotadStat domainNotadStat = domainNotAdStatDao.findByIdHistry(adaSite.getId(), domainId, date);
 		List<AdaRegionNotAdStat> regionNotAdStats = regioinNotAdStatDao.loadDomainRegionNotAd(adaSite.getId(),domainId, date,top);
 		
 		if(regionNotAdStats!=null && regionNotAdStats.size()>0){
 			for(AdaRegionNotAdStat regionStat : regionNotAdStats){
 				List<Object> list = getList(regionStat);
-				
 //				String fullname =  regionStat.getRegions().getFullname(); 
 				String fullname =  regionStat.getRegion();
 				list.add(fullname);
@@ -1515,117 +1434,7 @@ public class HistryController {
 		map.put("domainNotAdStat", domainNotadStat);
 		return map;
 	}
-	/** 域名广告入口统计数据 **/
-	protected Map getDomainAdData(Date date){
-		/** 从sessions中获取站点信息 **/
-		AdaSite adaSite = Sessions.getCurrentSite();
-		 /** 域名列表信息 **/
-		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
-		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
-		 Integer SumIP = 0;/** ip总数 **/
-		 Integer SumPV = 0;/** PV总数 **/
-		 
-		 List<Integer[]> domainIps = new ArrayList();
-		 
-		 for(AdaDomain domain : domains){
-			 Integer domainIp = statService.statDomainAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
-				 domainIps.add(new Integer[]{domain.getId(),domainIp});
-			 }
-		 }
-		 /** 根据ip数排序 **/
-		 Collections.sort(domainIps,new Comparator<Integer[]>(){
-				public int compare(Integer[] int1, Integer[] int2) {
-					Integer integer = (Integer) int1[1];
-					Integer integer2 = (Integer) int2[1];
-					return integer2.compareTo(integer);
-				}
-	     });
-		 for(int i=0;i<domainIps.size();i++){
-			Integer domainId = domainIps.get(i)[0];
-			Integer domainIp = domainIps.get(i)[1];
-			
-			AdaDomainAdStat domainStat = this.statService.statDomainAd(adaSite.getId(), domainId, date);
-			List<Object> list = getList(domainStat);
-			list.add(domainId);
-			String domainstr = adaDomainDao.findById(domainId).getDomain();
-			list.add(domainstr);
-			if(domainstr.length()>18){
-				 list.add(domainstr.substring(0, 18));
-			}else{
-				 list.add(domainstr);
-			}
-			
-			SumIP+=domainStat.getIp();
-			SumPV+=domainStat.getPv();
-			DomainStat_list.add(list);
-		}
-		 
-		 Map map = new HashMap();
-		 map.put("data_list", DomainStat_list);
-		 map.put("sumip", SumIP);
-		 map.put("sumpv", SumPV);
-		 
-		 return map;
-	}
-	/** 域名非广告入口数据 **/
-	protected Map getDomainNotAdData(Date date){
-
-		/** 从sessions中获取站点信息 **/
-		AdaSite adaSite = Sessions.getCurrentSite();
-		 /** 域名列表信息 **/
-		 List<List<Object>> DomainStat_list = new ArrayList<List<Object>>();
-		 List<AdaDomain> domains = this.adaDomainDao.findBySiteId(adaSite.getId());
-		 Integer SumIP = 0;/** ip总数 **/
-		 Integer SumPV = 0;/** PV总数 **/
-		 
-		 List<Integer[]> domainIps = new ArrayList();
-		 
-		 for(AdaDomain domain : domains){
-			 Integer domainIp = statService.statDomainNotAdIP(domain.getId(), date);
-			 if(domainIp!=null && domainIp>0){
-				 domainIps.add(new Integer[]{domain.getId(),domainIp});
-			 }
-		 }
-		 /** 根据ip数排序 **/
-		 Collections.sort(domainIps,new Comparator<Integer[]>(){
-				public int compare(Integer[] int1, Integer[] int2) {
-					Integer integer = (Integer) int1[1];
-					Integer integer2 = (Integer) int2[1];
-					return integer2.compareTo(integer);
-				}
-	     });
-		 
-		 for(int i=0;i<domainIps.size();i++){
-			Integer domainId = domainIps.get(i)[0];
-			Integer domainIp = domainIps.get(i)[1];
-			AdaDomainAdStat newad = statService.statDomainAd(adaSite.getId(), domainId, date);//广告新数据
-			AdaDomainStat newall = statService.statDomain(adaSite.getId(), domainId, date);//全部新数据
-			AdaDomainNotadStat domainStat = reduct(newall, newad, AdaDomainNotadStat.class);//非广告入口新数据=全部-非广告的
-			List<Object> list = getList(domainStat);
-			
-			 String domainstr = adaDomainDao.findById(domainId).getDomain();
-			 list.add(domainstr);
-			 if(domainstr.length()>18){
-				 list.add(domainstr.substring(0, 18));
-			 }else{
-				 list.add(domainstr);
-			 }
-			
-			 SumIP+=domainStat.getIp();
-			 SumPV+=domainStat.getPv();
-			 DomainStat_list.add(list);
-		}
-		
-		 Map map = new HashMap();
-		
-		 map.put("data_list", DomainStat_list);
-		 map.put("sumip", SumIP);
-		 map.put("sumpv", SumPV);
-		 
-		 return map;
 	
-	}
 	/**
 	 * 获取通用数据
 	 * @param obj

@@ -322,23 +322,28 @@ table.dataTable{
 <div id="menu">
 		<div id="context-menu" style="z-index: 999;position:absolute;">
 			<ul class="dropdown-menu" role="menu" style="z-index: 99999;"  >
+				 <%-- <li>
+			       <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/dashboard_domainTime3.jhtm?domainId=${item[23]}&domain=${item[24]}')">分时统计3</a>
+			     </li> --%>
 			     <li>
-			       <a href="javascript:;" id="onlyOne"><i class="icon-magnifier"></i>单独查看</a>
+			       <a href="javascript:;" id="onlyOne"><i class="icon-magnifier"></i>&nbsp;&nbsp;单独查看</a>
 			     </li>
+			    <!--  <li>
+			       <a href="javascript:;" id="dynamic">实时动态</a>
+			     </li> -->
+			     
+			     <!-- <li>
+			       <a href="javascript:;" id="solo">单指标实时动态</a>
+			     </li> -->
+			     
 			     <li>
-			       <a href="javascript:;" id="oneTime">分时统计</a>
+			       <a href="javascript:;" id="oneTime"><i class="icon-speedometer"></i>&nbsp;&nbsp;分时统计</a>
 			     </li>
-			     <!-- 
-			      <li>
-			       <a href="javascript:;" id="oneTime3">分时统计2</a>
-			     </li>
-			      -->
-			    
 			     	<li>
-			       <a href="javascript:;" id="AdVSNotAd">广告与非广告对比</a>
+			       <a href="javascript:;" id="AdVSNotAd"><i class="icon-book-open"></i>&nbsp;&nbsp;广告与非广告对比</a>
 			     </li>
 			     <li>
-			         <a href="javascript:;" id="region">地域统计</a>
+			         <a href="javascript:;" id="region"><i class="icon-pointer"></i>&nbsp;&nbsp;地域统计</a>
 			     </li>
 			 </ul>
 		</div>

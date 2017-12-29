@@ -261,6 +261,7 @@ public class ArchiveService {
 				try {
 					log.info("域名  "+domain.getId()+" : "+domain.getDomain()+" ,startring archive task .");
 					Set<String> ipSet = statService.getYesterdayDomainIPSet(domain.getId(),yestoday);
+					log.info("ipSet.size() : --> "+ ipSet.size());
 					iPSetService.batchAdd(domain.getId(),ipSet);
 					i ++;
 				} catch (Exception e) {
