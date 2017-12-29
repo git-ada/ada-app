@@ -46,7 +46,8 @@ public class ArchiveJob {
 	/**
 	 * 归档昨日IPSet
 	 */
-	@Scheduled(cron="0 21 11 * * ?")
+//	@Scheduled(cron="0 21 11 * * ?")
+	@Scheduled(cron="0 0 8 * * ?")
 	public void excute4(){
 		log.info("Starting excute IPSet archive task .");
 		Long startTime = System.currentTimeMillis();

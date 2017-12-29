@@ -156,14 +156,20 @@ table.dataTable{
 	float: left;
 }
 
-/**
-.fa-chevron-right::before {
-    width: 11.43px;
-	height: 16px;
+.btn.default:not(.btn-outline) {
+    color: #666;
+    background-color: #e1e5ec;
+    border-color: #e1e5ec;
+    margin-bottom: 3px;
 }
-**/
-
-
+#selectTime {
+	margin-top: 4px;
+}
+#colmd3 {
+	
+	padding-left: 5px;
+	padding-right: 0px;
+}
 
 </style>
 
@@ -215,20 +221,20 @@ table.dataTable{
 		<a href="javascript:graphicLoading(1)" data-value="${nextMonth}" id="forward" title="" class="tubiao-btn-right"><i class="fa fa-chevron-right"></i></a>
            -->
            
-           <button type="button" onclick="loadBeforeTime(-1)"><span style="font-size: 14px;">昨天</span></button>
-           <button type="button" onclick="loadBeforeTime(-2)"><span style="font-size: 14px;">前天</span></button>
+           <button type="button" onclick="loadBeforeTime(-1)" class="btn btn-circle default">昨天</button>
+           <button type="button" onclick="loadBeforeTime(-2)" class="btn btn-circle default">前天</button>
            <!-- 
            <a href="javascript:loadNextTime(-1)" title="" class="tubiao-btn-left"><i class="fa fa-chevron-left"></i></a>
                 
                  -->
            <a href="javascript:loadNextTime(-1);"  a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
         </div>
-        <div class="col-md-3 col-sm-12" style="margin-top: 10px;">
+        <div id="colmd3" class="col-md-3 col-sm-12" style="margin-top: 10px;">
        		<div class="input-group input-medium" >
            		<input type="text" id="selectTime" class="form-control daterangepick" placeholder="日期" >
                 <input type="hidden" name="search_GTE_date" value="${search_GTE_date}">
             </div>
-            <div class="input-group input-medium" style="left: 15px;top:3px; ">
+            <div class="input-group input-medium" style="left: 5px;top:3px; ">
                 <!-- 
                                 <a href="javascript:loadNextTime(1)"  title="" class="tubiao-btn-right"><i class="fa fa-chevron-right"></i></a>
                 
