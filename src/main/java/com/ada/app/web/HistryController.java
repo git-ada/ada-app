@@ -210,6 +210,7 @@ public class HistryController {
 				map.put("lasttime", date);
 				map.put("siteStat", siteStat);
 				JSONObject json  = new JSONObject(map);
+				System.out.println("json:-->"+json);
 				model.addAttribute("tbodydata", json);
 			}else if("domainAd".equals(dataType)){
 				/** 获取站点下域名统计信息 **/
@@ -1593,9 +1594,9 @@ public class HistryController {
 		 list.add(ip);
 		 list.add(pv);
 		 list.add(uv);
-		 list.add(loginip);
-		 list.add(oldip);
 		 list.add(olduserip);
+		 list.add(oldip);
+		 list.add(loginip);
 		 list.add(targetpageip);
 		 list.add(staytimeip1);
 		 list.add(staytimeip2);
