@@ -18,7 +18,7 @@ public class ArchiveJob {
 	/**
 	 * 归档站点与域名
 	 */
-	@Scheduled(cron="0 30 4 * * ?")
+	@Scheduled(cron="0 29 10 * * ?")
 	public void excute(){
 		log.info("Starting excute Site and Domain archive task .");
 		Long startTime = System.currentTimeMillis();
