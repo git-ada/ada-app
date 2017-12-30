@@ -109,7 +109,7 @@ public class ArchiveService {
 		Date yestoday = Dates.yestoday();
 		
 		List<AdaSite> sites = adaSiteDao.findAll();
-		List<AdaRegion> regions = adaRegionDao.findAll();
+//		List<AdaRegion> regions = adaRegionDao.findAll();
 		for(AdaSite site:sites){
 			try {
 				AdaSiteStat stat = statService.statSite(site.getId(), yestoday);

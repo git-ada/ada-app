@@ -237,6 +237,7 @@ public class HistryController {
 			}
 				
 		}
+		model.addAttribute("ipTop", ipTop); 
 		model.addAttribute("lasttime", date); 
 		model.addAttribute("dataType", dataType);
 		
