@@ -18,7 +18,7 @@ public class ArchiveJob {
 	/**
 	 * 归档站点与域名
 	 */
-	@Scheduled(cron="0 32 10 * * ?")
+	@Scheduled(cron="0 30 4 * * ?")
 	public void excute(){
 		log.info("Starting excute Site and Domain archive task .");
 		Long startTime = System.currentTimeMillis();
@@ -32,7 +32,7 @@ public class ArchiveJob {
 	/**
 	 * 归档地域、广告地域、非广告地域
 	 */
-	@Scheduled(cron="0 30 4 * * ?")
+	@Scheduled(cron="0 30 3 * * ?")
 	public void excute3(){
 		log.info("Starting excute region archive task .");
 		Long startTime = System.currentTimeMillis();
