@@ -783,7 +783,7 @@ function graphicLoading(obj) {
 //打开菜单
 function openMenu(a,event){
 	
-	var backUrl = webPath+"/dashboardHistry.jhtm?dataType="+dataType+"&clickDate="+clickDate;
+	var backUrl = webPath+"/dashboardHistry.jhtm?dataType="+dataType+"&clickDate="+clickDate+"&top="+ipTop+"&doamin="+search;
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
 
