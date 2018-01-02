@@ -259,7 +259,7 @@ public class HistryController {
 	 */
 	@RequestMapping(value = "clickLoadHistryData")
 	public void ajaxdashboard_domainTime3(HttpServletRequest request,HttpServletResponse response ,Model model,
-			String dataType,String clickDate,String top,String  timestamp){
+			String dataType,String clickDate,String top,String domain,String domainId,String  timestamp){
 		Integer ipTop = 50;
 		if(!"".equals(top) && top != null){
 			ipTop = Integer.valueOf(top);
@@ -273,23 +273,43 @@ public class HistryController {
 			if("domain".equals(dataType)){
 				/** 点击图表获取站点下域名历史统计信息 **/
 //				Map sumMap = getDefaultDomainStat_histryList(clickDate, ipTop);
-				Map sumMap = getDomainStat_histryList(clickDate, ipTop,"");
+				Map sumMap = getDomainStat_histryList(clickDate, ipTop,domain);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				json.put("data_list", data_list);
 			}else if("domainAd".equals(dataType)){
 				/** 点击图表获取站点下域名历史统计信息 **/
-				Map sumMap = getDomainAdStat_histryList(clickDate, ipTop,"");
+				Map sumMap = getDomainAdStat_histryList(clickDate, ipTop,domain);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				json.put("data_list", data_list);
 			}else if("domainNotAd".equals(dataType)){
 				/** 点击图表获取站点下域名历史统计信息 **/
-				Map sumMap = getDomainNotAdStat_histryList(clickDate, ipTop,"");
+				Map sumMap = getDomainNotAdStat_histryList(clickDate, ipTop,domain);
 				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
 				json.put("data_list", data_list);
+			}else if("domainRegion".equals(dataType)){/**获取域名地域统计信息**/
+				Map map = getDomainRegion(clickDate,Integer.valueOf(domainId),ipTop);
+				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+				AdaDomainStat domainStat = (AdaDomainStat) map.get("domainStat");
+				json.put("data_list", data_list);
+				json.put("domainStat", domainStat);
+			}else if("domainRegionAd".equals(dataType)){/** 获取域名地域广告入口统计信息 **/
+				Map map = getDomainRegionAd_data(clickDate,Integer.valueOf(domainId),ipTop);
+				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+				AdaDomainAdStat adaDomainAdStat = (AdaDomainAdStat) map.get("domainAdStat");
+				json.put("data_list", data_list);
+				json.put("domainAdStat", adaDomainAdStat);
+			}else if("domainRegionNotAd".equals(dataType)){/** 获取域名地域非广告入口统计信息 **/
+				Map map =getDomainRegionNotAd_data(clickDate,Integer.valueOf(domainId),ipTop);
+				List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+				AdaDomainNotadStat adaDomainNotadStat = (AdaDomainNotadStat) map.get("domainNotAdStat");
+				json.put("data_list", data_list);
+				json.put("domainNotAdStat", adaDomainNotadStat);
 			}
 		}
 		json.put("dataType", dataType);
+		json.put("domainId", domainId);
 		json.put("lasttime", clickDate);
+		json.put("search", domain);
 		json.put("timestamp", timestamp);
 		
 		try {

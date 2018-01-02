@@ -19,7 +19,7 @@ var sessionData = "";//每一次更新的数据放在session中
 function byClickLoadTableData(clickDate){
 	timestamp = Date.parse(new Date());
 	jQuery.ajax({
-		url : webPath + "/clickLoadHistryData.do?dataType="+dataType+"&clickDate="+clickDate+"&top="+ipTop+"&timestamp="+timestamp,
+		url : webPath + "/clickLoadHistryData.do?dataType="+dataType+"&clickDate="+clickDate+"&top="+ipTop+"&timestamp="+timestamp+"&domain="+search+"&domainId="+domainId,
 		success : function(data) {
 			if (data!=null) {
 				var json = eval('(' + data + ')');
@@ -785,6 +785,7 @@ function openMenu(a,event){
 	
 	var backUrl = webPath+"/dashboardHistry.jhtm?dataType="+dataType+"&clickDate="+clickDate+"&top="+ipTop+"&doamin="+search;
 	var id = jQuery(a).attr("id");
+	clickChartDomainId = id;
 	var domain = jQuery(a).attr("domain");
 
 	jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
