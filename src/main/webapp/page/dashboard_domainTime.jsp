@@ -559,6 +559,7 @@ function refreshChart(json,num){
         });
     	var myChart = echarts.init(document.getElementById(divid));
     	myChart.setOption({
+    		animation: false,
 	   	      tooltip : {
 	   	          trigger: 'axis',
 	   	       	  borderWidth: 1.5,
@@ -695,6 +696,7 @@ function refreshChart(json,num){
         });
     	var myChart = echarts.init(document.getElementById(divid));
     	myChart.setOption({
+    		  animation: false,
     		  tooltip : {
 	   	          trigger: 'axis',
 	   	       	  borderWidth: 1.5,
@@ -826,6 +828,7 @@ function refreshChart(json,num){
         });
     	var myChart = echarts.init(document.getElementById(divid));
     	myChart.setOption({
+    		  animation: false,
     		  tooltip : {
 	   	          trigger: 'axis',
 	   	       	  borderWidth: 1.5,
@@ -957,6 +960,7 @@ function refreshChart(json,num){
         });
     	var myChart = echarts.init(document.getElementById(divid));
     	myChart.setOption({
+    		  animation: false,
     		  tooltip : {
 	   	          trigger: 'axis',
 	   	       	  borderWidth: 1.5,
@@ -1072,7 +1076,6 @@ function refreshChart(json,num){
 				dataDateFormat: "HH:mm:ss",
 				dataProvider: e,
 				addClassNames: !0,
-				startDuration: 1,
 				color: "#6c7b88",
 				marginLeft: 0,
 				legend: {
@@ -1192,7 +1195,6 @@ function refreshChart(json,num){
 				dataDateFormat: "HH:mm:ss",
 				dataProvider: e,
 				addClassNames: !0,
-				startDuration: 1,
 				color: "#6c7b88",
 				marginLeft: 0,
 				legend: {
@@ -1223,6 +1225,7 @@ function refreshChart(json,num){
 					colorField: "color",
 					lineAlpha: 0,
 					 },{
+						 id: "g2",
 		                valueField: "ip",
 		                classNameField: "bulletClass",
 		                title: "IP",
@@ -1232,6 +1235,11 @@ function refreshChart(json,num){
 		                lineThickness: 2,
 		                legendValueText: "[[value]] ",
 		                legendPeriodValueText: "总计: [[value.sum]] ",
+		                bullet: "round",
+		                bulletBorderColor: "red",
+		                bulletBorderAlpha: 1,
+		                bulletBorderThickness: 2,
+		                bulletColor: "#fff",
 		                labelPosition: "right",
 		                balloonText: "IP:[[value]]",
 		                showBalloon: !0,
@@ -1246,6 +1254,11 @@ function refreshChart(json,num){
 		                lineThickness: 2,
 		                legendValueText: "[[value]] ",
 		                legendPeriodValueText: "总计: [[value.sum]] ",
+		                bullet: "round",
+		                bulletBorderColor: "blue",
+		                bulletBorderAlpha: 1,
+		                bulletBorderThickness: 2,
+		                bulletColor: "#fff",
 		                labelPosition: "right",
 		                balloonText: "UV:[[value]]",
 		                showBalloon: !0,
