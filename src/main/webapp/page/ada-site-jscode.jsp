@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="jodd" uri="http://www.springside.org.cn/jodd_form"%>
+<style>
+.col-md-1 {
+    width: 9.333%;
+}
+</style>
 <!-- 顶部导航 BENG -->
 <div class="page-bar">
     <ul class="page-breadcrumb" style="width: 100%">
