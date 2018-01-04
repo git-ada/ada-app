@@ -337,9 +337,9 @@ table.dataTable{
 			     <li>
 			       <a href="javascript:;" id="onlyOne"><i class="icon-magnifier"></i>&nbsp;&nbsp;单独查看</a>
 			     </li>
-			    <!--  <li>
-			       <a href="javascript:;" id="dynamic">实时动态</a>
-			     </li> -->
+			     <li>
+			       <a href="javascript:;" id="dynamic"><i class="icon-graph"></i>&nbsp;&nbsp;实时动态</a>
+			     </li> 
 			     
 			     <!-- <li>
 			       <a href="javascript:;" id="solo">单指标实时动态</a>

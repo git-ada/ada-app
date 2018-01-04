@@ -307,7 +307,10 @@ public class IndexController {
 	public String dashboard_dynamic(HttpServletRequest request,HttpServletResponse response, Model model,
 			String domainId){
 		if(domainId!=null && !"".equals(domainId)){
-			JSONObject json = dynamic_chart(Integer.valueOf(domainId));
+			JSONObject json = dynamic_chart(Integer.valueOf(domainId),1,0,0,0);
+			model.addAttribute("ip", json.get("ip"));
+			model.addAttribute("pv", json.get("pv"));
+			model.addAttribute("uv", json.get("uv"));
 			model.addAttribute("json", json);
 		}
 		
@@ -367,11 +370,11 @@ public class IndexController {
 	}
 	@RequestMapping("ajax_dashboard_dynamic")
 	public void ajax_dashboard_dynamic(HttpServletRequest request,HttpServletResponse response, Model model,
-			String domainId){
+			String domainId,String ip,String pv,String uv){
 		try {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print(this.dynamic_chart(Integer.valueOf(domainId)));
+			out.print(this.dynamic_chart(Integer.valueOf(domainId),2,Integer.valueOf(ip),Integer.valueOf(pv),Integer.valueOf(uv)));
 			out.flush();
 			out.close();
 		} catch (Exception e) {
@@ -553,7 +556,7 @@ public class IndexController {
 	 * 实时数据 动态图数据
 	 * @return
 	 */
-	protected JSONObject dynamic_chart(Integer domainId){
+	protected JSONObject dynamic_chart(Integer domainId,int num,Integer ip,Integer pv,Integer uv){
 		JSONObject json=new JSONObject();
 		JSONArray chart_1=new JSONArray();// IP、PV、UV
 		/** 从sessions中获取站点信息 **/
@@ -562,9 +565,19 @@ public class IndexController {
 		AdaDomainStat domainStat = this.statService.statDomain(adaSite.getId(), domainId, today);
 		JSONObject json_adChart_1=new JSONObject();
 		json_adChart_1.put("date", new SimpleDateFormat("HH:mm:ss").format(new Date()));
-		json_adChart_1.put("ip", domainStat.getIp());
-		json_adChart_1.put("pv", domainStat.getPv());
-		json_adChart_1.put("uv", domainStat.getUv());
+		if(num==1){
+			json_adChart_1.put("ip", 0);
+			json_adChart_1.put("pv", 0);
+			json_adChart_1.put("uv", 0);
+			json.put("ip", domainStat.getIp());
+			json.put("pv", domainStat.getPv());
+			json.put("uv", domainStat.getUv());
+		}else if(num==2){
+			json_adChart_1.put("ip", domainStat.getIp()-ip);
+			json_adChart_1.put("pv", domainStat.getPv()-pv);
+			json_adChart_1.put("uv", domainStat.getUv()-uv);
+		}
+		
 	
 		chart_1.add(json_adChart_1);
 		json.put("success", true);

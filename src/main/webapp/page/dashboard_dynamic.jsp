@@ -58,125 +58,12 @@
       <!-- END PORTLET-->
   </div>
 </div>
- <!-- 第二个图表 用户分析-->
-<!-- <div class="row">
-  <div class="col-lg-12 col-xs-12 col-sm-12">
-      BEGIN PORTLET
-      <div class="portlet light bordered">
-          <div class="portlet-title">
-              <div class="caption" style="margin-left: 15px;">
-                  <span class="caption-subject font-dark bold uppercase">用户分析</span>
-                  <span class="caption-helper"></span>
-              </div>
-              <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
-               </div>
-          </div>
-          <div class="portlet-body">
-              <div id="chart_2" class="chart" style="height: 300px;"> </div>
-          </div>
-      </div>
-      END PORTLET
-  </div>
-</div>
-第三个图表
-<div class="row">
-  <div class="col-lg-12 col-xs-12 col-sm-12">
-      BEGIN PORTLET
-      <div class="portlet light bordered">
-          <div class="portlet-title">
-              <div class="caption" style="margin-left: 15px;">
-                  <span class="caption-subject font-dark bold uppercase">页面停留时长</span>
-                  <span class="caption-helper"></span>
-              </div>
-              <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
-               </div>
-          </div>
-          <div class="portlet-body">
-              <div id="chart_3" class="chart" style="height: 300px;"> </div>
-          </div>
-      </div>
-      END PORTLET
-  </div>
-</div>
- 第四个图表
-<div class="row">
-  <div class="col-lg-12 col-xs-12 col-sm-12">
-      BEGIN PORTLET
-      <div class="portlet light bordered">
-          <div class="portlet-title">
-              <div class="caption" style="margin-left: 15px;">
-                  <span class="caption-subject font-dark bold uppercase">鼠标点击</span>
-                  <span class="caption-helper"></span>
-              </div>
-              <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
-               </div>
-          </div>
-          <div class="portlet-body">
-              <div id="chart_4" class="chart" style="height: 300px;"> </div>
-          </div>
-      </div>
-      END PORTLET
-  </div>
-  
-</div>
-
-第五个图表
-<div class="row">
-  <div class="col-lg-12 col-xs-12 col-sm-12">
-      BEGIN PORTLET
-      <div class="portlet light bordered">
-          <div class="portlet-title">
-              <div class="caption" style="margin-left: 15px;">
-                  <span class="caption-subject font-dark bold uppercase">鼠标滚动</span>
-                  <span class="caption-helper"></span>
-              </div>
-              <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
-               </div>
-          </div>
-          <div class="portlet-body">
-              <div id="chart_5" class="chart" style="height: 300px;"> </div>
-          </div>
-      </div>
-      END PORTLET
-  </div>
-  
-</div>
-第六个图表
-<div class="row">
-  <div class="col-lg-12 col-xs-12 col-sm-12">
-      BEGIN PORTLET
-      <div class="portlet light bordered">
-          <div class="portlet-title">
-              <div class="caption" style="margin-left: 15px;">
-                  <span class="caption-subject font-dark bold uppercase">鼠标移动</span>
-                  <span class="caption-helper"></span>
-              </div>
-              <div class="actions" style="margin-right: 15px;">
-                   <a href="javascript:graphicLoading(1);" a-type="lastPage" page-data="" class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-rewind"></i></a>
-                   <a href="javascript:graphicLoading(-1);" a-type="nextPage" page-data=""  class="btn btn-circle btn-icon-only btn-default"> <i class="icon-control-forward"></i></a>
-               </div>
-          </div>
-          <div class="portlet-body">
-              <div id="chart_6" class="chart" style="height: 300px;"> </div>
-          </div>
-      </div>
-      END PORTLET
-  </div>
-  
-</div> -->
+ 
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	
-window.setTimeout('graphicLoading()',5000); 
+window.setTimeout('graphicLoading()',1000); 
 var dataType = '${dataType}';//页面数据类型
 var amchart_1;
 var amchart_2;
@@ -185,10 +72,13 @@ var amchart_4;
 var amchart_5;
 var amchart_6;
 var pageData = "";
+var initIp = '${ip}';
+var initPv = '${pv}';
+var initUv = '${uv}';
 
 	 function graphicLoading() {
 			jQuery.ajax({
-				url : "${pageContext.request.contextPath}/ajax_dashboard_dynamic.do?domainId="+${domainId},
+				url : "${pageContext.request.contextPath}/ajax_dashboard_dynamic.do?domainId="+${domainId}+"&ip="+initIp+"&pv="+initPv+"&uv="+initUv,
 				success : function(data) {
 					var json = eval('(' + data + ')');
 					if (json.success) {
@@ -201,7 +91,7 @@ var pageData = "";
 				    	amchart_1.write();
 				    	amchart_1.validateNow();
 				    	amchart_1.validateData();
-				    	window.setTimeout('graphicLoading()',5000); 
+				    	window.setTimeout('graphicLoading()',1000); 
 					} else {
 						console.log("异步加载出错!");
 					}
