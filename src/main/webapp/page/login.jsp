@@ -56,6 +56,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     padding: 15px 0 17px;
     text-align: center;
 }
+.isnone{
+	display: none;
+}
 </style>
     <body class=" login">
     	<!-- 
@@ -106,11 +109,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </form>
             <!-- END LOGIN FORM -->
-            <form class="register-form" action="index.html" method="post">
+            <form class="register-form" action="${pageContext.request.contextPath}/saveRegister.do" method="post">
                 <h3 class="font-green">注册</h3>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">账号</label>
-                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="账号" name="username" /> </div>
+                    <input class="form-control placeholder-no-fix" id="username" type="text" autocomplete="off" placeholder="账号" name="username" /> 
+                    <span id="ifusername" class="help-block isnone" style="color: #e73d4a;">用户名已被占用</span>
+                </div>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">密码</label>
                     <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="密码" name="password" /> </div>
@@ -119,14 +124,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="重复密码" name="rpassword" /> </div>
                 <div class="form-group margin-top-20 margin-bottom-20" style="color: #fff;">
                     <label class="mt-checkbox mt-checkbox-outline">
-                        <input type="checkbox" name="tnc" /> I agree to the
-                        <a href="javascript:;">Terms of Service </a> &
-                        <a href="javascript:;">Privacy Policy </a>
+                        <input type="checkbox" name="tnc" /> 我已阅读并同意相关
+                        <a href="javascript:;"> "服务条款" </a> 和
+                        <a href="javascript:;"> "隐私政策" </a>
                         <span></span>
                     </label>
                     <div id="register_tnc_error"> </div>
                 </div>
-                <div class="form-actions">
+                <div class="form-actions" style="padding-top: 0px;">
                     <button type="button" id="register-back-btn" class="btn green btn-outline">返回</button>
                     <button type="submit" id="register-submit-btn" class="btn btn-success uppercase pull-right">提交</button>
                 </div>
@@ -158,9 +163,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <script src="assets/js/login.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
-        <!-- BEGIN THEME LAYOUT SCRIPTS -->
-        <script type="text/javascript">
-        </script>
-        <!-- END THEME LAYOUT SCRIPTS -->
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script type="text/javascript">
+
+/**--------------预加载-------------------- **/
+jQuery(document).ready(function() {
+	jQuery("#username").keyup(function (){
+		
+		jQuery.ajax({
+		 	type:"post",
+			url : "${pageContext.request.contextPath}/queryByUserName.do?username="+jQuery(this).val(),
+			success : function (data){
+				if(data!=null){
+					var json = eval('(' + data + ')');
+					if(json.code=="100"){
+						jQuery("#ifusername").removeClass("isnone");
+					}else{
+						jQuery("#ifusername").addClass("isnone");
+					}
+				}
+				
+			},
+			error: function (data) {
+				
+			}
+		});
+	});
+});
+</script>
+<!-- END THEME LAYOUT SCRIPTS -->
 </body>
 </html>

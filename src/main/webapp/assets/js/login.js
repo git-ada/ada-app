@@ -205,9 +205,18 @@ var Login = function() {
             },
 
             messages: { // custom messages for radio buttons and checkboxes
+            	username:{
+            		required:"用户名不能为空"
+            	},
+            	password:{
+            		required:"密码不能为空"
+            	},
                 tnc: {
-                    required: "Please accept TNC first."
-                }
+                    required: "请先同意服务条款"
+                },
+            	rpassword:{
+            		equalTo: "两次输入的密码不一致"
+            	}
             },
 
             invalidHandler: function(event, validator) { //display error alert on form submit   
