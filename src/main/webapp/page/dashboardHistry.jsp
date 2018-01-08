@@ -197,6 +197,8 @@ table.dataTable{
 	padding-right: 0px;
 }
 
+
+
 </style>
 
 <div class="portlet light bordered">
@@ -325,7 +327,7 @@ table.dataTable{
 						<th scope="col" style="min-width: 70px" class="displaynone" event="st">31-120秒</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="st">121-300秒</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="st">300+秒</th>
-						
+						<!-- 
 						<th scope="col" style="min-width: 70px">点击<a style="color: #333;" onclick="changeDisplay(this,'c')" title=""> <i class="icon-magnifier-add"></i> </a></th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="c">1-2次</th>			
 						<th scope="col" style="min-width: 70px" class="displaynone" event="c">3-5次</th>			
@@ -343,6 +345,7 @@ table.dataTable{
 						<th scope="col" style="min-width: 70px" class="displaynone" event="m">3-5次</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="m">6-10次</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="m">10+次</th>
+						 -->
 				     </tr>
 	            </thead>
 	            <tbody id="tbodyhistry">
@@ -533,6 +536,7 @@ table.dataTable{
 	} 
 	
 	
+
 	
 </script>
 <script src="${pageContext.request.contextPath}/assets/js/dashboard_zx.js?time=<%=new Date() %>" type="text/javascript" charset="utf-8"></script>
