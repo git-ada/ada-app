@@ -13,8 +13,10 @@ import cn.com.jiand.mvc.framework.utils.MD5s;
 
 import com.ada.app.constant.ErrorCode;
 import com.ada.app.constant.SessionKey;
+import com.ada.app.dao.AdaRoleDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaUserDao;
+import com.ada.app.domain.AdaRole;
 import com.ada.app.domain.AdaSite;
 import com.ada.app.domain.AdaUser;
 import com.ada.app.exception.BusinessException;
@@ -39,6 +41,10 @@ public class SecurityServiceImpl implements SecurityService{
 	@Autowired
 	private AdaSiteDao siteDao;
 	
+	@Autowired
+	private AdaRoleDao roleDao;
+	
+	
 	/**
 	 * 多入口登录
 	 */
@@ -57,8 +63,8 @@ public class SecurityServiceImpl implements SecurityService{
 		
 		/** 设置当前登陆人　**/
 		Sessions.setAttribute(SessionKey.LOGIN_USER.code(), user);
-		String roleName = user.getRole().getRoleName();
-		Sessions.setAttribute("roleName", roleName);
+		AdaRole role = roleDao.findByUserId(user.getId());
+		Sessions.setAttribute("roleName", role.getRoleName());
 		
 		if(Sessions.getCurrentSite() == null){
 			List<AdaSite> adaSites = siteDao.findByUserId(Sessions.getLoginUser().getId());
