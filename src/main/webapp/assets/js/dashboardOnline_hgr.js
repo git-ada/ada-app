@@ -11,173 +11,9 @@ var table;
 var sessionData = "";//每一次更新的数据放在session中
 
 
-
-
-/** 
- *点击图表区域获取x轴时间作为参数以加载下面的域名列表 
- **/
-function byClickLoadTableData(clickDate){
-	timestamp = Date.parse(new Date());
-	jQuery.ajax({
-		url : webPath + "/clickLoadHistryData.do?dataType="+dataType+"&clickDate="+clickDate+"&top="+ipTop+"&timestamp="+timestamp+"&domain="+search+"&domainId="+domainId,
-		success : function(data) {
-			if (data!=null) {
-				var json = eval('(' + data + ')');
-				loadTbody(json,2);
-				jQuery("#selectTime").val(''+clickDate+'');
-			}
-		},
-		error: function (data) {
-			//alert("数据加载异常!!!");
-		}
-	});
-}
-
-/** 全站历史数据图表 **/
-function histryChart(divid, data1, data2){
-	var d1 = [];
-	var d2 = [];
-	var d3 = [];
-	var d4 = [];
-	var d5 = [];
-	var d6 = '';
-	var d7 = [];
-	$.each(data1, function (index, item) {
-        d1.push(item.date);
-        d2.push(item.adip);
-        d3.push(item.pv);
-        d7.push(item.uv);
-    });
-	$.each(data2, function (index, item) {
-        d4.push(item.notadip);
-    });
-
-	var myChart = echarts.init(document.getElementById(divid));
-	myChart.on('click', function (params) {
-		//console.log("date: "+params.name);
-		byClickLoadTableData(params.name);
-		
-	});
-	myChart.setOption({
-   	      tooltip : {
-   	          trigger: 'axis',
-   	       	  borderWidth: 1.5,
-   	       	  backgroundColor: 'rgba(255,255,255,0.85)',
-   	          borderColor: '#48C0D8',
-   	          textStyle: {
-   	        	  fontSize:12,
-   	        	  fontFamily: "Microsoft YaHei",
-   	        	  color: '#000033'
-   	          },
-   	          axisPointer : {          
-   	              type : 'shadow'      
-   	          }
-   	      },
-   	      color:['#2db7d2','#2492a8','blue','red'], 
-   	      legend: {
-   	    	  //x : '5.5%',
-   	    	  //y : '86%', 
-   	          itemWidth: 32, 
-			  itemHeight: 16,
-			  itemBorderRadius:0,
-   	          data:[{
-                  name:'IP(广告)',
-                  icon : 'bar',
-                  textStyle:{ borderRadius:0 }
-              },{
-                  name:'IP(非广告)',
-                  icon : 'bar',
-                  textStyle:{ borderRadius:0 }
-              },{
-                  name:'UV',
-                  icon : 'line',
-                  textStyle:{}
-              },{
-                  name:'PV',
-                  icon : 'line',
-                  textStyle:{}
-              }]
-   	      },
-   	      grid: {
-   	    	  //y:'6%',
-   	    	  height:'80%',
-   	          //left: '3%',
-   	          //right: '4%',
-   	          //top: '5%',
-   	          left: '0%',
-   	          right: '2%',
-   	          bottom: '8%',
-   	          containLabel: true
-   	      },
-   	      xAxis : [
-   	          {
-   	              type : 'category',
-   	              splitLine:{     
-   	            	  show: true
-   	              },
-	   	          axisLabel: {
-	   	              interval: 1 ,
-	   	              rotate:20//倾斜度 -90 至 90 默认为0  
-	   	          },
-   	              data : d1
-   	          }
-   	      ],
-   	      yAxis : [
-	   	       {
-	   	            type: 'value',
-	   	            name: 'IP/UV',
-		   	        splitLine:{   
-	  	           		show: false
-	  	           	},
-	   	            axisLabel: {
-	   	                formatter: '{value} '
-	   	            }
-	   	        },
-	   	        {
-	   	            type: 'value',
-	   	            name: 'PV',
-	   	            
-		   	        splitLine:{     
-	 	           		show: false
-	 	           	},
-	   	            axisLabel: {
-	   	                formatter: '{value} '
-	   	            }
-	   	        }
-   	      ],
-   	      series : [
-   	          {
-   	              name:'IP(广告)',
-   	              type:'bar',
-   	        	  stack: 'IP',
-   	              data:d2
-   	          },{
-   	              name:'IP(非广告)',
-   	              type:'bar',
-   	        	  stack: 'IP',
-   	              data:d4
-   	          },
-   	          {
-   	              name:'UV',
-   	              type:'line',
-   	         	  stack: 'UV',
-   	              data:d7
-   	          },
-   	          {
-   	              name:'PV',
-   	              type:'line',
-   	              yAxisIndex: 1,
-   	         	  stack: 'PV',
-   	              data:d3
-   	          }
-   	      ]
-   	});
-}
-
-
 //渲染table
 var initTable1 = function () {
-     table = $('#scrolltableHistry');
+     table = $('#scrolltable');
      oTable = table.dataTable({
    
   
@@ -197,11 +33,6 @@ var initTable1 = function () {
 }
 /**--------------预加载-------------------- **/
 	jQuery(document).ready(function() {
-		var histryJson = eval('(' + histryData + ')');
-		histryChart("ad_chart_1", histryJson.ad_chart_1,histryJson.notad_chart_1);
-		jQuery("a[a-type=lastPage]").attr("page-data",histryJson.lastPage);
-	    jQuery("a[a-type=nextPage]").attr("page-data",histryJson.nextPage);
-		jQuery("#selectTime").val(''+clickDate+'');
 		onLeavePage(function (){//离开页面时的回调方法
 			clearTimeout(t);
 			isRefresh = "false";
@@ -301,44 +132,43 @@ var initTable1 = function () {
    		 	jQuery("#pauseOrplay i").addClass("icon-control-pause");
 	    });
 	    
-//	    if(isRefresh=="true"){
-//	      //第一次异步刷新
-//	   	  t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
-//	    }
+	    if(isRefresh=="true"){
+	      //第一次异步刷新
+	   	  t = window.setTimeout("ajaxRefreshPage('"+dataType+"')",ajaxTime); 
+	    }
 	    
 	   console.log("预加载完成-----》");
 	});
+
+	 
+	 
 	
-	$("#selectTime").bind("change", function() {
-		 selectTime = jQuery("#selectTime").val();
-		 clickDate = selectTime;
-		 //alert(clickDate);
-	     ajaxRefreshPage();
-	});
-	
+	  
 	 function ajaxRefreshPage(){
 		 timestamp = Date.parse(new Date());
 		 jQuery.ajax({
 			 	type:"post",
-				url : webPath+"/ajaxRefreshHistryDataPage.do?dataType="+dataType+"&domainId="+domainId+"&domain="+search+"&top="+ipTop+"&timestamp="+timestamp+"&clickDate="+clickDate,
+				url : webPath+"/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId+"&firstTd="+search+"&top="+ipTop+"&timestamp="+timestamp,
 				success : function(data) {
+					
 					if (data!=null) {
 						var json = eval('(' + data + ')');
 						loadTbody(json,2);
+					
 					}
-					//clearTimeout(t);
+					clearTimeout(t);
 					/** browsingHistory[browsingHistory.length-1].indexOf("/dashboard.jhtm")>=0 && **/
-					//if(isRefresh=="true"){
-						//ajaxTime=2000;
-					//	t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
-					//}
+					if(isRefresh=="true"){
+						ajaxTime=2000;
+						t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
+					}
 					App.stopPageLoading();//关闭 加载动画
 				},
 				error: function (data) {
 					App.stopPageLoading();//关闭 加载动画
-					//clearTimeout(t);
-					//ajaxTime=ajaxTime*2;
-					//t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
+					clearTimeout(t);
+					ajaxTime=ajaxTime*2;
+					t = window.setTimeout("ajaxRefreshPage('"+dataType+"','"+domainId+"')",ajaxTime); 
 				}
 			});
 	 }
@@ -447,7 +277,7 @@ function loadTbody(json,num){
 				    var st2Td = "";//停留第二区间
 				    var st3Td = "";//停留第三区间
 				    var st4Td = "";//停留第四区间
-				    
+				    /**
 				    var sumCTd = "";//总点击
 				    var c1Td = "";//1区间
 				    var c2Td = "";//2区间
@@ -463,7 +293,7 @@ function loadTbody(json,num){
 				    var m2Td = "";//2区间
 				    var m3Td = "";//3区间
 				    var m4Td = "";//4区间
-				    
+				    **/
 
 				    if(Percentagemin(item[0],sumip)<1){
 				    	ipTd = "<td title='"+Percentage(item[0],sumip)+"'><span class='tdonly'>"+fromInt(item[0])+"</span></td>";
@@ -539,6 +369,7 @@ function loadTbody(json,num){
 					  	"<span class='only'> "+fromInt(item[10])+" </span></div></div></td>";
 				    }
 				    
+				    /**
 				    if(Percentagemin(sumC,IP)<1){
 				    	sumCTd = "<td class='onlytd' title='"+Percentage(sumC,IP)+"'><span class='tdonly'>"+fromInt(sumC)+"</span></td>";
 				    }else{
@@ -629,15 +460,14 @@ function loadTbody(json,num){
 				    	m4Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[22],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[22],IP)+" '>"+
 					  	"<span class='only'> "+fromInt(item[22])+" </span></div></div></td>";
 				    }
-				    
-				    
+				    **/
 			  		tr+="<tr num='"+i+"'>" + firstTd+
 			  		  ipTd+pvTd+uvTd+ 
 					  olduserTd+oldipTd+loginTd+targetTd+
 					  sumSTTd+st1Td+st2Td+st3Td+st4Td+
-					  sumCTd+c1Td+c2Td+c3Td+c4Td+
-					  sumSTd+s1Td+s2Td+s3Td+s4Td+
-					  sumMTd+m1Td+m2Td+m3Td+m4Td+
+//					  sumCTd+c1Td+c2Td+c3Td+c4Td+
+//					  sumSTd+s1Td+s2Td+s3Td+s4Td+
+//					  sumMTd+m1Td+m2Td+m3Td+m4Td+
 					  "</tr>";
 					  table+=tr;
 					  
@@ -648,35 +478,32 @@ function loadTbody(json,num){
 				}
 				
 			}
-			//alert(num);
 			if(num==1){
-//				jQuery("#ip").html(fromInt(json.siteStat.ip));
-//				jQuery("#pv").html(fromInt(json.siteStat.pv));
-//				jQuery("#adIP").html(fromInt(json.siteStat.adIP));
-//				jQuery("#adPv").html(fromInt(json.siteStat.adPv));
-//				jQuery("#adIpFormat").html("(占"+Percentage(json.siteStat.adIP,json.siteStat.ip)+")");
-//				jQuery("#adPvFormat").html("(占"+Percentage(json.siteStat.adPv,json.siteStat.pv)+")");
+				jQuery("#ip").html(fromInt(json.siteStat.ip));
+				jQuery("#pv").html(fromInt(json.siteStat.pv));
+				jQuery("#adIP").html(fromInt(json.siteStat.adIP));
+				jQuery("#adPv").html(fromInt(json.siteStat.adPv));
+				jQuery("#adIpFormat").html("(占"+Percentage(json.siteStat.adIP,json.siteStat.ip)+")");
+				jQuery("#adPvFormat").html("(占"+Percentage(json.siteStat.adPv,json.siteStat.pv)+")");
 				jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
-				jQuery("#tbodyhistry").empty();
-				jQuery("#tbodyhistry").append(table);
-				jQuery(".DTFC_LeftBodyWrapper #tbodyhistry").empty();
-				jQuery(".DTFC_LeftBodyWrapper #tbodyhistry").append(lefttable);
-				jQuery("#lasttime").html("历史数据更新时间  "+json.lasttime);
+				jQuery("#tbody").empty();
+				jQuery("#tbody").append(table);
+				jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
+				jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable);
+				jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
 			}else if(num==2 && timestamp==json.timestamp){
-//				alert("num : ==>"+num);
-//				jQuery("#ip").html(fromInt(json.siteStat.ip));
-//				jQuery("#pv").html(fromInt(json.siteStat.pv));
-//				jQuery("#adIP").html(fromInt(json.siteStat.adIP));
-//				jQuery("#adPv").html(fromInt(json.siteStat.adPv));
-//				jQuery("#adIpFormat").html("(占"+Percentage(json.siteStat.adIP,json.siteStat.ip)+")");
-//				jQuery("#adPvFormat").html("(占"+Percentage(json.siteStat.adPv,json.siteStat.pv)+")");
+				jQuery("#ip").html(fromInt(json.siteStat.ip));
+				jQuery("#pv").html(fromInt(json.siteStat.pv));
+				jQuery("#adIP").html(fromInt(json.siteStat.adIP));
+				jQuery("#adPv").html(fromInt(json.siteStat.adPv));
+				jQuery("#adIpFormat").html("(占"+Percentage(json.siteStat.adIP,json.siteStat.ip)+")");
+				jQuery("#adPvFormat").html("(占"+Percentage(json.siteStat.adPv,json.siteStat.pv)+")");
 				jQuery(".DTFC_LeftHeadWrapper #firstTh").html(firstTh);
-				jQuery("#tbodyhistry").empty();
-				jQuery("#tbodyhistry").append(table);
-				jQuery(".DTFC_LeftBodyWrapper #tbodyhistry").empty();
-				jQuery(".DTFC_LeftBodyWrapper #tbodyhistry").append(lefttable);
-				jQuery("#lasttime").html("历史数据更新时间  "+json.lasttime);
-				clickDate = json.lasttime ;
+				jQuery("#tbody").empty();
+				jQuery("#tbody").append(table);
+				jQuery(".DTFC_LeftBodyWrapper #tbody").empty();
+				jQuery(".DTFC_LeftBodyWrapper #tbody").append(lefttable);
+				jQuery("#lasttime").html("最后一次更新时间  "+json.lasttime);
 			}
 			
 			sessionData = JSON.stringify(json);//将json对象转换为 json字符串
@@ -767,7 +594,7 @@ function graphicLoading(obj) {
 	} else {
 		//ajax读取 上一月的数据
 		jQuery.ajax({
-			url : "${pageContext.request.contextPath}/ajaxLoadDashboardHistry.do?pageNo=" + pageNo,
+			url : "${pageContext.request.contextPath}/ajaxLoadData.do?pageNo=" + pageNo,
 			success : function(data) {
 				var json = eval('(' + data + ')');
 				if (json.success) {
@@ -787,18 +614,16 @@ function graphicLoading(obj) {
 //打开菜单
 function openMenu(a,event){
 	
-	var backUrl = webPath+"/dashboardHistry.jhtm?dataType="+dataType+"&clickDate="+clickDate+"&top="+ipTop+"&doamin="+search;
+	var backUrl = webPath+"/dashboard.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop+"&isRefresh="+isRefresh+"&isRetrun=true";
 	var id = jQuery(a).attr("id");
-	clickChartDomainId = id;
 	var domain = jQuery(a).attr("domain");
-
 	jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");
-	jQuery("#oneTime").attr("onclick","gotoPage('"+webPath+"/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&search_date="+clickDate+"','"+backUrl+"')");
-	jQuery("#AdVSNotAd").attr("onclick","gotoPage('"+webPath+"/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"&dataType="+dataType+"&search_date="+clickDate+"','"+backUrl+"')");
-	//jQuery("#oneTime3").attr("onclick","gotoPage('"+webPath+"/dashboard_domainTime3_histry.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"&clickDate="+clickDate+"')");
+	jQuery("#dynamic").attr("onclick","gotoPage('"+webPath+"/dashboard_dynamic.jhtm?domainId="+id+"','"+backUrl+"')");
+	jQuery("#solo").attr("onclick","gotoPage('"+webPath+"/dashboard_solo.jhtm?domainId="+id+"&domain="+domain+"','"+backUrl+"')");
+	jQuery("#oneTime").attr("onclick","gotoPage('"+webPath+"/domainTimechartList_one.jhtm?domainId="+id+"&dataType="+dataType+"&domain="+domain+"','"+backUrl+"')");
+	jQuery("#AdVSNotAd").attr("onclick","gotoPage('"+webPath+"/dashboard_domainTime.jhtm?domainId="+id+"&domain="+domain+"&dataType="+dataType+"','"+backUrl+"')");
 	if(dataType=="domain"){
 		jQuery("#region").attr("onclick","changeDataType('domainRegion',"+id+")");
-		//jQuery("#oneTime4").attr("onclick","loadAreaHistryData('${pageContext.request.contextPath}/clickLoadAreaHistryData.do?domainId="+id+"&dataType="+'domainRegion'+"&clickDate="+clickDate+"')");
 	}else if(dataType=="domainAd"){
 		jQuery("#region").attr("onclick","changeDataType('domainRegionAd',"+id+")");
 	}else if(dataType=="domainNotAd"){
@@ -932,29 +757,29 @@ function firstAppend(){
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		//点击
-		"<td></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
+//		"<td></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
 		//滚动
-		"<td></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
+//		"<td></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
 		//移动
-		"<td></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
+//		"<td></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
 		"</tr>";
 		
 		str +=tr;
 	}
 	
-	jQuery("#tbodyhistry").append(str);
+	jQuery("#tbody").append(str);
 	
 }
 //万分符

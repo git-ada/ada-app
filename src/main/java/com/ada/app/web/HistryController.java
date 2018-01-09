@@ -248,6 +248,98 @@ public class HistryController {
 		c.clear();
 		return "dashboardHistry";
 	}
+	/**
+	 * 历史数据页面 获取域名列表数据
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping(value = "dashboardOnlineHistry")
+	public String OnlineHistry(HttpServletRequest request,HttpServletResponse response, Model model,
+			String dataType,String doamin,String clickDate,String top,String isRefresh,String isRetrun) throws Exception {
+		model.addAttribute("ipTop", top);
+		model.addAttribute("search", doamin);
+		model.addAttribute("isRefresh", isRefresh);
+		model.addAttribute("isRetrun", isRetrun);
+		/** 从sessions中获取站点信息 **/ 
+		AdaSite adaSite = Sessions.getCurrentSite();
+		
+		/** 获取当前站点默认历史统计信息 **/
+//		Date yestoday = Dates.yestoday();
+//		System.out.println(yestoday+"----------");
+//		SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd");
+//		String date = dfs.format(yestoday);
+		String date = "";
+		Calendar c = Calendar.getInstance(); 
+		if(!"".equals(clickDate) && clickDate !=null){
+			date =  clickDate;
+		}else{
+			Date now = new Date();
+			c.setTime(now);
+			int day=c.get(Calendar.DATE); 
+			c.set(Calendar.DATE,day-1); 
+			date =new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()); 
+		}
+		
+		Integer ipTop = 50;
+		if(!"".equals(top) && top != null){
+			ipTop = Integer.valueOf(top);
+		}
+		
+		//默认加载昨天的历史数据
+		AdaSiteStat siteStat = statDao.findBySiteIdAndDate(adaSite.getId(), date);
+		model.addAttribute("siteStat", siteStat);
+		if(dataType!=null){
+			if("domain".equals(dataType)){
+				/** 获取站点下域名统计信息 **/
+				Map sumMap = getDomainStat_histryList(date,ipTop,doamin);
+				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+				Map map = new HashMap();
+				map.put("data_list", data_list);
+				map.put("dataType", dataType);
+				map.put("lasttime", date);
+				map.put("siteStat", siteStat);
+				JSONObject json  = new JSONObject(map);
+				System.out.println("json:-->"+json);
+				model.addAttribute("tbodydata", json);
+			}else if("domainAd".equals(dataType)){
+				/** 获取站点下域名统计信息 **/
+				Map sumMap = getDomainAdStat_histryList(date,ipTop,doamin);
+				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+				Map map = new HashMap();
+				map.put("data_list", data_list);
+				map.put("dataType", dataType);
+				map.put("lasttime", date);
+				map.put("siteStat", siteStat);
+				JSONObject json  = new JSONObject(map);
+				model.addAttribute("tbodydata", json);
+			}else if("domainNotAd".equals(dataType)){
+				/** 获取站点下域名统计信息 **/
+				Map sumMap = getDomainNotAdStat_histryList(date,ipTop,doamin);
+				List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+				Map map = new HashMap();
+				map.put("data_list", data_list);
+				map.put("dataType", dataType);
+				map.put("lasttime", date);
+				map.put("siteStat", siteStat);
+				JSONObject json  = new JSONObject(map);
+				model.addAttribute("tbodydata", json);
+			}
+				
+		}
+		model.addAttribute("ipTop", ipTop); 
+		model.addAttribute("lasttime", date); 
+		model.addAttribute("dataType", dataType);
+		
+		if(adaSite.getId()!=null && !"".equals(adaSite.getId())){
+			JSONObject json = siteChartHistryList(domainTime_PageSize,1);
+			model.addAttribute("histryJson", json);
+		}
+		c.clear();
+		return "dashboardOnlineHistry";
+	}
 	
 	/**
 	 * 历史数据页面 点击图表获取域名列表数据

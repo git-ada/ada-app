@@ -2,8 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<li class="nav-item"><a href="${pageContext.request.contextPath}/dashboard.jhtm?dataType=domain&firstTd=&top=&isRefresh=true&isRetrun=false" class="ajaxify nav-link" ><i class="icon-home"></i><span class="title">今日实时</span></a></li>
-<li class="nav-item"><a href="${pageContext.request.contextPath}/dashboardHistry.jhtm?dataType=domain" class="ajaxify nav-link" ><i class="icon-bar-chart"></i><span class="title">历史统计</span></a></li>
+<c:if test="${roleName=='Administrator'}">
+	<li class="nav-item"><a href="${pageContext.request.contextPath}/dashboard.jhtm?dataType=domain&firstTd=&top=&isRefresh=true&isRetrun=false" class="ajaxify nav-link" ><i class="icon-home"></i><span class="title">今日实时</span></a></li>
+	<li class="nav-item"><a href="${pageContext.request.contextPath}/dashboardHistry.jhtm?dataType=domain" class="ajaxify nav-link" ><i class="icon-bar-chart"></i><span class="title">历史统计</span></a></li>
+</c:if>
+<c:if test="${roleName=='Advertiser'}">
+	<li class="nav-item"><a href="${pageContext.request.contextPath}/dashboardOnline.jhtm?dataType=domain&firstTd=&top=&isRefresh=true&isRetrun=false" class="ajaxify nav-link" ><i class="icon-home"></i><span class="title">今日实时</span></a></li>
+	<li class="nav-item"><a href="${pageContext.request.contextPath}/dashboardOnlineHistry.jhtm?dataType=domain" class="ajaxify nav-link" ><i class="icon-bar-chart"></i><span class="title">历史统计</span></a></li>
+</c:if>
+
 <%-- <li class="nav-item"><a href="${pageContext.request.contextPath}/dashboard.jhtm?dataType=domainAd" class="ajaxify nav-link" ><i class="icon-bar-chart"></i><span class="title">广告入口</span></a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/dashboard.jhtm?dataType=domainNotAd" class="ajaxify nav-link" ><i class="icon-bar-chart"></i><span class="title">非广告入口</span></a></li> --%>
 
@@ -17,5 +24,9 @@
 <li class="nav-item"><a href="${pageContext.request.contextPath}/ada-ad-page/list.jhtm" class="ajaxify nav-link" ><i class="icon-docs"></i><span class="title">广告页</span></a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/site-jscode.jhtm" class="ajaxify nav-link" ><i class="icon-layers"></i><span class="title">统计代码</span></a></li>
 
+<script type="text/javascript">
 
+	//alert("'"+${roleName}+"'");
+
+</script>
 

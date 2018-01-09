@@ -190,6 +190,80 @@ public class IndexController {
 	}
 	
 	/**
+	 * 实时数据页面 获取域名列表数据
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "dashboardOnline")
+	public String nowOnline(HttpServletRequest request,HttpServletResponse response, Model model,
+			String dataType,String firstTd,String top,String isRefresh,String isRetrun) {
+		int iptop = 50;
+		if(top!=null && !"".equals(top)){
+			iptop = Integer.valueOf(top).intValue();
+		}
+		model.addAttribute("ipTop", iptop);
+		model.addAttribute("search", firstTd);
+		model.addAttribute("isRefresh", isRefresh);
+		model.addAttribute("isRetrun", isRetrun);
+		
+		if(isRetrun.equals("true")){
+			
+		}else{
+			/** 从sessions中获取站点信息 **/
+			AdaSite adaSite = Sessions.getCurrentSite();//
+			
+			/** 获取当前站点统计信息 **/
+			Date today = Dates.todayStart();
+			AdaSiteStat siteStat = statService.statSite(adaSite.getId(), today);
+			model.addAttribute("siteStat", siteStat);
+			if(dataType!=null){
+				if("domain".equals(dataType)){
+					
+					/** 获取站点下域名统计信息 **/
+					Map sumMap = getDomainStat_list(today,firstTd,iptop);
+					List<List<Object>> data_list = (List<List<Object>>) sumMap.get("DomainStat_list");
+					Map map = new HashMap();
+					map.put("data_list", data_list);
+					map.put("dataType", dataType);
+					map.put("siteStat", siteStat);
+					map.put("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+					JSONObject json  = new JSONObject(map);
+					model.addAttribute("tbodydata", json);
+				}else if("domainAd".equals(dataType)){
+					Map map = getDomainAdData(today,firstTd,iptop);
+					List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+					Map map2 = new HashMap();
+					map2.put("data_list", data_list);
+					map2.put("dataType", dataType);
+					map2.put("siteStat", siteStat);
+					map2.put("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+					JSONObject json  = new JSONObject(map2);
+					model.addAttribute("tbodydata", json);
+				}else if("domainNotAd".equals(dataType)){
+					Map map = getDomainNotAdData(today,firstTd,iptop);
+					List<List<Object>> data_list = (List<List<Object>>) map.get("data_list");
+					Map map2 = new HashMap();
+					map2.put("data_list", data_list);
+					map2.put("dataType", dataType);
+					map2.put("siteStat", siteStat);
+					map2.put("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+					JSONObject json  = new JSONObject(map2);
+					model.addAttribute("tbodydata", json);
+				}
+				
+			}
+		}
+		
+		
+		
+		 //model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		 model.addAttribute("dataType", dataType);
+		return "dashboardOnline";
+	}
+	
+	/**
 	 * ajax刷新实时数据页面数据
 	 * @param dataType 页面数据类型（域名统计、域名广告入口统计、域名非广告入口统计、域名地域广告入口统计、域名地域非广告入口统计）
 	 */

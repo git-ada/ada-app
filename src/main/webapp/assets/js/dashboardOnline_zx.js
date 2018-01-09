@@ -430,9 +430,9 @@ function loadTbody(json,num){
 				    }
 				    
 				    var sumST = item[7]+item[8]+item[9]+item[10];
-				    var sumC = item[11]+item[12]+item[13]+item[14];
-				    var sumS = item[15]+item[16]+item[17]+item[18];
-				    var sumM = item[19]+item[20]+item[21]+item[22];
+//				    var sumC = item[11]+item[12]+item[13]+item[14];
+//				    var sumS = item[15]+item[16]+item[17]+item[18];
+//				    var sumM = item[19]+item[20]+item[21]+item[22];
 				    var IP = item[0];
 				    if(IP<=0)IP = 1;
 				    var ipTd = "";//ip
@@ -447,7 +447,7 @@ function loadTbody(json,num){
 				    var st2Td = "";//停留第二区间
 				    var st3Td = "";//停留第三区间
 				    var st4Td = "";//停留第四区间
-				    
+				    /**
 				    var sumCTd = "";//总点击
 				    var c1Td = "";//1区间
 				    var c2Td = "";//2区间
@@ -463,7 +463,7 @@ function loadTbody(json,num){
 				    var m2Td = "";//2区间
 				    var m3Td = "";//3区间
 				    var m4Td = "";//4区间
-				    
+				    **/
 
 				    if(Percentagemin(item[0],sumip)<1){
 				    	ipTd = "<td title='"+Percentage(item[0],sumip)+"'><span class='tdonly'>"+fromInt(item[0])+"</span></td>";
@@ -538,7 +538,7 @@ function loadTbody(json,num){
 				    	st4Td = "<td class='"+stDisplay+"' event='st' title='"+Percentage(item[10],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[10],IP)+" '>"+
 					  	"<span class='only'> "+fromInt(item[10])+" </span></div></div></td>";
 				    }
-				    
+				    /**
 				    if(Percentagemin(sumC,IP)<1){
 				    	sumCTd = "<td class='onlytd' title='"+Percentage(sumC,IP)+"'><span class='tdonly'>"+fromInt(sumC)+"</span></td>";
 				    }else{
@@ -629,15 +629,15 @@ function loadTbody(json,num){
 				    	m4Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[22],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[22],IP)+" '>"+
 					  	"<span class='only'> "+fromInt(item[22])+" </span></div></div></td>";
 				    }
-				    
+				    **/
 				    
 			  		tr+="<tr num='"+i+"'>" + firstTd+
 			  		  ipTd+pvTd+uvTd+ 
 					  olduserTd+oldipTd+loginTd+targetTd+
 					  sumSTTd+st1Td+st2Td+st3Td+st4Td+
-					  sumCTd+c1Td+c2Td+c3Td+c4Td+
-					  sumSTd+s1Td+s2Td+s3Td+s4Td+
-					  sumMTd+m1Td+m2Td+m3Td+m4Td+
+//					  sumCTd+c1Td+c2Td+c3Td+c4Td+
+//					  sumSTd+s1Td+s2Td+s3Td+s4Td+
+//					  sumMTd+m1Td+m2Td+m3Td+m4Td+
 					  "</tr>";
 					  table+=tr;
 					  
@@ -931,24 +931,24 @@ function firstAppend(){
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
-		//点击
-		"<td></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		//滚动
-		"<td></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		//移动
-		"<td></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
+//		//点击
+//		"<td></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		//滚动
+//		"<td></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		//移动
+//		"<td></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
+//		"<td class='displaynone'></td>" +
 		"</tr>";
 		
 		str +=tr;

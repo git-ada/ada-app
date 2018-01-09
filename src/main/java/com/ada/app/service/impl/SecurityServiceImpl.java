@@ -54,9 +54,11 @@ public class SecurityServiceImpl implements SecurityService{
 			Cookies.setUserId(user.getId(), loginExpireDays);
 		}
 		
-
+		
 		/** 设置当前登陆人　**/
 		Sessions.setAttribute(SessionKey.LOGIN_USER.code(), user);
+		String roleName = user.getRole().getRoleName();
+		Sessions.setAttribute("roleName", roleName);
 		
 		if(Sessions.getCurrentSite() == null){
 			List<AdaSite> adaSites = siteDao.findByUserId(Sessions.getLoginUser().getId());
