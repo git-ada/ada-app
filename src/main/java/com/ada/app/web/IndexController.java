@@ -374,6 +374,49 @@ public class IndexController {
 		return "dashboard_domainTime_one";
 	}
 	/**
+	 * 实时数据页面 域名分时统计信息
+	 * @return
+	 */
+	@RequestMapping(value = "dashboard_domainTimeOnline")
+	public String dashboard_domainTimeOnline(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId,String domain,String dataType,String search_date){
+		if(search_date==null || "".equals(search_date)){
+			search_date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		}
+		JSONObject json = new JSONObject();
+		if(domainId!=null && !"".equals(domainId)){
+			 json = domainTimechartList(Integer.valueOf(domainId),search_date);
+		}
+		model.addAttribute("json", json);
+		model.addAttribute("search_date", search_date);
+		model.addAttribute("domainId", domainId);
+		model.addAttribute("dataType", dataType);
+		model.addAttribute("domain", domain);
+		return "dashboard_domainTimeOnline";
+	}
+	/**
+	 * 域名广告入口和非广告入口分时统计信息
+	 * @param domainId
+	 * @param dataType
+	 * @return
+	 */
+	@RequestMapping("domainTimechartList_oneOnline")
+	public String dashboard_domainAdTimeOnline(HttpServletRequest request,HttpServletResponse response, Model model,
+			String domainId,String dataType,String domain,String search_date){
+		if(search_date==null || "".equals(search_date)){
+			search_date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		}
+		if(dataType!=null && domainId!=null){
+			JSONObject json = domainTimechartList_one(Integer.valueOf(domainId),search_date,dataType);
+			model.addAttribute("json", json);
+		}
+		model.addAttribute("search_date", search_date);
+		model.addAttribute("dataType", dataType);
+		model.addAttribute("domainId", domainId);
+		model.addAttribute("domain", domain);
+		return "dashboard_domainTime_oneOnline";
+	}
+	/**
 	 * 实时数据 动态图
 	 * @return
 	 */
