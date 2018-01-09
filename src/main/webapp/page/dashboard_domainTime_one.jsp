@@ -42,7 +42,7 @@
 
  <div class="row">
   <!-- 第一个图表 基本数据 -->
-  <div class="col-lg-6 col-xs-12 col-sm-12">
+  <div class="col-lg-12 col-xs-12 col-sm-12">
       <!-- BEGIN PORTLET-->
       <div class="portlet light bordered">
           <div class="portlet-title">
@@ -68,7 +68,7 @@
       <!-- END PORTLET-->
   </div>
    <!-- 第二个图表 用户分析-->
-   <div class="col-lg-6 col-xs-12 col-sm-12">
+   <div class="col-lg-12 col-xs-12 col-sm-12">
       <!-- BEGIN PORTLET-->
       <div class="portlet light bordered">
           <div class="portlet-title">
@@ -98,7 +98,7 @@
 
 <div class="row">
 <!-- 第三个图表 -->
-  <div class="col-lg-6 col-xs-12 col-sm-12">
+  <div class="col-lg-12 col-xs-12 col-sm-12">
       <!-- BEGIN PORTLET-->
       <div class="portlet light bordered">
           <div class="portlet-title">
@@ -122,9 +122,8 @@
       </div>
       <!-- END PORTLET-->
   </div>
-  <!-- 第四个图表 -->
+  <!-- 第四个图表
   <div class="col-lg-6 col-xs-12 col-sm-12">
-      <!-- BEGIN PORTLET-->
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
@@ -145,15 +144,13 @@
               <div id="chart_4" class="chart" style="height: 300px;"> </div>
           </div>
       </div>
-      <!-- END PORTLET-->
   </div>
 </div>
 
 
 <div class="row">
-<!-- 第五个图表 -->
+ 第五个图表 
   <div class="col-lg-6 col-xs-12 col-sm-12">
-      <!-- BEGIN PORTLET-->
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
@@ -174,11 +171,9 @@
               <div id="chart_5" class="chart" style="height: 300px;"> </div>
           </div>
       </div>
-      <!-- END PORTLET-->
   </div>
-  <!-- 第六个图表 -->
+   第六个图表
  <div class="col-lg-6 col-xs-12 col-sm-12">
-      <!-- BEGIN PORTLET-->
       <div class="portlet light bordered">
           <div class="portlet-title">
               <div class="caption" style="margin-left: 15px;">
@@ -199,9 +194,11 @@
               <div id="chart_6" class="chart" style="height: 300px;"> </div>
           </div>
       </div>
-      <!-- END PORTLET-->
+      
   </div>
+  -->
 </div>
+
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/echarts.js" type="text/javascript" ></script>
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
@@ -249,9 +246,11 @@ jQuery(document).ready(function() {
 	chart_1("chart_1",chartdata.chart_1);
 	chart_2("chart_2",chartdata.chart_2);
 	chart_3("chart_3",chartdata.chart_3);
+	/**
 	chart_4("chart_4",chartdata.chart_4);
 	chart_5("chart_5",chartdata.chart_5);
 	chart_6("chart_6",chartdata.chart_6);
+	**/
     jQuery("a[a-type=lastPage]").attr("page-data",chartdata.lastPage);
     jQuery("a[a-type=nextPage]").attr("page-data",chartdata.nextPage);
     
@@ -745,7 +744,7 @@ function refreshChart(json,num){
 		   	});
 	          
 	    }
-	    /** 鼠标点击 **/
+	    /** 鼠标点击
 	    function chart_4(divid,data){
 	    	//X轴数据
 	    	var d1 = [];
@@ -876,7 +875,7 @@ function refreshChart(json,num){
 		   	});
 		          
 		}
-	    /** 鼠标滚动 **/
+	    鼠标滚动
 	    function chart_5(divid,data){
 	    	//X轴数据
 	    	var d1 = [];
@@ -1007,7 +1006,7 @@ function refreshChart(json,num){
 		   	});
 		          
 		}
-	    /** 鼠标移动 **/
+	    鼠标移动 
 	    function chart_6(divid,data){
 	    	//X轴数据
 	    	var d1 = [];
@@ -1137,6 +1136,7 @@ function refreshChart(json,num){
 		   	      ]
 		   	  });
 	      }
+	    **/
 	 /* function chart_3(divid,json) {
 			 amchart_3 = AmCharts.makeChart(divid, {
 				type: "serial",

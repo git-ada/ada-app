@@ -220,7 +220,8 @@
       <!-- END PORTLET-->
   </div>
 </div>
-<!-- 第三个图表-->
+
+<!-- 第三个图表
  <div class="row">
    <div class="col-lg-6 col-xs-12 col-sm-12">
        <div class="portlet light bordered">
@@ -269,7 +270,7 @@
         </div>
     </div>
 </div>
-<!-- 第四个图表-->
+ 第四个图表
  <div class="row">
    <div class="col-lg-6 col-xs-12 col-sm-12">
        <div class="portlet light bordered">
@@ -318,7 +319,7 @@
         </div>
     </div>
 </div>
-<!-- 第五个图表-->
+ 第五个图表
  <div class="row">
    <div class="col-lg-6 col-xs-12 col-sm-12">
        <div class="portlet light bordered">
@@ -367,7 +368,7 @@
         </div>
     </div>
 </div>
-
+-->
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/echarts.js" type="text/javascript" ></script>
 <script src="${pageContext.request.contextPath}/assets/js/graphic-data.js" type="text/javascript" charset="utf-8"></script>
@@ -409,12 +410,14 @@ jQuery(document).ready(function() {
     
     chart_2("ada_ad-chart_2",chartdata.ad_chart_3);//stayeTime
     chart_2("ada_notad-chart_2",chartdata.notad_chart_3);
+    /**
     chart_3("ada_ad-chart_3",chartdata.ad_chart_2);//click
     chart_3("ada_notad-chart_3",chartdata.notad_chart_2);
     chart_4("ada_ad-chart_4",chartdata.ad_chart_4);//soroll
     chart_4("ada_notad-chart_4",chartdata.notad_chart_4);
     chart_5("ada_ad-chart_5",chartdata.ad_chart_5);//move
     chart_5("ada_notad-chart_5",chartdata.notad_chart_5);
+    **/
     
     jQuery("a[a-type=lastPage]").attr("page-data",chartdata.lastPage);
     jQuery("a[a-type=nextPage]").attr("page-data",chartdata.nextPage);
@@ -513,7 +516,7 @@ function refreshChart(json,num){
 		chart_2("ada_ad-chart_2",json.ad_chart_3);//stayeTime
 	}else if(num=="notad2"){
 		chart_2("ada_notad-chart_2",json.notad_chart_3);
-	}else if(num=="ad3"){
+	}/**else if(num=="ad3"){
 		 chart_3("ada_ad-chart_3",json.ad_chart_2);//click
 	}else if(num=="notad3"){
 		chart_3("ada_notad-chart_3",json.notad_chart_2);
@@ -525,7 +528,7 @@ function refreshChart(json,num){
 		 chart_5("ada_ad-chart_5",json.ad_chart_5);//move
 	}else if(num=="notad5"){
 		chart_5("ada_notad-chart_5",json.notad_chart_5);
-	}else if(num=="ad6"){
+	}**/else if(num=="ad6"){
 		 chart_6("ad_chart_6",json.ad_chart_6);
 	}else if(num=="notad6"){
 		chart_6("notad_chart_6",json.notad_chart_6);
@@ -672,7 +675,7 @@ function refreshChart(json,num){
 	   	});
           
     }
-    /** 鼠标点击 **/
+    /** 鼠标点击
     function chart_3(divid,data){
     	//X轴数据
     	var d1 = [];
@@ -804,7 +807,7 @@ function refreshChart(json,num){
 	   	});
 	          
 	}
-    /** 鼠标滚动 **/
+    鼠标滚动 
     function chart_4(divid,data){
     	//X轴数据
     	var d1 = [];
@@ -936,7 +939,7 @@ function refreshChart(json,num){
 	   	});
 	          
 	}
-    /** 鼠标移动 **/
+     鼠标移动
     function chart_5(divid,data){
     	//X轴数据
     	var d1 = [];
@@ -1067,7 +1070,7 @@ function refreshChart(json,num){
 	   	      ]
 	   	  });
       }
-		
+     **/
 	 function chart_1(divid,json) {
 		 var e  = AmCharts.makeChart(divid, {
 				type: "serial",
