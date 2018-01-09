@@ -18,6 +18,10 @@ public interface AdaRoleDao extends EntityJpaDao<AdaRole, Integer> {
      *通过站点ID查询
      */
     public AdaRole findById(Integer id);
+	/** 
+     *通过角色名称查询
+     */
+	public List<AdaRole> findByRoleName(String roleName);
     /** 
      *通过创建时间查询
      */
