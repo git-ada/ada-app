@@ -4,20 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.math.BigDecimal;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
 import cn.com.jiand.mvc.framework.domain.AbstractEntity;
 
 /**
@@ -28,10 +19,7 @@ import cn.com.jiand.mvc.framework.domain.AbstractEntity;
 @Table(name = "ada_user")
 public class AdaUser extends AbstractEntity<Integer> {
     /** 用户ID */
-	private Integer id;    
-	
-	private Integer roleId;   
-	
+	private Integer id;                    
     /** 用户名 */
 	private String username;                    
     /** 密码,MD5 */
@@ -66,20 +54,6 @@ public class AdaUser extends AbstractEntity<Integer> {
 	private Timestamp createTime;     
 	
 	public final static Integer STATUS_DISABLE = -1;
-	
-	private AdaRole role;
-
-	@ManyToOne(cascade = CascadeType.REFRESH, targetEntity = AdaRole.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "roleId", insertable = false, updatable = false)
-	@NotFound(action=NotFoundAction.IGNORE)
-	public AdaRole getRole() {
-		return role;
-	}
-
-	public void setRole(AdaRole role) {
-		this.role = role;
-	}
-	
 	
 	@Id	
 	@GeneratedValue
