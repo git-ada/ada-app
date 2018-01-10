@@ -39,6 +39,7 @@ import com.ada.app.dao.AdaDomainNotAd15mStatDao;
 import com.ada.app.dao.AdaDomainNotAdStatDao;
 import com.ada.app.dao.AdaSiteDao;
 import com.ada.app.dao.AdaSiteStatDao;
+import com.ada.app.dao.AdaUserDao;
 import com.ada.app.domain.AdaChannel;
 import com.ada.app.domain.AdaChannelStat;
 import com.ada.app.domain.AdaDomain;
@@ -49,6 +50,7 @@ import com.ada.app.domain.AdaDomainNotadStat;
 import com.ada.app.domain.AdaDomainStat;
 import com.ada.app.domain.AdaSite;
 import com.ada.app.domain.AdaSiteStat;
+import com.ada.app.domain.AdaUser;
 import com.ada.app.service.AdaChannelStatService;
 import com.ada.app.service.SecurityService;
 import com.ada.app.service.StatService;
@@ -93,6 +95,8 @@ public class IndexController {
 	private AdaDomainAdStatDao adaDomainAdStatDao;
 	@Autowired
 	private AdaDomainNotAdStatDao adaDomainNotAdStatDao;
+	@Autowired
+	private AdaUserDao userDao;
 	private final static int Interval_time = 60;//域名分时统计的时间 间隔（单位：分钟）
 	private final static int domainTime_PageSize = 24;//域名分时统计 图表数据 每一页的数据条数
 	@RequestMapping(value = "index")
@@ -110,9 +114,21 @@ public class IndexController {
 		}
 		
 		model.addAttribute("user",Sessions.getLoginUser());
-		model.addAttribute("platformName", Sessions.getCurrentSite().getSiteName());
+		if(Sessions.getCurrentSite()!=null){
+			model.addAttribute("platformName", Sessions.getCurrentSite().getSiteName());
+		}
 	
 		return "index";
+	}
+	
+	@RequestMapping("siteList")
+	public String adminIndex(HttpServletRequest request,HttpServletResponse response, Model model){
+		AdaUser user = Sessions.getLoginUser();
+		if(user.getUserRole().equals("admin")){
+			List<AdaSite> findAll = siteDao.findAll();
+			model.addAttribute("objs", findAll);
+		}
+		return "ada-siteList";
 	}
 
 	/**
@@ -124,7 +140,7 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "dashboard")
 	public String now(HttpServletRequest request,HttpServletResponse response, Model model,
-			String dataType,String firstTd,String top,String isRefresh,String isRetrun) {
+			String dataType,String firstTd,String top,String isRefresh,String isRetrun,String siteId) {
 		int iptop = 50;
 		if(top!=null && !"".equals(top)){
 			iptop = Integer.valueOf(top).intValue();
@@ -138,7 +154,21 @@ public class IndexController {
 			
 		}else{
 			/** 从sessions中获取站点信息 **/
-			AdaSite adaSite = Sessions.getCurrentSite();//
+			AdaSite adaSite = null;//
+			if(siteId!=null && !"".equals(siteId)){
+				 adaSite = siteDao.findById(Integer.valueOf(siteId));
+				 if(adaSite!=null){
+					 /** 重新设置站点 **/
+						Sessions.setCurrentSite(adaSite);
+				 }
+			}
+			adaSite = Sessions.getCurrentSite();
+			if(adaSite==null){
+				adaSite = new AdaSite();
+				adaSite.setId(0);
+				/** 重新设置站点 **/
+				Sessions.setCurrentSite(adaSite);
+			}
 			
 			/** 获取当前站点统计信息 **/
 			Date today = Dates.todayStart();
@@ -183,7 +213,7 @@ public class IndexController {
 		}
 		
 		
-		
+		model.addAttribute("user",Sessions.getLoginUser());
 		 //model.addAttribute("lasttime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		 model.addAttribute("dataType", dataType);
 		return "dashboard";

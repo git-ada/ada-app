@@ -293,25 +293,29 @@ table.dataTable{
 						<th scope="col" style="min-width: 70px">登录用户</th>
 						<th scope="col" style="min-width: 70px">目标页</th>
 						
-						<th scope="col" style="min-width: 70px">停留 <a style="color: #333;" onclick="changeDisplay(this,'st')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<c:if test="${user.userRole=='admin'}"><th scope="col" style="min-width: 70px">停留 <a style="color: #333;" onclick="changeDisplay(this,'st')" title=""> <i class="icon-magnifier-add"></i> </a></th></c:if>
+						<c:if test="${user.userRole=='user'}"><th scope="col" style="min-width: 70px" class="displaynone">停留 <a style="color: #333;" onclick="changeDisplay(this,'st')" title=""> <i class="icon-magnifier-add"></i> </a></th></c:if>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="st">5-30秒</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="st">31-120秒</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="st">121-300秒</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="st">300+秒</th>
 						
-						<th scope="col" style="min-width: 70px">点击<a style="color: #333;" onclick="changeDisplay(this,'c')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<c:if test="${user.userRole=='admin'}"><th scope="col" style="min-width: 70px">点击<a style="color: #333;" onclick="changeDisplay(this,'c')" title=""> <i class="icon-magnifier-add"></i> </a></th></c:if>
+						<c:if test="${user.userRole=='user'}"><th scope="col" style="min-width: 70px" class="displaynone">点击<a style="color: #333;" onclick="changeDisplay(this,'c')" title=""> <i class="icon-magnifier-add"></i> </a></th></c:if>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="c">1-2次</th>			
 						<th scope="col" style="min-width: 70px" class="displaynone" event="c">3-5次</th>			
 						<th scope="col" style="min-width: 70px" class="displaynone" event="c">6-10次</th>			
 						<th scope="col" style="min-width: 70px" class="displaynone" event="c">10+次</th>
 						
-						<th scope="col" style="min-width: 70px">滚动<a style="color: #333;" onclick="changeDisplay(this,'s')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<c:if test="${user.userRole=='admin'}"><th scope="col" style="min-width: 70px">滚动<a style="color: #333;" onclick="changeDisplay(this,'s')" title=""> <i class="icon-magnifier-add"></i> </a></th></c:if>
+						<c:if test="${user.userRole=='user'}"><th scope="col" style="min-width: 70px" class="displaynone">滚动<a style="color: #333;" onclick="changeDisplay(this,'s')" title=""> <i class="icon-magnifier-add"></i> </a></th></c:if>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="s">1-2次</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="s">3-5次</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="s">6-10次</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="s">10+次</th>
 						
-						<th scope="col" style="min-width: 70px">移动<a style="color: #333;" onclick="changeDisplay(this,'m')" title=""> <i class="icon-magnifier-add"></i> </a></th>
+						<c:if test="${user.userRole=='admin'}"><th scope="col" style="min-width: 70px">移动<a style="color: #333;" onclick="changeDisplay(this,'m')" title=""> <i class="icon-magnifier-add"></i> </a></th></c:if>
+						<c:if test="${user.userRole=='user'}"><th scope="col" style="min-width: 70px" class="displaynone">移动<a style="color: #333;" onclick="changeDisplay(this,'m')" title=""> <i class="icon-magnifier-add"></i> </a></th></c:if>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="m">1-2次</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="m">3-5次</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="m">6-10次</th>
@@ -371,6 +375,7 @@ var isRetrun = '${isRetrun}';
 var tbodydata = '${tbodydata}';
 var webPath = '${pageContext.request.contextPath}';
 var jstimestamp = Date.parse(new Date());
+var userRole = '${user.userRole}';
 </script>
 <script  type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/assets/js/dashboard_hgr.js?jstimestamp=<%=new Date()%>"></script>
 <!-- END PAGE SCRIPTS -->

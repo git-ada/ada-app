@@ -173,6 +173,12 @@ public class HistryController {
 		model.addAttribute("isRetrun", isRetrun);
 		/** 从sessions中获取站点信息 **/ 
 		AdaSite adaSite = Sessions.getCurrentSite();
+		if(adaSite==null){
+			adaSite = new AdaSite();
+			adaSite.setId(0);
+			/** 重新设置站点 **/
+			Sessions.setCurrentSite(adaSite);
+		}
 		
 		/** 获取当前站点默认历史统计信息 **/
 //		Date yestoday = Dates.yestoday();
@@ -240,7 +246,7 @@ public class HistryController {
 		model.addAttribute("ipTop", ipTop); 
 		model.addAttribute("lasttime", date); 
 		model.addAttribute("dataType", dataType);
-		
+		model.addAttribute("user",Sessions.getLoginUser());
 		if(adaSite.getId()!=null && !"".equals(adaSite.getId())){
 			JSONObject json = siteChartHistryList(domainTime_PageSize,1);
 			model.addAttribute("histryJson", json);

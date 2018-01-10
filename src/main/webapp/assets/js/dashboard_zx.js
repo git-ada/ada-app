@@ -363,7 +363,12 @@ function loadTbody(json,num){
 		     var cDisplay = "";
 		     var sDisplay = "";
 		     var mtDisplay = "";
-			    
+		     var eventisnone = "";
+			 var eventontd = "";
+			 if(userRole=="user"){
+				 eventisnone = "class='displaynone'";
+				 eventontd = "displaynone";
+			 }
 		    if(num==1){
     	 	 stDisplay = "displaynone";
 		     cDisplay = "displaynone";
@@ -507,9 +512,9 @@ function loadTbody(json,num){
 					  	"<span class='only'> "+fromInt(item[6])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(sumST,IP)<1){
-				    	sumSTTd = "<td  title='"+Percentage(sumST,IP)+"'><span class='tdonly'>"+fromInt(sumST)+"</span></td>";
+				    	sumSTTd = "<td  title='"+Percentage(sumST,IP)+"' "+eventisnone+"><span class='tdonly'>"+fromInt(sumST)+"</span></td>";
 				    }else{
-				    	sumSTTd = "<td title='"+Percentage(sumST,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumST,IP)+" '>"+
+				    	sumSTTd = "<td title='"+Percentage(sumST,IP)+"' "+eventisnone+"><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumST,IP)+" '>"+
 					  	"<span class='only'> "+fromInt(sumST)+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[7],IP)<1){
@@ -537,9 +542,9 @@ function loadTbody(json,num){
 					  	"<span class='only'> "+fromInt(item[10])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(sumC,IP)<1){
-				    	sumCTd = "<td class='onlytd' title='"+Percentage(sumC,IP)+"'><span class='tdonly'>"+fromInt(sumC)+"</span></td>";
+				    	sumCTd = "<td class='onlytd "+eventontd+"' title='"+Percentage(sumC,IP)+"' ><span class='tdonly'>"+fromInt(sumC)+"</span></td>";
 				    }else{
-				    	sumCTd = "<td title='"+Percentage(sumC,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumC,IP)+" '>"+
+				    	sumCTd = "<td title='"+Percentage(sumC,IP)+"' "+eventisnone+"><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumC,IP)+" '>"+
 					  	"<span class='only'> "+fromInt(sumC)+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[11],IP)<1){
@@ -567,9 +572,9 @@ function loadTbody(json,num){
 					  	"<span class='only'> "+fromInt(item[14])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(sumS,IP)<1){
-				    	sumSTd = "<td class='onlytd' title='"+Percentage(sumS,IP)+"'><span class='tdonly'>"+fromInt(sumS)+"</span></td>";
+				    	sumSTd = "<td class='onlytd "+eventontd+"' title='"+Percentage(sumS,IP)+"'><span class='tdonly'>"+fromInt(sumS)+"</span></td>";
 				    }else{
-				    	sumSTd = "<td title='"+Percentage(sumS,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumS,IP)+" '>"+
+				    	sumSTd = "<td title='"+Percentage(sumS,IP)+"' "+eventisnone+"><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumS,IP)+" '>"+
 					  	"<span class='only'> "+fromInt(sumS)+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[15],IP)<1){
@@ -597,9 +602,9 @@ function loadTbody(json,num){
 					  	"<span class='only'> "+fromInt(item[18])+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(sumM,IP)<1){
-				    	sumMTd = "<td class='onlytd' title='"+Percentage(sumM,IP)+"'><span class='tdonly'>"+fromInt(sumM)+"</span></td>";
+				    	sumMTd = "<td class='onlytd "+eventontd+"' title='"+Percentage(sumM,IP)+"'><span class='tdonly'>"+fromInt(sumM)+"</span></td>";
 				    }else{
-				    	sumMTd = "<td title='"+Percentage(sumM,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumM,IP)+" '>"+
+				    	sumMTd = "<td title='"+Percentage(sumM,IP)+"' "+eventisnone+"><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumM,IP)+" '>"+
 					  	"<span class='only'> "+fromInt(sumM)+" </span></div></div></td>";
 				    }
 				    if(Percentagemin(item[19],IP)<1){
@@ -912,6 +917,16 @@ function clearSearch(){
 function firstAppend(){
 	var str = "";
 	for(var i=0;i<15;i++){
+		var td_st = "<td></td>";
+		var td_c = "<td></td>";
+		var td_s = "<td></td>";
+		var td_m = "<td></td>";
+		if(userRole=="user"){
+			 td_st = "<td class='displaynone'></td>";
+			 td_c = "<td class='displaynone'></td>";
+			 td_s = "<td class='displaynone'></td>";
+			 td_m = "<td class='displaynone'></td>";
+		}
 		var tr = "<tr>" +
 		"<td ><span class='tdonly'></span></td>" +
 		"<td></td>" +
@@ -922,25 +937,25 @@ function firstAppend(){
 		"<td></td>" +
 		"<td></td>" +
 		//停留
-		"<td></td>" +
+		td_st+
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		//点击
-		"<td></td>" +
+		td_c+
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		//滚动
-		"<td></td>" +
+		td_s+
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		//移动
-		"<td></td>" +
+		td_m +
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
@@ -950,7 +965,7 @@ function firstAppend(){
 		str +=tr;
 	}
 	
-	jQuery("#tbodyhistry").append(str);
+	jQuery("#tbody").append(str);
 	
 }
 //万分符

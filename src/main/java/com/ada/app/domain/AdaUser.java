@@ -51,7 +51,9 @@ public class AdaUser extends AbstractEntity<Integer> {
     /** 状态 */
 	private Integer status;                    
     /** 创建时间 */
-	private Timestamp createTime;     
+	private Timestamp createTime;
+	/** 用户角色 */
+	private String userRole;//user:普通用户   admin:管理用户
 	
 	public final static Integer STATUS_DISABLE = -1;
 	
@@ -191,6 +193,14 @@ public class AdaUser extends AbstractEntity<Integer> {
 	
 	public void setCreateTime(Timestamp createTime){
 		this.createTime = createTime;
+	}
+
+	public String getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
 	
 	

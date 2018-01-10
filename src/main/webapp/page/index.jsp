@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <!-- <a>
                         <img src="/assets/img/logetext.png" alt="logo" class="logo-default" style="height: 17px;"/> </a>
                          -->
-                    <span style="color: #f7f0f0;padding-top: 40px;line-height: 52px;font-size: 17px;padding-left: 0px;" class="logo-default">${platformName}</span>
+                    <span style="color: #f7f0f0;padding-top: 40px;line-height: 52px;font-size: 17px;padding-left: 0px;" class="logo-default" id="siteName">${platformName}</span>
                     
                     <div class="menu-toggler sidebar-toggler">
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -87,9 +87,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="top-menu">
                     	
                         <ul class="nav navbar-nav pull-right">
-                        	<li >
+                        	<%-- <li >
                         		<span style="display:block;color: #ffffff;vertical-align: bottom;margin:18px; font-size: 13px;font-family: 微软雅黑">${platformName}</span>
-                        	</li>
+                        	</li> --%>
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="icon-user"></i>
