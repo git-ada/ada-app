@@ -7,7 +7,7 @@
 	}
 </style>
 <!-- 顶部导航 BGEIN -->
-<div class="page-bar">
+<!-- <div class="page-bar">
     <ul class="page-breadcrumb" style="width: 100%">
         <li>
             <i class="icon-home"></i>
@@ -18,7 +18,7 @@
             <span>站点</span>
         </li>
     </ul>
-</div>
+</div> -->
 <!-- 顶部导航 END-->
 <div class="portlet light">
 	<div class="portlet-title">
@@ -96,11 +96,11 @@
 						<td>${item.userId}</td>
 						<td>${item.siteName}</td>
 	                    <td>
-	                    	<a class="btn btn-default btn-outline btn-sm">今日实时</a>
-	                    	<a class="btn btn-default btn-outline btn-sm">历史数据</a>
-	                    	<a class="btn btn-default btn-outline btn-sm">广告页</a>
-	                    	<a class="btn btn-default btn-outline btn-sm">目标页</a>
-	                    	<a class="btn btn-default btn-outline btn-sm">统计代码</a>
+	                    	<a class="btn btn-default btn-outline btn-sm" onclick="gotoPage('${pageContext.request.contextPath}/dashboard.jhtm?dataType=domain&firstTd=&top=&isRefresh=true&isRetrun=false&siteId=${item.id}')">今日实时</a>
+	                    	<a class="btn btn-default btn-outline btn-sm" onclick="gotoPage('${pageContext.request.contextPath}/dashboardHistry.jhtm?dataType=domain?siteId=${item.id}')">历史数据</a>
+	                    	<a class="btn btn-default btn-outline btn-sm" onclick="gotoPage('${pageContext.request.contextPath}/ada-ad-page/list.jhtm?search_EQ_siteId=${item.id}')">广告页</a>
+	                    	<a class="btn btn-default btn-outline btn-sm" onclick="gotoPage('${pageContext.request.contextPath}/ada-target-page/list.jhtm?search_EQ_siteId=${item.id}')">目标页</a>
+	                    	<a class="btn btn-default btn-outline btn-sm" onclick="gotoPage('${pageContext.request.contextPath}/site-jscode.jhtm?siteId=${item.id}')">统计代码</a>
 	                    	<%-- <a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-site/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
 	                    	<a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-site/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a> --%>
 	                    </td>

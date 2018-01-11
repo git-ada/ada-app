@@ -11,12 +11,12 @@
         <li class="index-refresh toggler tooltips" data-placement="left" data-html="true" data-original-title="刷新页面"><i class="icon-refresh" onclick="refreshPage()"></i></li>
         -->
         <li>
-            <i class="icon-home"></i>
-            <a href="/">首页</a>
+            <i class="icon-action-undo" style="cursor: pointer;" onclick="gotoHistoryPage(-1)"></i>
+            	<span>站点列表</span>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/ada-ad-page/list.jhtm')"> 广告页 </a>
+             	<span>广告页 </span>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -32,7 +32,7 @@
         <form id="edit_form" action="${pageContext.request.contextPath}/ada-ad-page/${action=='create'?'save':'update'}.do" class="form-horizontal" method="post">
         <jodd:form bean="adaAdPage" scope="request">
             <div class="form-body">
-				<input type="hidden" name="siteId" value="${_CURRENT_SITE.id}">				
+				<input type="hidden" name="siteId" value="${siteId}">				
 					<div class="form-group">
 	                    <label class="col-md-2 control-label">匹配内容<span class="required" > * </span>：</label>
 	                    <div class="col-md-4">
