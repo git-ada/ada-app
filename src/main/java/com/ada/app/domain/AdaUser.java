@@ -51,7 +51,9 @@ public class AdaUser extends AbstractEntity<Integer> {
     /** 状态 */
 	private Integer status;                    
     /** 创建时间 */
-	private Timestamp createTime;     
+	private Timestamp createTime;   
+	/** 是否为管理员 */
+	private Integer isAdmin;   
 	
 	public final static Integer STATUS_DISABLE = -1;
 	
