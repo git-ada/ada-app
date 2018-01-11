@@ -5,6 +5,9 @@
 	@media (min-width: 992px){
 		.search-field {padding-right:0!important;}
 	}
+	td{
+		height: 10px; 
+	}
 </style>
 <!-- 顶部导航 BGEIN -->
 <div class="page-bar">
@@ -156,7 +159,10 @@
 								<c:if test="${e.key == item.status}">${e.value}</c:if>
 								</c:forEach>
 							</td>
-							<td>${item.isAdmin}</td>
+							<td><c:forEach items="${allIsAdmins}" var="e">
+								<c:if test="${e.key == item.isAdmin}">${e.value}</c:if>
+								</c:forEach>
+							</td>
 		                    <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 	                    <td>
 	                    	<a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-user/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
@@ -498,7 +504,7 @@
                  		$("#edit_form").find("[name='idNo']").val(ret.entity.idNo);
                  		$("#edit_form").find("[name='email']").val(ret.entity.email);
                  		$("#edit_form").find("[name='phone']").val(ret.entity.phone);
-                 		$("#edit_form").find("[name='birthday']").val(ret.entity.birthday);
+                 		$("#edit_form").find("[name='birthday']").val(ret.entity.birthday); //new Date(ret.entity.birthday.replace(/-/g,"/"))
                  		$("#edit_form").find("[name='sex']").val(ret.entity.sex);
                  		$("#edit_form").find("[name='headImgUrl']").val(ret.entity.headImgUrl);
                  		$("#edit_form").find("[name='provinceId']").val(ret.entity.provinceId);
@@ -506,6 +512,7 @@
                  		$("#edit_form").find("[name='districtId']").val(ret.entity.districtId);
                  		$("#edit_form").find("[name='homeAddress']").val(ret.entity.homeAddress);
                  		$("#edit_form").find("[name='status']").val(ret.entity.status);
+                 		$("#edit_form").find("[name='isAdmin']").val(ret.entity.isAdmin);
                  		$("#edit_form").find("[name='createTime']").val(ret.entity.createTime);
                  }  
              });

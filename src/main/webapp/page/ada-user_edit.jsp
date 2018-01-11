@@ -14,7 +14,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/ada-user/list.jhtm')"> 用户 </a>
+            <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/ada-user/list.jhtm')"> 用户列表 </a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -127,7 +127,17 @@
 							</c:forEach>
 							</select>
 						</div>
-				  </div>				
+				  </div>
+				  <div class="form-group">
+	                    <label class="col-md-3 control-label">是否为管理员：</label>
+	                    <div class="col-md-4">
+							<select name="isAdmin" class="form-control input-medium" >
+							<c:forEach items="${allIsAdmins}" var="e">
+							<option value="${e.key}">${e.value}</option>
+							</c:forEach>
+							</select>
+						</div>
+				  </div>
 					<div class="form-group">
 	                    <label class="col-md-3 control-label">创建时间：</label>
 	                    <div class="col-md-4">

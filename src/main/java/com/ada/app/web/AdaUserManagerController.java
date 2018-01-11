@@ -1,17 +1,17 @@
 package com.ada.app.web;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import cn.com.jiand.mvc.framework.module.Module;
 import cn.com.jiand.mvc.framework.module.ModuleIndex;
 import cn.com.jiand.mvc.framework.module.ModuleOperation;
@@ -21,11 +21,11 @@ import cn.com.jiand.mvc.framework.web.support.JsonEntityResult;
 import cn.com.jiand.mvc.framework.web.support.JsonResult;
 import com.ada.app.domain.AdaUser;
 import com.ada.app.service.AdaUserService;
-import java.util.TreeMap;
 
 @Controller
 @Module(name="用户")
 @RequestMapping(value = "/ada-user")
+@SuppressWarnings("all")
 public class AdaUserManagerController extends AbstractJQueryEntityController<AdaUser, AdaUserService> {
 	/**
 	 * 权限列表
@@ -39,9 +39,9 @@ public class AdaUserManagerController extends AbstractJQueryEntityController<Ada
 	
 	private static Map<String, String> allSexs =  new TreeMap();
 	static {
+		allSexs.put("0", "未知");
 		allSexs.put("1", "男");
 		allSexs.put("2", "女");
-		allSexs.put("0", "未知");
 	}
 	private static Map<String, String> allStatuss =  new TreeMap();
 	static {
@@ -83,6 +83,7 @@ public class AdaUserManagerController extends AbstractJQueryEntityController<Ada
 	@RequestMapping(value = "get")
 	@ResponseBody
 	public JsonEntityResult<AdaUser> get(HttpServletRequest request,HttpServletResponse response, Model model) {
+		
 		return super.showJson(request, response);
 	}
 
@@ -134,4 +135,16 @@ public class AdaUserManagerController extends AbstractJQueryEntityController<Ada
 	protected String[] getExportTitles() {
 		return new String[]{"用户ID","用户名","密码,MD5","昵称","真名","身份证号码","邮箱","手机","生日","性别","头像URL","省ID","城市ID","地区ID","家庭住址","状态","创建时间","是否为管理员"};
 	}
+	
+	protected List<String> doMarshalEntityToXls(AdaUser entity) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		
+		List<String> list = new ArrayList();
+		list.add(df.format(entity.getId()));
+		list.add(entity.getUsername());
+		list.add(entity.getPassword());
+		
+		return list;
+	}
+	
 }
