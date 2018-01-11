@@ -36,20 +36,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="http://ningqu.oss-cn-hangzhou.aliyuncs.com/metronic/theme/admin_1/favicon.ico"> </head>
     <!-- END HEAD -->
-	<style>
-		.login .content {
-			background-color: #333;
-		}
-		
-		.login .content .form-actions{
-			border-bottom: 0px;
-		}
+<style>
+.login .content {
+	background-color: #333;
+}
 
-		.copyright {
-			color: #f2f2f2!important;
-			border-top: 1px solid #eee;
-		}
-	</style>
+.login .content .form-actions{
+	border-bottom: 0px;
+}
+
+.copyright {
+	color: #f2f2f2!important;
+	border-top: 1px solid #eee;
+}
+.login .content .create-account {
+    background-color: #333 !important;
+    border-radius: 0 0 7px 7px;
+    margin: 0 -40px -30px;
+    padding: 15px 0 17px;
+    text-align: center;
+}
+.isnone{
+	display: none;
+}
+</style>
     <body class=" login">
     	<!-- 
     	<header style="background-color: #EF3F3F;text-align: center;height: 35px;" >
@@ -92,8 +102,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <a href="javascript:;" class="forget-password">忘记密码?</a>
                     -->
                 </div>
+                <div class="create-account">
+                    <p>
+                        <a style="display: block;width: 340px;height: 43px;background: #dde3ec;margin: 0px auto;line-height: 43px;text-align: center;color: #8290a3;" href="javascript:;" id="register-btn" class="uppercase">注册账号</a>
+                    </p>
+                </div>
             </form>
             <!-- END LOGIN FORM -->
+            <form class="register-form" action="${pageContext.request.contextPath}/saveRegister.do" method="post">
+                <h3 class="font-green">注册</h3>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">账号</label>
+                    <input class="form-control placeholder-no-fix" id="username" type="text" autocomplete="off" placeholder="账号" name="username" /> 
+                    <span id="ifusername" class="isnone" style="color: #e73d4a;">用户名已被占用</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">密码</label>
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="密码" name="password" /> </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">重复密码</label>
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="重复密码" name="rpassword" /> </div>
+                <div class="form-group margin-top-20 margin-bottom-20" style="color: #fff;">
+                    <label class="mt-checkbox mt-checkbox-outline">
+                        <input type="checkbox" name="tnc" checked="checked" /> 我已阅读并同意相关
+                        <a href="javascript:;"> "服务条款" </a> 和
+                        <a href="javascript:;"> "隐私政策" </a>
+                        <span></span>
+                    </label>
+                    <div id="register_tnc_error"> </div>
+                </div>
+                <div class="form-actions" style="padding-top: 0px;">
+                    <button type="button" id="register-back-btn" class="btn green btn-outline">返回</button>
+                    <button type="submit" id="register-submit-btn" class="btn btn-success uppercase pull-right">提交</button>
+                </div>
+            </form>
         </div>
 
         <!--[if lt IE 9]>
@@ -121,9 +163,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <script src="assets/js/login.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
-        <!-- BEGIN THEME LAYOUT SCRIPTS -->
-        <script type="text/javascript">
-        </script>
-        <!-- END THEME LAYOUT SCRIPTS -->
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script type="text/javascript">
+
+/**--------------预加载-------------------- **/
+jQuery(document).ready(function() {
+	jQuery("#username").keyup(function (){
+		
+		jQuery.ajax({
+		 	type:"post",
+			url : "${pageContext.request.contextPath}/queryByUserName.do?username="+jQuery(this).val(),
+			success : function (data){
+				if(data!=null){
+					var json = eval('(' + data + ')');
+					if(json.code=="100"){
+						jQuery("#ifusername").removeClass("isnone");
+						jQuery("#register-submit-btn").attr("disabled","disabled");
+					}else{
+						jQuery("#ifusername").addClass("isnone");
+						jQuery("#register-submit-btn").attr("disabled",false);
+					}
+				}
+				
+			},
+			error: function (data) {
+				
+			}
+		});
+	});
+});
+</script>
+<!-- END THEME LAYOUT SCRIPTS -->
 </body>
 </html>

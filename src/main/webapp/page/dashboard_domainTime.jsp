@@ -168,7 +168,7 @@
   </div>
 </div>
 <!-- 第二个图表 -->
-<div class="row">
+<%-- <div class="row">
   <div class="col-lg-6 col-xs-12 col-sm-12">
       <!-- BEGIN PORTLET-->
       <div class="portlet light bordered">
@@ -366,7 +366,7 @@
            </div>
         </div>
     </div>
-</div>
+</div> --%>
 
 <!-- START PAGE SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/js/echarts.js" type="text/javascript" ></script>
@@ -407,14 +407,14 @@ jQuery(document).ready(function() {
     chart_6("ad_chart_6",chartdata.ad_chart_6);
     chart_6("notad_chart_6",chartdata.notad_chart_6);
     
-    chart_2("ada_ad-chart_2",chartdata.ad_chart_3);//stayeTime
+   /*  chart_2("ada_ad-chart_2",chartdata.ad_chart_3);//stayeTime
     chart_2("ada_notad-chart_2",chartdata.notad_chart_3);
     chart_3("ada_ad-chart_3",chartdata.ad_chart_2);//click
     chart_3("ada_notad-chart_3",chartdata.notad_chart_2);
     chart_4("ada_ad-chart_4",chartdata.ad_chart_4);//soroll
     chart_4("ada_notad-chart_4",chartdata.notad_chart_4);
     chart_5("ada_ad-chart_5",chartdata.ad_chart_5);//move
-    chart_5("ada_notad-chart_5",chartdata.notad_chart_5);
+    chart_5("ada_notad-chart_5",chartdata.notad_chart_5); */
     
     jQuery("a[a-type=lastPage]").attr("page-data",chartdata.lastPage);
     jQuery("a[a-type=nextPage]").attr("page-data",chartdata.nextPage);

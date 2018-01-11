@@ -19,8 +19,12 @@ import cn.com.jiand.mvc.framework.module.Permission;
 import cn.com.jiand.mvc.framework.web.AbstractJQueryEntityController;
 import cn.com.jiand.mvc.framework.web.support.JsonEntityResult;
 import cn.com.jiand.mvc.framework.web.support.JsonResult;
+import cn.com.jiand.mvc.framework.web.support.Servlets;
+
 import com.ada.app.domain.AdaAdPage;
 import com.ada.app.service.AdaAdPageService;
+import com.ada.app.util.Sessions;
+
 import java.util.TreeMap;
 
 @Controller
@@ -48,6 +52,12 @@ public class AdaAdPageManagerController extends AbstractJQueryEntityController<A
 	@RequestMapping(value = "list")
 	public String list(HttpServletRequest request,HttpServletResponse response, Model model) {
 		return super.list(request, response, model);
+	}
+    
+    protected Map<String, Object> getSearchParams(HttpServletRequest request) {
+    	Map<String, Object> paramMap =  Servlets.getParametersStartingWith(request, "search_");
+    	paramMap.put("EQ_siteId", Sessions.getCurrentSite().getId());
+		return paramMap;
 	}
 	
 	@ModuleOperation(name="查看",requiresPerm=View.class)

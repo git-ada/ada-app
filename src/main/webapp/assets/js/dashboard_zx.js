@@ -506,7 +506,7 @@ function loadTbody(json,num){
 				    	targetTd = "<td title='"+Percentage(item[6],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[6],IP)+" '>"+
 					  	"<span class='only'> "+fromInt(item[6])+" </span></div></div></td>";
 				    }
-				    if(Percentagemin(sumST,IP)<1){
+				    /*if(Percentagemin(sumST,IP)<1){
 				    	sumSTTd = "<td  title='"+Percentage(sumST,IP)+"'><span class='tdonly'>"+fromInt(sumST)+"</span></td>";
 				    }else{
 				    	sumSTTd = "<td title='"+Percentage(sumST,IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(sumST,IP)+" '>"+
@@ -625,7 +625,7 @@ function loadTbody(json,num){
 				    }else{
 				    	m4Td = "<td class='"+mtDisplay+"' event='m' title='"+Percentage(item[22],IP)+"'><div class='myprogress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width:"+PercentageMax(item[22],IP)+" '>"+
 					  	"<span class='only'> "+fromInt(item[22])+" </span></div></div></td>";
-				    }
+				    }*/
 				    
 			  		tr+="<tr num='"+i+"'>" + firstTd+
 			  		  ipTd+pvTd+uvTd+ 
@@ -922,7 +922,7 @@ function firstAppend(){
 		"<td></td>" +
 		"<td></td>" +
 		//停留
-		"<td></td>" +
+		/*"<td></td>" +
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
@@ -944,7 +944,7 @@ function firstAppend(){
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
 		"<td class='displaynone'></td>" +
-		"<td class='displaynone'></td>" +
+		"<td class='displaynone'></td>" +*/
 		"</tr>";
 		
 		str +=tr;
