@@ -5,8 +5,8 @@
 	@media (min-width: 992px){
 		.search-field {padding-right:0!important;}
 	}
-	td{
-		height: 10px; 
+	.form-group{
+		margin-top: 0px;
 	}
 </style>
 <!-- 顶部导航 BGEIN -->
@@ -489,6 +489,14 @@
     </div>
 </div>
 <script type="text/javascript">
+	function formatDate(date) {
+		var y = date.getFullYear();
+	    var m = date.getMonth()+1;//获取当前月份的日期
+	    var d = date.getDate();
+	    m = m<10? "0"+m : ""+m;
+	    d = d<10? "0"+d : ""+d;
+	    return y+"-"+m+"-"+d;
+	} 
 	//编辑
     $('.opt-edit').click(function(){
     	 var id = $(this).attr("data-id");
@@ -496,6 +504,10 @@
                  url : "${pageContext.request.contextPath}/ada-user/get.do",
                  data : {"id" : id},
                  success : function(ret) {
+                	    var bri = ret.entity.birthday;
+                	    if(bri != null && bri != ''){
+                	    	bri = formatDate(new Date(bri)); 
+                	    }
                  		$("#edit_form").find("[name='id']").val(ret.entity.id);
                  		$("#edit_form").find("[name='username']").val(ret.entity.username);
                  		$("#edit_form").find("[name='password']").val(ret.entity.password);
@@ -504,7 +516,7 @@
                  		$("#edit_form").find("[name='idNo']").val(ret.entity.idNo);
                  		$("#edit_form").find("[name='email']").val(ret.entity.email);
                  		$("#edit_form").find("[name='phone']").val(ret.entity.phone);
-                 		$("#edit_form").find("[name='birthday']").val(ret.entity.birthday); //new Date(ret.entity.birthday.replace(/-/g,"/"))
+                 		$("#edit_form").find("[name='birthday']").val(bri); 
                  		$("#edit_form").find("[name='sex']").val(ret.entity.sex);
                  		$("#edit_form").find("[name='headImgUrl']").val(ret.entity.headImgUrl);
                  		$("#edit_form").find("[name='provinceId']").val(ret.entity.provinceId);

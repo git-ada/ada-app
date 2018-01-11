@@ -2,6 +2,7 @@ package com.ada.app.web;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -110,6 +111,7 @@ public class AdaUserManagerController extends AbstractJQueryEntityController<Ada
 	@RequestMapping(value = "update")
 	@ResponseBody
 	public JsonEntityResult<AdaUser> update(HttpServletRequest request,HttpServletResponse response) {
+		
 		return super.updateJson(request, response);
 	}
 	
@@ -136,15 +138,15 @@ public class AdaUserManagerController extends AbstractJQueryEntityController<Ada
 		return new String[]{"用户ID","用户名","密码,MD5","昵称","真名","身份证号码","邮箱","手机","生日","性别","头像URL","省ID","城市ID","地区ID","家庭住址","状态","创建时间","是否为管理员"};
 	}
 	
-	protected List<String> doMarshalEntityToXls(AdaUser entity) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		
-		List<String> list = new ArrayList();
-		list.add(df.format(entity.getId()));
-		list.add(entity.getUsername());
-		list.add(entity.getPassword());
-		
-		return list;
-	}
+//	protected List<String> doMarshalEntityToXls(AdaUser entity) {
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//		
+//		List<String> list = new ArrayList();
+//		list.add(df.format(entity.getId()));
+//		list.add(entity.getUsername());
+//		list.add(entity.getPassword());
+//		
+//		return list;
+//	}
 	
 }
