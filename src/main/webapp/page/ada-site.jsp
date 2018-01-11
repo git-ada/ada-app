@@ -35,19 +35,19 @@
 				    	<!-- 页码  -->
 					    <input type="hidden" id="page" name="page">
 						<div class="row">
-										<div class="col-md-1 col-sm-12">
+										<%-- <div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_EQ_userId" value="${param.search_EQ_userId}"  placeholder="用户ID"/>
-										</div>
+										</div> --%>
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_siteName" value="${param.search_LIKE_siteName}"  placeholder="站点名称"/>
 										</div>
-										<div class="col-md-2 col-sm-12">
+										<%-- <div class="col-md-2 col-sm-12">
 									         <div class="input-group input-medium">
                                                  <input type="text" class="form-control daterangepick"  placeholder="创建时间" readonly="readonly">
                                                  <input type="hidden" name="search_GTE_createTime" value="${param.search_GTE_createTime}">
                                                  <input type="hidden" name="search_LTE_createTime" value="${param.search_LTE_createTime}">
                                             </div>
-									    </div>
+									    </div> --%>
 						    <div class="col-md-1 col-sm-12">
 						    	<button class="btn  btn-default opt-search" type="button" >&nbsp;&nbsp;搜索&nbsp;&nbsp;<i class="fa fa-search">&nbsp;&nbsp;</i></button>
 						    </div>
@@ -67,19 +67,7 @@
 	    <!-- 右上角工具栏 END -->
 	</div>
 	<div class="portlet-body">
-		<div class="row">
-			<!-- 左上角功能区 BEGIN -->
-		    <div class="col-md-6 col-sm-12">
-		       <button type="button" class="btn green" onclick="gotoPage('${pageContext.request.contextPath}/ada-site/create.jhtm')" data-opt-key="/ada-site/create"><i class="fa fa-plus"></i>&nbsp;&nbsp;新增&nbsp;&nbsp;</button>
-		    </div>
-		    <!-- 左上角功能区 END -->
-		    
-		    <!-- 头部分页 BEGIN-->
-		    <div class="col-md-6 col-sm-12 right">
-				 <jsp:include page="/include/paging_header.jsp"/>
-		    </div>
-		    <!-- 头部分页 END--> 
-		</div>
+	
 		<!-- 数据列表 BEGIN -->
 	    <div class="table-scrollable">
 	        <table class="table table-striped dataTableg table-bordered table-hover data-table">
@@ -91,11 +79,9 @@
 	                            <span></span>
 	                        </label>
 	                    </th>
-						<th scope="col">站点ID</th>			
 						<th scope="col">用户ID</th>			
 						<th scope="col">站点名称</th>			
-						<th scope="col">创建时间</th>			
-				        <th scope="col" style="font-weight: bolder;font-size: 16px;">··· ···</th>
+				        <th scope="col" style="font-weight: bolder;font-size: 16px;">操作</th>
 				     </tr>
 	            </thead>
 	            <tbody>
@@ -107,13 +93,16 @@
 	                            <span></span>
 	                        </label>
 	                    </td>
-						<td>${item.id}</td>
 						<td>${item.userId}</td>
 						<td>${item.siteName}</td>
-	                    <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 	                    <td>
-	                    	<a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-site/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
-	                    	<a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-site/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a>
+	                    	<a class="btn btn-default btn-outline btn-sm">今日实时</a>
+	                    	<a class="btn btn-default btn-outline btn-sm">历史数据</a>
+	                    	<a class="btn btn-default btn-outline btn-sm">广告页</a>
+	                    	<a class="btn btn-default btn-outline btn-sm">目标页</a>
+	                    	<a class="btn btn-default btn-outline btn-sm">统计代码</a>
+	                    	<%-- <a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-site/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
+	                    	<a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-site/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a> --%>
 	                    </td>
 	                </tr>
 	                </c:forEach>
