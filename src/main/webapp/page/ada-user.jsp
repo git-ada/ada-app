@@ -27,7 +27,7 @@
 			<div class="col-md-10 col-sm-12 left">
 		    <div class="caption">
 				<div class="clearfix ">
-				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-user-manager/list.jhtm" method="get">
+				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-user/list.jhtm" method="get">
 				    	<!--
 				    		支持操作符 :EQ, NOTEQ , LIKE, LLIKE, RLIKE, NLIKE, GT, LT, GTE, LTE, IN, NOTIN, NULL, NOTNULL,
 				    		如:search_EQ_name 会自动添加条件，like '%value%';
@@ -71,7 +71,7 @@
 		    
 		    <!-- 右上角工具栏 BEGIN -->
 		    <div class="col-md-2 col-sm-12 right">
-	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-user-manager/export"><span>导出表格</span></a>
+	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-user/export"><span>导出表格</span></a>
 	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a>
 		    </div>
 	    </div>
@@ -81,7 +81,7 @@
 		<div class="row">
 			<!-- 左上角功能区 BEGIN -->
 		    <div class="col-md-6 col-sm-12">
-		       <button type="button" class="btn green" onclick="gotoPage('${pageContext.request.contextPath}/ada-user-manager/create.jhtm')" data-opt-key="/ada-user-manager/create"><i class="fa fa-plus"></i>&nbsp;&nbsp;新增&nbsp;&nbsp;</button>
+		       <button type="button" class="btn green" onclick="gotoPage('${pageContext.request.contextPath}/ada-user/create.jhtm')" data-opt-key="/ada-user/create"><i class="fa fa-plus"></i>&nbsp;&nbsp;新增&nbsp;&nbsp;</button>
 		    </div>
 		    <!-- 左上角功能区 END -->
 		    
@@ -117,7 +117,8 @@
 						<th scope="col">城市ID</th>			
 						<th scope="col">地区ID</th>			
 						<th scope="col">家庭住址</th>			
-						<th scope="col">状态</th>			
+						<th scope="col">状态</th>
+						<th scope="col">是否为管理员</th>			
 						<th scope="col">创建时间</th>			
 				        <th scope="col" style="font-weight: bolder;font-size: 16px;">··· ···</th>
 				     </tr>
@@ -155,10 +156,11 @@
 								<c:if test="${e.key == item.status}">${e.value}</c:if>
 								</c:forEach>
 							</td>
+							<td>${item.isAdmin}</td>
 		                    <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 	                    <td>
-	                    	<a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-user-manager/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
-	                    	<a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-user-manager/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a>
+	                    	<a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-user/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
+	                    	<a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-user/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a>
 	                    </td>
 	                </tr>
 	                </c:forEach>
@@ -172,7 +174,7 @@
 	        <div class="col-md-4 col-sm-12">
 	            <button class="btn btn-sm btn-select-all">全选 </button>
 	            <button class="btn btn-sm btn-select-invert">反选 </button>
-	            <button class="btn btn-sm disabled opt-depend-select opt-batch-delete" data-opt-key="/ada-user-manager/delete">删除 </button>
+	            <button class="btn btn-sm disabled opt-depend-select opt-batch-delete" data-opt-key="/ada-user/delete">删除 </button>
 	        </div>
 	        <!-- 底部分页 -->
 	        <div class="col-md-8 col-sm-12 right">
@@ -210,7 +212,7 @@
 	//导出
 	$(".opt-export").click(function() { 
 		//refreshPage();
-		var exportUrl = "${pageContext.request.contextPath}/ada-user-manager/export.do?"+$("#search_from").find("[value!='']").serialize();
+		var exportUrl = "${pageContext.request.contextPath}/ada-user/export.do?"+$("#search_from").find("[value!='']").serialize();
 		window.location.href = exportUrl;
 	});
 	
@@ -323,7 +325,7 @@
      //删除记录
      var deleteItems = function(ids){
     	 jQuery.ajax({
-      		url:"${pageContext.request.contextPath}/ada-user-manager/delete.do?id="+ids,
+      		url:"${pageContext.request.contextPath}/ada-user/delete.do?id="+ids,
       		success:function(ret){
       			if(ret.success){
       				toastr.success(ret.message);
@@ -351,7 +353,7 @@
             <div class="page-quick-sidebar-settings-list">
                 <h3 class="list-heading" style="color: #fff">编辑</h3>
                 <div class="list-items">
-					<form id="edit_form" action="${pageContext.request.contextPath}/ada-user-manager/update.do" class="form-horizontal" method="post">
+					<form id="edit_form" action="${pageContext.request.contextPath}/ada-user/update.do" class="form-horizontal" method="post">
 			        	<input type="hidden" name="id">
 		               	<div class="form-body">
 			               	<div class="form-group">
@@ -453,6 +455,16 @@
 								</div>
 			               	</div>
 			               	<div class="form-group">
+			               		<label class="col-md-4 control-label">是否管理员</label>	
+			               		<div class="col-md-8">
+									<select name="isAdmin" class="form-control" >
+									<c:forEach items="${allIsAdmins}" var="e">
+									<option value="${e.key}">${e.value}</option>
+									</c:forEach>
+									</select>
+								</div>
+			               	</div>
+			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">创建时间</label>	
 			               		<div class="col-md-8">
 									<input name="createTime" class="form-control form-control-inline datetimepick" type="text" data-date-format="yyyy-mm-dd hh:ii:ss" value="<fmt:formatDate value="${adaUser.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly">
@@ -475,7 +487,7 @@
     $('.opt-edit').click(function(){
     	 var id = $(this).attr("data-id");
     		 $.ajax({  
-                 url : "${pageContext.request.contextPath}/ada-user-manager/get.do",
+                 url : "${pageContext.request.contextPath}/ada-user/get.do",
                  data : {"id" : id},
                  success : function(ret) {
                  		$("#edit_form").find("[name='id']").val(ret.entity.id);
@@ -543,7 +555,7 @@
         onConfirm: function(){
         	var id = $("#edit_form").find("[name='id']").val();
         	jQuery.ajax({
-          		url:"${pageContext.request.contextPath}/ada-user-manager/delete.do?id="+id,
+          		url:"${pageContext.request.contextPath}/ada-user/delete.do?id="+id,
           		success:function(ret){
           			if(ret.success){
           				$("body").toggleClass("page-quick-sidebar-open");

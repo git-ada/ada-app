@@ -25,7 +25,7 @@ import java.util.TreeMap;
 
 @Controller
 @Module(name="用户")
-@RequestMapping(value = "/ada-user-manager")
+@RequestMapping(value = "/ada-user")
 public class AdaUserManagerController extends AbstractJQueryEntityController<AdaUser, AdaUserService> {
 	/**
 	 * 权限列表
@@ -48,6 +48,11 @@ public class AdaUserManagerController extends AbstractJQueryEntityController<Ada
 		allStatuss.put("1", "正常");
 		allStatuss.put("-1", "禁用");
 	}
+	private static Map<String, String> allIsAdmins =  new TreeMap();
+	static {
+		allIsAdmins.put("1", "是");
+		allIsAdmins.put("0", "否");
+	}
 
 	@Autowired
 	private AdaUserService adaUserService;
@@ -57,6 +62,7 @@ public class AdaUserManagerController extends AbstractJQueryEntityController<Ada
 	protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
 		model.put("allSexs", allSexs);
 		model.put("allStatuss", allStatuss);
+		model.put("allIsAdmins", allIsAdmins);
 	}
 
     @ModuleIndex

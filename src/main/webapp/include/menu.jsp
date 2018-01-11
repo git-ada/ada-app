@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <li class="nav-item"><a href="${pageContext.request.contextPath}/ada-site/list.jhtm" class="ajaxify nav-link" ><i class="icon-graph"></i><span class="title">站点管理</span></a></li>
-<li class="nav-item"><a href="${pageContext.request.contextPath}/ada-user-manager/list.jhtm" class="ajaxify nav-link" ><i class="icon-graph"></i><span class="title">用户管理</span></a></li>
+<li class="nav-item"><a href="${pageContext.request.contextPath}/ada-user/list.jhtm" class="ajaxify nav-link" ><i class="icon-graph"></i><span class="title">用户管理</span></a></li>
 
 
 

@@ -49,11 +49,12 @@ public class AdaUser extends AbstractEntity<Integer> {
     /** 家庭住址 */
 	private String homeAddress;                    
     /** 状态 */
-	private Integer status;                    
-    /** 创建时间 */
-	private Timestamp createTime;  
+	private Integer status;  
 	/** 是否为管理员 */
 	private Integer isAdmin;  
+    /** 创建时间 */
+	private Timestamp createTime;  
+	
 	
 	public final static Integer STATUS_DISABLE = -1;
 	
