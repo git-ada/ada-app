@@ -104,13 +104,13 @@ public class IndexController {
 			if(adaSites!=null && !adaSites.isEmpty()){
 				AdaSite currentSite = adaSites.get(0);
 				/** 设置默认站点 **/
-				Sessions.setCurrentSite(currentSite);
-				log.info(Sessions.getLoginUser().getNickname() +" 登入，设置默认站点->"+currentSite.getId()+":" +currentSite.getSiteName());
+				//Sessions.setCurrentSite(currentSite);
+				log.info(Sessions.getLoginUser().getNickname());
 			}
 		}
 		
 		model.addAttribute("user",Sessions.getLoginUser());
-		model.addAttribute("platformName", Sessions.getCurrentSite().getSiteName());
+		//model.addAttribute("platformName", Sessions.getCurrentSite().getSiteName());
 	
 		return "index";
 	}
