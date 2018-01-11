@@ -15,7 +15,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span>用户</span>
+            <span>用户列表 </span>
         </li>
     </ul>
 </div>
@@ -27,7 +27,7 @@
 			<div class="col-md-10 col-sm-12 left">
 		    <div class="caption">
 				<div class="clearfix ">
-				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-user/list.jhtm" method="get">
+				    <form id="search_from" class="form-horizontal" action="${pageContext.request.contextPath}/ada-user-manager/list.jhtm" method="get">
 				    	<!--
 				    		支持操作符 :EQ, NOTEQ , LIKE, LLIKE, RLIKE, NLIKE, GT, LT, GTE, LTE, IN, NOTIN, NULL, NOTNULL,
 				    		如:search_EQ_name 会自动添加条件，like '%value%';
@@ -38,59 +38,27 @@
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_username" value="${param.search_LIKE_username}"  placeholder="用户名"/>
 										</div>
-										<div class="col-md-1 col-sm-12">
-										<input type="text" class="form-control search-field input-small" name="search_LIKE_password" value="${param.search_LIKE_password}"  placeholder="密码,MD5"/>
-										</div>
+										
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_nickname" value="${param.search_LIKE_nickname}"  placeholder="昵称"/>
 										</div>
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_realname" value="${param.search_LIKE_realname}"  placeholder="真名"/>
 										</div>
-										<div class="col-md-1 col-sm-12">
-										<input type="text" class="form-control search-field input-small" name="search_LIKE_idNo" value="${param.search_LIKE_idNo}"  placeholder="身份证号码"/>
-										</div>
+										
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_email" value="${param.search_LIKE_email}"  placeholder="邮箱"/>
 										</div>
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_phone" value="${param.search_LIKE_phone}"  placeholder="手机"/>
 										</div>
-										<div class="col-md-2 col-sm-12">
-									         <div class="input-group input-medium">
-                                                 <input type="text" class="form-control daterangepick"  placeholder="生日" readonly="readonly">
-                                                 <input type="hidden" name="search_GTE_birthday" value="${param.search_GTE_birthday}">
-                                                 <input type="hidden" name="search_LTE_birthday" value="${param.search_LTE_birthday}">
-                                            </div>
-									    </div>
-										<div class="col-md-1 col-sm-12">
-										<select name="search_EQ_sex" class="bs-select form-control input-small"><option value="">所有</option><c:forEach var="e" items="${allSexs}"><option value="${e.key}" ${param.search_EQ_sex == e.key?'selected':''}>${e.value}</option></c:forEach></select>
-										</div>
-										<div class="col-md-1 col-sm-12">
-										<input type="text" class="form-control search-field input-small" name="search_LIKE_headImgUrl" value="${param.search_LIKE_headImgUrl}"  placeholder="头像URL"/>
-										</div>
-										<div class="col-md-1 col-sm-12">
-										<input type="text" class="form-control search-field input-small" name="search_EQ_provinceId" value="${param.search_EQ_provinceId}"  placeholder="省ID"/>
-										</div>
-										<div class="col-md-1 col-sm-12">
-										<input type="text" class="form-control search-field input-small" name="search_EQ_cityId" value="${param.search_EQ_cityId}"  placeholder="城市ID"/>
-										</div>
-										<div class="col-md-1 col-sm-12">
-										<input type="text" class="form-control search-field input-small" name="search_EQ_districtId" value="${param.search_EQ_districtId}"  placeholder="地区ID"/>
-										</div>
+										
+										
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_homeAddress" value="${param.search_LIKE_homeAddress}"  placeholder="家庭住址"/>
 										</div>
-										<div class="col-md-1 col-sm-12">
-										<select name="search_EQ_status" class="bs-select form-control input-small"><option value="">所有</option><c:forEach var="e" items="${allStatuss}"><option value="${e.key}" ${param.search_EQ_status == e.key?'selected':''}>${e.value}</option></c:forEach></select>
-										</div>
-										<div class="col-md-2 col-sm-12">
-									         <div class="input-group input-medium">
-                                                 <input type="text" class="form-control daterangepick"  placeholder="创建时间" readonly="readonly">
-                                                 <input type="hidden" name="search_GTE_createTime" value="${param.search_GTE_createTime}">
-                                                 <input type="hidden" name="search_LTE_createTime" value="${param.search_LTE_createTime}">
-                                            </div>
-									    </div>
+										
+										
 						    <div class="col-md-1 col-sm-12">
 						    	<button class="btn  btn-default opt-search" type="button" >&nbsp;&nbsp;搜索&nbsp;&nbsp;<i class="fa fa-search">&nbsp;&nbsp;</i></button>
 						    </div>
@@ -103,7 +71,7 @@
 		    
 		    <!-- 右上角工具栏 BEGIN -->
 		    <div class="col-md-2 col-sm-12 right">
-	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-user/export"><span>导出表格</span></a>
+	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-user-manager/export"><span>导出表格</span></a>
 	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a>
 		    </div>
 	    </div>
@@ -113,7 +81,7 @@
 		<div class="row">
 			<!-- 左上角功能区 BEGIN -->
 		    <div class="col-md-6 col-sm-12">
-		       <button type="button" class="btn green" onclick="gotoPage('${pageContext.request.contextPath}/ada-user/create.jhtm')" data-opt-key="/ada-user/create"><i class="fa fa-plus"></i>&nbsp;&nbsp;新增&nbsp;&nbsp;</button>
+		       <button type="button" class="btn green" onclick="gotoPage('${pageContext.request.contextPath}/ada-user-manager/create.jhtm')" data-opt-key="/ada-user-manager/create"><i class="fa fa-plus"></i>&nbsp;&nbsp;新增&nbsp;&nbsp;</button>
 		    </div>
 		    <!-- 左上角功能区 END -->
 		    
@@ -189,8 +157,8 @@
 							</td>
 		                    <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 	                    <td>
-	                    	<a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-user/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
-	                    	<a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-user/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a>
+	                    	<a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-user-manager/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
+	                    	<a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-user-manager/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a>
 	                    </td>
 	                </tr>
 	                </c:forEach>
@@ -204,7 +172,7 @@
 	        <div class="col-md-4 col-sm-12">
 	            <button class="btn btn-sm btn-select-all">全选 </button>
 	            <button class="btn btn-sm btn-select-invert">反选 </button>
-	            <button class="btn btn-sm disabled opt-depend-select opt-batch-delete" data-opt-key="/ada-user/delete">删除 </button>
+	            <button class="btn btn-sm disabled opt-depend-select opt-batch-delete" data-opt-key="/ada-user-manager/delete">删除 </button>
 	        </div>
 	        <!-- 底部分页 -->
 	        <div class="col-md-8 col-sm-12 right">
@@ -242,7 +210,7 @@
 	//导出
 	$(".opt-export").click(function() { 
 		//refreshPage();
-		var exportUrl = "${pageContext.request.contextPath}/ada-user/export.do?"+$("#search_from").find("[value!='']").serialize();
+		var exportUrl = "${pageContext.request.contextPath}/ada-user-manager/export.do?"+$("#search_from").find("[value!='']").serialize();
 		window.location.href = exportUrl;
 	});
 	
@@ -355,7 +323,7 @@
      //删除记录
      var deleteItems = function(ids){
     	 jQuery.ajax({
-      		url:"${pageContext.request.contextPath}/ada-user/delete.do?id="+ids,
+      		url:"${pageContext.request.contextPath}/ada-user-manager/delete.do?id="+ids,
       		success:function(ret){
       			if(ret.success){
       				toastr.success(ret.message);
@@ -383,7 +351,7 @@
             <div class="page-quick-sidebar-settings-list">
                 <h3 class="list-heading" style="color: #fff">编辑</h3>
                 <div class="list-items">
-					<form id="edit_form" action="${pageContext.request.contextPath}/ada-user/update.do" class="form-horizontal" method="post">
+					<form id="edit_form" action="${pageContext.request.contextPath}/ada-user-manager/update.do" class="form-horizontal" method="post">
 			        	<input type="hidden" name="id">
 		               	<div class="form-body">
 			               	<div class="form-group">
@@ -507,7 +475,7 @@
     $('.opt-edit').click(function(){
     	 var id = $(this).attr("data-id");
     		 $.ajax({  
-                 url : "${pageContext.request.contextPath}/ada-user/get.do",
+                 url : "${pageContext.request.contextPath}/ada-user-manager/get.do",
                  data : {"id" : id},
                  success : function(ret) {
                  		$("#edit_form").find("[name='id']").val(ret.entity.id);
@@ -575,7 +543,7 @@
         onConfirm: function(){
         	var id = $("#edit_form").find("[name='id']").val();
         	jQuery.ajax({
-          		url:"${pageContext.request.contextPath}/ada-user/delete.do?id="+id,
+          		url:"${pageContext.request.contextPath}/ada-user-manager/delete.do?id="+id,
           		success:function(ret){
           			if(ret.success){
           				$("body").toggleClass("page-quick-sidebar-open");

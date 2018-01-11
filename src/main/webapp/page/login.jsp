@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
             <form class="login-form" action="login.do" method="post" novalidate="novalidate">
-                <h3 class="form-title font-red">登录</h3>
+                <h3 class="form-title font-red">钻石统计管理后台</h3>
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
                     <span id="error-msg"> 请输入账号和密码. </span>

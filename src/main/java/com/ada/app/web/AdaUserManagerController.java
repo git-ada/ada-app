@@ -25,7 +25,7 @@ import java.util.TreeMap;
 
 @Controller
 @Module(name="用户")
-@RequestMapping(value = "/ada-user")
+@RequestMapping(value = "/ada-user-manager")
 public class AdaUserManagerController extends AbstractJQueryEntityController<AdaUser, AdaUserService> {
 	/**
 	 * 权限列表
@@ -126,6 +126,6 @@ public class AdaUserManagerController extends AbstractJQueryEntityController<Ada
 	}
 	
 	protected String[] getExportTitles() {
-		return new String[]{"用户ID","用户名","密码,MD5","昵称","真名","身份证号码","邮箱","手机","生日","性别","头像URL","省ID","城市ID","地区ID","家庭住址","状态","创建时间",""};
+		return new String[]{"用户ID","用户名","密码,MD5","昵称","真名","身份证号码","邮箱","手机","生日","性别","头像URL","省ID","城市ID","地区ID","家庭住址","状态","创建时间","是否为管理员"};
 	}
 }
