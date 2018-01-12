@@ -17,7 +17,7 @@
     <ul class="page-breadcrumb" style="width: 100%">
         <li>
             <i class="icon-home"></i>
-            <a href="index.jsp">首页</a>
+            <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/ada-site/list.jhtm')">首页</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
