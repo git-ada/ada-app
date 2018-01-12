@@ -117,6 +117,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <span id="ifusername" class="isnone" style="color: #e73d4a;">用户名已被占用</span>
                 </div>
                 <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">邮箱地址</label>
+                    <input class="form-control placeholder-no-fix" id="useremail" type="text" autocomplete="off" placeholder="邮箱地址" name="useremail" /> 
+                </div>
+                <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">密码</label>
                     <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="密码" name="password" /> </div>
                 <div class="form-group">
