@@ -93,7 +93,7 @@ public class SecurityServiceImpl implements SecurityService{
 			throw new BusinessException(ErrorCode.UserNotExist);
 		}
 		if(user.getIsAdmin() == 0){
-			throw new BusinessException(ErrorCode.UserNotPower);
+			throw new BusinessException(ErrorCode.UnAuthorized);
 		}
 		
 		if(AdaUser.STATUS_DISABLE == user.getStatus()){

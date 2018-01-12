@@ -15,7 +15,6 @@ public enum ErrorCode {
 	BusinessException(450,"业务异常"),
 	VerifyCodeInvalid(452,"验证码错误"),
 	UserNotExist(454,"用户不存在"),
-	UserNotPower(457,"权限不足, 请联系管理员"),
 	UserDisable(455,"用户已禁用"),
 	PasswordError(456,"密码错误"),
 	VerifyCodeSendError(463,"发送验证码失败"),
