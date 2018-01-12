@@ -79,7 +79,7 @@
 	                            <span></span>
 	                        </label>
 	                    </th>
-						<th scope="col">用户ID</th>			
+						<!-- <th scope="col">用户ID</th> -->			
 						<th scope="col">站点名称</th>			
 				        <th scope="col" style="font-weight: bolder;font-size: 16px;">操作</th>
 				     </tr>
@@ -93,7 +93,7 @@
 	                            <span></span>
 	                        </label>
 	                    </td>
-						<td>${item.userId}</td>
+						<%-- <td>${item.userId}</td> --%>
 						<td>${item.siteName}</td>
 	                    <td>
 	                    	<a class="btn btn-default btn-outline btn-sm" onclick="gotoPage('${pageContext.request.contextPath}/dashboard.jhtm?dataType=domain&firstTd=&top=&isRefresh=true&isRetrun=false&siteId=${item.id}')">今日实时</a>
