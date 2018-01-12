@@ -66,12 +66,13 @@ public class RegisterController {
 	@RequestMapping("saveRegister")
 	@NotNeedLogin
 	public String saveRegister(HttpServletRequest request,HttpServletResponse response,
-			Model model,String username,String password){
+			Model model,String username,String password,String useremail){
 		AdaUser user = new AdaUser();
 		if(username!=null && password!=null){
 			user.setUsername(username);//设置用户名
 			user.setPassword(MD5s.encode(password).toLowerCase());//设置密码
 			user.setCreateTime(Dates.now());//设置创建时间
+			user.setEmail(useremail);
 		    user = userDao.save(user);//保存新用户
 			
 			if(user!=null){//注册成功,自动登录并进入首页
