@@ -1,5 +1,6 @@
 package com.ada.app.web;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import cn.com.jiand.mvc.framework.module.Module;
 import cn.com.jiand.mvc.framework.module.ModuleIndex;
 import cn.com.jiand.mvc.framework.module.ModuleOperation;
 import cn.com.jiand.mvc.framework.module.Permission;
+import cn.com.jiand.mvc.framework.utils.MD5s;
 import cn.com.jiand.mvc.framework.web.AbstractJQueryEntityController;
 import cn.com.jiand.mvc.framework.web.support.JsonEntityResult;
 import cn.com.jiand.mvc.framework.web.support.JsonResult;
@@ -111,7 +114,6 @@ public class AdaUserManagerController extends AbstractJQueryEntityController<Ada
 	@RequestMapping(value = "update")
 	@ResponseBody
 	public JsonEntityResult<AdaUser> update(HttpServletRequest request,HttpServletResponse response) {
-		
 		return super.updateJson(request, response);
 	}
 	
@@ -135,18 +137,54 @@ public class AdaUserManagerController extends AbstractJQueryEntityController<Ada
 	}
 	
 	protected String[] getExportTitles() {
-		return new String[]{"用户ID","用户名","密码,MD5","昵称","真名","身份证号码","邮箱","手机","生日","性别","头像URL","省ID","城市ID","地区ID","家庭住址","状态","创建时间","是否为管理员"};
+		//return new String[]{"用户ID","用户名","密码,MD5","昵称","真名","身份证号码","邮箱","手机","生日","性别","头像URL","省ID","城市ID","地区ID","家庭住址","状态","创建时间","是否为管理员"};
+		return new String[]{"用户ID","用户名","密码,MD5","昵称","状态","是否为管理员","创建时间"};
 	}
 	
-//	protected List<String> doMarshalEntityToXls(AdaUser entity) {
-//		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//		
-//		List<String> list = new ArrayList();
-//		list.add(df.format(entity.getId()));
-//		list.add(entity.getUsername());
-//		list.add(entity.getPassword());
-//		
-//		return list;
-//	}
+	protected List<String> doMarshalEntityToXls(AdaUser entity) {
+		String createTime =  entity.getCreateTime().toString();
+		createTime = createTime.replace(".0", "");
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        long lt = new Long(createTime);
+//        Date date = new Date(lt);
+//        createTime = simpleDateFormat.format(date);
+		
+		List<String> list = new ArrayList();
+		list.add(entity.getId().toString());
+		list.add(entity.getUsername());
+		list.add(entity.getPassword());
+		list.add(entity.getNickname());
+		list.add(entity.getStatus()==1?"正常":"禁用");
+		list.add(entity.getIsAdmin()==1?"是":"否");
+		list.add(createTime);
+		
+		return list;
+	}
+	
+	public AdaUser doSave(HttpServletRequest request,
+			HttpServletResponse response, Model model, boolean isCreate)
+			throws Exception {
+		AdaUser entity = loadEntity(request);
+		if (entity == null) {
+			entity = getEntityClass().newInstance();
+		}
+		//System.out.println("Password :"+entity.getId()+"---"+entity.getPassword());
+		doDataBinding(request, entity);
+		onSave(request, response, model, entity, isCreate);
+		// 这里服务层默认是根据entity的Id是否为空自动判断是SAVE还是UPDATE.
+		if(isCreate){
+			String encode = MD5s.encode(entity.getPassword());
+			entity.setPassword(encode);
+			getEntityService().save(entity);
+		}else{
+			getEntityService().update(entity);
+			entity.setPassword(MD5s.encode(entity.getPassword()));
+			getEntityService().update(entity);
+		}
+		//System.out.println("Password :"+entity.getId()+"---"+entity.getPassword());
+		return entity;
+	}
+	
+	
 	
 }

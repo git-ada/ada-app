@@ -47,7 +47,8 @@
 	                    <div class="col-md-4">
 			                <input type="text" name="nickname" class="form-control input-medium"  maxlength="64">
 						</div>
-				  </div>				
+				  </div>			
+				  <!--  
 					<div class="form-group">
 	                    <label class="col-md-3 control-label">真名：</label>
 	                    <div class="col-md-4">
@@ -117,7 +118,8 @@
 	                    <div class="col-md-4">
 			                <input type="text" name="homeAddress" class="form-control input-medium"  maxlength="64">
 						</div>
-				  </div>				
+				  </div>		
+				  -->		
 					<div class="form-group">
 	                    <label class="col-md-3 control-label">状态：</label>
 	                    <div class="col-md-4">

@@ -1,6 +1,9 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" import="cn.com.jiand.mvc.framework.utils.MD5s" %>
+<%@ page language="java" import="java.util.*" %>
+
 <style>
 	@media (min-width: 992px){
 		.search-field {padding-right:0!important;}
@@ -108,8 +111,9 @@
 						<th scope="col">用户ID</th>			
 						<th scope="col">用户名</th>			
 						<th scope="col">密码,MD5</th>			
-						<th scope="col">昵称</th>			
-						<th scope="col">真名</th>			
+						<th scope="col">昵称</th>	
+						<!-- 
+						<th scope="col">真名</th>
 						<th scope="col">身份证号码</th>			
 						<th scope="col">邮箱</th>			
 						<th scope="col">手机</th>			
@@ -119,7 +123,8 @@
 						<th scope="col">省ID</th>			
 						<th scope="col">城市ID</th>			
 						<th scope="col">地区ID</th>			
-						<th scope="col">家庭住址</th>			
+						<th scope="col">家庭住址</th>	
+						 -->			
 						<th scope="col">状态</th>
 						<th scope="col">是否为管理员</th>			
 						<th scope="col">创建时间</th>			
@@ -141,6 +146,7 @@
 							<td>${item.username}</td>
 							<td>${item.password}</td>
 							<td>${item.nickname}</td>
+							<!-- 
 							<td>${item.realname}</td>
 							<td>${item.idNo}</td>
 							<td>${item.email}</td>
@@ -155,6 +161,7 @@
 							<td>${item.cityId}</td>
 							<td>${item.districtId}</td>
 							<td>${item.homeAddress}</td>
+							-->
 		                    <td><c:forEach items="${allStatuss}" var="e">
 								<c:if test="${e.key == item.status}">${e.value}</c:if>
 								</c:forEach>
@@ -371,7 +378,7 @@
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">密码,MD5</label>	
 			               		<div class="col-md-8">
-					                <input type="text" name="password" class="form-control"  maxlength="32">
+					                <input type="text" name="password" class="form-control"  maxlength="32" >
 								</div>
 			               	</div>
 			               	<div class="form-group">
@@ -380,6 +387,7 @@
 					                <input type="text" name="nickname" class="form-control"  maxlength="64">
 								</div>
 			               	</div>
+			               	<!-- 
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">真名</label>	
 			               		<div class="col-md-8">
@@ -450,6 +458,7 @@
 					                <input type="text" name="homeAddress" class="form-control"  maxlength="64">
 								</div>
 			               	</div>
+			               	-->
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">状态</label>	
 			               		<div class="col-md-8">
@@ -497,6 +506,20 @@
 	    d = d<10? "0"+d : ""+d;
 	    return y+"-"+m+"-"+d;
 	} 
+	function formatDate2(date) {
+		var y = date.getFullYear();
+	    var m = date.getMonth()+1;//获取当前月份的日期
+	    var d = date.getDate();
+	    var h = date.getHours();
+	    var min = date.getMinutes();
+	    var s = date.getSeconds();
+	    m = m<10? "0"+m : ""+m;
+	    d = d<10? "0"+d : ""+d;
+	    h = h<10? "0"+h : ""+h;
+	    min = min<10? "0"+min : ""+min;
+	    s = s<10? "0"+s : ""+s;
+	    return y+"-"+m+"-"+d+" "+h+":"+min+":"+s;
+	} 
 	//编辑
     $('.opt-edit').click(function(){
     	 var id = $(this).attr("data-id");
@@ -505,8 +528,12 @@
                  data : {"id" : id},
                  success : function(ret) {
                 	    var bri = ret.entity.birthday;
+                	    var cre = ret.entity.createTime;
                 	    if(bri != null && bri != ''){
                 	    	bri = formatDate(new Date(bri)); 
+                	    }
+                	    if(cre != null && cre != ''){
+                	    	cre = formatDate2(new Date(cre)); 
                 	    }
                  		$("#edit_form").find("[name='id']").val(ret.entity.id);
                  		$("#edit_form").find("[name='username']").val(ret.entity.username);
@@ -525,7 +552,7 @@
                  		$("#edit_form").find("[name='homeAddress']").val(ret.entity.homeAddress);
                  		$("#edit_form").find("[name='status']").val(ret.entity.status);
                  		$("#edit_form").find("[name='isAdmin']").val(ret.entity.isAdmin);
-                 		$("#edit_form").find("[name='createTime']").val(ret.entity.createTime);
+                 		$("#edit_form").find("[name='createTime']").val(cre);
                  }  
              });
         $("body").toggleClass("page-quick-sidebar-open");
@@ -567,6 +594,8 @@
     	}
     });
     
+	
+	
     //删除
     $(".opt-edit-delete").confirmation({
         btnOkClass: "btn btn-sm btn-success",btnCancelClass: "btn btn-sm btn-default",placement: "right",
