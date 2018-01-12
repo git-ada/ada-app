@@ -141,26 +141,30 @@ public class AdaUserManagerController extends AbstractJQueryEntityController<Ada
 		return new String[]{"用户ID","用户名","密码,MD5","昵称","状态","是否为管理员","创建时间"};
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see cn.com.jiand.mvc.framework.web.AbstractFileOperationController#doMarshalEntityToXls(cn.com.jiand.mvc.framework.domain.AbstractEntity)
+	 */
 	protected List<String> doMarshalEntityToXls(AdaUser entity) {
 		String createTime =  entity.getCreateTime().toString();
 		createTime = createTime.replace(".0", "");
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        long lt = new Long(createTime);
-//        Date date = new Date(lt);
-//        createTime = simpleDateFormat.format(date);
 		
 		List<String> list = new ArrayList();
 		list.add(entity.getId().toString());
 		list.add(entity.getUsername());
 		list.add(entity.getPassword());
 		list.add(entity.getNickname());
-		list.add(entity.getStatus()==1?"正常":"禁用");
-		list.add(entity.getIsAdmin()==1?"是":"否");
+		list.add(entity.getStatus() == 1 ? "正常" : "禁用");
+		list.add(entity.getIsAdmin() == 1 ?  "是" : "否");
 		list.add(createTime);
 		
 		return list;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see cn.com.jiand.mvc.framework.web.AbstractOperationController#doSave(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.ui.Model, boolean)
+	 */
 	public AdaUser doSave(HttpServletRequest request,
 			HttpServletResponse response, Model model, boolean isCreate)
 			throws Exception {
@@ -173,8 +177,7 @@ public class AdaUserManagerController extends AbstractJQueryEntityController<Ada
 		onSave(request, response, model, entity, isCreate);
 		// 这里服务层默认是根据entity的Id是否为空自动判断是SAVE还是UPDATE.
 		if(isCreate){
-			String encode = MD5s.encode(entity.getPassword());
-			entity.setPassword(encode);
+			entity.setPassword(MD5s.encode(entity.getPassword()));
 			getEntityService().save(entity);
 		}else{
 			getEntityService().update(entity);
