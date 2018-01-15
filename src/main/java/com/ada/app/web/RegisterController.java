@@ -73,6 +73,8 @@ public class RegisterController {
 			user.setPassword(MD5s.encode(password).toLowerCase());//设置密码
 			user.setCreateTime(Dates.now());//设置创建时间
 			user.setEmail(useremail);
+			user.setStatus(1);
+			user.setIsAdmin(0);
 		    user = userDao.save(user);//保存新用户
 			
 			if(user!=null){//注册成功,自动登录并进入首页

@@ -53,6 +53,8 @@ public class AdaUser extends AbstractEntity<Integer> {
     /** 创建时间 */
 	private Timestamp createTime;     
 	
+	private Integer isAdmin;
+	
 	public final static Integer STATUS_DISABLE = -1;
 	
 	@Id	
@@ -191,6 +193,14 @@ public class AdaUser extends AbstractEntity<Integer> {
 	
 	public void setCreateTime(Timestamp createTime){
 		this.createTime = createTime;
+	}
+
+	public Integer getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(Integer isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 	
 	
