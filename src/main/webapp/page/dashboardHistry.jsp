@@ -198,6 +198,18 @@ table.dataTable{
 }
 
 </style>
+<div class="page-bar" style="border-bottom: 0px;">
+    <ul class="page-breadcrumb" style="width: 100%">
+        <li>
+            <i class="icon-action-undo" style="cursor: pointer;" onclick="gotoHistoryPage(-1)"></i>
+            	<span>站点列表</span>
+            <i class="fa fa-angle-right"></i>
+        </li>
+         <li>
+            <span>历史数据</span>
+        </li>
+    </ul>
+</div>
 
 <div class="portlet light bordered">
     <div class="portlet-title" style="padding-bottom: 0;margin-bottom: 0;padding-top: 5px;padding-right: 5px;padding-left: 0px !important;">
@@ -399,7 +411,7 @@ table.dataTable{
 	var clickDate = '${lasttime}';  
 	var XClickDate = ''; 
 	var selectTime = '';
-	
+	var siteId = '${siteId}';
 	function domaininitatepicker(){
 		$('.datepick').datepicker({autoclose:true});
 		$('.datetimepick').datetimepicker({language:'zh-CN',defaultTime:false,autoclose:true});

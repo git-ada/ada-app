@@ -19,7 +19,7 @@ var sessionData = "";//每一次更新的数据放在session中
 function byClickLoadTableData(clickDate){
 	timestamp = Date.parse(new Date());
 	jQuery.ajax({
-		url : webPath + "/clickLoadHistryData.do?dataType="+dataType+"&clickDate="+clickDate+"&top="+ipTop+"&timestamp="+timestamp+"&domain="+search+"&domainId="+domainId,
+		url : webPath + "/clickLoadHistryData.do?dataType="+dataType+"&clickDate="+clickDate+"&top="+ipTop+"&timestamp="+timestamp+"&domain="+search+"&domainId="+domainId+"&siteId="+siteId,
 		success : function(data) {
 			if (data!=null) {
 				var json = eval('(' + data + ')');
@@ -320,7 +320,7 @@ var initTable1 = function () {
 		 timestamp = Date.parse(new Date());
 		 jQuery.ajax({
 			 	type:"post",
-				url : webPath+"/ajaxRefreshHistryDataPage.do?dataType="+dataType+"&domainId="+domainId+"&domain="+search+"&top="+ipTop+"&timestamp="+timestamp+"&clickDate="+clickDate,
+				url : webPath+"/ajaxRefreshHistryDataPage.do?dataType="+dataType+"&domainId="+domainId+"&domain="+search+"&top="+ipTop+"&timestamp="+timestamp+"&clickDate="+clickDate+"&siteId="+siteId,
 				success : function(data) {
 					if (data!=null) {
 						var json = eval('(' + data + ')');

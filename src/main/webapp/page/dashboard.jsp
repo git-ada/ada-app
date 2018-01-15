@@ -149,20 +149,20 @@ table.dataTable{
 }
 </style>
 
-<!-- 
-<div class="page-bar">
+
+<div class="page-bar" style="border-bottom: 0px;">
     <ul class="page-breadcrumb" style="width: 100%">
         <li>
-            <i class="icon-home"></i>
-            	首页
+            <i class="icon-action-undo" style="cursor: pointer;" onclick="gotoHistoryPage(-1)"></i>
+            	<span>站点列表</span>
             <i class="fa fa-angle-right"></i>
         </li>
          <li>
-            <span>实时数据</span>
+            <span>今日实时</span>
         </li>
     </ul>
 </div>
- -->
+ 
 <div class="row" style="margin-bottom: 15px;">
 	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		<div class="dashboard-stat blue margin-bottom0">
@@ -371,6 +371,7 @@ var isRetrun = '${isRetrun}';
 var tbodydata = '${tbodydata}';
 var webPath = '${pageContext.request.contextPath}';
 var jstimestamp = Date.parse(new Date());
+var siteId = '${siteId}';
 </script>
 <script  type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/assets/js/dashboard_hgr.js?jstimestamp=<%=new Date()%>"></script>
 <!-- END PAGE SCRIPTS -->

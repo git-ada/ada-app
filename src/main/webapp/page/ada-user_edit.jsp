@@ -140,12 +140,14 @@
 							</select>
 						</div>
 				  </div>
+				  <!-- 
 					<div class="form-group">
 	                    <label class="col-md-3 control-label">创建时间：</label>
 	                    <div class="col-md-4">
 							<input name="createTime" class="form-control form-control-inline input-medium datetimepick" type="text" data-date-format="yyyy-mm-dd hh:ii:ss" value="<fmt:formatDate value="${adaUser.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly">
 						</div>
-				  </div>				
+				  </div>
+				    -->				
             </div>
             <div class="form-actions">
                 <div class="row">

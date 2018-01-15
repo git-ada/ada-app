@@ -14,8 +14,8 @@
         <li class="index-refresh toggler tooltips" data-placement="left" data-html="true" data-original-title="刷新页面"><i class="icon-refresh" onclick="refreshPage()"></i></li>
         -->
         <li>
-            <i class="icon-home"></i>
-            <a href="index.jsp">首页</a>
+            <i class="icon-action-undo" style="cursor: pointer;" onclick="gotoHistoryPage(-1)"></i>
+            	<span>站点列表</span>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>

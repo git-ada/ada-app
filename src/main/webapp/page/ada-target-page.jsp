@@ -10,8 +10,8 @@
 <div class="page-bar">
     <ul class="page-breadcrumb" style="width: 100%">
         <li>
-            <i class="icon-home"></i>
-            <a href="index.jsp">首页</a>
+            <i class="icon-action-undo" style="cursor: pointer;" onclick="gotoHistoryPage(-1)"></i>
+            	<span>站点列表</span>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -25,7 +25,7 @@
 		<div class="row">
 			<!-- 左上角功能区 BEGIN -->
 		    <div class="col-md-6 col-sm-12">
-		       <button type="button" class="btn btn-default" onclick="gotoPage('${pageContext.request.contextPath}/ada-target-page/create.jhtm')" data-opt-key="/ada-target-page/create"><i class="fa fa-plus"></i>&nbsp;&nbsp;添加目标页&nbsp;&nbsp;</button>
+		       <button type="button" class="btn btn-default" onclick="gotoPage('${pageContext.request.contextPath}/ada-target-page/create.jhtm?siteId=${siteId}')" data-opt-key="/ada-target-page/create"><i class="fa fa-plus"></i>&nbsp;&nbsp;添加目标页&nbsp;&nbsp;</button>
 		    </div>
 		    <!-- 左上角功能区 END -->
 		</div>

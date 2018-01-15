@@ -148,7 +148,7 @@ var initTable1 = function () {
 		 timestamp = Date.parse(new Date());
 		 jQuery.ajax({
 			 	type:"post",
-				url : webPath+"/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId+"&firstTd="+search+"&top="+ipTop+"&timestamp="+timestamp,
+				url : webPath+"/ajaxRefreshPage.do?dataType="+dataType+"&domainId="+domainId+"&firstTd="+search+"&top="+ipTop+"&timestamp="+timestamp+"&siteId="+siteId,
 				success : function(data) {
 					
 					if (data!=null) {

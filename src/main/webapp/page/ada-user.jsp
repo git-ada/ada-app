@@ -48,6 +48,7 @@
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_nickname" value="${param.search_LIKE_nickname}"  placeholder="昵称"/>
 										</div>
+										<!--  
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_realname" value="${param.search_LIKE_realname}"  placeholder="真名"/>
 										</div>
@@ -63,7 +64,7 @@
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_homeAddress" value="${param.search_LIKE_homeAddress}"  placeholder="家庭住址"/>
 										</div>
-										
+										-->
 										
 						    <div class="col-md-1 col-sm-12">
 						    	<button class="btn  btn-default opt-search" type="button" >&nbsp;&nbsp;搜索&nbsp;&nbsp;<i class="fa fa-search">&nbsp;&nbsp;</i></button>
@@ -126,8 +127,10 @@
 						<th scope="col">家庭住址</th>	
 						 -->			
 						<th scope="col">状态</th>
-						<th scope="col">是否为管理员</th>			
-						<th scope="col">创建时间</th>			
+						<th scope="col">是否为管理员</th>	
+						<!--		
+						<th scope="col">创建时间</th>	
+						-->		
 				        <th scope="col" style="font-weight: bolder;font-size: 16px;">··· ···</th>
 				     </tr>
 	            </thead>
@@ -170,7 +173,9 @@
 								<c:if test="${e.key == item.isAdmin}">${e.value}</c:if>
 								</c:forEach>
 							</td>
+							<!--  
 		                    <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+		                    -->
 	                    <td>
 	                    	<a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-user/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
 	                    	<a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-user/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a>
@@ -479,12 +484,14 @@
 									</select>
 								</div>
 			               	</div>
+			               	<!--  
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">创建时间</label>	
 			               		<div class="col-md-8">
 									<input name="createTime" class="form-control form-control-inline datetimepick" type="text" data-date-format="yyyy-mm-dd hh:ii:ss" value="<fmt:formatDate value="${adaUser.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly">
 								</div>
 			               	</div>
+			               	-->
 		               	</div>  
 			        </form> 
 			    </div>
@@ -528,13 +535,13 @@
                  data : {"id" : id},
                  success : function(ret) {
                 	    var bri = ret.entity.birthday;
-                	    var cre = ret.entity.createTime;
+                	    //var cre = ret.entity.createTime;
                 	    if(bri != null && bri != ''){
                 	    	bri = formatDate(new Date(bri)); 
                 	    }
-                	    if(cre != null && cre != ''){
-                	    	cre = formatDate2(new Date(cre)); 
-                	    }
+                	    //if(cre != null && cre != ''){
+                	    //	cre = formatDate2(new Date(cre)); 
+                	   // }
                  		$("#edit_form").find("[name='id']").val(ret.entity.id);
                  		$("#edit_form").find("[name='username']").val(ret.entity.username);
                  		$("#edit_form").find("[name='password']").val(ret.entity.password);
@@ -552,7 +559,7 @@
                  		$("#edit_form").find("[name='homeAddress']").val(ret.entity.homeAddress);
                  		$("#edit_form").find("[name='status']").val(ret.entity.status);
                  		$("#edit_form").find("[name='isAdmin']").val(ret.entity.isAdmin);
-                 		$("#edit_form").find("[name='createTime']").val(cre);
+                 		//$("#edit_form").find("[name='createTime']").val(cre);
                  }  
              });
         $("body").toggleClass("page-quick-sidebar-open");

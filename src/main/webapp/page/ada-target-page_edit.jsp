@@ -11,12 +11,12 @@
         <li class="index-refresh toggler tooltips" data-placement="left" data-html="true" data-original-title="刷新页面"><i class="icon-refresh" onclick="refreshPage()"></i></li>
         -->
         <li>
-            <i class="icon-home"></i>
-            <a href="index.jsp">首页</a>
+            <i class="icon-action-undo" style="cursor: pointer;" onclick="gotoHistoryPage(-1)"></i>
+            	<span>站点列表</span>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="javascript:;" onclick="gotoPage('${pageContext.request.contextPath}/ada-target-page/list.jhtm')"> 目标页 </a>
+             	<span>目标页</span>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -31,7 +31,7 @@
     <div class="portlet-body form">
         <form id="edit_form" action="${pageContext.request.contextPath}/ada-target-page/${action=='create'?'save':'update'}.do" class="form-horizontal" method="post">
         <jodd:form bean="adaTargetPage" scope="request">
-        <input type="hidden" name="siteId" value="${_CURRENT_SITE.id}">
+        <input type="hidden" name="siteId" value="${siteId}">
             <div class="form-body">
             		<div class="form-group">
 	                    <label class="col-md-1 control-label">网页名称<span class="required" > * </span></label>
