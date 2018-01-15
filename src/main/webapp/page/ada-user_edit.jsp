@@ -60,13 +60,15 @@
 	                    <div class="col-md-4">
 			                <input type="text" name="idNo" class="form-control input-medium"  maxlength="24">
 						</div>
-				  </div>				
+				  </div>
+				  -->				
 					<div class="form-group">
 	                    <label class="col-md-3 control-label">邮箱：</label>
 	                    <div class="col-md-4">
 							<textarea rows="3" cols="40" name="email" class="form-control input-medium"  maxlength="128"></textarea>
 						</div>
-				  </div>				
+				  </div>
+				  <!-- 				
 					<div class="form-group">
 	                    <label class="col-md-3 control-label">手机：</label>
 	                    <div class="col-md-4">

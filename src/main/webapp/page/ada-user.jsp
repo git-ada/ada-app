@@ -52,10 +52,11 @@
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_realname" value="${param.search_LIKE_realname}"  placeholder="真名"/>
 										</div>
-										
+										-->
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_email" value="${param.search_LIKE_email}"  placeholder="邮箱"/>
 										</div>
+										<!--
 										<div class="col-md-1 col-sm-12">
 										<input type="text" class="form-control search-field input-small" name="search_LIKE_phone" value="${param.search_LIKE_phone}"  placeholder="手机"/>
 										</div>
@@ -115,8 +116,10 @@
 						<th scope="col">昵称</th>	
 						<!-- 
 						<th scope="col">真名</th>
-						<th scope="col">身份证号码</th>			
-						<th scope="col">邮箱</th>			
+						<th scope="col">身份证号码</th>
+						--> 			
+						<th scope="col">邮箱</th>
+						<!--			
 						<th scope="col">手机</th>			
 						<th scope="col">生日</th>			
 						<th scope="col">性别</th>			
@@ -152,7 +155,9 @@
 							<!-- 
 							<td>${item.realname}</td>
 							<td>${item.idNo}</td>
-							<td>${item.email}</td>
+							-->
+							<td>${empty item.email ? "---" : item.email}</td>
+							<!--
 							<td>${item.phone}</td>
 		                    <td><fmt:formatDate value="${item.birthday}" pattern="yyyy-MM-dd"/></td>
 		                    <td><c:forEach items="${allSexs}" var="e">
@@ -405,12 +410,14 @@
 					                <input type="text" name="idNo" class="form-control"  maxlength="24">
 								</div>
 			               	</div>
+			                -->
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">邮箱</label>	
 			               		<div class="col-md-8">
 									<textarea rows="3" cols="40" name="email" class="form-control"  maxlength="128"></textarea>
 								</div>
 			               	</div>
+			               	<!--
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">手机</label>	
 			               		<div class="col-md-8">
