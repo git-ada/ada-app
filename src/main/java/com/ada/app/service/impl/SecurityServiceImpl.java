@@ -88,7 +88,7 @@ public class SecurityServiceImpl implements SecurityService{
 	 * @return
 	 */
 	protected AdaUser securityCheck(String username, String password) {
-		AdaUser user = userDao.findByUsername(username);
+		AdaUser user = userDao.findByUsernameAndIsAdmin(username,0);
 		if(user == null){
 			throw new BusinessException(ErrorCode.UserNotExist);
 		}

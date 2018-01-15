@@ -21,6 +21,7 @@ public interface AdaUserDao extends EntityJpaDao<AdaUser, Integer> {
      *通过用户名查询
      */
 	public AdaUser findByUsername(String username);
+	public AdaUser findByUsernameAndIsAdmin(String username,Integer isAdmin);
     /** 
      *通过密码,MD5查询
      */

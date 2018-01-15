@@ -37,30 +37,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link rel="shortcut icon" href="http://ningqu.oss-cn-hangzhou.aliyuncs.com/metronic/theme/admin_1/favicon.ico"> </head>
     <!-- END HEAD -->
 <style>
-.login .content {
-	background-color: #333;
+
+.login{
+	background-color:  #364150!important;
 }
 
-.login .content .form-actions{
-	border-bottom: 0px;
-}
-
-.copyright {
-	color: #f2f2f2!important;
-	border-top: 1px solid #eee;
-}
-.login .content .create-account {
-    background-color: #333 !important;
-    border-radius: 0 0 7px 7px;
-    margin: 0 -40px -30px;
-    padding: 15px 0 17px;
-    text-align: center;
-}
 .isnone{
 	display: none;
 }
+.login .content .form-control {
+    background-color: #dde3ec !important;
+    height: 43px !important;
+    color: #8290a3 !important;
+    border: 1px solid #dde3ec !important;
+}
 </style>
-    <body class=" login">
+    <body class="login">
     	<!-- 
     	<header style="background-color: #EF3F3F;text-align: center;height: 35px;" >
 			<span style="color: #fff;font-size: 23px;">优乐充管理平台</span>
@@ -104,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="create-account">
                     <p>
-                        <a style="display: block;width: 340px;height: 43px;background: #dde3ec;margin: 0px auto;line-height: 43px;text-align: center;color: #8290a3;" href="javascript:;" id="register-btn" class="uppercase">注册账号</a>
+                        <a href="javascript:;" id="register-btn" class="uppercase">注册账号</a>
                     </p>
                 </div>
             </form>
@@ -117,16 +109,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <span id="ifusername" class="isnone" style="color: #e73d4a;">用户名已被占用</span>
                 </div>
                 <div class="form-group">
-                    <label class="control-label visible-ie8 visible-ie9">邮箱地址</label>
-                    <input class="form-control placeholder-no-fix" id="useremail" type="text" autocomplete="off" placeholder="邮箱地址" name="useremail" /> 
-                </div>
-                <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">密码</label>
                     <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="密码" name="password" /> </div>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">重复密码</label>
                     <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="重复密码" name="rpassword" /> </div>
-                <div class="form-group margin-top-20 margin-bottom-20" style="color: #fff;">
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">邮箱地址</label>
+                    <input class="form-control placeholder-no-fix" id="useremail" type="text" autocomplete="off" placeholder="邮箱地址(选填)" name="useremail" /> 
+                </div> 
+                <div class="form-group margin-top-20 margin-bottom-20" style="color: #8290a3;">
                     <label class="mt-checkbox mt-checkbox-outline">
                         <input type="checkbox" name="tnc" checked="checked" /> 我已阅读并同意相关
                         <a href="javascript:;"> "服务条款" </a> 和
