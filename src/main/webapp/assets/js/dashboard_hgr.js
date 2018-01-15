@@ -610,7 +610,7 @@ function graphicLoading(obj) {
 //打开菜单
 function openMenu(a,event){
 	
-	var backUrl = webPath+"/dashboard.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop+"&isRefresh="+isRefresh+"&isRetrun=true";
+	var backUrl = webPath+"/dashboard.jhtm?dataType="+dataType+"&firstTd="+search+"&top="+ipTop+"&isRefresh="+isRefresh+"&isRetrun=true"+"&siteId="+siteId;
 	var id = jQuery(a).attr("id");
 	var domain = jQuery(a).attr("domain");
 	jQuery("#onlyOne").attr("onclick","onlyOne('"+domain+"')");

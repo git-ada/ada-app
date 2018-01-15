@@ -60,8 +60,8 @@
 		    
 		    <!-- 右上角工具栏 BEGIN -->
 		    <div class="col-md-2 col-sm-12 right">
-	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-site/export"><span>导出表格</span></a>
-	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a>
+	            <!-- <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-site/export"><span>导出表格</span></a>
+	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a> -->
 		    </div>
 	    </div>
 	    <!-- 右上角工具栏 END -->
