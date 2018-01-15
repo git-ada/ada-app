@@ -148,7 +148,7 @@
 							<td>${item.id}</td>
 							<td>${item.username}</td>
 							<td>${item.password}</td>
-							<td>${item.nickname}</td>
+							<td>${empty item.nickname ? "---" : item.nickname}</td>
 							<!-- 
 							<td>${item.realname}</td>
 							<td>${item.idNo}</td>
