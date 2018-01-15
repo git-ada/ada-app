@@ -87,13 +87,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="top-menu">
                     	
                         <ul class="nav navbar-nav pull-right">
-                        	<li >
+                        	<%-- <li >
                         		<span style="display:block;color: #ffffff;vertical-align: bottom;margin:18px; font-size: 13px;font-family: 微软雅黑">${platformName}</span>
-                        	</li>
+                        	</li> --%>
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="icon-user"></i>
-                                    <span class="username username-hide-on-mobile"> ${user.nickname}</span>
+                                    <span class="username username-hide-on-mobile"> ${user.username}</span>
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
