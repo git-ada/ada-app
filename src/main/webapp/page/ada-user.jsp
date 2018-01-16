@@ -11,8 +11,13 @@
 	.form-group{
 		margin-top: 0px;
 	}
+	@media (min-width: 992px)
+	bootstrap.min.css:5
+	.col-md-offset-1 {
+	    margin-left: 30.33333%;
+	}
 </style>
-<!-- 顶部导航 BGEIN -->
+<!-- 顶部导航 BGEIN
 <div class="page-bar">
     <ul class="page-breadcrumb" style="width: 100%">
         <li>
@@ -25,8 +30,9 @@
         </li>
     </ul>
 </div>
+ -->
 <!-- 顶部导航 END-->
-<div class="portlet light">
+<div class="portlet light" >
 	<div class="portlet-title">
 		<!-- 顶部搜索栏 BEGIN -->
 		<div class="row">
@@ -78,25 +84,31 @@
 		    <!-- 顶部搜索栏 END -->
 		    
 		    <!-- 右上角工具栏 BEGIN -->
+		    <!--
 		    <div class="col-md-2 col-sm-12 right">
 	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-user/export"><span>导出表格</span></a>
 	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a>
 		    </div>
+		     -->
 	    </div>
 	    <!-- 右上角工具栏 END -->
 	</div>
 	<div class="portlet-body">
 		<div class="row">
 			<!-- 左上角功能区 BEGIN -->
+			<!-- 
 		    <div class="col-md-6 col-sm-12">
 		       <button type="button" class="btn green" onclick="gotoPage('${pageContext.request.contextPath}/ada-user/create.jhtm')" data-opt-key="/ada-user/create"><i class="fa fa-plus"></i>&nbsp;&nbsp;新增&nbsp;&nbsp;</button>
 		    </div>
+		     -->
 		    <!-- 左上角功能区 END -->
 		    
 		    <!-- 头部分页 BEGIN-->
+		    <!-- 
 		    <div class="col-md-6 col-sm-12 right">
 				 <jsp:include page="/include/paging_header.jsp"/>
 		    </div>
+		    -->
 		    <!-- 头部分页 END--> 
 		</div>
 		<!-- 数据列表 BEGIN -->
@@ -110,15 +122,15 @@
 	                            <span></span>
 	                        </label>
 	                    </th>
-						<th scope="col">用户ID</th>			
-						<th scope="col">用户名</th>			
-						<th scope="col">密码,MD5</th>			
-						<th scope="col">昵称</th>	
+						<th scope="col" style="min-width: 70px">用户ID</th>			
+						<th scope="col" style="min-width: 70px">用户名</th>			
+						<th scope="col" style="min-width: 70px">密码</th>			
+						<th scope="col" style="min-width: 70px">昵称</th>	
 						<!-- 
 						<th scope="col">真名</th>
 						<th scope="col">身份证号码</th>
 						--> 			
-						<th scope="col">邮箱</th>
+						<th scope="col" style="min-width: 70px">邮箱</th>
 						<!--			
 						<th scope="col">手机</th>			
 						<th scope="col">生日</th>			
@@ -129,12 +141,12 @@
 						<th scope="col">地区ID</th>			
 						<th scope="col">家庭住址</th>	
 						 -->			
-						<th scope="col">状态</th>
-						<th scope="col">是否为管理员</th>	
+						<th scope="col" style="min-width: 70px">状态</th>
+						<th scope="col" style="min-width: 70px">是否为管理员</th>	
 						<!--		
 						<th scope="col">创建时间</th>	
 						-->		
-				        <th scope="col" style="font-weight: bolder;font-size: 16px;">··· ···</th>
+				        <th scope="col" style="min-width: 70px">操作</th>
 				     </tr>
 	            </thead>
 	            <tbody>
@@ -178,26 +190,110 @@
 								<c:if test="${e.key == item.isAdmin}">${e.value}</c:if>
 								</c:forEach>
 							</td>
-							<!--  
+							<!--  btn btn-circle default
 		                    <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 		                    -->
-	                    <td>
-	                    	<a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-user/create"><span>&nbsp;&nbsp;编辑&nbsp;&nbsp;</span></a>
-	                    	<a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-user/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a>
+	                    <td><!-- <a href="javascript:gotoPage('${pageContext.request.contextPath}/change-password.jhtm')">
+	                       <a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-user/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a>
+	                       <a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-user/create"><span>&nbsp;&nbsp;重置密码&nbsp;&nbsp;</span></a>
+	                       --> 
+	                       <!-- <a href="#modal-content1" role="button" class="btn red btn-outline" data-toggle="modal">重置密码</a> -->
+	                       <a href="javascript:open();"  class="btn btn-default btn-outline" data-id="${item.id}">重置密码</a>
+	                       <!--
+	                       <td>
+	                       <a class="btn btn-default " data-id="${item.id}"  href="javascript:gotoPage('${pageContext.request.contextPath}/change-user-password.jhtm?userId=${item.id}')"><span>&nbsp;&nbsp;重置密码&nbsp;&nbsp;</span></a>
+	                       -->
 	                    </td>
 	                </tr>
 	                </c:forEach>
 	            </tbody>
+	            
 	        </table>
+	    <div id="modal-content2" style="width: 400px;height: 350px; display: none;">
+	        <div class="modal-content">
+                <div class="modal-header">
+                    <a href="javascript:close();" role="button" class="close" ></a>
+                    <h4 class="modal-title">重置密码</h4>
+                </div>
+                <div class="modal-body form">
+                    <form action="${pageContext.request.contextPath}/change-user-password.do" id="edit_form_password" class="form-horizontal form-row-seperated" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">新密码：</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" name="password" class="form-control tt-hint" readonly="" autocomplete="off" spellcheck="false" tabindex="-1" dir="ltr" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);"><input type="text" id="typeahead_example_modal_3" name="typeahead_example_modal_3" class="form-control tt-input" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: &quot;Open Sans&quot;, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><div class="tt-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-datypeahead_example_modal_3"></div></div></span> </div>
+                            </div>
+                        </div>
+                        <div class="form-group last">
+                            <label class="col-sm-4 control-label">再次输入密码：</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" name="repassword" class="form-control tt-hint" readonly="" autocomplete="off" spellcheck="false" tabindex="-1" dir="ltr" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);"><input type="text" id="typeahead_example_modal_4" name="typeahead_example_modal_4" class="form-control tt-input" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: &quot;Open Sans&quot;, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><div class="tt-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-nba"></div><div class="tt-dataset tt-dataset-nhl"></div></div></span> </div>
+                            </div>
+                        </div>
+                        <div class="form-actions" style="left: 60px;">
+			                <div class="row" >
+			                    <div class="col-md-offset-1 col-md-4">
+			                    	<button type="submit" class="btn btn-success">
+			                		<i class="fa fa-check"></i>&nbsp;&nbsp;保存&nbsp;&nbsp;</button>
+			                		<!-- 
+			                		<a href="javascript:close();" style="display: inline;" role="button" class="btn grey-salsa btn-outline" >取消</a>
+			                		 -->
+			                    </div>
+			                </div>
+	            		</div>
+                    </form>
+                </div>
+            </div>
 	    </div>
-	    <!-- 数据列表 END -->
-	    
+	    <div id="modal-content1" style="width: 400px;height: 350px; display: none;">
+	    	<div class="modal-header">
+                    <a href="javascript:close();" role="button" class="close" ></a>
+                    <h4 class="modal-title">重置密码</h4>
+                </div>
+	    	<form id="edit_form2" action="${pageContext.request.contextPath}/change-user-password.do" class="form-horizontal" method="post">
+		        <jodd:form bean="userInfo" scope="request">
+		            <div class="form-body">			
+						  <div class="form-group">
+			                    <label class="col-md-1 control-label">新密码：</label>
+			                    <div class="col-md-4">
+					                <input type="password" name="password" class="form-control input-medium">
+								</div>
+						  </div>	
+						  
+						  <div class="form-group">
+			                    <label class="col-md-1 control-label">重复密码：</label>
+			                    <div class="col-md-4">
+					                <input type="password" name="repassword" class="form-control input-medium">
+								</div>
+						  </div>		
+		            </div>
+		            <div class="form-actions">
+		                <div class="row">
+		                    <div class="col-md-offset-1 col-md-4">
+		                    	<button type="submit" class="btn btn-success">
+		                		<i class="fa fa-check"></i>&nbsp;&nbsp;保存&nbsp;&nbsp;</button>
+		                    </div>
+		                </div>
+		            </div>
+		        </jodd:form>
+	        </form>
+	    </div>
+	    <!-- 数据列表 END
+	    <div class="modal-footer">
+               		 <button type="submit" class="btn green">
+                        <i class="fa fa-check"></i> 保存</button>
+                    <a href="javascript:close();"  class="btn grey-salsa btn-outline" >取消</a>
+                </div>
+	     -->
+	     
 	    <!-- 底部功能区 BEGIN -->
 	    <div class="row">
 	        <div class="col-md-4 col-sm-12">
 	            <button class="btn btn-sm btn-select-all">全选 </button>
 	            <button class="btn btn-sm btn-select-invert">反选 </button>
-	            <button class="btn btn-sm disabled opt-depend-select opt-batch-delete" data-opt-key="/ada-user/delete">删除 </button>
+	            <!-- <button class="btn btn-sm disabled opt-depend-select opt-batch-delete" data-opt-key="/ada-user/delete">删除 </button> -->
+	            
 	        </div>
 	        <!-- 底部分页 -->
 	        <div class="col-md-8 col-sm-12 right">
@@ -207,7 +303,67 @@
 	    <!-- 底部功能区 END -->
 	</div>
 </div>
+</div>
 <script type="text/javascript">
+	$('.btn-outline').click(function(){
+		 var id = $(this).attr("data-id");
+		 $.ajax({  
+			type: 'GET',
+            url : "${pageContext.request.contextPath}/change-user-password.do?userId="+id,
+            data : {"id" : id},
+            success : function(ret) {
+            }  
+        });
+	});
+	function open(){
+	   document.getElementById("modal-content1").style.display="";
+	}
+	function close(){
+	   document.getElementById("modal-content1").style.display="none";
+	}
+	function reload(){
+		//window.location.href="${pageContext.request.contextPath}/ada-user/list.jhtm"; 
+	}
+	$("#edit_form2").validate({
+		 errorClass: "invalid",
+		 rules: {
+		     password: "required",
+		     repassword: "required"
+		   },
+		 messages: {
+			 password: {required: "新密码必输."},
+			 repassword: {required: "重复密码必输."
+	           }
+	       },
+	 submitHandler: function(form) {
+		  var password = $('input[name=password]').val();
+		  var repassword = $('input[name=repassword]').val();
+		  alert(password+ "----->" +repassword);
+		  if(password != repassword){
+				toastr.error("两次输入密码不一致");
+				return false;
+		  }
+		  
+		  
+	    var submitBtn = $('button[type=submit]');
+	    if(!submitBtn.hasClass("disabled")){
+	   		submitBtn.addClass("disabled");
+	   		$(form).ajaxSubmit(function(ret) {
+	    	    	if(ret.success){
+	    	    		toastr.success(ret.message);
+	    	    		close();
+	    	    		reload();
+	    	    	}else{
+	    	    		toastr.error(ret.message);
+	    	    	}
+	    	    	$('button[type=submit]').removeClass("disabled");
+	    	      return false;
+	    	   });
+	   }
+	   
+	   return false;
+	 }
+	});
 	//初始化时间器
 	initatepicker();
 	//初始化操作权限
@@ -374,7 +530,7 @@
 	<div class="page-quick-sidebar">
         <div class="tab-pane page-quick-sidebar-settings">
             <div class="page-quick-sidebar-settings-list">
-                <h3 class="list-heading" style="color: #fff">编辑</h3>
+                <h3 class="list-heading" style="color: #fff">重置密码</h3>
                 <div class="list-items">
 					<form id="edit_form" action="${pageContext.request.contextPath}/ada-user/update.do" class="form-horizontal" method="post">
 			        	<input type="hidden" name="id">
@@ -382,22 +538,22 @@
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">用户名</label>	
 			               		<div class="col-md-8">
-					                <input type="text" name="username" class="form-control"  maxlength="24">
+					                <input type="text" name="username" class="form-control"  maxlength="24" readonly="readonly">
 								</div>
 			               	</div>
 			               	<div class="form-group">
-			               		<label class="col-md-4 control-label">密码,MD5</label>	
+			               		<label class="col-md-4 control-label">新密码</label>	
 			               		<div class="col-md-8">
-					                <input type="text" name="password" class="form-control"  maxlength="32" >
+					                <input type="text" name="password" class="form-control"  maxlength="32" placeholder="输入新密码">
 								</div>
 			               	</div>
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">昵称</label>	
 			               		<div class="col-md-8">
-					                <input type="text" name="nickname" class="form-control"  maxlength="64">
+					                <input type="text" name="nickname" class="form-control"  maxlength="64" readonly="readonly">
 								</div>
 			               	</div>
-			               	<!-- 
+			                	<!--  
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">真名</label>	
 			               		<div class="col-md-8">
@@ -414,7 +570,7 @@
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">邮箱</label>	
 			               		<div class="col-md-8">
-									<textarea rows="3" cols="40" name="email" class="form-control"  maxlength="128"></textarea>
+									<textarea rows="3" cols="40" name="email" class="form-control"  maxlength="128" readonly="readonly"></textarea>
 								</div>
 			               	</div>
 			               	<!--
@@ -474,7 +630,7 @@
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">状态</label>	
 			               		<div class="col-md-8">
-									<select name="status" class="form-control" >
+									<select name="status" class="form-control" disabled="disabled">
 									<c:forEach items="${allStatuss}" var="e">
 									<option value="${e.key}">${e.value}</option>
 									</c:forEach>
@@ -484,13 +640,14 @@
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">是否管理员</label>	
 			               		<div class="col-md-8">
-									<select name="isAdmin" class="form-control" >
+									<select name="isAdmin" class="form-control" disabled="disabled">
 									<c:forEach items="${allIsAdmins}" var="e">
 									<option value="${e.key}">${e.value}</option>
 									</c:forEach>
 									</select>
 								</div>
 			               	</div>
+			               	
 			               	<!--  
 			               	<div class="form-group">
 			               		<label class="col-md-4 control-label">创建时间</label>	
@@ -505,7 +662,7 @@
             </div>
         </div>
         <div class="inner-content staff-quick-slider clearfix">
-        	<span class="fa fa-trash-o opt-edit-delete"></span>
+        	<!-- <span class="fa fa-trash-o opt-edit-delete"></span> -->
             <button id="opt-cancel" class="btn btn-default">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
             <button id="opt-update" class="btn btn-success" ><i class="fa fa-check"></i>&nbsp;&nbsp;保存&nbsp;&nbsp;</button>  
         </div>
@@ -542,16 +699,17 @@
                  data : {"id" : id},
                  success : function(ret) {
                 	    var bri = ret.entity.birthday;
-                	    //var cre = ret.entity.createTime;
+                	    var cre = ret.entity.createTime;
                 	    if(bri != null && bri != ''){
                 	    	bri = formatDate(new Date(bri)); 
                 	    }
-                	    //if(cre != null && cre != ''){
-                	    //	cre = formatDate2(new Date(cre)); 
-                	   // }
+                	    if(cre != null && cre != ''){
+                	    	cre = formatDate2(new Date(cre)); 
+                	    }
+                	    
                  		$("#edit_form").find("[name='id']").val(ret.entity.id);
                  		$("#edit_form").find("[name='username']").val(ret.entity.username);
-                 		$("#edit_form").find("[name='password']").val(ret.entity.password);
+                 		$("#edit_form").find("[name='password']").val("");
                  		$("#edit_form").find("[name='nickname']").val(ret.entity.nickname);
                  		$("#edit_form").find("[name='realname']").val(ret.entity.realname);
                  		$("#edit_form").find("[name='idNo']").val(ret.entity.idNo);
@@ -566,7 +724,8 @@
                  		$("#edit_form").find("[name='homeAddress']").val(ret.entity.homeAddress);
                  		$("#edit_form").find("[name='status']").val(ret.entity.status);
                  		$("#edit_form").find("[name='isAdmin']").val(ret.entity.isAdmin);
-                 		//$("#edit_form").find("[name='createTime']").val(cre);
+                 		$("#edit_form").find("[name='createTime']").val(cre);
+                 		
                  }  
              });
         $("body").toggleClass("page-quick-sidebar-open");
@@ -593,7 +752,7 @@
 	       		 	if(ret.success){
 	       		 		$(this).clearForm();
 	       				$("body").toggleClass("page-quick-sidebar-open");
-	              	 	toastr.success('保存成功');
+	              	 	toastr.success('更新成功');
 	              	 	refreshPage();
 	             	}else{
 	      				toastr.error(ret.message);
@@ -631,5 +790,11 @@
         }
 	 });
 </script>
+<script src="assets/jquery-ui.min.js" type="text/javascript"></script>
+<script src="assets/ui-modals.min.js" type="text/javascript"></script>
+<script src="assets/handlebars.min.js" type="text/javascript"></script>
+<script src="assets/typeahead.bundle.min.js" type="text/javascript"></script>
+<script src="assets/components-typeahead.min.js" type="text/javascript"></script>
+
 <!-- 侧拉编辑栏 END -->
 

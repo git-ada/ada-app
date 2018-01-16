@@ -29,7 +29,7 @@ public class SecurityController{
 	
 	private String indexPage = "/index.jhtm";  /** 默认主页 **/
 	private String loginPage = "/login.jhtm";  /** 默认登录页 **/
-	
+	private Integer  i= 0;
 	
 	@RequestMapping(value = "login",method=RequestMethod.GET)
 	@NotNeedLogin
@@ -99,6 +99,29 @@ public class SecurityController{
 		JsonResult ret = new JsonResult();
 		try {
 			securityService.changePassword(oldPassword, newPassword);
+			ret.setSuccess(true);
+			ret.setMessage("修改成功");
+		} catch (Exception e) {
+			ret.setSuccess(false);
+			ret.setMessage("修改失败,"+e.getMessage());
+		}
+		
+		return ret;
+	}
+	@RequestMapping(value = "change-user-password",method=RequestMethod.GET)
+	public void toChangePassword2(HttpServletRequest request,HttpServletResponse response,@RequestParam("userId") String userId) {
+		i = Integer.valueOf(userId);
+		System.out.println(i);
+	}
+	
+	@RequestMapping(value = "change-user-password",method=RequestMethod.POST)
+	@ResponseBody
+	public JsonResult changePassword2(HttpServletRequest request,HttpServletResponse response,
+									@RequestParam("password") String newPassword) {
+		JsonResult ret = new JsonResult();
+		System.out.println(newPassword+" ----> "+i);
+		try {
+			securityService.changePassword2(newPassword, i);
 			ret.setSuccess(true);
 			ret.setMessage("修改成功");
 		} catch (Exception e) {

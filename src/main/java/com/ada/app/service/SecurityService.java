@@ -34,6 +34,7 @@ public interface SecurityService {
 	
 	
 	public void changePassword(String oldPassword,String newPassword);
+	public void changePassword2(String newPassword,Integer userId);
 	
 	/**
 	 * 判断是否登陆

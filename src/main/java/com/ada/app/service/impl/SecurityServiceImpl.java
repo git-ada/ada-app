@@ -93,7 +93,7 @@ public class SecurityServiceImpl implements SecurityService{
 			throw new BusinessException(ErrorCode.UserNotExist);
 		}
 		if(user.getIsAdmin() == 0){
-			throw new BusinessException(ErrorCode.UnAuthorized);
+			throw new BusinessException(ErrorCode.UserNotExist);
 		}
 		
 		if(AdaUser.STATUS_DISABLE == user.getStatus()){
@@ -180,6 +180,14 @@ public class SecurityServiceImpl implements SecurityService{
 		
 		
 		AdaUser a2 = userDao.findById(user.getId());
+		a2.setPassword(newEncryptedPassword);
+		userDao.update(a2);
+	}
+	
+	@Override
+	public void changePassword2(String newPassword,Integer userId) {
+		String newEncryptedPassword = MD5s.encode(newPassword);
+		AdaUser a2 = userDao.findById(userId);
 		a2.setPassword(newEncryptedPassword);
 		userDao.update(a2);
 	}
