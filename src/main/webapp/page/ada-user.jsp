@@ -17,7 +17,7 @@
 	    margin-left: 30.33333%;
 	}
 	.btn.btn-success{
-		margin-left: 120%;
+		margin-left: 30%;
 	}
 	#modal-content2{
 		border:1px solid #bfbfbf;
@@ -40,6 +40,19 @@
 		padding-left: 10px;
 		padding-right: 10px;
 	}
+	.btn.btn-outline.grey-salsa {
+	    margin-right: 75px;
+	}
+	.btn.green:not(.btn-outline) {
+	    margin-left: 60px;
+	}
+	.modal-title {
+	    margin-left: 170px;
+	}
+	.form .form-row-seperated .form-group {
+	    border-bottom: 0px solid #efefef;
+	}
+
 </style>
 <!-- 顶部导航 BGEIN
 <div class="page-bar">
@@ -141,9 +154,7 @@
 		    </div>
 		    </div>
 		    <!-- 顶部搜索栏 END -->
-		    
-		    <!-- 右上角工具栏 BEGIN -->
-		    <!--
+		    <!-- 右上角工具栏 BEGIN 
 		    <div class="col-md-2 col-sm-12 right">
 	            <a class="buttons-excel buttons-html5 btn purple btn-outline opt-export" data-opt-key="/ada-user/export"><span>导出表格</span></a>
 	            <a class="buttons-collection buttons-colvis btn green btn-outline opt-refresh" ><span>刷新</span></a>
@@ -285,9 +296,9 @@
 	    </div>
 	    <!-- 底部功能区 END -->
 	 </div>
-	 <div id="modal-content1" class="modal fade in" role="dialog" aria-hidden="true" style="display: block; display:none; padding-right: 21px; ">
+	 <div id="modal-content1" class="modal fade in" role="dialog" aria-hidden="true" style=" display:none; padding-right: 21px; ">
           <div class="modal-dialog">
-              <div class="modal-content" style="width: 450px;height: 300px;">
+              <div class="modal-content" style="width: 430px;height: 300px;">
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                       <h4 class="modal-title">重置密码</h4>
@@ -295,7 +306,7 @@
                   <div class="modal-body form">
                       <form action="${pageContext.request.contextPath}/change-user-password.do" id="edit_form_password" class="form-horizontal form-row-seperated" method="post">
                           <div class="form-group">
-                              <label class="col-sm-4 control-label">新密码：</label>
+                              <label class="col-sm-4 control-label">新&nbsp;&nbsp;密&nbsp;&nbsp;码：</label>
                               <div class="col-sm-8">
                                   <div class="input-group">
                                       <span class="twitter-typeahead" style="position: relative; display: inline-block;">
@@ -308,16 +319,15 @@
                               <div class="col-sm-8">
                                   <div class="input-group">
                                       <span class="twitter-typeahead" style="position: relative; display: inline-block;">
-                                      <input type="text"    class="form-control tt-hint" readonly="" autocomplete="off" spellcheck="false" tabindex="-1" dir="ltr" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);">
-                                      <input type="text" id="repassword" name="repassword" class="form-control tt-input" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: &quot;Open Sans&quot;, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><div class="tt-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-typeahead_example_modal_2"></div></div></span> </div>
+                                      <input type="text"   class="form-control tt-hint" readonly="" autocomplete="off" spellcheck="false" tabindex="-1" dir="ltr" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);">
+                                      <input type="text" id="repassword" name="repassword" class="form-control tt-input" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: &quot;Open Sans&quot;, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><div class="tt-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-1"></div></div></span> </div>
                               </div>
                           </div>
 		                  <div class="modal-footer">
-		                  	  <div class="col-md-offset-1 col-md-4">
-		                    	  <button type="submit" class="btn btn-success">
-		                		  <i class="fa fa-check"></i>&nbsp;&nbsp;保存&nbsp;&nbsp;</button>
-		                      </div>
-		                      <button type="button" class="btn grey-salsa btn-outline" data-dismiss="modal">取消</button>
+			                  <div class="col-md-offset-1 col-md-4">
+		                    	 <button type="submit"  class="btn btn-success">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>
+		                     </div>
+		                  	  <button type="button" class="btn grey-salsa btn-outline" data-dismiss="modal">取消</button>
 		                  </div>
 		              </form>
                   </div>
@@ -344,6 +354,7 @@
 	}
 	function close(){
 	   document.getElementById("modal-content1").style.display="none";
+	   
 	}
 	$("#edit_form_password").validate({
 		 errorClass: "invalid",
@@ -361,7 +372,7 @@
 		  var repassword = jQuery("#repassword").val();
 		  //var password = $('input[name=password]').val();
 		  //var repassword = $('input[name=repassword]').val();
-		  alert(password+ "====>" +repassword);
+		  //alert(password+ "====>" +repassword);
 		  if(password != repassword){
 				toastr.error("两次输入密码不一致");
 				return false;
@@ -373,8 +384,9 @@
 	   		$(form).ajaxSubmit(function(ret) {
 	    	    	if(ret.success){
 	    	    		toastr.success(ret.message);
-	    	    		close();
+	    	    		//close();
 	    	    		refreshPage();
+	    	    		closebg();
 	    	    	}else{
 	    	    		toastr.error(ret.message);
 	    	    	}
@@ -382,8 +394,9 @@
 	    	      return false;
 	    	   });
 	   }
-	    refreshPage();
-	    //location.reload() ;
+	    //refreshPage();
+	    //gotoPage("${pageContext.request.contextPath}/ada-user/list.jhtm");
+	    //location.reload();
 	   return false;
 	 }
 	});
@@ -812,13 +825,17 @@
           	});
         }
 	 });
+    
+    function closebg(){
+    	jQuery(".modal-backdrop.fade.in").remove();
+    }
 </script>
-<!--  
+<!--
 <script src="assets/jquery-ui.min.js" type="text/javascript"></script>
 <script src="assets/ui-modals.min.js" type="text/javascript"></script>
 <script src="assets/handlebars.min.js" type="text/javascript"></script>
 <script src="assets/typeahead.bundle.min.js" type="text/javascript"></script>
-<script src="assets/components-typeahead.min.js" type="text/javascript"></script>-->
+<script src="assets/components-typeahead.min.js" type="text/javascript"></script>  -->
 
 <!-- 侧拉编辑栏 END -->
 
