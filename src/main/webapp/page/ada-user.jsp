@@ -16,6 +16,15 @@
 	.col-md-offset-1 {
 	    margin-left: 30.33333%;
 	}
+	.btn.btn-success{
+		margin-left: 100%;
+	}
+	#modal-content1{
+		border:1px solid #bfbfbf;
+		position:absolute;
+		margin-left: 27%;
+		margin-top: 5%;
+	}
 </style>
 <!-- 顶部导航 BGEIN
 <div class="page-bar">
@@ -31,8 +40,43 @@
     </ul>
 </div>
  -->
+ <div id="modal-content1" style="width: 380px;height: 260px; display: none; background-color: #f2f2f2;" >
+   	<div class="modal-header">
+                  <a href="javascript:close();" role="button" class="close" ></a>
+                  <h4 class="modal-title">重置密码</h4>
+              </div>
+   	<form id="edit_form2" action="${pageContext.request.contextPath}/change-user-password.do" class="form-horizontal" method="post">
+        <jodd:form bean="userInfo" scope="request">
+            <div class="form-body">			
+				  <div class="form-group">
+	                    <label class="col-md-3 control-label">新密码：</label>
+	                    <div class="col-md-4">
+			                <input type="password" name="password" class="form-control input-medium">
+						</div>
+				  </div>	
+				  <div class="form-group">
+	                    <label class="col-md-3 control-label">重复密码：</label>
+	                    <div class="col-md-4">
+			                <input type="password" name="repassword" class="form-control input-medium">
+						</div>
+				  </div>		
+            </div>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-4">
+                    	<button type="submit" class="btn btn-success">
+                		<i class="fa fa-check"></i>&nbsp;&nbsp;保存&nbsp;&nbsp;</button>
+                		<!-- 
+                		<a href="javascript:close();"  class="btn grey-salsa btn-outline" style="display: inline;float: left;">取消</a>
+                		 -->
+                    </div>
+                </div>
+            </div>
+        </jodd:form>
+    </form>
+</div>
 <!-- 顶部导航 END-->
-<div class="portlet light" >
+<div class="portlet light" id="portletLight">
 	<div class="portlet-title">
 		<!-- 顶部搜索栏 BEGIN -->
 		<div class="row">
@@ -193,23 +237,20 @@
 							<!--  btn btn-circle default
 		                    <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 		                    -->
-	                    <td><!-- <a href="javascript:gotoPage('${pageContext.request.contextPath}/change-password.jhtm')">
+	                    <td><!--
 	                       <a class="btn btn-default btn-outline btn-sm opt-delete" data-id="${item.id}"  data-opt-key="/ada-user/delete"><span>&nbsp;&nbsp;删除&nbsp;&nbsp;</span></a>
 	                       <a class="btn btn-default btn-outline btn-sm opt-edit" data-id="${item.id}"  data-opt-key="/ada-user/create"><span>&nbsp;&nbsp;重置密码&nbsp;&nbsp;</span></a>
 	                       --> 
 	                       <!-- <a href="#modal-content1" role="button" class="btn red btn-outline" data-toggle="modal">重置密码</a> -->
 	                       <a href="javascript:open();"  class="btn btn-default btn-outline" data-id="${item.id}">重置密码</a>
-	                       <!--
-	                       <td>
-	                       <a class="btn btn-default " data-id="${item.id}"  href="javascript:gotoPage('${pageContext.request.contextPath}/change-user-password.jhtm?userId=${item.id}')"><span>&nbsp;&nbsp;重置密码&nbsp;&nbsp;</span></a>
-	                       -->
+	                       
 	                    </td>
 	                </tr>
 	                </c:forEach>
 	            </tbody>
 	            
 	        </table>
-	    <div id="modal-content2" style="width: 400px;height: 350px; display: none;">
+	    <div id="modal-content2" style="width: 400px;height: 350px; display: none;background-color: gray;">
 	        <div class="modal-content">
                 <div class="modal-header">
                     <a href="javascript:close();" role="button" class="close" ></a>
@@ -246,39 +287,7 @@
                 </div>
             </div>
 	    </div>
-	    <div id="modal-content1" style="width: 400px;height: 350px; display: none;">
-	    	<div class="modal-header">
-                    <a href="javascript:close();" role="button" class="close" ></a>
-                    <h4 class="modal-title">重置密码</h4>
-                </div>
-	    	<form id="edit_form2" action="${pageContext.request.contextPath}/change-user-password.do" class="form-horizontal" method="post">
-		        <jodd:form bean="userInfo" scope="request">
-		            <div class="form-body">			
-						  <div class="form-group">
-			                    <label class="col-md-1 control-label">新密码：</label>
-			                    <div class="col-md-4">
-					                <input type="password" name="password" class="form-control input-medium">
-								</div>
-						  </div>	
-						  
-						  <div class="form-group">
-			                    <label class="col-md-1 control-label">重复密码：</label>
-			                    <div class="col-md-4">
-					                <input type="password" name="repassword" class="form-control input-medium">
-								</div>
-						  </div>		
-		            </div>
-		            <div class="form-actions">
-		                <div class="row">
-		                    <div class="col-md-offset-1 col-md-4">
-		                    	<button type="submit" class="btn btn-success">
-		                		<i class="fa fa-check"></i>&nbsp;&nbsp;保存&nbsp;&nbsp;</button>
-		                    </div>
-		                </div>
-		            </div>
-		        </jodd:form>
-	        </form>
-	    </div>
+	    
 	    <!-- 数据列表 END
 	    <div class="modal-footer">
                		 <button type="submit" class="btn green">
@@ -293,7 +302,6 @@
 	            <button class="btn btn-sm btn-select-all">全选 </button>
 	            <button class="btn btn-sm btn-select-invert">反选 </button>
 	            <!-- <button class="btn btn-sm disabled opt-depend-select opt-batch-delete" data-opt-key="/ada-user/delete">删除 </button> -->
-	            
 	        </div>
 	        <!-- 底部分页 -->
 	        <div class="col-md-8 col-sm-12 right">
@@ -304,6 +312,7 @@
 	</div>
 </div>
 </div>
+
 <script type="text/javascript">
 	$('.btn-outline').click(function(){
 		 var id = $(this).attr("data-id");
@@ -321,9 +330,6 @@
 	function close(){
 	   document.getElementById("modal-content1").style.display="none";
 	}
-	function reload(){
-		//window.location.href="${pageContext.request.contextPath}/ada-user/list.jhtm"; 
-	}
 	$("#edit_form2").validate({
 		 errorClass: "invalid",
 		 rules: {
@@ -338,12 +344,11 @@
 	 submitHandler: function(form) {
 		  var password = $('input[name=password]').val();
 		  var repassword = $('input[name=repassword]').val();
-		  alert(password+ "----->" +repassword);
+		  //alert(password+ "----->" +repassword);
 		  if(password != repassword){
 				toastr.error("两次输入密码不一致");
 				return false;
 		  }
-		  
 		  
 	    var submitBtn = $('button[type=submit]');
 	    if(!submitBtn.hasClass("disabled")){
@@ -352,7 +357,7 @@
 	    	    	if(ret.success){
 	    	    		toastr.success(ret.message);
 	    	    		close();
-	    	    		reload();
+	    	    		refreshPage();
 	    	    	}else{
 	    	    		toastr.error(ret.message);
 	    	    	}
