@@ -111,7 +111,7 @@ public class SecurityController{
 	@RequestMapping(value = "change-user-password",method=RequestMethod.GET)
 	public void toChangePassword2(HttpServletRequest request,HttpServletResponse response,@RequestParam("userId") String userId) {
 		i = Integer.valueOf(userId);
-		System.out.println(i);
+		System.out.println("userId ---> "+i);
 	}
 	
 	@RequestMapping(value = "change-user-password",method=RequestMethod.POST)
@@ -119,7 +119,7 @@ public class SecurityController{
 	public JsonResult changePassword2(HttpServletRequest request,HttpServletResponse response,
 									@RequestParam("password") String newPassword) {
 		JsonResult ret = new JsonResult();
-		System.out.println(newPassword+" ----> "+i);
+		System.out.println("inewPassword ----> "+newPassword);
 		try {
 			securityService.changePassword2(newPassword, i);
 			ret.setSuccess(true);
