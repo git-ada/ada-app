@@ -296,7 +296,7 @@ table.dataTable{
 						<th scope="col" style="min-width: 70px">停留 <a style="color: #333;" onclick="changeDisplay(this,'st')" title=""> <i class="icon-magnifier-add"></i> </a></th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="st">5-30秒</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="st">31-120秒</th>
-						<th scope="col" style="min-width: 70px" class="displaynone" event="st">121-300秒</th>
+						<th scope="col" style="min-width: 90px" class="displaynone" event="st">121-300秒</th>
 						<th scope="col" style="min-width: 70px" class="displaynone" event="st">300+秒</th>
 						
 						<th scope="col" style="min-width: 70px">点击<a style="color: #333;" onclick="changeDisplay(this,'c')" title=""> <i class="icon-magnifier-add"></i> </a></th>
