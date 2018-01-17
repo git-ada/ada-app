@@ -660,9 +660,18 @@ function adaLogin(){
 		/** 判断客户端今天是否已登录过 **/
 		if(document.cookie.indexOf("b3n5RWop=") == -1){
 			/** 记录一个已登录的状态,有效期一天 **/
-			document.cookie = "b3n5RWop=1;expires="+adaGetTodayExpires()+"; path=/";
+			
 			var encodeURI = encodeURIComponent(window.location.href);
-			adaPostRequest("/l6","u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&a="+adaAdId+"&e="+adaFormat(adaEntranceType)+"&ep="+encodeURIComponent(adaEntrancePage)+"&v="+adaLogVersion+"&p="+encodeURIComponent(window.location.href)+"&t="+Date.parse(new Date()));
+			var onreadystatechange =   function (event) {
+				var httprequest = event.target;
+				if (httprequest.readyState == 4) {
+					if (httprequest.status == 200) {
+						console.log("adaPostRequest success");
+						document.cookie = "b3n5RWop=1;expires="+adaGetTodayExpires()+"; path=/";
+					}
+				}
+			}
+			adaPostRequest("/l6","u="+adaClientId+"&s="+adaSiteId+"&c="+adaChannelId+"&a="+adaAdId+"&e="+adaFormat(adaEntranceType)+"&ep="+encodeURIComponent(adaEntrancePage)+"&v="+adaLogVersion+"&p="+encodeURIComponent(window.location.href)+"&t="+Date.parse(new Date()),onreadystatechange);
 		}
 	} catch(e){
 	}
