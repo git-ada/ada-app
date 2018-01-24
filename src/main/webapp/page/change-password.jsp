@@ -27,20 +27,20 @@
         <jodd:form bean="userInfo" scope="request">
             <div class="form-body">
 					<div class="form-group">
-	                    <label class="col-md-1 control-label">原密码：</label>
+	                    <label class="col-md-2 control-label">原密码：</label>
 	                    <div class="col-md-4">
 			                <input type="password" name="oldPassword" class="form-control input-medium">
 						</div>
 				  </div>				
 				  <div class="form-group">
-	                    <label class="col-md-1 control-label">新密码：</label>
+	                    <label class="col-md-2 control-label">新密码：</label>
 	                    <div class="col-md-4">
 			                <input type="password" name="newPassword" class="form-control input-medium">
 						</div>
 				  </div>	
 				  
 				  <div class="form-group">
-	                    <label class="col-md-1 control-label">重复密码：</label>
+	                    <label class="col-md-2 control-label">重复密码：</label>
 	                    <div class="col-md-4">
 			                <input type="password" name="repePassword" class="form-control input-medium">
 						</div>
@@ -48,7 +48,7 @@
             </div>
             <div class="form-actions">
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-4">
+                    <div class="col-md-offset-2 col-md-4">
                     	<button type="submit" class="btn btn-success">
                 		<i class="fa fa-check"></i>&nbsp;&nbsp;保存&nbsp;&nbsp;</button>
                     </div>

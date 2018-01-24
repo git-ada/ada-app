@@ -1,5 +1,7 @@
 import java.util.Random;
 
+import cn.com.jiand.mvc.framework.utils.MD5s;
+
 
 public class BuilldPwd {
 
@@ -9,6 +11,8 @@ public class BuilldPwd {
 	public static void main(String[] args) {
 		String pwd = getPassWordOne(16);
 		System.out.println(pwd);
+		
+		System.out.println(MD5s.encode("123456"));
 	}
 	
 	/**
