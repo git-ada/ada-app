@@ -364,7 +364,7 @@ public class ArchiveService {
 		Timestamp today = Dates.todayStart();
 		
 		String str = startTime.toString().split("\\s+")[0];
-		Date date;
+		Date date =null;
 		try {
 			date = df.parse(str);
 		} catch (ParseException e) {
