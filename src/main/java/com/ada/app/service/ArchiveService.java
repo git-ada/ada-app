@@ -1,6 +1,7 @@
 package com.ada.app.service;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -341,6 +342,7 @@ public class ArchiveService {
 		}
 	}
 	
+	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 //	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void archiveDomain15m(AdaDomain domain,Timestamp startTime,Timestamp endTime) {
 		Integer siteId = domain.getSiteId();
@@ -360,6 +362,14 @@ public class ArchiveService {
 		
 		Timestamp now = Dates.now();
 		Timestamp today = Dates.todayStart();
+		
+		String str = startTime.toString().split("\\s+")[0];
+		Date date;
+		try {
+			date = df.parse(str);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 		AdaDomainAdStat oldad = adaDomainAdStatDao.findLastInDate(siteId, domainId,today);//广告入口老数据
 		AdaDomainNotadStat oldnotad = adaDomainNotAdStatDao.findLastInDate(siteId, domainId,today);//非广告入口数据
@@ -387,14 +397,14 @@ public class ArchiveService {
 		ad15m.setDomainId(domainId);
 		ad15m.setStartTime(startTime);
 		ad15m.setEndTime(endTime);
-		ad15m.setDate(today);
+		ad15m.setDate(date);
 		ad15m.setCreateTime(now);
 		
 		notad15m.setSiteId(siteId);
 		notad15m.setDomainId(domainId);
 		notad15m.setStartTime(startTime);
 		notad15m.setEndTime(endTime);
-		notad15m.setDate(today);
+		notad15m.setDate(date);
 		notad15m.setCreateTime(now);
 		
 		
